@@ -20,7 +20,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.SortTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Process;
 
@@ -52,9 +52,9 @@ public class ActionFilterAttribute extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.equal(root.get(WorkCompleted_.creatorPerson), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(WorkCompleted_.application), applicationId));
-		cq.select(root.get(WorkCompleted_.process)).where(p);
+		Predicate p = cb.equal(root.get(WorkCompletedStatic.creatorPerson), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(WorkCompletedStatic.application), applicationId));
+		cq.select(root.get(WorkCompletedStatic.process)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		List<NameValueCountPair> wos = new ArrayList<>();
 		for (String str : os) {
@@ -79,9 +79,9 @@ public class ActionFilterAttribute extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.equal(root.get(WorkCompleted_.creatorPerson), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(WorkCompleted_.application), applicationId));
-		cq.select(root.get(WorkCompleted_.startTimeMonth)).where(p);
+		Predicate p = cb.equal(root.get(WorkCompletedStatic.creatorPerson), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(WorkCompletedStatic.application), applicationId));
+		cq.select(root.get(WorkCompletedStatic.startTimeMonth)).where(p);
 		List<String> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		List<NameValueCountPair> wraps = new ArrayList<>();
 		for (String str : list) {
@@ -99,9 +99,9 @@ public class ActionFilterAttribute extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.equal(root.get(WorkCompleted_.creatorPerson), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(WorkCompleted_.application), applicationId));
-		cq.select(root.get(WorkCompleted_.completedTimeMonth)).where(p);
+		Predicate p = cb.equal(root.get(WorkCompletedStatic.creatorPerson), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(WorkCompletedStatic.application), applicationId));
+		cq.select(root.get(WorkCompletedStatic.completedTimeMonth)).where(p);
 		List<String> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		List<NameValueCountPair> wraps = new ArrayList<>();
 		for (String str : list) {

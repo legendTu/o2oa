@@ -16,7 +16,7 @@ import org.quartz.JobExecutionException;
 
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
-import com.x.base.core.entity.JpaObject_;
+import com.x.base.core.entity.JpaObjectStatic;
 import com.x.base.core.project.config.Config;
 import com.x.base.core.project.connection.ActionResponse;
 import com.x.base.core.project.connection.ConnectionAction;
@@ -171,10 +171,10 @@ public class CollectLog extends BaseAction {
 		Root<PromptErrorLog> root = cq.from(PromptErrorLog.class);
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, -1);
-		Predicate p = cb.greaterThan(root.get(JpaObject_.createTime), cal.getTime());
+		Predicate p = cb.greaterThan(root.get(JpaObjectStatic.createTime), cal.getTime());
 		p = cb.and(p, cb.or(cb.notEqual(root.get(PromptErrorLog_.collected), true),
 				cb.isNull(root.get(PromptErrorLog_.collected))));
-		cq.select(root).where(p).orderBy(cb.desc(root.get(JpaObject_.createTime)));
+		cq.select(root).where(p).orderBy(cb.desc(root.get(JpaObjectStatic.createTime)));
 		List<PromptErrorLog> list = em.createQuery(cq).setMaxResults(20).getResultList();
 		if (!list.isEmpty()) {
 			emc.beginTransaction(PromptErrorLog.class);
@@ -193,10 +193,10 @@ public class CollectLog extends BaseAction {
 		Root<UnexpectedErrorLog> root = cq.from(UnexpectedErrorLog.class);
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, -1);
-		Predicate p = cb.greaterThan(root.get(JpaObject_.createTime), cal.getTime());
+		Predicate p = cb.greaterThan(root.get(JpaObjectStatic.createTime), cal.getTime());
 		p = cb.and(p, cb.or(cb.notEqual(root.get(UnexpectedErrorLog_.collected), true),
 				cb.isNull(root.get(UnexpectedErrorLog_.collected))));
-		cq.select(root).where(p).orderBy(cb.desc(root.get(JpaObject_.createTime)));
+		cq.select(root).where(p).orderBy(cb.desc(root.get(JpaObjectStatic.createTime)));
 		List<UnexpectedErrorLog> list = em.createQuery(cq).setMaxResults(20).getResultList();
 		if (!list.isEmpty()) {
 			emc.beginTransaction(UnexpectedErrorLog.class);
@@ -215,9 +215,9 @@ public class CollectLog extends BaseAction {
 		Root<WarnLog> root = cq.from(WarnLog.class);
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, -1);
-		Predicate p = cb.greaterThan(root.get(JpaObject_.createTime), cal.getTime());
+		Predicate p = cb.greaterThan(root.get(JpaObjectStatic.createTime), cal.getTime());
 		p = cb.and(p, cb.or(cb.notEqual(root.get(WarnLog_.collected), true), cb.isNull(root.get(WarnLog_.collected))));
-		cq.select(root).where(p).orderBy(cb.desc(root.get(JpaObject_.createTime)));
+		cq.select(root).where(p).orderBy(cb.desc(root.get(JpaObjectStatic.createTime)));
 		List<WarnLog> list = em.createQuery(cq).setMaxResults(20).getResultList();
 		if (!list.isEmpty()) {
 			emc.beginTransaction(WarnLog.class);

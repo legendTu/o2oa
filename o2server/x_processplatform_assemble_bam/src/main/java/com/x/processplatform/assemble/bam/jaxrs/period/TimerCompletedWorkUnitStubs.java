@@ -20,7 +20,7 @@ import com.x.processplatform.assemble.bam.Business;
 import com.x.processplatform.assemble.bam.stub.UnitStub;
 import com.x.processplatform.assemble.bam.stub.UnitStubs;
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
 
 public class TimerCompletedWorkUnitStubs extends BaseAction {
 	public UnitStubs execute(EntityManagerContainer emc) throws Exception {
@@ -48,8 +48,8 @@ public class TimerCompletedWorkUnitStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.between(root.get(WorkCompleted_.completedTime), dateRange.getStart(), dateRange.getEnd());
-		cq.select(root.get(WorkCompleted_.creatorUnit)).distinct(true).where(p);
+		Predicate p = cb.between(root.get(WorkCompletedStatic.completedTime), dateRange.getStart(), dateRange.getEnd());
+		cq.select(root.get(WorkCompletedStatic.creatorUnit)).distinct(true).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return list;
 	}

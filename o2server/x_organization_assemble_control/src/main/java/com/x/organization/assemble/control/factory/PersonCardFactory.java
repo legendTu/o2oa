@@ -17,7 +17,7 @@ import com.x.organization.assemble.control.AbstractFactory;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.PersistenceProperties;
 import com.x.organization.core.entity.PersonCard;
-import com.x.organization.core.entity.PersonCard_;
+import com.x.organization.core.entity.PersonCardStatic;
 import com.x.base.core.project.cache.Cache.CacheCategory;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
@@ -65,7 +65,7 @@ public class PersonCardFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<PersonCard> cq = cb.createQuery(PersonCard.class);
 				Root<PersonCard> root = cq.from(PersonCard.class);
-				Predicate p = cb.equal(root.get(PersonCard_.name), name);
+				Predicate p = cb.equal(root.get(PersonCardStatic.name), name);
 				List<PersonCard> os = em.createQuery(cq.select(root).where(p)).getResultList();
 				if (os.size() == 1) {
 					o = os.get(0);
@@ -80,8 +80,8 @@ public class PersonCardFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<PersonCard> root = cq.from(PersonCard.class);
-		Predicate p = cb.equal(root.get(PersonCard_.distinguishedName), distinguishName);
-		cq.select(root.get(PersonCard_.id)).where(p).orderBy(cb.asc(root.get(PersonCard_.orderNumber)));
+		Predicate p = cb.equal(root.get(PersonCardStatic.distinguishedName), distinguishName);
+		cq.select(root.get(PersonCardStatic.id)).where(p).orderBy(cb.asc(root.get(PersonCardStatic.orderNumber)));
 		return em.createQuery(cq).getResultList();
 	}
 	public List<String> fetchAllGroupTypeByCreator(String distinguishName) throws Exception {
@@ -89,8 +89,8 @@ public class PersonCardFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<PersonCard> root = cq.from(PersonCard.class);
-		Predicate p = cb.equal(root.get(PersonCard_.distinguishedName), distinguishName);
-		cq.select(root.get(PersonCard_.groupType)).where(p);
+		Predicate p = cb.equal(root.get(PersonCardStatic.distinguishedName), distinguishName);
+		cq.select(root.get(PersonCardStatic.groupType)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 }

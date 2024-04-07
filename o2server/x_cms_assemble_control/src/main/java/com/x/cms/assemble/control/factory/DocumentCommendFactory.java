@@ -12,7 +12,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.DocumentCommend;
-import com.x.cms.core.entity.DocumentCommend_;
+import com.x.cms.core.entity.DocumentCommendStatic;
 
 /**
  * 文档点赞基础功能服务类
@@ -37,8 +37,8 @@ public class DocumentCommendFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentCommend> root = cq.from( DocumentCommend.class );
-		Predicate p = cb.equal(root.get( DocumentCommend_.commendPerson), personName );
-		cq.select( root.get( DocumentCommend_.id) ).where(p);
+		Predicate p = cb.equal(root.get( DocumentCommendStatic.commendPerson), personName );
+		cq.select( root.get( DocumentCommendStatic.id) ).where(p);
 		return em.createQuery( cq ).setMaxResults(maxCount).getResultList();
 	}
 
@@ -50,8 +50,8 @@ public class DocumentCommendFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentCommend> root = cq.from( DocumentCommend.class );
-		Predicate p = cb.equal(root.get( DocumentCommend_.documentId), docId );
-		cq.select( root.get( DocumentCommend_.id) ).where(p);
+		Predicate p = cb.equal(root.get( DocumentCommendStatic.documentId), docId );
+		cq.select( root.get( DocumentCommendStatic.id) ).where(p);
 		return em.createQuery( cq ).setMaxResults(maxCount).getResultList();
 	}
 	
@@ -63,9 +63,9 @@ public class DocumentCommendFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentCommend> root = cq.from( DocumentCommend.class );
-		Predicate p = cb.equal(root.get( DocumentCommend_.documentId), docId );
-		p = cb.and( p, cb.equal(root.get( DocumentCommend_.commendPerson), personName ) );
-		cq.select( root.get( DocumentCommend_.id) ).where(p);
+		Predicate p = cb.equal(root.get( DocumentCommendStatic.documentId), docId );
+		p = cb.and( p, cb.equal(root.get( DocumentCommendStatic.commendPerson), personName ) );
+		cq.select( root.get( DocumentCommendStatic.id) ).where(p);
 		return em.createQuery( cq ).setMaxResults(maxCount).getResultList();
 	}
 }

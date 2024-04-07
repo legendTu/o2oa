@@ -1,7 +1,7 @@
 package com.x.attendance.assemble.control;
 
 import com.x.attendance.entity.AttendanceDingtalkDetail;
-import com.x.attendance.entity.AttendanceDingtalkDetail_;
+import com.x.attendance.entity.AttendanceDingtalkDetailStatic;
 import com.x.attendance.entity.DingdingQywxSyncRecord;
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
@@ -159,7 +159,7 @@ public class QueueDingdingAttendance extends AbstractQueue<DingdingQywxSyncRecor
             Root<AttendanceDingtalkDetail> root = query.from(AttendanceDingtalkDetail.class);
             long start = fromDate.getTime();
             long end = toDate.getTime();
-            Predicate p = cb.between(root.get(AttendanceDingtalkDetail_.workDate), start, end);
+            Predicate p = cb.between(root.get(AttendanceDingtalkDetailStatic.workDate), start, end);
             query.select(root).where(p);
             List<AttendanceDingtalkDetail> detailList = em.createQuery(query).getResultList();
             //先删除

@@ -14,10 +14,10 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.bbs.assemble.control.AbstractFactory;
 import com.x.bbs.assemble.control.Business;
 import com.x.bbs.entity.BBSForumInfo;
-import com.x.bbs.entity.BBSForumInfo_;
+import com.x.bbs.entity.BBSForumInfoStatic;
 
 /**
- * 类   名：BBSForumInfoFactory<br/>
+ * 类   名：BBSForumInfoFactory<br/>，
  * 实体类：BBSForumInfo<br/>
  * 作   者：Liyi<br/>
  * 单   位：O2 Team<br/>
@@ -43,8 +43,8 @@ public class BBSForumInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSForumInfo> cq = cb.createQuery(BBSForumInfo.class);
 		Root<BBSForumInfo> root = cq.from(BBSForumInfo.class);
-		Predicate p = root.get(BBSForumInfo_.id).in(ids);
-		cq.orderBy( cb.asc( root.get( BBSForumInfo_.orderNumber ) ) );
+		Predicate p = root.get(BBSForumInfoStatic.id).in(ids);
+		cq.orderBy( cb.asc( root.get( BBSForumInfoStatic.orderNumber ) ) );
 		return em.createQuery(cq.where(p)).setMaxResults( 1000 ).getResultList();
 	}
 	
@@ -54,7 +54,7 @@ public class BBSForumInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSForumInfo> cq = cb.createQuery(BBSForumInfo.class);
 		Root<BBSForumInfo> root = cq.from(BBSForumInfo.class);
-		cq.orderBy( cb.asc( root.get( BBSForumInfo_.orderNumber ) ) );
+		cq.orderBy( cb.asc( root.get( BBSForumInfoStatic.orderNumber ) ) );
 		return em.createQuery( cq ).setMaxResults( 1000 ).getResultList();
 	}
 	
@@ -64,11 +64,11 @@ public class BBSForumInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSForumInfo> cq = cb.createQuery(BBSForumInfo.class);
 		Root<BBSForumInfo> root = cq.from(BBSForumInfo.class);
-		Predicate p = cb.equal( root.get( BBSForumInfo_.forumVisible ), "所有人" );
+		Predicate p = cb.equal( root.get( BBSForumInfoStatic.forumVisible ), "所有人" );
 		if( ListTools.isNotEmpty(viewAbleForumIds) ){
-			p = cb.or( p, root.get( BBSForumInfo_.id ).in( viewAbleForumIds ) );
+			p = cb.or( p, root.get( BBSForumInfoStatic.id ).in( viewAbleForumIds ) );
 		}
-		cq.orderBy( cb.asc( root.get( BBSForumInfo_.orderNumber ) ) );
+		cq.orderBy( cb.asc( root.get( BBSForumInfoStatic.orderNumber ) ) );
 		return em.createQuery( cq.where(p) ).setMaxResults( 1000 ).getResultList();
 	}
 	
@@ -78,9 +78,9 @@ public class BBSForumInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<BBSForumInfo> root = cq.from(BBSForumInfo.class);
-		Predicate p = cb.equal( root.get(BBSForumInfo_.forumStatus ), "启用" );
-		p = cb.and( p, cb.equal( root.get(BBSForumInfo_.forumVisible ), "所有人" ) );
-		cq.select( root.get( BBSForumInfo_.id ) );
+		Predicate p = cb.equal( root.get(BBSForumInfoStatic.forumStatus ), "启用" );
+		p = cb.and( p, cb.equal( root.get(BBSForumInfoStatic.forumVisible ), "所有人" ) );
+		cq.select( root.get( BBSForumInfoStatic.id ) );
 		return em.createQuery( cq.where(p) ).setMaxResults( 1000 ).getResultList();
 	}
 
@@ -90,8 +90,8 @@ public class BBSForumInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSForumInfo> cq = cb.createQuery(BBSForumInfo.class);
 		Root<BBSForumInfo> root = cq.from(BBSForumInfo.class);
-		Predicate p = cb.equal( root.get(BBSForumInfo_.forumStatus ), "启用" );
-		cq.orderBy( cb.asc( root.get( BBSForumInfo_.orderNumber ) ) );
+		Predicate p = cb.equal( root.get(BBSForumInfoStatic.forumStatus ), "启用" );
+		cq.orderBy( cb.asc( root.get( BBSForumInfoStatic.orderNumber ) ) );
 		return em.createQuery( cq.where(p) ).setMaxResults( 1000 ).getResultList();
 	}
 }

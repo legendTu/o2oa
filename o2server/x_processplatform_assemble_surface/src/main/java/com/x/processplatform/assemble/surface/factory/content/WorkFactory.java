@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.surface.AbstractFactory;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Work;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkStatic;
 
 public class WorkFactory extends AbstractFactory {
 
@@ -24,7 +24,7 @@ public class WorkFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.job), job);
+		Predicate p = cb.equal(root.get(WorkStatic.job), job);
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -37,8 +37,8 @@ public class WorkFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.job), job);
-		cq.select(root.get(Work_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkStatic.job), job);
+		cq.select(root.get(WorkStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -47,7 +47,7 @@ public class WorkFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Work> cq = cb.createQuery(Work.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.job), job);
+		Predicate p = cb.equal(root.get(WorkStatic.job), job);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -57,8 +57,8 @@ public class WorkFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.activityToken), token);
-		cq.select(root.get(Work_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkStatic.activityToken), token);
+		cq.select(root.get(WorkStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		return list.isEmpty() ? null : list.get(0);
 	}
@@ -71,7 +71,7 @@ public class WorkFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.creatorPerson), person);
+		Predicate p = cb.equal(root.get(WorkStatic.creatorPerson), person);
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -84,8 +84,8 @@ public class WorkFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.creatorPerson), person);
-		p = cb.and(p, cb.equal(root.get(Work_.application), application));
+		Predicate p = cb.equal(root.get(WorkStatic.creatorPerson), person);
+		p = cb.and(p, cb.equal(root.get(WorkStatic.application), application));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -105,8 +105,8 @@ public class WorkFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.activityToken), activityToken);
-		cq.select(root.get(Work_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkStatic.activityToken), activityToken);
+		cq.select(root.get(WorkStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

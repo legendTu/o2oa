@@ -19,7 +19,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Task;
-import com.x.processplatform.core.entity.content.Task_;
+import com.x.processplatform.core.entity.content.TaskStatic;
 
 class ActionCountWithFilter extends BaseAction {
 
@@ -105,17 +105,17 @@ class ActionCountWithFilter extends BaseAction {
 		Root<Task> root = cq.from(Task.class);
 		Predicate p = cb.conjunction();
 		if (ListTools.isNotEmpty(person_ids)) {
-			p = cb.and(p, root.get(Task_.person).in(person_ids));
+			p = cb.and(p, root.get(TaskStatic.person).in(person_ids));
 		}
 		if (ListTools.isNotEmpty(application_ids) && ListTools.isNotEmpty(process_ids)) {
 			p = cb.and(p,
-					cb.or(root.get(Task_.application).in(application_ids), root.get(Task_.process).in(process_ids)));
+					cb.or(root.get(TaskStatic.application).in(application_ids), root.get(TaskStatic.process).in(process_ids)));
 		} else {
 			if (ListTools.isNotEmpty(application_ids)) {
-				p = cb.and(p, root.get(Task_.application).in(application_ids));
+				p = cb.and(p, root.get(TaskStatic.application).in(application_ids));
 			}
 			if (ListTools.isNotEmpty(process_ids)) {
-				p = cb.and(p, root.get(Task_.process).in(process_ids));
+				p = cb.and(p, root.get(TaskStatic.process).in(process_ids));
 			}
 		}
 		cq.select(cb.count(root)).where(p);

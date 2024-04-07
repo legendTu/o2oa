@@ -12,7 +12,7 @@ import com.google.gson.JsonElement;
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
 import com.x.base.core.entity.JpaObject;
-import com.x.base.core.entity.JpaObject_;
+import com.x.base.core.entity.JpaObjectStatic;
 import com.x.base.core.project.bean.WrapCopier;
 import com.x.base.core.project.bean.WrapCopierFactory;
 import com.x.base.core.project.http.ActionResult;
@@ -47,7 +47,7 @@ class ActionListMyFilterPaging extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Snap> cq = cb.createQuery(Snap.class);
 		Root<Snap> root = cq.from(Snap.class);
-		cq.select(root).where(p).orderBy(cb.desc(root.get(JpaObject_.sequence)));
+		cq.select(root).where(p).orderBy(cb.desc(root.get(JpaObjectStatic.sequence)));
 		return em.createQuery(cq).setFirstResult((adjustPage - 1) * adjustPageSize).setMaxResults(adjustPageSize)
 				.getResultList();
 	}

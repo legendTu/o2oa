@@ -12,7 +12,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.DocumentCommentCommend;
-import com.x.cms.core.entity.DocumentCommentCommend_;
+import com.x.cms.core.entity.DocumentCommentCommendStatic;
 
 /**
  * 文档评论点赞基础功能服务类
@@ -37,8 +37,8 @@ public class DocumentCommentCommendFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentCommentCommend> root = cq.from( DocumentCommentCommend.class );
-		Predicate p = cb.equal(root.get( DocumentCommentCommend_.commendPerson), personName );
-		cq.select( root.get( DocumentCommentCommend_.id) ).where(p);
+		Predicate p = cb.equal(root.get( DocumentCommentCommendStatic.commendPerson), personName );
+		cq.select( root.get( DocumentCommentCommendStatic.id) ).where(p);
 		return em.createQuery( cq ).setMaxResults(maxCount).getResultList();
 	}
 	
@@ -50,8 +50,8 @@ public class DocumentCommentCommendFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentCommentCommend> root = cq.from( DocumentCommentCommend.class );
-		Predicate p = cb.equal(root.get( DocumentCommentCommend_.commendPerson), personName );
-		cq.select( root.get( DocumentCommentCommend_.commentId) ).where(p);
+		Predicate p = cb.equal(root.get( DocumentCommentCommendStatic.commendPerson), personName );
+		cq.select( root.get( DocumentCommentCommendStatic.commentId) ).where(p);
 		return em.createQuery( cq ).setMaxResults(maxCount).getResultList();
 	}
 
@@ -63,8 +63,8 @@ public class DocumentCommentCommendFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentCommentCommend> root = cq.from( DocumentCommentCommend.class );
-		Predicate p = cb.equal(root.get( DocumentCommentCommend_.commentId), comment );
-		cq.select( root.get( DocumentCommentCommend_.id) ).where(p);
+		Predicate p = cb.equal(root.get( DocumentCommentCommendStatic.commentId), comment );
+		cq.select( root.get( DocumentCommentCommendStatic.id) ).where(p);
 		return em.createQuery( cq ).setMaxResults(maxCount).getResultList();
 	}
 	
@@ -76,9 +76,9 @@ public class DocumentCommentCommendFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentCommentCommend> root = cq.from( DocumentCommentCommend.class );
-		Predicate p = cb.equal(root.get( DocumentCommentCommend_.commentId), commentId );
-		p = cb.and( p, cb.equal(root.get( DocumentCommentCommend_.commendPerson), personName ) );
-		cq.select( root.get( DocumentCommentCommend_.id) ).where(p);
+		Predicate p = cb.equal(root.get( DocumentCommentCommendStatic.commentId), commentId );
+		p = cb.and( p, cb.equal(root.get( DocumentCommentCommendStatic.commendPerson), personName ) );
+		cq.select( root.get( DocumentCommentCommendStatic.id) ).where(p);
 		return em.createQuery( cq ).setMaxResults(maxCount).getResultList();
 	}
 }

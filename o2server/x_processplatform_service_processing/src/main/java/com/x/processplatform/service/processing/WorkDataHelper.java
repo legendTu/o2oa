@@ -23,7 +23,7 @@ import com.x.processplatform.core.entity.content.Data;
 import com.x.processplatform.core.entity.content.Work;
 import com.x.processplatform.core.entity.content.WorkCompleted;
 import com.x.query.core.entity.Item;
-import com.x.query.core.entity.Item_;
+import com.x.query.core.entity.ItemStatic;
 
 public class WorkDataHelper {
 
@@ -72,7 +72,7 @@ public class WorkDataHelper {
 		Root<Item> root = cq.from(Item.class);
 		Path<String> path = root.get(DataItem.bundle_FIELDNAME);
 		Predicate p = cb.equal(path, this.job);
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), ItemCategory.pp));
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), ItemCategory.pp));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 

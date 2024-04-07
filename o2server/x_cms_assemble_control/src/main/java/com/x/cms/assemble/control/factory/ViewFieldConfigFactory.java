@@ -14,7 +14,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.element.ViewFieldConfig;
-import com.x.cms.core.entity.element.ViewFieldConfig_;
+import com.x.cms.core.entity.element.ViewFieldConfigStatic;
 
 /**
  * 视图配置管理基础功能服务类
@@ -49,7 +49,7 @@ public class ViewFieldConfigFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ViewFieldConfig> root = cq.from( ViewFieldConfig.class );
-		cq.select(root.get(ViewFieldConfig_.id));
+		cq.select(root.get(ViewFieldConfigStatic.id));
 		return em.createQuery(cq).getResultList();
 	}
 	
@@ -84,8 +84,8 @@ public class ViewFieldConfigFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ViewFieldConfig> root = cq.from( ViewFieldConfig.class );
-		cq.select(root.get(ViewFieldConfig_.id));
-		Predicate p = cb.equal(root.get( ViewFieldConfig_.viewId ), id);
+		cq.select(root.get(ViewFieldConfigStatic.id));
+		Predicate p = cb.equal(root.get( ViewFieldConfigStatic.viewId ), id);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 }

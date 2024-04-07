@@ -2,10 +2,9 @@ package com.x.cms.assemble.control.factory;
 
 import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.base.core.project.tools.ListTools;
-import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.element.Form;
-import com.x.cms.core.entity.element.Form_;
+import com.x.cms.core.entity.element.FormStatic;
 import com.x.cms.core.express.tools.CriteriaBuilderTools;
 import org.apache.commons.lang3.StringUtils;
 
@@ -57,7 +56,7 @@ public class FormFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Form> root = cq.from( Form.class );
-		cq.select(root.get(Form_.id));
+		cq.select(root.get(FormStatic.id));
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -95,8 +94,8 @@ public class FormFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Form> root = cq.from( Form.class );
-		cq.select(root.get(Form_.id));
-		Predicate p = cb.equal(root.get( Form_.appId ), appId);
+		cq.select(root.get(FormStatic.id));
+		Predicate p = cb.equal(root.get( FormStatic.appId ), appId);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -107,9 +106,9 @@ public class FormFactory extends ElementFactory {
 		Root<Form> root = cq.from(Form.class);
 		Predicate p = cb.conjunction();
 		if(ListTools.isNotEmpty(appIds)) {
-			p = cb.isMember(root.get(Form_.appId), cb.literal(appIds));
+			p = cb.isMember(root.get(FormStatic.appId), cb.literal(appIds));
 		}
-		cq.select(root.get(Form_.id)).where(p);
+		cq.select(root.get(FormStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -121,7 +120,7 @@ public class FormFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Form> cq = cb.createQuery(Form.class);
 		Root<Form> root = cq.from( Form.class );
-		Predicate p = cb.equal(root.get( Form_.appId ), appId);
+		Predicate p = cb.equal(root.get( FormStatic.appId ), appId);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -143,8 +142,8 @@ public class FormFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Form> cq = cb.createQuery(Form.class);
 		Root<Form> root = cq.from( Form.class );
-		Predicate appPre = cb.equal( root.get( Form_.appId ), appId );
-		Predicate p = CriteriaBuilderTools.predicate_or( cb, cb.equal( root.get( Form_.id ), formFlag ), cb.equal( root.get( Form_.name ), formFlag ) );
+		Predicate appPre = cb.equal( root.get( FormStatic.appId ), appId );
+		Predicate p = CriteriaBuilderTools.predicate_or( cb, cb.equal( root.get( FormStatic.id ), formFlag ), cb.equal( root.get( FormStatic.name ), formFlag ) );
 //		p = CriteriaBuilderTools.predicate_or( cb, cb.equal( root.get( Form_.alias ), formFlag ), p );
 		p = CriteriaBuilderTools.predicate_and( cb, appPre, p );
 		List<Form> list = em.createQuery(cq.where(p)).getResultList();

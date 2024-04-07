@@ -11,7 +11,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.SingularAttribute;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -82,16 +81,16 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         if (startTime != null && endTime != null) {
             long start = startTime.getTime();
             long end = endTime.getTime();
-            p = cb.between(root.get(AttendanceDingtalkDetail_.userCheckTime), start, end);
+            p = cb.between(root.get(AttendanceDingtalkDetailStatic.userCheckTime), start, end);
         }
         if (userId != null && !userId.isEmpty()) {
             if (p != null) {
-                p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetail_.userId), userId));
+                p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetailStatic.userId), userId));
             } else {
-                p = cb.equal(root.get(AttendanceDingtalkDetail_.userId), userId);
+                p = cb.equal(root.get(AttendanceDingtalkDetailStatic.userId), userId);
             }
         }
-        query.select(root).where(p).orderBy(cb.desc(root.get(AttendanceDingtalkDetail_.userCheckTime)));
+        query.select(root).where(p).orderBy(cb.desc(root.get(AttendanceDingtalkDetailStatic.userCheckTime)));
         return em.createQuery(query).getResultList();
     }
 
@@ -115,16 +114,16 @@ public class DingdingAttendanceFactory extends AbstractFactory {
 
         Predicate p = null;
         if (startTime != null && endTime != null) {
-            p = cb.between(root.get(AttendanceQywxDetail_.checkin_time_date), startTime, endTime);
+            p = cb.between(root.get(AttendanceQywxDetailStatic.checkin_time_date), startTime, endTime);
         }
         if (userId != null && !userId.isEmpty()) {
             if (p != null) {
-                p = cb.and(p, cb.equal(root.get(AttendanceQywxDetail_.userid), userId));
+                p = cb.and(p, cb.equal(root.get(AttendanceQywxDetailStatic.userid), userId));
             } else {
-                p = cb.equal(root.get(AttendanceQywxDetail_.userid), userId);
+                p = cb.equal(root.get(AttendanceQywxDetailStatic.userid), userId);
             }
         }
-        query.select(root).where(p).orderBy(cb.desc(root.get(AttendanceQywxDetail_.checkin_time_date)));
+        query.select(root).where(p).orderBy(cb.desc(root.get(AttendanceQywxDetailStatic.checkin_time_date)));
         return em.createQuery(query).getResultList();
 
     }
@@ -212,9 +211,9 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<AttendanceDingtalkDetail> root = query.from(AttendanceDingtalkDetail.class);
-        Predicate p = cb.between(root.get(AttendanceDingtalkDetail_.userCheckTime), start.getTime(), end.getTime());
-        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetail_.o2User), person));
-        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetail_.checkType), duty));
+        Predicate p = cb.between(root.get(AttendanceDingtalkDetailStatic.userCheckTime), start.getTime(), end.getTime());
+        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetailStatic.o2User), person));
+        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetailStatic.checkType), duty));
         query.select(cb.count(root)).where(p);
         return em.createQuery(query).getSingleResult();
     }
@@ -226,9 +225,9 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<AttendanceDingtalkDetail> root = query.from(AttendanceDingtalkDetail.class);
-        Predicate p = cb.between(root.get(AttendanceDingtalkDetail_.userCheckTime), start.getTime(), end.getTime());
-        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetail_.o2User), person));
-        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetail_.timeResult), timeresult));
+        Predicate p = cb.between(root.get(AttendanceDingtalkDetailStatic.userCheckTime), start.getTime(), end.getTime());
+        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetailStatic.o2User), person));
+        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetailStatic.timeResult), timeresult));
         query.select(cb.count(root)).where(p);
         return em.createQuery(query).getSingleResult();
     }
@@ -275,9 +274,9 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         Predicate p = null;
         long start = startTime.getTime();
         long end = endTime.getTime();
-        p = cb.between(root.get(AttendanceDingtalkDetail_.userCheckTime), start, end);
-        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetail_.o2Unit), unit));
-        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetail_.checkType), duty));
+        p = cb.between(root.get(AttendanceDingtalkDetailStatic.userCheckTime), start, end);
+        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetailStatic.o2Unit), unit));
+        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetailStatic.checkType), duty));
         query.select(cb.count(root)).where(p);
         return em.createQuery(query).getSingleResult();
     }
@@ -294,9 +293,9 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         Predicate p = null;
         long start = startTime.getTime();
         long end = endTime.getTime();
-        p = cb.between(root.get(AttendanceDingtalkDetail_.userCheckTime), start, end);
-        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetail_.o2Unit), unit));
-        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetail_.timeResult), timeresult));
+        p = cb.between(root.get(AttendanceDingtalkDetailStatic.userCheckTime), start, end);
+        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetailStatic.o2Unit), unit));
+        p = cb.and(p, cb.equal(root.get(AttendanceDingtalkDetailStatic.timeResult), timeresult));
         query.select(cb.count(root)).where(p);
         return em.createQuery(query).getSingleResult();
     }
@@ -315,8 +314,8 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<String> query = cb.createQuery(String.class);
         Root<AttendanceDingtalkDetail> root = query.from(AttendanceDingtalkDetail.class);
-        Predicate p = cb.between(root.get(AttendanceDingtalkDetail_.userCheckTime), startTime.getTime(), endTime.getTime());
-        query.select(root.get(AttendanceDingtalkDetail_.o2Unit)).where(p);
+        Predicate p = cb.between(root.get(AttendanceDingtalkDetailStatic.userCheckTime), startTime.getTime(), endTime.getTime());
+        query.select(root.get(AttendanceDingtalkDetailStatic.o2Unit)).where(p);
         return em.createQuery(query).getResultList().stream().distinct().collect(Collectors.toList());
     }
 
@@ -545,8 +544,8 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<AttendanceQywxDetail> query = cb.createQuery(AttendanceQywxDetail.class);
         Root<AttendanceQywxDetail> root = query.from(AttendanceQywxDetail.class);
-        Predicate p = cb.between(root.get(AttendanceQywxDetail_.checkin_time_date), start, end);
-        p = cb.and(p, cb.equal(root.get(AttendanceQywxDetail_.o2User), person));
+        Predicate p = cb.between(root.get(AttendanceQywxDetailStatic.checkin_time_date), start, end);
+        p = cb.and(p, cb.equal(root.get(AttendanceQywxDetailStatic.o2User), person));
         query.select(root).where(p);
         return em.createQuery(query).getResultList();
     }
@@ -588,8 +587,8 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<AttendanceQywxDetail> query = cb.createQuery(AttendanceQywxDetail.class);
         Root<AttendanceQywxDetail> root = query.from(AttendanceQywxDetail.class);
-        Predicate p = cb.between(root.get(AttendanceQywxDetail_.checkin_time_date), startTime, endTime);
-        p = cb.and(p, cb.equal(root.get(AttendanceQywxDetail_.o2Unit), unit));
+        Predicate p = cb.between(root.get(AttendanceQywxDetailStatic.checkin_time_date), startTime, endTime);
+        p = cb.and(p, cb.equal(root.get(AttendanceQywxDetailStatic.o2Unit), unit));
         query.select(root).where(p);
         return em.createQuery(query).getResultList();
     }
@@ -608,8 +607,8 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<String> query = cb.createQuery(String.class);
         Root<AttendanceQywxDetail> root = query.from(AttendanceQywxDetail.class);
-        Predicate p = cb.between(root.get(AttendanceQywxDetail_.checkin_time_date), startTime, endTime);
-        query.select(root.get(AttendanceQywxDetail_.o2Unit)).where(p);
+        Predicate p = cb.between(root.get(AttendanceQywxDetailStatic.checkin_time_date), startTime, endTime);
+        query.select(root.get(AttendanceQywxDetailStatic.o2Unit)).where(p);
         return em.createQuery(query).getResultList().stream().distinct().collect(Collectors.toList());
     }
 

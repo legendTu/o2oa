@@ -17,7 +17,7 @@ import com.x.attendance.assemble.control.AbstractFactory;
 import com.x.attendance.assemble.control.Business;
 import com.x.attendance.assemble.control.jaxrs.attendancestatistic.WrapInFilterStatisticUnitForDay;
 import com.x.attendance.entity.StatisticUnitForDay;
-import com.x.attendance.entity.StatisticUnitForDay_;
+import com.x.attendance.entity.StatisticUnitForDayStatic;
 import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
@@ -41,7 +41,7 @@ public class StatisticUnitForDayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<StatisticUnitForDay> root = cq.from(StatisticUnitForDay.class);
-		cq.select(root.get(StatisticUnitForDay_.id));
+		cq.select(root.get(StatisticUnitForDayStatic.id));
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -54,7 +54,7 @@ public class StatisticUnitForDayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<StatisticUnitForDay> cq = cb.createQuery(StatisticUnitForDay.class);
 		Root<StatisticUnitForDay> root = cq.from(StatisticUnitForDay.class);
-		Predicate p = root.get(StatisticUnitForDay_.id).in(ids);
+		Predicate p = root.get(StatisticUnitForDayStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -67,13 +67,13 @@ public class StatisticUnitForDayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<StatisticUnitForDay> root = cq.from(StatisticUnitForDay.class);
-		Predicate p = root.get(StatisticUnitForDay_.unitName).in(unitName);
+		Predicate p = root.get(StatisticUnitForDayStatic.unitName).in(unitName);
 		if (sDate == null || sDate.isEmpty()) {
 			logger.error(new StatisticDateEmptyException());
 		} else {
-			p = cb.and(p, cb.equal(root.get(StatisticUnitForDay_.statisticDate), sDate));
+			p = cb.and(p, cb.equal(root.get(StatisticUnitForDayStatic.statisticDate), sDate));
 		}
-		cq.select(root.get(StatisticUnitForDay_.id));
+		cq.select(root.get(StatisticUnitForDayStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(62).getResultList();
 	}
 
@@ -87,13 +87,13 @@ public class StatisticUnitForDayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<StatisticUnitForDay> root = cq.from(StatisticUnitForDay.class);
-		Predicate p = cb.equal(root.get(StatisticUnitForDay_.unitName), unitName);
+		Predicate p = cb.equal(root.get(StatisticUnitForDayStatic.unitName), unitName);
 		if (sDate == null || sDate.isEmpty()) {
 			logger.error(new StatisticDateEmptyException());
 		} else {
-			p = cb.and(p, cb.equal(root.get(StatisticUnitForDay_.statisticDate), sDate));
+			p = cb.and(p, cb.equal(root.get(StatisticUnitForDayStatic.statisticDate), sDate));
 		}
-		cq.select(root.get(StatisticUnitForDay_.id));
+		cq.select(root.get(StatisticUnitForDayStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(62).getResultList();
 	}
 
@@ -107,18 +107,18 @@ public class StatisticUnitForDayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<StatisticUnitForDay> root = cq.from(StatisticUnitForDay.class);
-		Predicate p = root.get(StatisticUnitForDay_.unitName).in(name);
+		Predicate p = root.get(StatisticUnitForDayStatic.unitName).in(name);
 		if (year == null || year.isEmpty()) {
 			logger.error(new StatisticYearEmptyException());
 		} else {
-			p = cb.and(p, cb.equal(root.get(StatisticUnitForDay_.statisticYear), year));
+			p = cb.and(p, cb.equal(root.get(StatisticUnitForDayStatic.statisticYear), year));
 		}
 		if (month == null || month.isEmpty()) {
 			logger.error(new StatisticMonthEmptyException());
 		} else {
-			p = cb.and(p, cb.equal(root.get(StatisticUnitForDay_.statisticMonth), month));
+			p = cb.and(p, cb.equal(root.get(StatisticUnitForDayStatic.statisticMonth), month));
 		}
-		cq.select(root.get(StatisticUnitForDay_.id));
+		cq.select(root.get(StatisticUnitForDayStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(62).getResultList();
 	}
 
@@ -132,13 +132,13 @@ public class StatisticUnitForDayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<StatisticUnitForDay> root = cq.from(StatisticUnitForDay.class);
-		Predicate p = root.get(StatisticUnitForDay_.unitName).in(name);
+		Predicate p = root.get(StatisticUnitForDayStatic.unitName).in(name);
 		if (date == null || date.isEmpty()) {
 			logger.error(new StatisticDateEmptyException());
 		} else {
-			p = cb.and(p, cb.equal(root.get(StatisticUnitForDay_.statisticDate), date));
+			p = cb.and(p, cb.equal(root.get(StatisticUnitForDayStatic.statisticDate), date));
 		}
-		cq.select(root.get(StatisticUnitForDay_.id));
+		cq.select(root.get(StatisticUnitForDayStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(62).getResultList();
 	}
 
@@ -152,13 +152,13 @@ public class StatisticUnitForDayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<StatisticUnitForDay> root = cq.from(StatisticUnitForDay.class);
-		Predicate p = cb.equal(root.get(StatisticUnitForDay_.unitName), name);
+		Predicate p = cb.equal(root.get(StatisticUnitForDayStatic.unitName), name);
 		if (date == null || date.isEmpty()) {
 			logger.error(new StatisticDateEmptyException());
 		} else {
-			p = cb.and(p, cb.equal(root.get(StatisticUnitForDay_.statisticDate), date));
+			p = cb.and(p, cb.equal(root.get(StatisticUnitForDayStatic.statisticDate), date));
 		}
-		cq.select(root.get(StatisticUnitForDay_.id));
+		cq.select(root.get(StatisticUnitForDayStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(62).getResultList();
 	}
 

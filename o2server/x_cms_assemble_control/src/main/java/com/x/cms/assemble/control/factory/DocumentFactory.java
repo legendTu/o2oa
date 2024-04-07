@@ -7,11 +7,10 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.base.core.project.tools.ListTools;
 import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
-import com.x.cms.assemble.control.jaxrs.document.ActionQueryListWithFilterPagingAdmin;
 import com.x.cms.core.entity.Document;
-import com.x.cms.core.entity.Document_;
+import com.x.cms.core.entity.DocumentStatic;
 import com.x.cms.core.entity.Review;
-import com.x.cms.core.entity.Review_;
+import com.x.cms.core.entity.ReviewStatic;
 import com.x.cms.core.express.tools.CriteriaBuilderTools;
 import com.x.cms.core.express.tools.filter.QueryFilter;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -54,8 +53,8 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Document> root = cq.from(Document.class);
-		Predicate p = cb.equal( root.get(Document_.id ), id );
-		cq.select(root.get( Document_.sequence));
+		Predicate p = cb.equal( root.get(DocumentStatic.id ), id );
+		cq.select(root.get( DocumentStatic.sequence));
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
 
@@ -69,7 +68,7 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Document> root = cq.from( Document.class );
-		cq.select( root.get( Document_.id ));
+		cq.select( root.get( DocumentStatic.id ));
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -86,10 +85,10 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal(root.get( Document_.appId ), appId );
-		cq.select( root.get( Document_.id) ).where(p);
+		Predicate p = cb.equal(root.get( DocumentStatic.appId ), appId );
+		cq.select( root.get( DocumentStatic.id) ).where(p);
 		if( StringUtils.isNotEmpty( documentType) && !"全部".equals(documentType)&& !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and( p, cb.equal( root.get( Document_.documentType), documentType));
+			p = cb.and( p, cb.equal( root.get( DocumentStatic.documentType), documentType));
 		}
 		return em.createQuery( cq ).setMaxResults(maxCount).getResultList();
 	}
@@ -99,8 +98,8 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal(root.get( Document_.categoryId ), categoryId );
-		cq.select(root.get( Document_.id)).where(p);
+		Predicate p = cb.equal(root.get( DocumentStatic.categoryId ), categoryId );
+		cq.select(root.get( DocumentStatic.id)).where(p);
 		return em.createQuery( cq ).setMaxResults(maxCount).getResultList();
 	}
 
@@ -119,10 +118,10 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Document> cq = cb.createQuery( Document.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal(root.get( Document_.categoryId ), categoryId );
+		Predicate p = cb.equal(root.get( DocumentStatic.categoryId ), categoryId );
 
 		if( StringUtils.isNotEmpty( orderField ) && StringUtils.isNotEmpty( orderType ) ) {
-			Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, Document_.class, orderField, orderType );
+			Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, DocumentStatic.class, orderField, orderType );
 			if( orderWithField != null ) {
 				cq.orderBy( orderWithField );
 			}
@@ -143,9 +142,9 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal(root.get( Document_.categoryId ), categoryId );
-		p = cb.and( p, cb.notEqual(root.get( Document_.appName ), appName ) );
-		cq.select(root.get( Document_.id)).where(p);
+		Predicate p = cb.equal(root.get( DocumentStatic.categoryId ), categoryId );
+		p = cb.and( p, cb.notEqual(root.get( DocumentStatic.appName ), appName ) );
+		cq.select(root.get( DocumentStatic.id)).where(p);
 		return em.createQuery( cq ).setMaxResults(maxCount).getResultList();
 	}
 
@@ -154,9 +153,9 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal(root.get( Document_.categoryId ), categoryId );
-		p = cb.and( p, cb.equal(root.get( Document_.categoryName ), categoryName ) );
-		cq.select(root.get( Document_.id)).where(p);
+		Predicate p = cb.equal(root.get( DocumentStatic.categoryId ), categoryId );
+		p = cb.and( p, cb.equal(root.get( DocumentStatic.categoryName ), categoryName ) );
+		cq.select(root.get( DocumentStatic.id)).where(p);
 		return em.createQuery( cq ).setMaxResults(maxCount).getResultList();
 	}
 
@@ -166,7 +165,7 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Document> root = cq.from(Document.class);
-		Predicate p = cb.equal( root.get(Document_.categoryId), categoryId );
+		Predicate p = cb.equal( root.get(DocumentStatic.categoryId), categoryId );
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -176,8 +175,8 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Document> root = cq.from(Document.class);
-		Predicate p = cb.equal( root.get(Document_.categoryId), categoryId );
-		p = cb.and( p, cb.notEqual(root.get( Document_.appName ), appName ) );
+		Predicate p = cb.equal( root.get(DocumentStatic.categoryId), categoryId );
+		p = cb.and( p, cb.notEqual(root.get( DocumentStatic.appName ), appName ) );
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -187,8 +186,8 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Document> root = cq.from(Document.class);
-		Predicate p = cb.equal( root.get(Document_.categoryId), categoryId );
-		p = cb.and( p, cb.notEqual(root.get( Document_.categoryName ), categoryName ) );
+		Predicate p = cb.equal( root.get(DocumentStatic.categoryId), categoryId );
+		p = cb.and( p, cb.notEqual(root.get( DocumentStatic.categoryName ), categoryName ) );
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -198,7 +197,7 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Document> root = cq.from(Document.class);
-		Predicate p = cb.equal( root.get(Document_.appId), appId );
+		Predicate p = cb.equal( root.get(DocumentStatic.appId), appId );
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -218,7 +217,7 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Document> cq = cb.createQuery(Document.class);
 		Root<Document> root = cq.from(Document.class);
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( Document_.class, cb, null, root, queryFilter );
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( DocumentStatic.class, cb, null, root, queryFilter );
 		if( StringUtils.isNotEmpty( sequenceFieldValue ) ) {
 			Predicate p_seq = cb.isNotNull( root.get( orderField ) );
 			if( "desc".equalsIgnoreCase( orderType )){
@@ -230,11 +229,11 @@ public class DocumentFactory extends AbstractFactory {
 		}
 
 		List<Order> orders = new ArrayList<>();
-		Order isTopOrder = CriteriaBuilderTools.getOrder( cb, root, Document_.class, Document.isTop_FIELDNAME, "desc" );
+		Order isTopOrder = CriteriaBuilderTools.getOrder( cb, root, DocumentStatic.class, Document.isTop_FIELDNAME, "desc" );
 		if( isTopOrder != null ){
 			orders.add( isTopOrder );
 		}
-		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, Document_.class, orderField, orderType );
+		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, DocumentStatic.class, orderField, orderType );
 		if( orderWithField != null ){
 			orders.add( orderWithField );
 		}
@@ -259,7 +258,7 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Document> cq = cb.createQuery(Document.class);
 		Root<Document> root = cq.from(Document.class);
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( Document_.class, cb, null, root, queryFilter );
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( DocumentStatic.class, cb, null, root, queryFilter );
 		if( StringUtils.isNotEmpty( sequenceFieldValue ) ) {
 			Predicate p_seq = cb.isNotNull( root.get( orderField ) );
 			if( "desc".equalsIgnoreCase( orderType )){
@@ -271,11 +270,11 @@ public class DocumentFactory extends AbstractFactory {
 		}
 
 		List<Order> orders = new ArrayList<>();
-		Order isTopOrder = CriteriaBuilderTools.getOrder( cb, root, Document_.class, Document.isTop_FIELDNAME, "desc" );
+		Order isTopOrder = CriteriaBuilderTools.getOrder( cb, root, DocumentStatic.class, Document.isTop_FIELDNAME, "desc" );
 		if( isTopOrder != null ){
 			orders.add( isTopOrder );
 		}
-		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, Document_.class, orderField, orderType );
+		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, DocumentStatic.class, orderField, orderType );
 		if( orderWithField != null ){
 			orders.add( orderWithField );
 		}
@@ -300,22 +299,22 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Document> cq = cb.createQuery(Document.class);
 		Root<Document> root = cq.from(Document.class);
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( Document_.class, cb, null, root, queryFilter );
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( DocumentStatic.class, cb, null, root, queryFilter );
 
 		List<Order> orders = new ArrayList<>();
-		Order isTopOrder = CriteriaBuilderTools.getOrder( cb, root, Document_.class, Document.isTop_FIELDNAME, "desc" );
+		Order isTopOrder = CriteriaBuilderTools.getOrder( cb, root, DocumentStatic.class, Document.isTop_FIELDNAME, "desc" );
 		if( isTopOrder != null ){
 			orders.add( isTopOrder );
 		}
 
-		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, Document_.class, orderField, orderType );
+		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, DocumentStatic.class, orderField, orderType );
 		if( orderWithField != null ){
 			orders.add( orderWithField );
 		}
 
 		if( !Document.isFieldInSequence(orderField)) {
 			//如果是没有做sequence的列，很可能排序值不唯一，比如有多个文档有相同的值，所以使用多一列排序列来确定每次查询的顺序
-			orderWithField = CriteriaBuilderTools.getOrder( cb, root, Document_.class, Document.id_FIELDNAME, orderType );
+			orderWithField = CriteriaBuilderTools.getOrder( cb, root, DocumentStatic.class, Document.id_FIELDNAME, orderType );
 			if( orderWithField != null ){
 				orders.add( orderWithField );
 			}
@@ -333,13 +332,13 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Document> cq = cb.createQuery( Document.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal( root.get( Document_.creatorPerson ), name );
-		p = cb.and( p, cb.equal(root.get( Document_.docStatus ), "draft"));
+		Predicate p = cb.equal( root.get( DocumentStatic.creatorPerson ), name );
+		p = cb.and( p, cb.equal(root.get( DocumentStatic.docStatus ), "draft"));
 		if(ListTools.isNotEmpty( categoryIdList )) {
-			p = cb.and( p, root.get( Document_.categoryId ).in( categoryIdList ));
+			p = cb.and( p, root.get( DocumentStatic.categoryId ).in( categoryIdList ));
 		}
 		if(StringUtils.isNotEmpty( documentType ) && !"全部".equals(documentType)&& !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and( p, cb.equal( root.get( Document_.documentType ), documentType));
+			p = cb.and( p, cb.equal( root.get( DocumentStatic.documentType ), documentType));
 		}
 		return em.createQuery(cq.where(p)).getResultList();
 	}
@@ -352,8 +351,8 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal( root.get( Document_.importBatchName ), importBatchName );
-		cq.select(root.get( Document_.id));
+		Predicate p = cb.equal( root.get( DocumentStatic.importBatchName ), importBatchName );
+		cq.select(root.get( DocumentStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -368,10 +367,10 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal( root.get( Document_.documentType ), "信息" );
-		p = cb.and( p, cb.equal( root.get( Document_.categoryId ), categoryId ));
-		p = cb.and( p, cb.isTrue(  root.get( Document_.reviewed ) ));
-		cq.select(root.get( Document_.id));
+		Predicate p = cb.equal( root.get( DocumentStatic.documentType ), "信息" );
+		p = cb.and( p, cb.equal( root.get( DocumentStatic.categoryId ), categoryId ));
+		p = cb.and( p, cb.isTrue(  root.get( DocumentStatic.reviewed ) ));
+		cq.select(root.get( DocumentStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(maxCount).getResultList();
 	}
 
@@ -386,10 +385,10 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal( root.get( Document_.documentType ), "信息" );
-		p = cb.and( p, cb.equal( root.get( Document_.appId ), appId ));
-		p = cb.and( p, cb.isTrue(  root.get( Document_.reviewed ) ));
-		cq.select(root.get( Document_.id));
+		Predicate p = cb.equal( root.get( DocumentStatic.documentType ), "信息" );
+		p = cb.and( p, cb.equal( root.get( DocumentStatic.appId ), appId ));
+		p = cb.and( p, cb.isTrue(  root.get( DocumentStatic.reviewed ) ));
+		cq.select(root.get( DocumentStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(maxCount).getResultList();
 	}
 
@@ -403,9 +402,9 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.isFalse( root.get(Document_.reviewed ));
-		p = cb.or(p,  cb.isNull(root.get(Document_.reviewed )));
-		cq.select(root.get( Document_.id));
+		Predicate p = cb.isFalse( root.get(DocumentStatic.reviewed ));
+		p = cb.or(p,  cb.isNull(root.get(DocumentStatic.reviewed )));
+		cq.select(root.get( DocumentStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(maxCount).getResultList();
 	}
 
@@ -414,7 +413,7 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Document> root = cq.from(Document.class);
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( Document_.class, cb, null, root, queryFilter );
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( DocumentStatic.class, cb, null, root, queryFilter );
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -439,7 +438,7 @@ public class DocumentFactory extends AbstractFactory {
 		//CriteriaQuery<Document> cq = cb.createQuery(Document.class);
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<Document> root = cq.from(Document.class);
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( Document_.class, cb, null, root, queryFilter );
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( DocumentStatic.class, cb, null, root, queryFilter );
 
 		if(StringUtils.isNotBlank(personName)){
 			Subquery<Review> subquery = cq.subquery(Review.class);
@@ -447,9 +446,9 @@ public class DocumentFactory extends AbstractFactory {
 			subquery.select(root2);
 			Predicate p_permission = cb1.conjunction();
 			p_permission = cb1.and(p_permission,
-					cb1.or(cb1.equal( root2.get( Review_.permissionObj), "*"),
-							cb1.equal( root2.get( Review_.permissionObj ), personName )));
-			p_permission = cb1.and(p_permission, cb1.equal(root.get(Document_.id), root2.get(Review_.docId)));
+					cb1.or(cb1.equal( root2.get( ReviewStatic.permissionObj), "*"),
+							cb1.equal( root2.get( ReviewStatic.permissionObj ), personName )));
+			p_permission = cb1.and(p_permission, cb1.equal(root.get(DocumentStatic.id), root2.get(ReviewStatic.docId)));
 			subquery.where(p_permission);
 			p = cb.and(p, cb.exists(subquery));
 		}
@@ -463,19 +462,19 @@ public class DocumentFactory extends AbstractFactory {
 
 		//排序，添加排序列，默认使用sequence
 		List<Order> orders = new ArrayList<>();
-		Order isTopOrder = CriteriaBuilderTools.getOrder( cb, root, Document_.class, Document.isTop_FIELDNAME, "desc" );
+		Order isTopOrder = CriteriaBuilderTools.getOrder( cb, root, DocumentStatic.class, Document.isTop_FIELDNAME, "desc" );
 		if( isTopOrder != null ){
 			orders.add( isTopOrder );
 		}
 
-		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, Document_.class, orderField, orderType );
+		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, DocumentStatic.class, orderField, orderType );
 		if( orderWithField != null ){
 			orders.add( orderWithField );
 		}
 
 		if( !Document.isFieldInSequence(orderField)) {
 			//如果是其他的列，很可能排序值不唯一，所以使用多一列排序列来确定每次查询的顺序
-			orderWithField = CriteriaBuilderTools.getOrder( cb, root, Document_.class, Document.id_FIELDNAME, orderType );
+			orderWithField = CriteriaBuilderTools.getOrder( cb, root, DocumentStatic.class, Document.id_FIELDNAME, orderType );
 			if( orderWithField != null ){
 				orders.add( orderWithField );
 			}
@@ -512,7 +511,7 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb1 = em1.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Document> root = cq.from(Document.class);
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( Document_.class, cb, null, root, queryFilter );
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( DocumentStatic.class, cb, null, root, queryFilter );
 
 		if(StringUtils.isNotBlank(personName)){
 			Subquery<Review> subquery = cq.subquery(Review.class);
@@ -520,9 +519,9 @@ public class DocumentFactory extends AbstractFactory {
 			subquery.select(root2);
 			Predicate p_permission = cb1.conjunction();
 			p_permission = cb1.and(p_permission,
-					cb1.or(cb1.equal( root2.get( Review_.permissionObj), "*"),
-							cb1.equal( root2.get( Review_.permissionObj ), personName )));
-			p_permission = cb1.and(p_permission, cb1.equal(root.get(Document_.id), root2.get(Review_.docId)));
+					cb1.or(cb1.equal( root2.get( ReviewStatic.permissionObj), "*"),
+							cb1.equal( root2.get( ReviewStatic.permissionObj ), personName )));
+			p_permission = cb1.and(p_permission, cb1.equal(root.get(DocumentStatic.id), root2.get(ReviewStatic.docId)));
 			subquery.where(p_permission);
 			p = cb.and(p, cb.exists(subquery));
 		}
@@ -540,8 +539,8 @@ public class DocumentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.isNull( root.get( Document_.isTop ) );
-		cq.select(root.get( Document_.id));
+		Predicate p = cb.isNull( root.get( DocumentStatic.isTop ) );
+		cq.select(root.get( DocumentStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(999).getResultList();
 	}
 

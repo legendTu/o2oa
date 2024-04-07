@@ -21,8 +21,8 @@ import com.x.processplatform.assemble.bam.stub.UnitStub;
 import com.x.processplatform.assemble.bam.stub.UnitStubs;
 import com.x.processplatform.core.entity.content.Work;
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
+import com.x.processplatform.core.entity.content.WorkStatic;
 
 public class TimerExpiredWorkUnitStubs extends BaseAction {
 
@@ -53,8 +53,8 @@ public class TimerExpiredWorkUnitStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.between(root.get(Work_.expireTime), dateRange.getStart(), dateRange.getEnd());
-		cq.select(root.get(Work_.creatorUnit)).distinct(true).where(p);
+		Predicate p = cb.between(root.get(WorkStatic.expireTime), dateRange.getStart(), dateRange.getEnd());
+		cq.select(root.get(WorkStatic.creatorUnit)).distinct(true).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return list;
 	}
@@ -65,9 +65,9 @@ public class TimerExpiredWorkUnitStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.between(root.get(WorkCompleted_.expireTime), dateRange.getStart(), dateRange.getEnd());
-		p = cb.and(p, cb.equal(root.get(WorkCompleted_.expired), true));
-		cq.select(root.get(WorkCompleted_.creatorUnit)).distinct(true).where(p);
+		Predicate p = cb.between(root.get(WorkCompletedStatic.expireTime), dateRange.getStart(), dateRange.getEnd());
+		p = cb.and(p, cb.equal(root.get(WorkCompletedStatic.expired), true));
+		cq.select(root.get(WorkCompletedStatic.creatorUnit)).distinct(true).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return list;
 	}

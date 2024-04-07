@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root;
 import com.x.attendance.assemble.control.AbstractFactory;
 import com.x.attendance.assemble.control.Business;
 import com.x.attendance.entity.AttendanceImportFileInfo;
-import com.x.attendance.entity.AttendanceImportFileInfo_;
+import com.x.attendance.entity.AttendanceImportFileInfoStatic;
 import com.x.base.core.project.exception.ExceptionWhen;
 /**
  * 系统配置信息表基础功能服务类
@@ -47,7 +47,7 @@ public class AttendanceImportFileInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceImportFileInfo> cq = cb.createQuery(AttendanceImportFileInfo.class);
 		Root<AttendanceImportFileInfo> root = cq.from(AttendanceImportFileInfo.class);
-		Predicate p = root.get(AttendanceImportFileInfo_.id).in(ids);
+		Predicate p = root.get(AttendanceImportFileInfoStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}	
 }

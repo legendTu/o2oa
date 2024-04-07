@@ -15,7 +15,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.bbs.assemble.control.AbstractFactory;
 import com.x.bbs.assemble.control.Business;
 import com.x.bbs.entity.BBSUserRole;
-import com.x.bbs.entity.BBSUserRole_;
+import com.x.bbs.entity.BBSUserRoleStatic;
 
 /**
  * 类   名：BBSUserRoleFactory<br/>
@@ -44,7 +44,7 @@ public class BBSUserRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSUserRole> cq = cb.createQuery(BBSUserRole.class);
 		Root<BBSUserRole> root = cq.from(BBSUserRole.class);
-		Predicate p = root.get(BBSUserRole_.id).in(ids);
+		Predicate p = root.get(BBSUserRoleStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -68,9 +68,9 @@ public class BBSUserRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSUserRole> root = cq.from( BBSUserRole.class );
-		Predicate p = cb.equal( root.get( BBSUserRole_.uniqueId ), uniqueId );
-		p = cb.and( p, cb.equal( root.get( BBSUserRole_.objectType ), objectType ));
-		cq.select( root.get( BBSUserRole_.roleId ) );
+		Predicate p = cb.equal( root.get( BBSUserRoleStatic.uniqueId ), uniqueId );
+		p = cb.and( p, cb.equal( root.get( BBSUserRoleStatic.objectType ), objectType ));
+		cq.select( root.get( BBSUserRoleStatic.roleId ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 	
@@ -86,9 +86,9 @@ public class BBSUserRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSUserRole> root = cq.from( BBSUserRole.class );
-		Predicate p = cb.equal( root.get( BBSUserRole_.uniqueId ), uniqueId );
-		p = cb.and( p, cb.equal( root.get( BBSUserRole_.objectType ), objectType ));
-		cq.select( root.get( BBSUserRole_.roleCode ) );
+		Predicate p = cb.equal( root.get( BBSUserRoleStatic.uniqueId ), uniqueId );
+		p = cb.and( p, cb.equal( root.get( BBSUserRoleStatic.objectType ), objectType ));
+		cq.select( root.get( BBSUserRoleStatic.roleCode ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 
@@ -101,8 +101,8 @@ public class BBSUserRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSUserRole> root = cq.from( BBSUserRole.class );
-		Predicate p = cb.equal( root.get( BBSUserRole_.roleCode ), roleCode );
-		cq.select( root.get( BBSUserRole_.id ) );
+		Predicate p = cb.equal( root.get( BBSUserRoleStatic.roleCode ), roleCode );
+		cq.select( root.get( BBSUserRoleStatic.id ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 
@@ -115,8 +115,8 @@ public class BBSUserRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSUserRole> root = cq.from( BBSUserRole.class );
-		Predicate p = root.get( BBSUserRole_.uniqueId ).in( objectUniqueIds );
-		cq.select( root.get( BBSUserRole_.roleId ) );
+		Predicate p = root.get( BBSUserRoleStatic.uniqueId ).in( objectUniqueIds );
+		cq.select( root.get( BBSUserRoleStatic.roleId ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 	
@@ -129,8 +129,8 @@ public class BBSUserRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSUserRole> root = cq.from( BBSUserRole.class );
-		Predicate p = root.get( BBSUserRole_.uniqueId ).in( objectUniqueIds );
-		cq.select( root.get( BBSUserRole_.roleCode ) );
+		Predicate p = root.get( BBSUserRoleStatic.uniqueId ).in( objectUniqueIds );
+		cq.select( root.get( BBSUserRoleStatic.roleCode ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 
@@ -142,8 +142,8 @@ public class BBSUserRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSUserRole> root = cq.from( BBSUserRole.class );
-		Predicate p = cb.equal( root.get( BBSUserRole_.forumId ), forumId );
-		cq.select( root.get( BBSUserRole_.id ) );
+		Predicate p = cb.equal( root.get( BBSUserRoleStatic.forumId ), forumId );
+		cq.select( root.get( BBSUserRoleStatic.id ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 
@@ -162,11 +162,11 @@ public class BBSUserRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSUserRole> root = cq.from( BBSUserRole.class );
-		Predicate p = cb.equal( root.get( BBSUserRole_.sectionId ), sectionId );
+		Predicate p = cb.equal( root.get( BBSUserRoleStatic.sectionId ), sectionId );
 		if( queryMainSectionId ) {
-			p = cb.or( p, cb.equal( root.get( BBSUserRole_.mainSectionId ), sectionId ) );
+			p = cb.or( p, cb.equal( root.get( BBSUserRoleStatic.mainSectionId ), sectionId ) );
 		}
-		cq.select( root.get( BBSUserRole_.id ) );
+		cq.select( root.get( BBSUserRoleStatic.id ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 }

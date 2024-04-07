@@ -17,7 +17,7 @@ import com.x.processplatform.assemble.bam.stub.PersonStub;
 import com.x.processplatform.assemble.bam.stub.ProcessStub;
 import com.x.processplatform.assemble.bam.stub.UnitStub;
 import com.x.processplatform.core.entity.content.Task;
-import com.x.processplatform.core.entity.content.Task_;
+import com.x.processplatform.core.entity.content.TaskStatic;
 
 public class TaskFactory extends AbstractFactory {
 
@@ -30,8 +30,8 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.greaterThan(root.get(Task_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(Task_.unit), unitStub.getValue()));
+		Predicate p = cb.greaterThan(root.get(TaskStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskStatic.unit), unitStub.getValue()));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -41,8 +41,8 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.greaterThan(root.get(Task_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(Task_.person), personStub.getValue()));
+		Predicate p = cb.greaterThan(root.get(TaskStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskStatic.person), personStub.getValue()));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -52,9 +52,9 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.greaterThan(root.get(Task_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(Task_.unit), unitStub.getValue()));
-		p = cb.and(p, cb.lessThan(root.get(Task_.expireTime), current));
+		Predicate p = cb.greaterThan(root.get(TaskStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskStatic.unit), unitStub.getValue()));
+		p = cb.and(p, cb.lessThan(root.get(TaskStatic.expireTime), current));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -65,9 +65,9 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Date> cq = cb.createQuery(Date.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.greaterThan(root.get(Task_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(Task_.unit), unitStub.getValue()));
-		cq.select(root.get(Task_.startTime)).where(p);
+		Predicate p = cb.greaterThan(root.get(TaskStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskStatic.unit), unitStub.getValue()));
+		cq.select(root.get(TaskStatic.startTime)).where(p);
 		List<Date> os = em.createQuery(cq).getResultList();
 		long duration = 0;
 		for (Date o : os) {
@@ -82,8 +82,8 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Date> cq = cb.createQuery(Date.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.greaterThan(root.get(Task_.startTime), start);
-		cq.select(root.get(Task_.startTime)).where(p);
+		Predicate p = cb.greaterThan(root.get(TaskStatic.startTime), start);
+		cq.select(root.get(TaskStatic.startTime)).where(p);
 		List<Date> os = em.createQuery(cq).getResultList();
 		int halfDay = 0;
 		int oneDay = 0;
@@ -123,9 +123,9 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Date> cq = cb.createQuery(Date.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.greaterThan(root.get(Task_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(Task_.application), applicationStub.getValue()));
-		cq.select(root.get(Task_.startTime)).where(p);
+		Predicate p = cb.greaterThan(root.get(TaskStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskStatic.application), applicationStub.getValue()));
+		cq.select(root.get(TaskStatic.startTime)).where(p);
 		List<Date> os = em.createQuery(cq).getResultList();
 		int halfDay = 0;
 		int oneDay = 0;
@@ -165,9 +165,9 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Date> cq = cb.createQuery(Date.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.greaterThan(root.get(Task_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(Task_.process), processStub.getValue()));
-		cq.select(root.get(Task_.startTime)).where(p);
+		Predicate p = cb.greaterThan(root.get(TaskStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskStatic.process), processStub.getValue()));
+		cq.select(root.get(TaskStatic.startTime)).where(p);
 		List<Date> os = em.createQuery(cq).getResultList();
 		int halfDay = 0;
 		int oneDay = 0;
@@ -207,9 +207,9 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Date> cq = cb.createQuery(Date.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.greaterThan(root.get(Task_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(Task_.activity), activityStub.getValue()));
-		cq.select(root.get(Task_.startTime)).where(p);
+		Predicate p = cb.greaterThan(root.get(TaskStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskStatic.activity), activityStub.getValue()));
+		cq.select(root.get(TaskStatic.startTime)).where(p);
 		List<Date> os = em.createQuery(cq).getResultList();
 		int halfDay = 0;
 		int oneDay = 0;

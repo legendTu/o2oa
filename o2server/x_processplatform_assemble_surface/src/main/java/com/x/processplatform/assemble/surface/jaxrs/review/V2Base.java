@@ -444,84 +444,84 @@ abstract class V2Base extends StandardJaxrsAction {
 		Root<Review> root = cq.from(Review.class);
 		Predicate p = cb.conjunction();
 		if(!BooleanUtils.isTrue(isManagerFilter)){
-			p = cb.equal(root.get(Review_.person), effectivePerson.getDistinguishedName());
+			p = cb.equal(root.get(ReviewStatic.person), effectivePerson.getDistinguishedName());
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue01())){
-			p = cb.and(p,cb.equal(root.get(Review_.stringValue01), wi.getStringValue01()));
+			p = cb.and(p,cb.equal(root.get(ReviewStatic.stringValue01), wi.getStringValue01()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue02())){
-			p = cb.and(p,cb.equal(root.get(Review_.stringValue02), wi.getStringValue02()));
+			p = cb.and(p,cb.equal(root.get(ReviewStatic.stringValue02), wi.getStringValue02()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue03())){
-			p = cb.and(p,cb.equal(root.get(Review_.stringValue03), wi.getStringValue03()));
+			p = cb.and(p,cb.equal(root.get(ReviewStatic.stringValue03), wi.getStringValue03()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue04())){
-			p = cb.and(p,cb.equal(root.get(Review_.stringValue04), wi.getStringValue04()));
+			p = cb.and(p,cb.equal(root.get(ReviewStatic.stringValue04), wi.getStringValue04()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue05())){
-			p = cb.and(p,cb.equal(root.get(Review_.stringValue05), wi.getStringValue05()));
+			p = cb.and(p,cb.equal(root.get(ReviewStatic.stringValue05), wi.getStringValue05()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue06())){
-			p = cb.and(p,cb.equal(root.get(Review_.stringValue06), wi.getStringValue06()));
+			p = cb.and(p,cb.equal(root.get(ReviewStatic.stringValue06), wi.getStringValue06()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue07())){
-			p = cb.and(p,cb.equal(root.get(Review_.stringValue07), wi.getStringValue07()));
+			p = cb.and(p,cb.equal(root.get(ReviewStatic.stringValue07), wi.getStringValue07()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue08())){
-			p = cb.and(p,cb.equal(root.get(Review_.stringValue08), wi.getStringValue08()));
+			p = cb.and(p,cb.equal(root.get(ReviewStatic.stringValue08), wi.getStringValue08()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue09())){
-			p = cb.and(p,cb.equal(root.get(Review_.stringValue09), wi.getStringValue09()));
+			p = cb.and(p,cb.equal(root.get(ReviewStatic.stringValue09), wi.getStringValue09()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue10())){
-			p = cb.and(p,cb.equal(root.get(Review_.stringValue10), wi.getStringValue10()));
+			p = cb.and(p,cb.equal(root.get(ReviewStatic.stringValue10), wi.getStringValue10()));
 		}
 
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(Review_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(ReviewStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
 			if(BooleanUtils.isFalse(wi.getRelateEditionProcess())) {
-				p = cb.and(p, root.get(Review_.process).in(wi.getProcessList()));
+				p = cb.and(p, root.get(ReviewStatic.process).in(wi.getProcessList()));
 			}else{
-				p = cb.and(p, root.get(Review_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+				p = cb.and(p, root.get(ReviewStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 			}
 		}
 		if (DateTools.isDateTimeOrDate(wi.getStartTime())) {
-			p = cb.and(p, cb.greaterThan(root.get(Review_.startTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(ReviewStatic.startTime), DateTools.parse(wi.getStartTime())));
 		}
 		if (DateTools.isDateTimeOrDate(wi.getEndTime())) {
-			p = cb.and(p, cb.lessThan(root.get(Review_.startTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(ReviewStatic.startTime), DateTools.parse(wi.getEndTime())));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorPersonList())) {
 			List<String> person_ids = business.organization().person().list(wi.getCreatorPersonList());
-			p = cb.and(p, root.get(Review_.creatorPerson).in(person_ids));
+			p = cb.and(p, root.get(ReviewStatic.creatorPerson).in(person_ids));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
 			List<String> unit_ids = business.organization().unit().list(wi.getCreatorUnitList());
-			p = cb.and(p, root.get(Review_.creatorUnit).in(unit_ids));
+			p = cb.and(p, root.get(ReviewStatic.creatorUnit).in(unit_ids));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(Review_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(ReviewStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCompletedTimeMonthList())) {
-			p = cb.and(p, root.get(Review_.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
+			p = cb.and(p, root.get(ReviewStatic.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
 		}
 		boolean completed = BooleanUtils.isTrue(wi.getCompleted());
 		boolean notCompleted = BooleanUtils.isTrue(wi.getNotCompleted());
 		if (completed != notCompleted) {
 			if (completed) {
-				p = cb.and(p, cb.equal(root.get(Review_.completed), true));
+				p = cb.and(p, cb.equal(root.get(ReviewStatic.completed), true));
 			} else {
 				p = cb.and(p,
-						cb.or(cb.isNull(root.get(Review_.completed)), cb.equal(root.get(Review_.completed), false)));
+						cb.or(cb.isNull(root.get(ReviewStatic.completed)), cb.equal(root.get(ReviewStatic.completed), false)));
 			}
 		}
 		String key = StringTools.escapeSqlLikeKey(wi.getKey());
 		if (StringUtils.isNotEmpty(key)) {
 			key = "%" + key + "%";
-			p = cb.and(p, cb.or(cb.like(root.get(Review_.title), key), cb.like(root.get(Review_.serial), key),
-					cb.like(root.get(Review_.creatorPerson), key), cb.like(root.get(Review_.creatorUnit), key)));
+			p = cb.and(p, cb.or(cb.like(root.get(ReviewStatic.title), key), cb.like(root.get(ReviewStatic.serial), key),
+					cb.like(root.get(ReviewStatic.creatorPerson), key), cb.like(root.get(ReviewStatic.creatorUnit), key)));
 		}
 		return p;
 	}

@@ -1,6 +1,5 @@
 package com.x.organization.assemble.control.jaxrs.personcard;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,7 +8,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.SingularAttribute;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -26,9 +24,8 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.organization.assemble.control.Business;
-import com.x.organization.assemble.control.jaxrs.personcard.ActionList.Wo;
 import com.x.organization.core.entity.PersonCard;
-import com.x.organization.core.entity.PersonCard_;
+import com.x.organization.core.entity.PersonCardStatic;
 
 
 class ActionListPagingWithGroup extends BaseAction {
@@ -57,26 +54,26 @@ class ActionListPagingWithGroup extends BaseAction {
 		CriteriaQuery<PersonCard> cq = cb.createQuery(PersonCard.class);
 		Root<PersonCard> root = cq.from(PersonCard.class);
 
-		Order _order = cb.asc(root.get(PersonCard_.orderNumber));
-		Predicate pe = cb.equal(root.get(PersonCard_.distinguishedName), effectivePerson.getDistinguishedName());
+		Order _order = cb.asc(root.get(PersonCardStatic.orderNumber));
+		Predicate pe = cb.equal(root.get(PersonCardStatic.distinguishedName), effectivePerson.getDistinguishedName());
 		if(StringUtils.isNotEmpty(grouptype)){
-			pe = cb.and(pe,cb.equal(root.get(PersonCard_.groupType),grouptype));
+			pe = cb.and(pe,cb.equal(root.get(PersonCardStatic.groupType),grouptype));
 		}
 		
 		if (StringUtils.isNotEmpty(keyString)) {
 			String key = StringUtils.trim(StringUtils.replaceEach(keyString, new String[] { "\u3000", "?", "%" }, new String[] { " ", "", "" }));
 			if (StringUtils.isNotEmpty(key)) {
-				Predicate p = cb.or(cb.like(root.get(PersonCard_.name), "%" + key + "%"), cb.like(root.get(PersonCard_.status), "%" + key + "%"),
-						cb.like(root.get(PersonCard_.mobile), "%" + key + "%"), cb.like(root.get(PersonCard_.officePhone), "%" + key + "%"),
-						cb.like(root.get(PersonCard_.pinyin), "%" + key + "%"), cb.like(root.get(PersonCard_.pinyinInitial), "%" + key + "%"));
+				Predicate p = cb.or(cb.like(root.get(PersonCardStatic.name), "%" + key + "%"), cb.like(root.get(PersonCardStatic.status), "%" + key + "%"),
+						cb.like(root.get(PersonCardStatic.mobile), "%" + key + "%"), cb.like(root.get(PersonCardStatic.officePhone), "%" + key + "%"),
+						cb.like(root.get(PersonCardStatic.pinyin), "%" + key + "%"), cb.like(root.get(PersonCardStatic.pinyinInitial), "%" + key + "%"));
 				p = cb.and(p,pe);
-					cq.select(root).where(p).orderBy(cb.asc(root.get(PersonCard_.orderNumber)));
+					cq.select(root).where(p).orderBy(cb.asc(root.get(PersonCardStatic.orderNumber)));
 			} else {
-					cq.select(root).where(pe).orderBy(cb.asc(root.get(PersonCard_.orderNumber)));				
+					cq.select(root).where(pe).orderBy(cb.asc(root.get(PersonCardStatic.orderNumber)));
 			} 
 
 		} else {
-				cq.select(root).where(pe).orderBy(cb.asc(root.get(PersonCard_.orderNumber)));
+				cq.select(root).where(pe).orderBy(cb.asc(root.get(PersonCardStatic.orderNumber)));
 		}
 		return em.createQuery(cq).setFirstResult((adjustPage - 1) * adjustPageSize).setMaxResults(adjustPageSize).getResultList();
 	}
@@ -88,16 +85,16 @@ class ActionListPagingWithGroup extends BaseAction {
 		Root<PersonCard> root = cq.from(PersonCard.class);
 
 		// cq.select(cb.count(root));
-		Predicate pe = cb.equal(root.get(PersonCard_.distinguishedName), effectivePerson.getDistinguishedName());
+		Predicate pe = cb.equal(root.get(PersonCardStatic.distinguishedName), effectivePerson.getDistinguishedName());
 		if(StringUtils.isNotEmpty(grouptype)){
-			pe = cb.and(pe,cb.equal(root.get(PersonCard_.groupType),grouptype));
+			pe = cb.and(pe,cb.equal(root.get(PersonCardStatic.groupType),grouptype));
 		}
 		if (StringUtils.isNotEmpty(keyString)) {
 			String key = StringUtils.trim(StringUtils.replace(keyString, "\u3000", " "));
 			if (StringUtils.isNotEmpty(key)) {
-				Predicate p = cb.or(cb.like(root.get(PersonCard_.name), "%" + key + "%"), cb.like(root.get(PersonCard_.status), "%" + key + "%"),
-						cb.like(root.get(PersonCard_.mobile), "%" + key + "%"), cb.like(root.get(PersonCard_.officePhone), "%" + key + "%"),
-						cb.like(root.get(PersonCard_.pinyin), "%" + key + "%"), cb.like(root.get(PersonCard_.pinyinInitial), "%" + key + "%"));
+				Predicate p = cb.or(cb.like(root.get(PersonCardStatic.name), "%" + key + "%"), cb.like(root.get(PersonCardStatic.status), "%" + key + "%"),
+						cb.like(root.get(PersonCardStatic.mobile), "%" + key + "%"), cb.like(root.get(PersonCardStatic.officePhone), "%" + key + "%"),
+						cb.like(root.get(PersonCardStatic.pinyin), "%" + key + "%"), cb.like(root.get(PersonCardStatic.pinyinInitial), "%" + key + "%"));
 				p = cb.and(p,pe);
 				cq.select(cb.count(root)).where(p);
 			} else {

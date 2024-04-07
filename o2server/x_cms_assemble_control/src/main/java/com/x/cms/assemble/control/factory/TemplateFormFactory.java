@@ -14,7 +14,7 @@ import javax.persistence.criteria.Root;
 import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.element.TemplateForm;
-import com.x.cms.core.entity.element.TemplateForm_;
+import com.x.cms.core.entity.element.TemplateFormStatic;
 
 public class TemplateFormFactory extends AbstractFactory {
 
@@ -27,7 +27,7 @@ public class TemplateFormFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<TemplateForm> root = cq.from(TemplateForm.class);
-		cq.select(root.get(TemplateForm_.id));
+		cq.select(root.get(TemplateFormStatic.id));
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -36,8 +36,8 @@ public class TemplateFormFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<TemplateForm> root = cq.from(TemplateForm.class);
-		Predicate p = cb.equal(root.get(TemplateForm_.category), Objects.toString(category, ""));
-		cq.select(root.get(TemplateForm_.id)).where(p);
+		Predicate p = cb.equal(root.get(TemplateFormStatic.category), Objects.toString(category, ""));
+		cq.select(root.get(TemplateFormStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

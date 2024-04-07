@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.DocumentViewRecord;
-import com.x.cms.core.entity.DocumentViewRecord_;
+import com.x.cms.core.entity.DocumentViewRecordStatic;
 
 /**
  * 文档权限基础功能服务类
@@ -33,7 +33,7 @@ public class DocumentViewRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<DocumentViewRecord> cq = cb.createQuery( DocumentViewRecord.class );
 		Root<DocumentViewRecord> root = cq.from( DocumentViewRecord.class );
-		Predicate p = root.get( DocumentViewRecord_.id).in( ids );
+		Predicate p = root.get( DocumentViewRecordStatic.id).in( ids );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -43,9 +43,9 @@ public class DocumentViewRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentViewRecord> root = cq.from( DocumentViewRecord.class );
-		Predicate p = cb.equal( root.get( DocumentViewRecord_.documentId ), docId );
-		cq.orderBy( cb.desc( root.get( DocumentViewRecord_.createTime ) ) );
-		cq.select( root.get( DocumentViewRecord_.id ));
+		Predicate p = cb.equal( root.get( DocumentViewRecordStatic.documentId ), docId );
+		cq.orderBy( cb.desc( root.get( DocumentViewRecordStatic.createTime ) ) );
+		cq.select( root.get( DocumentViewRecordStatic.id ));
 		return em.createQuery( cq.where(p) ).setMaxResults(50).getResultList();
 	}
 	
@@ -55,9 +55,9 @@ public class DocumentViewRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentViewRecord> root = cq.from( DocumentViewRecord.class );
-		Predicate p = cb.equal( root.get( DocumentViewRecord_.viewerName ), personName );
-		cq.orderBy( cb.desc( root.get( DocumentViewRecord_.createTime ) ) );
-		cq.select( root.get( DocumentViewRecord_.id ));
+		Predicate p = cb.equal( root.get( DocumentViewRecordStatic.viewerName ), personName );
+		cq.orderBy( cb.desc( root.get( DocumentViewRecordStatic.createTime ) ) );
+		cq.select( root.get( DocumentViewRecordStatic.id ));
 		return em.createQuery( cq.where(p) ).setMaxResults( maxCount ).getResultList();
 	}
 	
@@ -66,8 +66,8 @@ public class DocumentViewRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<DocumentViewRecord> cq = cb.createQuery( DocumentViewRecord.class );
 		Root<DocumentViewRecord> root = cq.from( DocumentViewRecord.class );
-		Predicate p = cb.equal( root.get( DocumentViewRecord_.viewerName ), personName );
-		cq.orderBy( cb.desc( root.get( DocumentViewRecord_.createTime ) ) );
+		Predicate p = cb.equal( root.get( DocumentViewRecordStatic.viewerName ), personName );
+		cq.orderBy( cb.desc( root.get( DocumentViewRecordStatic.createTime ) ) );
 		return em.createQuery( cq.where(p) ).setMaxResults( maxCount ).getResultList();
 	}
 	
@@ -77,9 +77,9 @@ public class DocumentViewRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentViewRecord> root = cq.from( DocumentViewRecord.class );
-		Predicate p = cb.equal( root.get( DocumentViewRecord_.viewerName ), personName );
-		p = cb.and( p, cb.equal( root.get( DocumentViewRecord_.documentId ), documentId ) );
-		cq.select( root.get( DocumentViewRecord_.id ));
+		Predicate p = cb.equal( root.get( DocumentViewRecordStatic.viewerName ), personName );
+		p = cb.and( p, cb.equal( root.get( DocumentViewRecordStatic.documentId ), documentId ) );
+		cq.select( root.get( DocumentViewRecordStatic.id ));
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 	
@@ -93,8 +93,8 @@ public class DocumentViewRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery( Long.class );
 		Root<DocumentViewRecord> root = cq.from( DocumentViewRecord.class );
-		Predicate p = cb.equal( root.get( DocumentViewRecord_.documentId ), id );
-		cq.select( cb.sumAsLong(root.get( DocumentViewRecord_.viewCount )) ).where(p);
+		Predicate p = cb.equal( root.get( DocumentViewRecordStatic.documentId ), id );
+		cq.select( cb.sumAsLong(root.get( DocumentViewRecordStatic.viewCount )) ).where(p);
 		return em.createQuery( cq.where(p) ).getSingleResult();
 	}
 	
@@ -109,17 +109,17 @@ public class DocumentViewRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<DocumentViewRecord> cq = cb.createQuery( DocumentViewRecord.class );
 		Root<DocumentViewRecord> root = cq.from( DocumentViewRecord.class );
-		Predicate p = cb.equal( root.get( DocumentViewRecord_.documentId ), docId );
-		p = cb.and( p, cb.isNotNull( root.get( DocumentViewRecord_.lastViewTime ) ));
+		Predicate p = cb.equal( root.get( DocumentViewRecordStatic.documentId ), docId );
+		p = cb.and( p, cb.isNotNull( root.get( DocumentViewRecordStatic.lastViewTime ) ));
 		if( sequenceFieldValue != null ){
 			if( "DESC".equalsIgnoreCase( order )){
-				p = cb.and( p, cb.lessThan( root.get( DocumentViewRecord_.lastViewTime ), (Date)sequenceFieldValue ));
+				p = cb.and( p, cb.lessThan( root.get( DocumentViewRecordStatic.lastViewTime ), (Date)sequenceFieldValue ));
 			}else{
-				p = cb.and( p, cb.greaterThan( root.get( DocumentViewRecord_.lastViewTime ), (Date)sequenceFieldValue ));
+				p = cb.and( p, cb.greaterThan( root.get( DocumentViewRecordStatic.lastViewTime ), (Date)sequenceFieldValue ));
 			}
 		}
 		if( "DESC".equalsIgnoreCase( order )){
-			cq.orderBy( cb.desc( root.get( DocumentViewRecord_.lastViewTime ) ) );
+			cq.orderBy( cb.desc( root.get( DocumentViewRecordStatic.lastViewTime ) ) );
 		}
 		return em.createQuery(cq.where(p)).setMaxResults( count ).getResultList();
 	}
@@ -129,9 +129,9 @@ public class DocumentViewRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery( Long.class );
 		Root<DocumentViewRecord> root = cq.from( DocumentViewRecord.class );
-		Predicate p = cb.equal( root.get( DocumentViewRecord_.documentId ), docId );
+		Predicate p = cb.equal( root.get( DocumentViewRecordStatic.documentId ), docId );
 		if( StringUtils.isNotEmpty(docId) ){
-			p = cb.and( p, cb.equal( root.get( DocumentViewRecord_.documentId ), docId ));
+			p = cb.and( p, cb.equal( root.get( DocumentViewRecordStatic.documentId ), docId ));
 		}
 		cq.select( cb.count( root ));
 		return em.createQuery(cq.where(p)).getSingleResult();
@@ -142,8 +142,8 @@ public class DocumentViewRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentViewRecord> root = cq.from( DocumentViewRecord.class );
-		Predicate p = cb.lessThan( root.get(DocumentViewRecord_.createTime), limitDate );
-		cq.select(root.get(DocumentViewRecord_.id));
+		Predicate p = cb.lessThan( root.get(DocumentViewRecordStatic.createTime), limitDate );
+		cq.select(root.get(DocumentViewRecordStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(1000000).getResultList();
 	}
 
@@ -161,8 +161,8 @@ public class DocumentViewRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentViewRecord> root = cq.from( DocumentViewRecord.class );
-		cq.orderBy( cb.desc( root.get( DocumentViewRecord_.createTime )));
-		cq.select(root.get(DocumentViewRecord_.id));
+		cq.orderBy( cb.desc( root.get( DocumentViewRecordStatic.createTime )));
+		cq.select(root.get(DocumentViewRecordStatic.id));
 		return em.createQuery(cq).setMaxResults( maxCount ).getResultList();
 	}
 
@@ -178,9 +178,9 @@ public class DocumentViewRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentViewRecord> root = cq.from( DocumentViewRecord.class );
-		Predicate p = cb.equal( root.get( DocumentViewRecord_.viewerName ), distinguishedName );
-		p = cb.and( p, root.get( DocumentViewRecord_.documentId ).in( ids ));
-		cq.select(root.get( DocumentViewRecord_.documentId ));
+		Predicate p = cb.equal( root.get( DocumentViewRecordStatic.viewerName ), distinguishedName );
+		p = cb.and( p, root.get( DocumentViewRecordStatic.documentId ).in( ids ));
+		cq.select(root.get( DocumentViewRecordStatic.documentId ));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -196,9 +196,9 @@ public class DocumentViewRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentViewRecord> root = cq.from( DocumentViewRecord.class );
-		Predicate p = cb.equal( root.get( DocumentViewRecord_.viewerName ), distinguishedName );
-		p = cb.and( p, root.get( DocumentViewRecord_.categoryId ).in( categoryIds ));
-		cq.select(root.get( DocumentViewRecord_.documentId ));
+		Predicate p = cb.equal( root.get( DocumentViewRecordStatic.viewerName ), distinguishedName );
+		p = cb.and( p, root.get( DocumentViewRecordStatic.categoryId ).in( categoryIds ));
+		cq.select(root.get( DocumentViewRecordStatic.documentId ));
 		return em.createQuery(cq.where(p)).getResultList();
 	}	
 }

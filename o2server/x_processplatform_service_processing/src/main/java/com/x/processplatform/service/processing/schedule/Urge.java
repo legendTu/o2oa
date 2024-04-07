@@ -26,7 +26,7 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.schedule.AbstractJob;
 import com.x.base.core.project.utils.time.TimeStamp;
 import com.x.processplatform.core.entity.content.Task;
-import com.x.processplatform.core.entity.content.Task_;
+import com.x.processplatform.core.entity.content.TaskStatic;
 import com.x.processplatform.service.processing.ThisApplication;
 
 import fr.opensagres.poi.xwpf.converter.core.utils.StringUtils;
@@ -76,11 +76,11 @@ public class Urge extends AbstractJob {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<Task> root = cq.from(Task.class);
-		Path<String> id_path = root.get(Task_.id);
-		Path<String> job_path = root.get(Task_.job);
-		Path<String> sequence_path = root.get(Task_.sequence);
-		Path<Date> urgeTime_path = root.get(Task_.urgeTime);
-		Path<Boolean> urged_path = root.get(Task_.urged);
+		Path<String> id_path = root.get(TaskStatic.id);
+		Path<String> job_path = root.get(TaskStatic.job);
+		Path<String> sequence_path = root.get(TaskStatic.sequence);
+		Path<Date> urgeTime_path = root.get(TaskStatic.urgeTime);
+		Path<Boolean> urged_path = root.get(TaskStatic.urged);
 		Predicate p = cb.or(cb.equal(urged_path, false), cb.isNull(urged_path));
 		p = cb.and(p, cb.lessThan(urgeTime_path, new Date()));
 		if (StringUtils.isNotEmpty(sequence)) {

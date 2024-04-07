@@ -21,7 +21,7 @@ import com.x.base.core.project.gson.XGsonBuilder;
 import com.x.cms.core.entity.Document;
 import com.x.cms.core.entity.content.Data;
 import com.x.query.core.entity.Item;
-import com.x.query.core.entity.Item_;
+import com.x.query.core.entity.ItemStatic;
 
 public class DocumentDataHelper {
 
@@ -55,7 +55,7 @@ public class DocumentDataHelper {
 		Root<Item> root = cq.from(Item.class);
 		Path<String> path = root.get(Item.bundle_FIELDNAME);
 		Predicate p = cb.equal(path, this.docId);
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), ItemCategory.cms));
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), ItemCategory.cms));
 		List<Item> list = em.createQuery(cq.where(p)).getResultList();
 		if( list == null ) {
 			list = new ArrayList<>();

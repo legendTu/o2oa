@@ -12,7 +12,7 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.tools.DateTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Task;
-import com.x.processplatform.core.entity.content.Task_;
+import com.x.processplatform.core.entity.content.TaskStatic;
 import org.apache.commons.lang3.BooleanUtils;
 
 import javax.persistence.EntityManager;
@@ -55,15 +55,15 @@ class ActionManageListWithDateHour extends BaseAction {
 		Predicate p = cb.conjunction();
 
 		if (startTime != null) {
-			p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Task_.createTime), startTime));
+			p = cb.and(p, cb.greaterThanOrEqualTo(root.get(TaskStatic.createTime), startTime));
 		}
 		if (endTime != null) {
-			p = cb.and(p, cb.lessThan(root.get(Task_.createTime), endTime));
+			p = cb.and(p, cb.lessThan(root.get(TaskStatic.createTime), endTime));
 		}
 		if(BooleanUtils.isTrue(isExcludeDraft)){
-			p = cb.and(p, cb.or(cb.isFalse(root.get(Task_.first)),
-					cb.isNull(root.get(Task_.first)),
-					cb.equal(root.get(Task_.workCreateType), Business.WORK_CREATE_TYPE_ASSIGN)));
+			p = cb.and(p, cb.or(cb.isFalse(root.get(TaskStatic.first)),
+					cb.isNull(root.get(TaskStatic.first)),
+					cb.equal(root.get(TaskStatic.workCreateType), Business.WORK_CREATE_TYPE_ASSIGN)));
 		}
 
 		cq.select(root).where(p);

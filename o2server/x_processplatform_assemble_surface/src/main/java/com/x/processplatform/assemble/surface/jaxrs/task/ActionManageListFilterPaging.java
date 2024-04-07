@@ -15,7 +15,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Task;
-import com.x.processplatform.core.entity.content.Task_;
+import com.x.processplatform.core.entity.content.TaskStatic;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -56,72 +56,72 @@ class ActionManageListFilterPaging extends BaseAction {
 		Root<Task> root = cq.from(Task.class);
 		Predicate p = cb.conjunction();
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(Task_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(TaskStatic.application).in(wi.getApplicationList()));
 		}
 		if (StringUtils.isNotBlank(wi.getPerson())) {
-			p = cb.and(p, cb.equal(root.get(Task_.person), wi.getPerson()));
+			p = cb.and(p, cb.equal(root.get(TaskStatic.person), wi.getPerson()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue01())) {
-			p = cb.and(p, cb.equal(root.get(Task_.stringValue01), wi.getStringValue01()));
+			p = cb.and(p, cb.equal(root.get(TaskStatic.stringValue01), wi.getStringValue01()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue02())) {
-			p = cb.and(p, cb.equal(root.get(Task_.stringValue02), wi.getStringValue02()));
+			p = cb.and(p, cb.equal(root.get(TaskStatic.stringValue02), wi.getStringValue02()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue03())) {
-			p = cb.and(p, cb.equal(root.get(Task_.stringValue03), wi.getStringValue03()));
+			p = cb.and(p, cb.equal(root.get(TaskStatic.stringValue03), wi.getStringValue03()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue04())) {
-			p = cb.and(p, cb.equal(root.get(Task_.stringValue04), wi.getStringValue04()));
+			p = cb.and(p, cb.equal(root.get(TaskStatic.stringValue04), wi.getStringValue04()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue05())) {
-			p = cb.and(p, cb.equal(root.get(Task_.stringValue05), wi.getStringValue05()));
+			p = cb.and(p, cb.equal(root.get(TaskStatic.stringValue05), wi.getStringValue05()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue06())) {
-			p = cb.and(p, cb.equal(root.get(Task_.stringValue06), wi.getStringValue06()));
+			p = cb.and(p, cb.equal(root.get(TaskStatic.stringValue06), wi.getStringValue06()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue07())) {
-			p = cb.and(p, cb.equal(root.get(Task_.stringValue07), wi.getStringValue07()));
+			p = cb.and(p, cb.equal(root.get(TaskStatic.stringValue07), wi.getStringValue07()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue08())) {
-			p = cb.and(p, cb.equal(root.get(Task_.stringValue08), wi.getStringValue08()));
+			p = cb.and(p, cb.equal(root.get(TaskStatic.stringValue08), wi.getStringValue08()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue09())) {
-			p = cb.and(p, cb.equal(root.get(Task_.stringValue09), wi.getStringValue09()));
+			p = cb.and(p, cb.equal(root.get(TaskStatic.stringValue09), wi.getStringValue09()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue10())) {
-			p = cb.and(p, cb.equal(root.get(Task_.stringValue10), wi.getStringValue10()));
+			p = cb.and(p, cb.equal(root.get(TaskStatic.stringValue10), wi.getStringValue10()));
 		}
 
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
 			if (BooleanUtils.isFalse(wi.getRelateEditionProcess())) {
-				p = cb.and(p, root.get(Task_.process).in(wi.getProcessList()));
+				p = cb.and(p, root.get(TaskStatic.process).in(wi.getProcessList()));
 			} else {
-				p = cb.and(p, root.get(Task_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+				p = cb.and(p, root.get(TaskStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 			}
 		}
 		if (DateTools.isDateTimeOrDate(wi.getStartTime())) {
-			p = cb.and(p, cb.greaterThan(root.get(Task_.startTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(TaskStatic.startTime), DateTools.parse(wi.getStartTime())));
 		}
 		if (DateTools.isDateTimeOrDate(wi.getEndTime())) {
-			p = cb.and(p, cb.lessThan(root.get(Task_.startTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(TaskStatic.startTime), DateTools.parse(wi.getEndTime())));
 		}
 		if (ListTools.isNotEmpty(person_ids)) {
-			p = cb.and(p, root.get(Task_.person).in(person_ids));
+			p = cb.and(p, root.get(TaskStatic.person).in(person_ids));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(Task_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(TaskStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getWorkList())) {
-			p = cb.and(p, root.get(Task_.work).in(wi.getWorkList()));
+			p = cb.and(p, root.get(TaskStatic.work).in(wi.getWorkList()));
 		}
 		if (ListTools.isNotEmpty(wi.getJobList())) {
-			p = cb.and(p, root.get(Task_.job).in(wi.getJobList()));
+			p = cb.and(p, root.get(TaskStatic.job).in(wi.getJobList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(Task_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(TaskStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(Task_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(TaskStatic.activityName).in(wi.getActivityNameList()));
 		}
 		if (StringUtils.isNotBlank(wi.getExpireTime())) {
 			int expireTime = 0;
@@ -129,7 +129,7 @@ class ActionManageListFilterPaging extends BaseAction {
 				expireTime = Integer.parseInt(wi.getExpireTime());
 			} catch (NumberFormatException e) {
 			}
-			p = cb.and(p, cb.lessThanOrEqualTo(root.get(Task_.expireTime),
+			p = cb.and(p, cb.lessThanOrEqualTo(root.get(TaskStatic.expireTime),
 					DateTools.getAdjustTimeDay(null, 0, -expireTime, 0, 0)));
 		}
 		if (StringUtils.isNotBlank(wi.getUrgeTime())) {
@@ -138,17 +138,17 @@ class ActionManageListFilterPaging extends BaseAction {
 				urgeTime = Integer.parseInt(wi.getUrgeTime());
 			} catch (NumberFormatException e) {
 			}
-			p = cb.and(p, cb.lessThanOrEqualTo(root.get(Task_.urgeTime),
+			p = cb.and(p, cb.lessThanOrEqualTo(root.get(TaskStatic.urgeTime),
 					DateTools.getAdjustTimeDay(null, 0, -urgeTime, 0, 0)));
 		}
 		if(BooleanUtils.isTrue(wi.getExcludeDraft())){
-			p = cb.and(p, cb.or(cb.isFalse(root.get(Task_.first)),
-					cb.isNull(root.get(Task_.first)),
-					cb.equal(root.get(Task_.workCreateType), Business.WORK_CREATE_TYPE_ASSIGN)));
+			p = cb.and(p, cb.or(cb.isFalse(root.get(TaskStatic.first)),
+					cb.isNull(root.get(TaskStatic.first)),
+					cb.equal(root.get(TaskStatic.workCreateType), Business.WORK_CREATE_TYPE_ASSIGN)));
 		}
 		if (StringUtils.isNoneBlank(wi.getKey())) {
 			String key = StringTools.escapeSqlLikeKey(wi.getKey());
-			p = cb.and(p, cb.like(root.get(Task_.title), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR));
+			p = cb.and(p, cb.like(root.get(TaskStatic.title), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR));
 		}
 
 		return p;

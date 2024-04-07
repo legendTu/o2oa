@@ -24,8 +24,8 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Work;
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
+import com.x.processplatform.core.entity.content.WorkStatic;
 
 class ActionFindWorkWorkCompleted extends BaseAction {
 
@@ -52,8 +52,8 @@ class ActionFindWorkWorkCompleted extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.job), job);
-		cq.select(root.get(Work_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkStatic.job), job);
+		cq.select(root.get(WorkStatic.id)).where(p);
 		List<String> ids = em.createQuery(cq).getResultList();
 		return business.entityManagerContainer().fetch(ids, WoWork.copier);
 	}
@@ -63,8 +63,8 @@ class ActionFindWorkWorkCompleted extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.equal(root.get(WorkCompleted_.job), job);
-		cq.select(root.get(WorkCompleted_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkCompletedStatic.job), job);
+		cq.select(root.get(WorkCompletedStatic.id)).where(p);
 		List<String> ids = em.createQuery(cq).getResultList();
 		return business.entityManagerContainer().fetch(ids, WoWorkCompleted.copier);
 	}

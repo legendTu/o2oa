@@ -14,7 +14,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.bbs.assemble.control.AbstractFactory;
 import com.x.bbs.assemble.control.Business;
 import com.x.bbs.entity.BBSRoleInfo;
-import com.x.bbs.entity.BBSRoleInfo_;
+import com.x.bbs.entity.BBSRoleInfoStatic;
 
 /**
  * 类   名：BBSRoleInfoFactory<br/>
@@ -43,7 +43,7 @@ public class BBSRoleInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSRoleInfo> cq = cb.createQuery(BBSRoleInfo.class);
 		Root<BBSRoleInfo> root = cq.from(BBSRoleInfo.class);
-		Predicate p = root.get(BBSRoleInfo_.id).in(ids);
+		Predicate p = root.get(BBSRoleInfoStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -65,7 +65,7 @@ public class BBSRoleInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSRoleInfo> cq = cb.createQuery( BBSRoleInfo.class );
 		Root<BBSRoleInfo> root = cq.from( BBSRoleInfo.class );
-		Predicate p = cb.equal( root.get( BBSRoleInfo_.roleCode ), roleCode );
+		Predicate p = cb.equal( root.get( BBSRoleInfoStatic.roleCode ), roleCode );
 		roleInfoList = em.createQuery( cq.where(p) ).getResultList();
 		if( ListTools.isNotEmpty(roleInfoList) ){
 			return roleInfoList.get(0);
@@ -83,8 +83,8 @@ public class BBSRoleInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSRoleInfo> root = cq.from( BBSRoleInfo.class );
-		Predicate p = cb.equal( root.get( BBSRoleInfo_.forumId ), forumId );
-		cq.select( root.get( BBSRoleInfo_.id ) );
+		Predicate p = cb.equal( root.get( BBSRoleInfoStatic.forumId ), forumId );
+		cq.select( root.get( BBSRoleInfoStatic.id ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 	
@@ -103,11 +103,11 @@ public class BBSRoleInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSRoleInfo> root = cq.from( BBSRoleInfo.class );
-		Predicate p = cb.equal( root.get( BBSRoleInfo_.sectionId ), sectionId );
+		Predicate p = cb.equal( root.get( BBSRoleInfoStatic.sectionId ), sectionId );
 		if( queryMainSectionId ) {
-			p = cb.or( p, cb.equal( root.get( BBSRoleInfo_.mainSectionId ), sectionId ) );
+			p = cb.or( p, cb.equal( root.get( BBSRoleInfoStatic.mainSectionId ), sectionId ) );
 		}
-		cq.select( root.get( BBSRoleInfo_.id ) );
+		cq.select( root.get( BBSRoleInfoStatic.id ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 
@@ -119,8 +119,8 @@ public class BBSRoleInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSRoleInfo> root = cq.from( BBSRoleInfo.class );
-		Predicate p = cb.equal( root.get( BBSRoleInfo_.mainSectionId ), sectionId );
-		cq.select( root.get( BBSRoleInfo_.id ) );
+		Predicate p = cb.equal( root.get( BBSRoleInfoStatic.mainSectionId ), sectionId );
+		cq.select( root.get( BBSRoleInfoStatic.id ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 }

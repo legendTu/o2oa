@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root;
 import com.x.attendance.assemble.control.AbstractFactory;
 import com.x.attendance.assemble.control.Business;
 import com.x.attendance.entity.AttendanceAdmin;
-import com.x.attendance.entity.AttendanceAdmin_;
+import com.x.attendance.entity.AttendanceAdminStatic;
 import com.x.base.core.project.exception.ExceptionWhen;
 /**
  * 系统配置信息表基础功能服务类
@@ -47,7 +47,7 @@ public class AttendanceAdminFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceAdmin> cq = cb.createQuery(AttendanceAdmin.class);
 		Root<AttendanceAdmin> root = cq.from(AttendanceAdmin.class);
-		Predicate p = root.get(AttendanceAdmin_.id).in(ids);
+		Predicate p = root.get(AttendanceAdminStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}	
 }

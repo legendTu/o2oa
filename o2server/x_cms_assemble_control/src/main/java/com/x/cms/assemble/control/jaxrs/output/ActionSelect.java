@@ -5,7 +5,6 @@ import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
 import com.x.base.core.entity.dataitem.DataItemConverter;
 import com.x.base.core.project.annotation.FieldDescribe;
-import com.x.base.core.project.cache.CacheManager;
 import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
@@ -16,7 +15,6 @@ import com.x.cms.core.entity.CategoryExt;
 import com.x.cms.core.entity.CategoryInfo;
 import com.x.cms.core.entity.element.*;
 import com.x.cms.core.entity.element.wrap.*;
-import net.sf.ehcache.Element;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -105,7 +103,7 @@ class ActionSelect extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AppDictItem> cq = cb.createQuery(AppDictItem.class);
 		Root<AppDictItem> root = cq.from(AppDictItem.class);
-		Predicate p = cb.equal(root.get(AppDictItem_.bundle), appInfoDict.getId());
+		Predicate p = cb.equal(root.get(AppDictItemStatic.bundle), appInfoDict.getId());
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}

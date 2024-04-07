@@ -14,7 +14,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.FileInfo;
-import com.x.cms.core.entity.FileInfo_;
+import com.x.cms.core.entity.FileInfoStatic;
 
 public class FileInfoFactory extends AbstractFactory {
 
@@ -42,7 +42,7 @@ public class FileInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<FileInfo> root = cq.from( FileInfo.class );
-		cq.select(root.get(FileInfo_.id));
+		cq.select(root.get(FileInfoStatic.id));
 		return em.createQuery(cq).getResultList();
 	}
 	
@@ -77,8 +77,8 @@ public class FileInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<FileInfo> root = cq.from( FileInfo.class );		
-		Predicate p = cb.equal(root.get( FileInfo_.documentId ), doucmentId);		
-		cq.select(root.get(FileInfo_.id));
+		Predicate p = cb.equal(root.get( FileInfoStatic.documentId ), doucmentId);
+		cq.select(root.get(FileInfoStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -97,9 +97,9 @@ public class FileInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<FileInfo> root = cq.from( FileInfo.class );		
-		Predicate p = cb.equal(root.get( FileInfo_.documentId ), doucmentId);
-		p = cb.and( p, cb.equal(root.get( FileInfo_.fileType ), "ATTACHMENT") );
-		cq.select(root.get(FileInfo_.id));
+		Predicate p = cb.equal(root.get( FileInfoStatic.documentId ), doucmentId);
+		p = cb.and( p, cb.equal(root.get( FileInfoStatic.fileType ), "ATTACHMENT") );
+		cq.select(root.get(FileInfoStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -118,9 +118,9 @@ public class FileInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<FileInfo> root = cq.from( FileInfo.class );		
-		Predicate p = cb.equal(root.get( FileInfo_.documentId ), documentId);
-		p = cb.and( p, cb.equal(root.get( FileInfo_.fileExtType ), "PICTURE") );
-		cq.select(root.get(FileInfo_.id));
+		Predicate p = cb.equal(root.get( FileInfoStatic.documentId ), documentId);
+		p = cb.and( p, cb.equal(root.get( FileInfoStatic.fileExtType ), "PICTURE") );
+		cq.select(root.get(FileInfoStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	/**
@@ -138,10 +138,10 @@ public class FileInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<FileInfo> root = cq.from( FileInfo.class );		
-		Predicate p = cb.equal(root.get( FileInfo_.documentId ), documentId);
-		p = cb.and( p, cb.equal(root.get( FileInfo_.fileExtType ), "PICTURE") );
-		p = cb.and( p, cb.equal(root.get( FileInfo_.fileType ), "CLOUD") );
-		cq.select(root.get(FileInfo_.id));
+		Predicate p = cb.equal(root.get( FileInfoStatic.documentId ), documentId);
+		p = cb.and( p, cb.equal(root.get( FileInfoStatic.fileExtType ), "PICTURE") );
+		p = cb.and( p, cb.equal(root.get( FileInfoStatic.fileType ), "CLOUD") );
+		cq.select(root.get(FileInfoStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 }

@@ -20,7 +20,7 @@ import org.quartz.JobExecutionException;
 
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
-import com.x.base.core.entity.JpaObject_;
+import com.x.base.core.entity.JpaObjectStatic;
 import com.x.base.core.project.Applications;
 import com.x.base.core.project.x_processplatform_service_processing;
 import com.x.base.core.project.jaxrs.WoId;
@@ -29,7 +29,7 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.schedule.AbstractJob;
 import com.x.base.core.project.utils.time.TimeStamp;
 import com.x.processplatform.core.entity.content.Task;
-import com.x.processplatform.core.entity.content.Task_;
+import com.x.processplatform.core.entity.content.TaskStatic;
 import com.x.processplatform.service.processing.ThisApplication;
 
 public class Expire extends AbstractJob {
@@ -85,13 +85,13 @@ public class Expire extends AbstractJob {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<Task> root = cq.from(Task.class);
-		Path<String> idPath = root.get(Task_.id);
-		Path<String> jobPath = root.get(Task_.job);
-		Path<String> sequencePath = root.get(JpaObject_.sequence);
-		Path<Boolean> pausePath = root.get(Task_.pause);
-		Predicate p = cb.or(cb.isNull(root.get(Task_.expired)), cb.equal(root.get(Task_.expired), false));
-		p = cb.and(p, cb.isNotNull(root.get(Task_.expireTime)));
-		p = cb.and(p, cb.lessThanOrEqualTo(root.get(Task_.expireTime), new Date()));
+		Path<String> idPath = root.get(TaskStatic.id);
+		Path<String> jobPath = root.get(TaskStatic.job);
+		Path<String> sequencePath = root.get(JpaObjectStatic.sequence);
+		Path<Boolean> pausePath = root.get(TaskStatic.pause);
+		Predicate p = cb.or(cb.isNull(root.get(TaskStatic.expired)), cb.equal(root.get(TaskStatic.expired), false));
+		p = cb.and(p, cb.isNotNull(root.get(TaskStatic.expireTime)));
+		p = cb.and(p, cb.lessThanOrEqualTo(root.get(TaskStatic.expireTime), new Date()));
 		if (StringUtils.isNotEmpty(sequence)) {
 			p = cb.and(p, cb.greaterThan(sequencePath, sequence));
 		}

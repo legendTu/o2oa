@@ -9,7 +9,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
 import com.x.processplatform.service.processing.AbstractFactory;
 import com.x.processplatform.service.processing.Business;
 
@@ -24,8 +24,8 @@ public class WorkCompletedFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.equal(root.get(WorkCompleted_.job), job);
-		cq.select(root.get(WorkCompleted_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkCompletedStatic.job), job);
+		cq.select(root.get(WorkCompletedStatic.id)).where(p);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	

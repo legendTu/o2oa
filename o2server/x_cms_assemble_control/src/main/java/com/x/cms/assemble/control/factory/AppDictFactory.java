@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.element.AppDict;
-import com.x.cms.core.entity.element.AppDict_;
+import com.x.cms.core.entity.element.AppDictStatic;
 
 
 public class AppDictFactory extends AbstractFactory {
@@ -25,8 +25,8 @@ public class AppDictFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<AppDict> root = cq.from(AppDict.class);
-		Predicate p = cb.equal( root.get( AppDict_.appId ), appId );
-		cq.select(root.get( AppDict_.id )).where(p);
+		Predicate p = cb.equal( root.get( AppDictStatic.appId ), appId );
+		cq.select(root.get( AppDictStatic.id )).where(p);
 		return em.createQuery( cq ).getResultList();
 	}
 	
@@ -35,7 +35,7 @@ public class AppDictFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AppDict> cq = cb.createQuery( AppDict.class );
 		Root<AppDict> root = cq.from(AppDict.class);
-		Predicate p = cb.equal( root.get( AppDict_.appId ), appId );
+		Predicate p = cb.equal( root.get( AppDictStatic.appId ), appId );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 	
@@ -44,11 +44,11 @@ public class AppDictFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AppDict> root = cq.from(AppDict.class);
-		Predicate p = cb.equal(root.get(AppDict_.name), uniqueName);
-		p = cb.or(p, cb.equal(root.get(AppDict_.alias), uniqueName));
-		p = cb.or(p, cb.equal(root.get(AppDict_.id), uniqueName));
-		p = cb.and(p, cb.equal(root.get(AppDict_.appId), appId));
-		cq.select(root.get(AppDict_.id)).where(p);
+		Predicate p = cb.equal(root.get(AppDictStatic.name), uniqueName);
+		p = cb.or(p, cb.equal(root.get(AppDictStatic.alias), uniqueName));
+		p = cb.or(p, cb.equal(root.get(AppDictStatic.id), uniqueName));
+		p = cb.and(p, cb.equal(root.get(AppDictStatic.appId), appId));
+		cq.select(root.get(AppDictStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		return list.isEmpty() ? null : list.get(0);
 	}
@@ -58,7 +58,7 @@ public class AppDictFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<AppDict> cq = cb.createQuery(AppDict.class);
         Root<AppDict> root = cq.from(AppDict.class);
-        Predicate p = root.get(AppDict_.name).in( ids );
+        Predicate p = root.get(AppDictStatic.name).in( ids );
         return em.createQuery(cq.where(p)).getResultList();
     }
     
@@ -67,11 +67,11 @@ public class AppDictFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AppDict> root = cq.from(AppDict.class);
-		Predicate p = cb.equal(root.get(AppDict_.name), uniqueName);
-		p = cb.or(p, cb.equal(root.get(AppDict_.alias), uniqueName));
-		p = cb.or(p, cb.equal(root.get(AppDict_.id), uniqueName));
-		p = cb.and(p, cb.equal(root.get(AppDict_.appId), appInfoId));
-		cq.select(root.get(AppDict_.id)).where(p);
+		Predicate p = cb.equal(root.get(AppDictStatic.name), uniqueName);
+		p = cb.or(p, cb.equal(root.get(AppDictStatic.alias), uniqueName));
+		p = cb.or(p, cb.equal(root.get(AppDictStatic.id), uniqueName));
+		p = cb.and(p, cb.equal(root.get(AppDictStatic.appId), appInfoId));
+		cq.select(root.get(AppDictStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		return list.isEmpty() ? null : list.get(0);
 	}

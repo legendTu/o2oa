@@ -25,8 +25,8 @@ import com.x.processplatform.assemble.bam.stub.ProcessStub;
 import com.x.processplatform.assemble.bam.stub.ProcessStubs;
 import com.x.processplatform.core.entity.content.Work;
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
+import com.x.processplatform.core.entity.content.WorkStatic;
 
 public class TimerExpiredWorkApplicationStubs extends BaseAction {
 	public ApplicationStubs execute(EntityManagerContainer emc) throws Exception {
@@ -58,8 +58,8 @@ public class TimerExpiredWorkApplicationStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.between(root.get(Work_.expireTime), dateRange.getStart(), dateRange.getEnd());
-		cq.select(root.get(Work_.application)).distinct(true).where(p);
+		Predicate p = cb.between(root.get(WorkStatic.expireTime), dateRange.getStart(), dateRange.getEnd());
+		cq.select(root.get(WorkStatic.application)).distinct(true).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return list;
 	}
@@ -71,9 +71,9 @@ public class TimerExpiredWorkApplicationStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.between(root.get(WorkCompleted_.expireTime), dateRange.getStart(), dateRange.getEnd());
-		p = cb.and(p, cb.equal(root.get(WorkCompleted_.expired), true));
-		cq.select(root.get(WorkCompleted_.application)).distinct(true).where(p);
+		Predicate p = cb.between(root.get(WorkCompletedStatic.expireTime), dateRange.getStart(), dateRange.getEnd());
+		p = cb.and(p, cb.equal(root.get(WorkCompletedStatic.expired), true));
+		cq.select(root.get(WorkCompletedStatic.application)).distinct(true).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return list;
 	}
@@ -93,9 +93,9 @@ public class TimerExpiredWorkApplicationStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.between(root.get(Work_.expireTime), dateRange.getStart(), dateRange.getEnd());
-		p = cb.and(p, cb.equal(root.get(Work_.application), applicationId));
-		cq.select(root.get(Work_.applicationName)).where(p);
+		Predicate p = cb.between(root.get(WorkStatic.expireTime), dateRange.getStart(), dateRange.getEnd());
+		p = cb.and(p, cb.equal(root.get(WorkStatic.application), applicationId));
+		cq.select(root.get(WorkStatic.applicationName)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		return list.isEmpty() ? null : list.get(0);
 	}
@@ -107,10 +107,10 @@ public class TimerExpiredWorkApplicationStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.between(root.get(WorkCompleted_.expireTime), dateRange.getStart(), dateRange.getEnd());
-		p = cb.and(p, cb.equal(root.get(WorkCompleted_.expired), true));
-		p = cb.and(p, cb.equal(root.get(WorkCompleted_.application), applicationId));
-		cq.select(root.get(WorkCompleted_.applicationName)).where(p);
+		Predicate p = cb.between(root.get(WorkCompletedStatic.expireTime), dateRange.getStart(), dateRange.getEnd());
+		p = cb.and(p, cb.equal(root.get(WorkCompletedStatic.expired), true));
+		p = cb.and(p, cb.equal(root.get(WorkCompletedStatic.application), applicationId));
+		cq.select(root.get(WorkCompletedStatic.applicationName)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		return list.isEmpty() ? null : list.get(0);
 	}
@@ -146,9 +146,9 @@ public class TimerExpiredWorkApplicationStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.between(root.get(Work_.expireTime), dateRange.getStart(), dateRange.getEnd());
-		p = cb.and(p, cb.equal(root.get(Work_.application), applicationStub.getValue()));
-		cq.select(root.get(Work_.process)).distinct(true).where(p);
+		Predicate p = cb.between(root.get(WorkStatic.expireTime), dateRange.getStart(), dateRange.getEnd());
+		p = cb.and(p, cb.equal(root.get(WorkStatic.application), applicationStub.getValue()));
+		cq.select(root.get(WorkStatic.process)).distinct(true).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return list;
 	}
@@ -160,10 +160,10 @@ public class TimerExpiredWorkApplicationStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.between(root.get(WorkCompleted_.expireTime), dateRange.getStart(), dateRange.getEnd());
-		p = cb.and(p, cb.equal(root.get(WorkCompleted_.expired), true));
-		p = cb.and(p, cb.equal(root.get(WorkCompleted_.application), applicationStub.getValue()));
-		cq.select(root.get(WorkCompleted_.process)).distinct(true).where(p);
+		Predicate p = cb.between(root.get(WorkCompletedStatic.expireTime), dateRange.getStart(), dateRange.getEnd());
+		p = cb.and(p, cb.equal(root.get(WorkCompletedStatic.expired), true));
+		p = cb.and(p, cb.equal(root.get(WorkCompletedStatic.application), applicationStub.getValue()));
+		cq.select(root.get(WorkCompletedStatic.process)).distinct(true).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return list;
 	}
@@ -182,9 +182,9 @@ public class TimerExpiredWorkApplicationStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.between(root.get(Work_.expireTime), dateRange.getStart(), dateRange.getEnd());
-		p = cb.and(p, cb.equal(root.get(Work_.process), processId));
-		cq.select(root.get(Work_.processName)).where(p);
+		Predicate p = cb.between(root.get(WorkStatic.expireTime), dateRange.getStart(), dateRange.getEnd());
+		p = cb.and(p, cb.equal(root.get(WorkStatic.process), processId));
+		cq.select(root.get(WorkStatic.processName)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		return list.isEmpty() ? null : list.get(0);
 	}
@@ -196,10 +196,10 @@ public class TimerExpiredWorkApplicationStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.between(root.get(WorkCompleted_.expireTime), dateRange.getStart(), dateRange.getEnd());
-		p = cb.and(p, cb.equal(root.get(WorkCompleted_.expired), true));
-		p = cb.and(p, cb.equal(root.get(WorkCompleted_.process), processId));
-		cq.select(root.get(WorkCompleted_.processName)).where(p);
+		Predicate p = cb.between(root.get(WorkCompletedStatic.expireTime), dateRange.getStart(), dateRange.getEnd());
+		p = cb.and(p, cb.equal(root.get(WorkCompletedStatic.expired), true));
+		p = cb.and(p, cb.equal(root.get(WorkCompletedStatic.process), processId));
+		cq.select(root.get(WorkCompletedStatic.processName)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		return list.isEmpty() ? null : list.get(0);
 	}

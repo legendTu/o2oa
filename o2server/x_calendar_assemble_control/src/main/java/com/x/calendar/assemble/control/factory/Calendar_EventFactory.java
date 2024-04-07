@@ -15,7 +15,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.calendar.assemble.control.AbstractFactory;
 import com.x.calendar.assemble.control.Business;
 import com.x.calendar.core.entity.Calendar_Event;
-import com.x.calendar.core.entity.Calendar_Event_;
+import com.x.calendar.core.entity.Calendar_EventStatic;
 import com.x.calendar.core.tools.CriteriaBuilderTools;
 
 
@@ -53,7 +53,7 @@ public class Calendar_EventFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Calendar_Event> cq = cb.createQuery(Calendar_Event.class);
 		Root<Calendar_Event> root = cq.from(Calendar_Event.class);
-		Predicate p = root.get( Calendar_Event_.id).in(ids);
+		Predicate p = root.get( Calendar_EventStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -65,8 +65,8 @@ public class Calendar_EventFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Calendar_Event> root = cq.from(Calendar_Event.class);
-		Predicate p = cb.equal( root.get( Calendar_Event_.calendarId), calendarId);
-		cq.select(root.get(Calendar_Event_.id));
+		Predicate p = cb.equal( root.get( Calendar_EventStatic.calendarId), calendarId);
+		cq.select(root.get(Calendar_EventStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -94,53 +94,53 @@ public class Calendar_EventFactory extends AbstractFactory {
 		
 		Predicate p = null;
 		if( ListTools.isNotEmpty( calendarIds )) {
-			p = CriteriaBuilderTools.predicate_and( cb, p, root.get(Calendar_Event_.calendarId).in( calendarIds ));
+			p = CriteriaBuilderTools.predicate_and( cb, p, root.get(Calendar_EventStatic.calendarId).in( calendarIds ));
 		}		
 		if( StringUtils.isNotEmpty( eventType )) {
-			p =CriteriaBuilderTools.predicate_and( cb, p, cb.equal(root.get(Calendar_Event_.eventType), eventType));
+			p =CriteriaBuilderTools.predicate_and( cb, p, cb.equal(root.get(Calendar_EventStatic.eventType), eventType));
 		}
 		if( StringUtils.isNotEmpty( source )) {
-			p =CriteriaBuilderTools.predicate_and( cb, p, cb.equal(root.get(Calendar_Event_.source), source));
+			p =CriteriaBuilderTools.predicate_and( cb, p, cb.equal(root.get(Calendar_EventStatic.source), source));
 		}
 		if( StringUtils.isNotEmpty( createPerson )) {
-			p =CriteriaBuilderTools.predicate_and( cb, p, cb.equal(root.get(Calendar_Event_.createPerson), createPerson));
+			p =CriteriaBuilderTools.predicate_and( cb, p, cb.equal(root.get(Calendar_EventStatic.createPerson), createPerson));
 		}
 		if( startTime != null ) {
 			if( endTime == null ) {
 				throw new Exception("endTime is null!");
 			}else {
-				p =CriteriaBuilderTools.predicate_and( cb, p, cb.lessThanOrEqualTo( root.get(Calendar_Event_.startTime), endTime ));
-				p =CriteriaBuilderTools.predicate_and( cb, p, cb.greaterThanOrEqualTo( root.get(Calendar_Event_.endTime), startTime ));
+				p =CriteriaBuilderTools.predicate_and( cb, p, cb.lessThanOrEqualTo( root.get(Calendar_EventStatic.startTime), endTime ));
+				p =CriteriaBuilderTools.predicate_and( cb, p, cb.greaterThanOrEqualTo( root.get(Calendar_EventStatic.endTime), startTime ));
 			}
 		}
 
 		//权限过滤
 		Predicate permission = null;
 		if( StringUtils.isNotEmpty( personName )) {
-			permission =CriteriaBuilderTools.predicate_or( cb, permission, cb.isMember(personName, root.get(Calendar_Event_.manageablePersonList)));
-			permission =CriteriaBuilderTools.predicate_or( cb, permission, cb.isMember(personName, root.get(Calendar_Event_.viewablePersonList)));
+			permission =CriteriaBuilderTools.predicate_or( cb, permission, cb.isMember(personName, root.get(Calendar_EventStatic.manageablePersonList)));
+			permission =CriteriaBuilderTools.predicate_or( cb, permission, cb.isMember(personName, root.get(Calendar_EventStatic.viewablePersonList)));
 		}
 		if( ListTools.isNotEmpty( unitNames )) {
-			permission =CriteriaBuilderTools.predicate_or( cb, permission, root.get(Calendar_Event_.viewableUnitList).in( unitNames ));
+			permission =CriteriaBuilderTools.predicate_or( cb, permission, root.get(Calendar_EventStatic.viewableUnitList).in( unitNames ));
 		}
 		if( ListTools.isNotEmpty( groupNames )) {
-			permission =CriteriaBuilderTools.predicate_or( cb, permission, root.get(Calendar_Event_.viewableGroupList).in( groupNames ));		
+			permission =CriteriaBuilderTools.predicate_or( cb, permission, root.get(Calendar_EventStatic.viewableGroupList).in( groupNames ));
 		}
 		if( permission != null ) {
-			permission = CriteriaBuilderTools.predicate_or( cb, permission, cb.isTrue( root.get(Calendar_Event_.isPublic) ) );		
+			permission = CriteriaBuilderTools.predicate_or( cb, permission, cb.isTrue( root.get(Calendar_EventStatic.isPublic) ) );
 		}
 		p = CriteriaBuilderTools.predicate_and( cb, p, permission );
 		
 		//模糊搜索
 		Predicate p_key = null;
 		if( StringUtils.isNotEmpty( key )) {
-			p_key = cb.like(root.get(Calendar_Event_.title), key);
-			p_key = CriteriaBuilderTools.predicate_or( cb, p_key, cb.like(root.get(Calendar_Event_.comment), key) );
+			p_key = cb.like(root.get(Calendar_EventStatic.title), key);
+			p_key = CriteriaBuilderTools.predicate_or( cb, p_key, cb.like(root.get(Calendar_EventStatic.comment), key) );
 		}
 		
 		p = CriteriaBuilderTools.predicate_and( cb, p, p_key );
 		
-		cq.select(root.get(Calendar_Event_.id));
+		cq.select(root.get(Calendar_EventStatic.id));
 		
 		return em.createQuery(cq.where(p)).getResultList();
 	}
@@ -161,18 +161,18 @@ public class Calendar_EventFactory extends AbstractFactory {
 		
 		Predicate p = null;
 		if( StringUtils.isNotEmpty( repeatMasterId )) {
-			p = CriteriaBuilderTools.predicate_and( cb, p, cb.equal(root.get(Calendar_Event_.repeatMasterId), repeatMasterId));
+			p = CriteriaBuilderTools.predicate_and( cb, p, cb.equal(root.get(Calendar_EventStatic.repeatMasterId), repeatMasterId));
 		}
 		if( startTime != null ) {
 			if( endTime == null ) {
 				//查询startTime之后的所有记录
-				p = CriteriaBuilderTools.predicate_and( cb, p, cb.greaterThanOrEqualTo( root.get(Calendar_Event_.startTime), startTime ));
+				p = CriteriaBuilderTools.predicate_and( cb, p, cb.greaterThanOrEqualTo( root.get(Calendar_EventStatic.startTime), startTime ));
 			}else {
-				p = CriteriaBuilderTools.predicate_and( cb, p, cb.lessThanOrEqualTo( root.get(Calendar_Event_.startTime), endTime ));
-				p = CriteriaBuilderTools.predicate_and( cb, p, cb.greaterThanOrEqualTo( root.get(Calendar_Event_.endTime), startTime ));
+				p = CriteriaBuilderTools.predicate_and( cb, p, cb.lessThanOrEqualTo( root.get(Calendar_EventStatic.startTime), endTime ));
+				p = CriteriaBuilderTools.predicate_and( cb, p, cb.greaterThanOrEqualTo( root.get(Calendar_EventStatic.endTime), startTime ));
 			}
 		}
-		cq.select(root.get(Calendar_Event_.id));
+		cq.select(root.get(Calendar_EventStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -184,7 +184,7 @@ public class Calendar_EventFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Calendar_Event> root = cq.from(Calendar_Event.class);
-		Predicate p = cb.equal(root.get(Calendar_Event_.repeatMasterId), repeatMasterId);
+		Predicate p = cb.equal(root.get(Calendar_EventStatic.repeatMasterId), repeatMasterId);
 		cq.select( cb.count( root ) );
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -203,12 +203,12 @@ public class Calendar_EventFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Calendar_Event> root = cq.from(Calendar_Event.class);
-		Predicate p = cb.equal(root.get(Calendar_Event_.startTimeStr), calendar_Event.getStartTimeStr() );
-		p = CriteriaBuilderTools.predicate_and(cb, p, cb.equal(root.get(Calendar_Event_.endTimeStr), calendar_Event.getEndTimeStr() ) );
-		p = CriteriaBuilderTools.predicate_and(cb, p, cb.equal(root.get(Calendar_Event_.isAllDayEvent), calendar_Event.getIsAllDayEvent() ) );
-		p = CriteriaBuilderTools.predicate_and(cb, p, cb.equal(root.get(Calendar_Event_.title), calendar_Event.getTitle() ) );
+		Predicate p = cb.equal(root.get(Calendar_EventStatic.startTimeStr), calendar_Event.getStartTimeStr() );
+		p = CriteriaBuilderTools.predicate_and(cb, p, cb.equal(root.get(Calendar_EventStatic.endTimeStr), calendar_Event.getEndTimeStr() ) );
+		p = CriteriaBuilderTools.predicate_and(cb, p, cb.equal(root.get(Calendar_EventStatic.isAllDayEvent), calendar_Event.getIsAllDayEvent() ) );
+		p = CriteriaBuilderTools.predicate_and(cb, p, cb.equal(root.get(Calendar_EventStatic.title), calendar_Event.getTitle() ) );
 		if( StringUtils.isNotEmpty( calendar_Event.getRepeatMasterId() )) {
-			p = CriteriaBuilderTools.predicate_and(cb, p, cb.equal(root.get(Calendar_Event_.repeatMasterId), calendar_Event.getRepeatMasterId() ) );
+			p = CriteriaBuilderTools.predicate_and(cb, p, cb.equal(root.get(Calendar_EventStatic.repeatMasterId), calendar_Event.getRepeatMasterId() ) );
 		}	
 		cq.select( cb.count( root ) );
 		Long count = em.createQuery(cq.where(p)).getSingleResult();
@@ -223,9 +223,9 @@ public class Calendar_EventFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Calendar_Event> root = cq.from(Calendar_Event.class);
-		Predicate p = cb.lessThanOrEqualTo( root.get(Calendar_Event_.alarmTime), date );
-		p = cb.and( p, cb.isFalse( root.get(Calendar_Event_.alarmAlready ) ));
-		cq.select(root.get(Calendar_Event_.id));
+		Predicate p = cb.lessThanOrEqualTo( root.get(Calendar_EventStatic.alarmTime), date );
+		p = cb.and( p, cb.isFalse( root.get(Calendar_EventStatic.alarmAlready ) ));
+		cq.select(root.get(Calendar_EventStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -237,8 +237,8 @@ public class Calendar_EventFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Calendar_Event> root = cq.from(Calendar_Event.class);
-		Predicate p = cb.equal( root.get(Calendar_Event_.bundle ), bundle);
-		cq.select(root.get(Calendar_Event_.id));
+		Predicate p = cb.equal( root.get(Calendar_EventStatic.bundle ), bundle);
+		cq.select(root.get(Calendar_EventStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 }

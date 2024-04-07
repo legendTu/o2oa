@@ -28,7 +28,7 @@ import com.x.base.core.project.tools.DateTools;
 import com.x.base.core.project.tools.ListTools;
 import com.x.cms.core.entity.Document;
 import com.x.query.core.entity.Item;
-import com.x.query.core.entity.Item_;
+import com.x.query.core.entity.ItemStatic;
 
 public class Query extends GsonPropertyObject {
 
@@ -432,8 +432,8 @@ public class Query extends GsonPropertyObject {
 						CriteriaQuery<String> cq = cb.createQuery(String.class);
 						Root<Item> root = cq.from(Item.class);
 						Predicate p = FilterEntryTools.toPredicate(cb, root, f);
-						p = cb.and(p, root.get(Item_.bundle).in(jobs));
-						cq.select(root.get(Item_.bundle)).where(p);
+						p = cb.and(p, root.get(ItemStatic.bundle).in(jobs));
+						cq.select(root.get(ItemStatic.bundle)).where(p);
 						List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 						/** 不等于在这里单独通过等于处理 */
 						if (Comparison.isNotEquals(f.getComparison())) {
@@ -461,8 +461,8 @@ public class Query extends GsonPropertyObject {
 						CriteriaQuery<String> cq = cb.createQuery(String.class);
 						Root<Item> root = cq.from(Item.class);
 						Predicate p = FilterEntryTools.toPredicate(cb, root, f);
-						p = cb.and(p, root.get(Item_.bundle).in(jobs));
-						cq.select(root.get(Item_.bundle)).where(p);
+						p = cb.and(p, root.get(ItemStatic.bundle).in(jobs));
+						cq.select(root.get(ItemStatic.bundle)).where(p);
 						List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 						/** 不等于在这里单独通过等于处理 */
 						if (Comparison.isNotEquals(f.getComparison())) {
@@ -572,14 +572,14 @@ public class Query extends GsonPropertyObject {
 			Root<Item> root = cq.from(Item.class);
 			Predicate p = root.get(Item.bundle_FIELDNAME).in(docIds);
 			String[] paths = StringUtils.split(selectEntry.getPath(), ".");
-			p = cb.and(p, cb.equal(root.get(Item_.path0), paths.length > 0 ? paths[0] : ""));
-			p = cb.and(p, cb.equal(root.get(Item_.path1), paths.length > 1 ? paths[1] : ""));
-			p = cb.and(p, cb.equal(root.get(Item_.path2), paths.length > 2 ? paths[2] : ""));
-			p = cb.and(p, cb.equal(root.get(Item_.path3), paths.length > 3 ? paths[3] : ""));
-			p = cb.and(p, cb.equal(root.get(Item_.path4), paths.length > 4 ? paths[4] : ""));
-			p = cb.and(p, cb.equal(root.get(Item_.path5), paths.length > 5 ? paths[5] : ""));
-			p = cb.and(p, cb.equal(root.get(Item_.path6), paths.length > 6 ? paths[6] : ""));
-			p = cb.and(p, cb.equal(root.get(Item_.path7), paths.length > 7 ? paths[7] : ""));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path0), paths.length > 0 ? paths[0] : ""));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path1), paths.length > 1 ? paths[1] : ""));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path2), paths.length > 2 ? paths[2] : ""));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path3), paths.length > 3 ? paths[3] : ""));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path4), paths.length > 4 ? paths[4] : ""));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path5), paths.length > 5 ? paths[5] : ""));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path6), paths.length > 6 ? paths[6] : ""));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path7), paths.length > 7 ? paths[7] : ""));
 			cq.select(root).where(p);
 			List<Item> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 			for (Item o : list) {

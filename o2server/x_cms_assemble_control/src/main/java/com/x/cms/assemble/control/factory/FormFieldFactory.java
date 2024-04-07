@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.element.FormField;
-import com.x.cms.core.entity.element.FormField_;
+import com.x.cms.core.entity.element.FormFieldStatic;
 
 public class FormFieldFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class FormFieldFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<FormField> root = cq.from(FormField.class);
-		Predicate p = cb.equal(root.get(FormField_.appId), appId);
-		cq.select(root.get(FormField_.id)).where(p);
+		Predicate p = cb.equal(root.get(FormFieldStatic.appId), appId);
+		cq.select(root.get(FormFieldStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,8 +34,8 @@ public class FormFieldFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<FormField> root = cq.from(FormField.class);
-		Predicate p = cb.equal(root.get(FormField_.form), form);
-		cq.select(root.get(FormField_.id)).where(p);
+		Predicate p = cb.equal(root.get(FormFieldStatic.form), form);
+		cq.select(root.get(FormFieldStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

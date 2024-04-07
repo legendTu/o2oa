@@ -28,7 +28,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Work;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkStatic;
 
 class ActionListMyPaging extends BaseAction {
 
@@ -175,42 +175,42 @@ class ActionListMyPaging extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.creatorPerson), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(WorkStatic.creatorPerson), effectivePerson.getDistinguishedName());
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(Work_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(WorkStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
 			if(BooleanUtils.isFalse(wi.getRelateEditionProcess())) {
-				p = cb.and(p, root.get(Work_.process).in(wi.getProcessList()));
+				p = cb.and(p, root.get(WorkStatic.process).in(wi.getProcessList()));
 			}else{
-				p = cb.and(p, root.get(Work_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+				p = cb.and(p, root.get(WorkStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 			}
 		}
 		if (DateTools.isDateTimeOrDate(wi.getStartTime())) {
-			p = cb.and(p, cb.greaterThan(root.get(Work_.startTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(WorkStatic.startTime), DateTools.parse(wi.getStartTime())));
 		}
 		if (DateTools.isDateTimeOrDate(wi.getEndTime())) {
-			p = cb.and(p, cb.lessThan(root.get(Work_.startTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(WorkStatic.startTime), DateTools.parse(wi.getEndTime())));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(Work_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(WorkStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(Work_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(WorkStatic.activityName).in(wi.getActivityNameList()));
 		}
 //		if (ListTools.isNotEmpty(wi.getWorkStatusList())) {
 //			p = cb.and(p, root.get(Work_.workStatus).in(wi.getWorkStatusList()));
 //		}
 		if (null != wi.getWorkThroughManual()) {
-			p = cb.and(p, cb.equal(root.get(Work_.workThroughManual), wi.getWorkThroughManual()));
+			p = cb.and(p, cb.equal(root.get(WorkStatic.workThroughManual), wi.getWorkThroughManual()));
 		}
 		if (null != wi.getDataChanged()) {
-			p = cb.and(p, cb.equal(root.get(Work_.dataChanged), wi.getDataChanged()));
+			p = cb.and(p, cb.equal(root.get(WorkStatic.dataChanged), wi.getDataChanged()));
 		}
 		String key = StringTools.escapeSqlLikeKey(wi.getKey());
 		if (StringUtils.isNotEmpty(key)) {
 			key = "%" + key + "%";
-			p = cb.and(p, cb.or(cb.like(root.get(Work_.title), key), cb.like(root.get(Work_.serial), key)));
+			p = cb.and(p, cb.or(cb.like(root.get(WorkStatic.title), key), cb.like(root.get(WorkStatic.serial), key)));
 		}
 		return p;
 	}

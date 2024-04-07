@@ -16,7 +16,7 @@ import com.x.attendance.assemble.control.AbstractFactory;
 import com.x.attendance.assemble.control.Business;
 import com.x.attendance.assemble.control.jaxrs.attendancestatistic.WrapInFilterStatisticTopUnitForMonth;
 import com.x.attendance.entity.StatisticTopUnitForMonth;
-import com.x.attendance.entity.StatisticTopUnitForMonth_;
+import com.x.attendance.entity.StatisticTopUnitForMonthStatic;
 import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
@@ -40,7 +40,7 @@ public class StatisticTopUnitForMonthFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<StatisticTopUnitForMonth> root = cq.from( StatisticTopUnitForMonth.class);
-		cq.select(root.get(StatisticTopUnitForMonth_.id));
+		cq.select(root.get(StatisticTopUnitForMonthStatic.id));
 		return em.createQuery(cq).getResultList();
 	}
 	
@@ -53,7 +53,7 @@ public class StatisticTopUnitForMonthFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<StatisticTopUnitForMonth> cq = cb.createQuery(StatisticTopUnitForMonth.class);
 		Root<StatisticTopUnitForMonth> root = cq.from(StatisticTopUnitForMonth.class);
-		Predicate p = root.get(StatisticTopUnitForMonth_.id).in(ids);
+		Predicate p = root.get(StatisticTopUnitForMonthStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -66,18 +66,18 @@ public class StatisticTopUnitForMonthFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<StatisticTopUnitForMonth> root = cq.from( StatisticTopUnitForMonth.class);
-		Predicate p = cb.equal( root.get(StatisticTopUnitForMonth_.topUnitName), topUnitName);
+		Predicate p = cb.equal( root.get(StatisticTopUnitForMonthStatic.topUnitName), topUnitName);
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticTopUnitForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticTopUnitForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticTopUnitForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticTopUnitForMonthStatic.statisticMonth), sMonth));
 		}
-		cq.select(root.get(StatisticTopUnitForMonth_.id));
+		cq.select(root.get(StatisticTopUnitForMonthStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(60).getResultList();
 	}
 	

@@ -14,7 +14,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.bbs.assemble.control.AbstractFactory;
 import com.x.bbs.assemble.control.Business;
 import com.x.bbs.entity.BBSOperationRecord;
-import com.x.bbs.entity.BBSOperationRecord_;
+import com.x.bbs.entity.BBSOperationRecordStatic;
 
 /**
  * 类   名：BBSOperationRecordFactory<br/>
@@ -43,7 +43,7 @@ public class BBSOperationRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSOperationRecord> cq = cb.createQuery(BBSOperationRecord.class);
 		Root<BBSOperationRecord> root = cq.from(BBSOperationRecord.class);
-		Predicate p = root.get(BBSOperationRecord_.id).in(ids);
+		Predicate p = root.get(BBSOperationRecordStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -53,8 +53,8 @@ public class BBSOperationRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<BBSOperationRecord> root = cq.from(BBSOperationRecord.class);
-		Predicate p = cb.isNotNull( root.get(BBSOperationRecord_.id) );
-		cq.select( root.get(BBSOperationRecord_.operatorName) );
+		Predicate p = cb.isNotNull( root.get(BBSOperationRecordStatic.id) );
+		cq.select( root.get(BBSOperationRecordStatic.operatorName) );
 		return em.createQuery(cq.where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 }

@@ -31,7 +31,7 @@ import com.x.processplatform.core.entity.content.Task;
 import com.x.processplatform.core.entity.content.TaskCompleted;
 import com.x.processplatform.core.entity.content.Work;
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
 import com.x.processplatform.core.entity.content.WorkLog;
 
 class ActionReference extends BaseAction {
@@ -129,7 +129,7 @@ class ActionReference extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<WorkCompleted> cq = cb.createQuery(WorkCompleted.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.equal(root.get(WorkCompleted_.job), taskCompleted.getJob());
+		Predicate p = cb.equal(root.get(WorkCompletedStatic.job), taskCompleted.getJob());
 		cq.select(root).where(p);
 		List<WorkCompleted> list = em.createQuery(cq).getResultList();
 		List<WoWorkCompleted> wos = WoWorkCompleted.copier.copy(list);

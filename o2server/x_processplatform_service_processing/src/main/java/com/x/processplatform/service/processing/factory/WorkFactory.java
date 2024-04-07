@@ -9,7 +9,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.x.processplatform.core.entity.content.Work;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkStatic;
 import com.x.processplatform.service.processing.AbstractFactory;
 import com.x.processplatform.service.processing.Business;
 
@@ -24,8 +24,8 @@ public class WorkFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.job), job);
-		cq.select(root.get(Work_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkStatic.job), job);
+		cq.select(root.get(WorkStatic.id)).where(p);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -34,8 +34,8 @@ public class WorkFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.isMember(splitToken, root.get(Work_.splitTokenList));
-		cq.select(root.get(Work_.id)).where(p);
+		Predicate p = cb.isMember(splitToken, root.get(WorkStatic.splitTokenList));
+		cq.select(root.get(WorkStatic.id)).where(p);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -57,8 +57,8 @@ public class WorkFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.activityToken), activityToken);
-		cq.select(root.get(Work_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkStatic.activityToken), activityToken);
+		cq.select(root.get(WorkStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -67,8 +67,8 @@ public class WorkFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = root.get(Work_.activityToken).in(activityTokens);
-		cq.select(root.get(Work_.id)).where(p);
+		Predicate p = root.get(WorkStatic.activityToken).in(activityTokens);
+		cq.select(root.get(WorkStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

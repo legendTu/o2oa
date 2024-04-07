@@ -17,7 +17,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
 
 class ActionListCountWithApplication extends BaseAction {
 
@@ -30,8 +30,8 @@ class ActionListCountWithApplication extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<String> cq = cb.createQuery(String.class);
 			Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-			Predicate p = cb.equal(root.get(WorkCompleted_.creatorPerson), effectivePerson.getDistinguishedName());
-			cq.select(root.get(WorkCompleted_.application)).where(p);
+			Predicate p = cb.equal(root.get(WorkCompletedStatic.creatorPerson), effectivePerson.getDistinguishedName());
+			cq.select(root.get(WorkCompletedStatic.application)).where(p);
 			for (String str : em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList())) {
 				NameValueCountPair o = new NameValueCountPair();
 				o.setValue(str);
@@ -49,8 +49,8 @@ class ActionListCountWithApplication extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.equal(root.get(WorkCompleted_.creatorPerson), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(WorkCompleted_.application), id));
+		Predicate p = cb.equal(root.get(WorkCompletedStatic.creatorPerson), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(WorkCompletedStatic.application), id));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

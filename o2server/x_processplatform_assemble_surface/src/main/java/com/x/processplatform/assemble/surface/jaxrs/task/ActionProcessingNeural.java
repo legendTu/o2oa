@@ -52,7 +52,7 @@ import com.x.processplatform.core.entity.element.FormField;
 import com.x.processplatform.core.entity.element.FormField_;
 import com.x.processplatform.core.entity.element.Process;
 import com.x.query.core.entity.Item;
-import com.x.query.core.entity.Item_;
+import com.x.query.core.entity.ItemStatic;
 
 class ActionProcessingNeural extends BaseAction {
 
@@ -203,7 +203,7 @@ class ActionProcessingNeural extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Item> cq = cb.createQuery(Item.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = cb.equal(root.get(Item_.bundle), job);
+		Predicate p = cb.equal(root.get(ItemStatic.bundle), job);
 		List<Item> list = em.createQuery(cq.where(p)).getResultList();
 		if (list.isEmpty()) {
 			return new Data();

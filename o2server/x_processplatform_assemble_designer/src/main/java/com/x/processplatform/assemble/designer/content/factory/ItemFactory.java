@@ -12,7 +12,7 @@ import com.x.base.core.entity.dataitem.ItemCategory;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.query.core.entity.Item;
-import com.x.query.core.entity.Item_;
+import com.x.query.core.entity.ItemStatic;
 
 public class ItemFactory extends AbstractFactory {
 
@@ -25,8 +25,8 @@ public class ItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Item> cq = cb.createQuery(Item.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = cb.equal(root.get(Item_.bundle), job);
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), ItemCategory.pp));
+		Predicate p = cb.equal(root.get(ItemStatic.bundle), job);
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), ItemCategory.pp));
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}

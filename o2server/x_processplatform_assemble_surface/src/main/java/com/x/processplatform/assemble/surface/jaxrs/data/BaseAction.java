@@ -35,8 +35,8 @@ import com.x.processplatform.core.entity.content.Task;
 import com.x.processplatform.core.entity.content.TaskCompleted;
 import com.x.processplatform.core.entity.content.Work;
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
+import com.x.processplatform.core.entity.content.WorkStatic;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.query.core.entity.Item;
 
@@ -322,8 +322,8 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.job), job);
-		cq.select(root.get(Work_.application)).where(p);
+		Predicate p = cb.equal(root.get(WorkStatic.job), job);
+		cq.select(root.get(WorkStatic.application)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -332,8 +332,8 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.equal(root.get(WorkCompleted_.job), job);
-		cq.select(root.get(WorkCompleted_.application)).where(p);
+		Predicate p = cb.equal(root.get(WorkCompletedStatic.job), job);
+		cq.select(root.get(WorkCompletedStatic.application)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

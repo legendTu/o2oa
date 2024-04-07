@@ -22,7 +22,7 @@ import com.x.base.core.project.tools.SortTools;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.AppInfo;
 import com.x.cms.core.entity.element.QueryView;
-import com.x.cms.core.entity.element.QueryView_;
+import com.x.cms.core.entity.element.QueryViewStatic;
 
 public class ActionListAll extends BaseAction {
 
@@ -72,7 +72,7 @@ public class ActionListAll extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<QueryView> root = cq.from( QueryView.class );
-		cq.select(root.get( QueryView_.appId ));
+		cq.select(root.get( QueryViewStatic.appId ));
 		List<String> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		return list;
 	}
@@ -82,8 +82,8 @@ public class ActionListAll extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<QueryView> root = cq.from(QueryView.class);
-		Predicate p = cb.equal( root.get(QueryView_.appId), appId );
-		cq.select(root.get(QueryView_.id)).where(p);
+		Predicate p = cb.equal( root.get(QueryViewStatic.appId), appId );
+		cq.select(root.get(QueryViewStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		return list;
 	}

@@ -5,7 +5,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.cms.core.entity.AppInfo;
 import com.x.cms.core.entity.CategoryInfo;
 import com.x.cms.core.entity.Review;
-import com.x.cms.core.entity.Review_;
+import com.x.cms.core.entity.ReviewStatic;
 import com.x.cms.core.express.tools.CriteriaBuilderTools;
 import com.x.cms.core.express.tools.filter.QueryFilter;
 import org.apache.commons.lang3.StringUtils;
@@ -46,7 +46,7 @@ public class CmsPermissionService {
 		CriteriaQuery<Review> cq = cb.createQuery(Review.class);
 		Root<Review> root = cq.from(Review.class);
 		// Predicate p=null;
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter(Review_.class, cb, null, root, queryFilter);
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter(ReviewStatic.class, cb, null, root, queryFilter);
 		cq.orderBy(cb.desc(root.get(Review.publishTime_FIELDNAME)));
 		reviews = em.createQuery(cq.where(p)).setMaxResults(maxResultCount).getResultList();
 		if ( ListTools.isNotEmpty( reviews )) {

@@ -13,7 +13,7 @@ import com.x.attendance.assemble.control.AbstractFactory;
 import com.x.attendance.assemble.control.Business;
 import com.x.attendance.assemble.control.service.AttendanceSettingServiceAdv;
 import com.x.attendance.entity.AttendanceWorkDayConfig;
-import com.x.attendance.entity.AttendanceWorkDayConfig_;
+import com.x.attendance.entity.AttendanceWorkDayConfigStatic;
 import com.x.base.core.project.exception.ExceptionWhen;
 
 /**
@@ -52,7 +52,7 @@ public class AttendanceWorkDayConfigFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceWorkDayConfig> cq = cb.createQuery(AttendanceWorkDayConfig.class);
 		Root<AttendanceWorkDayConfig> root = cq.from(AttendanceWorkDayConfig.class);
-		Predicate p = root.get(AttendanceWorkDayConfig_.id).in(ids);
+		Predicate p = root.get(AttendanceWorkDayConfigStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -69,11 +69,11 @@ public class AttendanceWorkDayConfigFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceWorkDayConfig> root = cq.from( AttendanceWorkDayConfig.class);
-		cq.select(root.get(AttendanceWorkDayConfig_.id));
+		cq.select(root.get(AttendanceWorkDayConfigStatic.id));
 
-		Predicate p = cb.equal( root.get(AttendanceWorkDayConfig_.configYear), year);
+		Predicate p = cb.equal( root.get(AttendanceWorkDayConfigStatic.configYear), year);
 		if( month != null ){
-			p = cb.and( p, cb.equal( root.get(AttendanceWorkDayConfig_.configMonth), month));
+			p = cb.and( p, cb.equal( root.get(AttendanceWorkDayConfigStatic.configMonth), month));
 		}
 		return em.createQuery(cq.where(p)).getResultList();
 	}
@@ -87,11 +87,11 @@ public class AttendanceWorkDayConfigFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceWorkDayConfig> root = cq.from( AttendanceWorkDayConfig.class);
-		cq.select(root.get(AttendanceWorkDayConfig_.id));
+		cq.select(root.get(AttendanceWorkDayConfigStatic.id));
 
-		Predicate p = cb.equal( root.get(AttendanceWorkDayConfig_.configYear), year);
+		Predicate p = cb.equal( root.get(AttendanceWorkDayConfigStatic.configYear), year);
 		if( configName != null ){
-			p = cb.and( p, cb.equal( root.get(AttendanceWorkDayConfig_.configName), configName));
+			p = cb.and( p, cb.equal( root.get(AttendanceWorkDayConfigStatic.configName), configName));
 		}
 		return em.createQuery(cq.where(p)).getResultList();
 	}
@@ -102,9 +102,9 @@ public class AttendanceWorkDayConfigFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceWorkDayConfig> root = cq.from( AttendanceWorkDayConfig.class);
-		cq.select(root.get(AttendanceWorkDayConfig_.id));
+		cq.select(root.get(AttendanceWorkDayConfigStatic.id));
 
-		Predicate p = cb.equal( root.get(AttendanceWorkDayConfig_.configName), configName);
+		Predicate p = cb.equal( root.get(AttendanceWorkDayConfigStatic.configName), configName);
 
 		return em.createQuery(cq.where(p)).getResultList();
 	}

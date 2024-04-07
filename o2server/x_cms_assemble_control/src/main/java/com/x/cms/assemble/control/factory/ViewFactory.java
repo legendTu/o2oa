@@ -14,8 +14,8 @@ import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.element.View;
 import com.x.cms.core.entity.element.ViewCategory;
-import com.x.cms.core.entity.element.ViewCategory_;
-import com.x.cms.core.entity.element.View_;
+import com.x.cms.core.entity.element.ViewCategoryStatic;
+import com.x.cms.core.entity.element.ViewStatic;
 
 /**
  * 视图配置管理基础功能服务类
@@ -54,7 +54,7 @@ public class ViewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<View> root = cq.from( View.class );
-		cq.select(root.get(View_.id));
+		cq.select(root.get(ViewStatic.id));
 		return em.createQuery(cq).getResultList();
 	}
 	
@@ -89,8 +89,8 @@ public class ViewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ViewCategory> root = cq.from( ViewCategory.class );
-		cq.select( root.get(ViewCategory_.viewId ));
-		Predicate p = cb.equal(root.get( ViewCategory_.categoryId ), categoryId );
+		cq.select( root.get(ViewCategoryStatic.viewId ));
+		Predicate p = cb.equal(root.get( ViewCategoryStatic.categoryId ), categoryId );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -109,8 +109,8 @@ public class ViewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<View> root = cq.from( View.class );
-		cq.select(root.get(View_.id));
-		Predicate p = cb.equal(root.get( View_.appId ), id);
+		cq.select(root.get(ViewStatic.id));
+		Predicate p = cb.equal(root.get( ViewStatic.appId ), id);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -129,8 +129,8 @@ public class ViewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<View> root = cq.from( View.class );
-		cq.select(root.get(View_.id));
-		Predicate p = cb.equal(root.get( View_.formId ), id);
+		cq.select(root.get(ViewStatic.id));
+		Predicate p = cb.equal(root.get( ViewStatic.formId ), id);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 

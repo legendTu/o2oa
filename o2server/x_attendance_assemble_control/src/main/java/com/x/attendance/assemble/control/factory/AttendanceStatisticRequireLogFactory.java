@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.x.attendance.assemble.control.AbstractFactory;
 import com.x.attendance.assemble.control.Business;
 import com.x.attendance.entity.AttendanceStatisticRequireLog;
-import com.x.attendance.entity.AttendanceStatisticRequireLog_;
+import com.x.attendance.entity.AttendanceStatisticRequireLogStatic;
 import com.x.base.core.project.exception.ExceptionWhen;
 /**
  * 员工考勤需求配置服务器
@@ -49,7 +49,7 @@ public class AttendanceStatisticRequireLogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceStatisticRequireLog> cq = cb.createQuery(AttendanceStatisticRequireLog.class);
 		Root<AttendanceStatisticRequireLog> root = cq.from(AttendanceStatisticRequireLog.class);
-		Predicate p = root.get(AttendanceStatisticRequireLog_.id).in(ids);
+		Predicate p = root.get(AttendanceStatisticRequireLogStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -59,15 +59,15 @@ public class AttendanceStatisticRequireLogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceStatisticRequireLog> cq = cb.createQuery(AttendanceStatisticRequireLog.class);
 		Root<AttendanceStatisticRequireLog> root = cq.from(AttendanceStatisticRequireLog.class);
-		Predicate p = root.get(AttendanceStatisticRequireLog_.id).isNotNull();
+		Predicate p = root.get(AttendanceStatisticRequireLogStatic.id).isNotNull();
 		if( StringUtils.isNotEmpty( name ) ){
-			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLog_.statisticName), name));
+			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLogStatic.statisticName), name));
 		}
 		if( StringUtils.isNotEmpty( key ) ){
-			p = cb.and(p,  cb.equal(root.get(AttendanceStatisticRequireLog_.statisticKey), key));
+			p = cb.and(p,  cb.equal(root.get(AttendanceStatisticRequireLogStatic.statisticKey), key));
 		}
 		if( StringUtils.isNotEmpty( stauts ) ){
-			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLog_.processStatus), stauts));
+			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLogStatic.processStatus), stauts));
 		}
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
@@ -77,24 +77,24 @@ public class AttendanceStatisticRequireLogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceStatisticRequireLog> cq = cb.createQuery(AttendanceStatisticRequireLog.class);
 		Root<AttendanceStatisticRequireLog> root = cq.from(AttendanceStatisticRequireLog.class);
-		Predicate p = root.get(AttendanceStatisticRequireLog_.id).isNotNull();
+		Predicate p = root.get(AttendanceStatisticRequireLogStatic.id).isNotNull();
 		if( StringUtils.isNotEmpty( statisticType ) ){
-			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLog_.statisticType), statisticType));
+			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLogStatic.statisticType), statisticType));
 		}
 		if( StringUtils.isNotEmpty( key ) ){
-			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLog_.statisticKey), key));
+			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLogStatic.statisticKey), key));
 		}
 		if( StringUtils.isNotEmpty( statisticYear ) ){
-			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLog_.statisticYear), statisticYear));
+			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLogStatic.statisticYear), statisticYear));
 		}
 		if( StringUtils.isNotEmpty( statisticMonth ) ){
-			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLog_.statisticMonth), statisticMonth));
+			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLogStatic.statisticMonth), statisticMonth));
 		}
 		if( StringUtils.isNotEmpty( statisticDate ) ){
-			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLog_.statisticDay), statisticDate));
+			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLogStatic.statisticDay), statisticDate));
 		}
 		if( StringUtils.isNotEmpty( status ) ){
-			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLog_.processStatus), status));
+			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLogStatic.processStatus), status));
 		}
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
@@ -112,12 +112,12 @@ public class AttendanceStatisticRequireLogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceStatisticRequireLog> cq = cb.createQuery(AttendanceStatisticRequireLog.class);
 		Root<AttendanceStatisticRequireLog> root = cq.from(AttendanceStatisticRequireLog.class);
-		Predicate p = root.get(AttendanceStatisticRequireLog_.id).isNotNull();
+		Predicate p = root.get(AttendanceStatisticRequireLogStatic.id).isNotNull();
 		if( StringUtils.isNotEmpty( statisticType ) ){
-			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLog_.statisticType), statisticType));
+			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLogStatic.statisticType), statisticType));
 		}
 		if( StringUtils.isNotEmpty( processStatus ) ){
-			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLog_.processStatus), processStatus));
+			p = cb.and(p, cb.equal(root.get(AttendanceStatisticRequireLogStatic.processStatus), processStatus));
 		}
 		return em.createQuery( cq.where(p) ).getResultList();
 	}

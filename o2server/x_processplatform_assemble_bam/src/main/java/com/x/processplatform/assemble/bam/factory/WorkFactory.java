@@ -15,7 +15,7 @@ import com.x.processplatform.assemble.bam.stub.ActivityStub;
 import com.x.processplatform.assemble.bam.stub.ApplicationStub;
 import com.x.processplatform.assemble.bam.stub.ProcessStub;
 import com.x.processplatform.core.entity.content.Work;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkStatic;
 
 public class WorkFactory extends AbstractFactory {
 
@@ -31,9 +31,9 @@ public class WorkFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Date> cq = cb.createQuery(Date.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.greaterThan(root.get(Work_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(Work_.application), applicationStub.getValue()));
-		cq.select(root.get(Work_.startTime)).where(p);
+		Predicate p = cb.greaterThan(root.get(WorkStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(WorkStatic.application), applicationStub.getValue()));
+		cq.select(root.get(WorkStatic.startTime)).where(p);
 		List<Date> os = em.createQuery(cq).getResultList();
 		int threeDay = 0;
 		int oneWeek = 0;
@@ -73,9 +73,9 @@ public class WorkFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Date> cq = cb.createQuery(Date.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.greaterThan(root.get(Work_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(Work_.process), processStub.getValue()));
-		cq.select(root.get(Work_.startTime)).where(p);
+		Predicate p = cb.greaterThan(root.get(WorkStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(WorkStatic.process), processStub.getValue()));
+		cq.select(root.get(WorkStatic.startTime)).where(p);
 		List<Date> os = em.createQuery(cq).getResultList();
 		int threeDay = 0;
 		int oneWeek = 0;
@@ -115,9 +115,9 @@ public class WorkFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Date> cq = cb.createQuery(Date.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.greaterThan(root.get(Work_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(Work_.activity), activityStub.getValue()));
-		cq.select(root.get(Work_.startTime)).where(p);
+		Predicate p = cb.greaterThan(root.get(WorkStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(WorkStatic.activity), activityStub.getValue()));
+		cq.select(root.get(WorkStatic.startTime)).where(p);
 		List<Date> os = em.createQuery(cq).getResultList();
 		int threeDay = 0;
 		int oneWeek = 0;

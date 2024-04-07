@@ -28,7 +28,7 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.schedule.AbstractJob;
 import com.x.base.core.project.utils.time.TimeStamp;
 import com.x.processplatform.core.entity.content.Work;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkStatic;
 import com.x.processplatform.service.processing.ThisApplication;
 
 import fr.opensagres.poi.xwpf.converter.core.utils.StringUtils;
@@ -81,10 +81,10 @@ public class TouchDetained extends AbstractJob {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<Work> root = cq.from(Work.class);
-		Path<String> id_path = root.get(Work_.id);
-		Path<String> job_path = root.get(Work_.job);
-		Path<String> sequence_path = root.get(Work_.sequence);
-		Path<Date> sequence_activityArrivedTime = root.get(Work_.activityArrivedTime);
+		Path<String> id_path = root.get(WorkStatic.id);
+		Path<String> job_path = root.get(WorkStatic.job);
+		Path<String> sequence_path = root.get(WorkStatic.sequence);
+		Path<Date> sequence_activityArrivedTime = root.get(WorkStatic.activityArrivedTime);
 		Predicate p = cb.lessThan(sequence_activityArrivedTime, date);
 		if (StringUtils.isNotEmpty(sequence)) {
 			p = cb.and(p, cb.greaterThan(sequence_path, sequence));

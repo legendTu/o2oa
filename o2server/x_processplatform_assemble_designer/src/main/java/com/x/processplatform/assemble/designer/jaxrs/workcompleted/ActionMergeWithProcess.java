@@ -28,11 +28,11 @@ import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.content.Data;
 import com.x.processplatform.core.entity.content.Record;
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Process;
 import com.x.query.core.entity.Item;
-import com.x.query.core.entity.Item_;
+import com.x.query.core.entity.ItemStatic;
 
 class ActionMergeWithProcess extends BaseAction {
 
@@ -99,7 +99,7 @@ class ActionMergeWithProcess extends BaseAction {
 		Root<Item> root = cq.from(Item.class);
 		Path<String> path = root.get(Item.bundle_FIELDNAME);
 		Predicate p = cb.equal(path, workCompleted.getJob());
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), ItemCategory.pp));
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), ItemCategory.pp));
 		List<Item> list = em.createQuery(cq.where(p)).getResultList();
 		return list;
 	}
@@ -109,10 +109,10 @@ class ActionMergeWithProcess extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.equal(root.get(WorkCompleted_.process), process.getId());
-		p = cb.and(p, cb.or(cb.isNull(root.get(WorkCompleted_.merged)),
-				cb.equal(root.get(WorkCompleted_.merged), false)));
-		cq.select(root.get(WorkCompleted_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkCompletedStatic.process), process.getId());
+		p = cb.and(p, cb.or(cb.isNull(root.get(WorkCompletedStatic.merged)),
+				cb.equal(root.get(WorkCompletedStatic.merged), false)));
+		cq.select(root.get(WorkCompletedStatic.id)).where(p);
 		return em.createQuery(cq).setMaxResults(100).getResultList();
 	}
 

@@ -17,7 +17,7 @@ import com.x.attendance.assemble.control.AbstractFactory;
 import com.x.attendance.assemble.control.Business;
 import com.x.attendance.assemble.control.jaxrs.attendanceappealinfo.WrapInFilterAppeal;
 import com.x.attendance.entity.AttendanceAppealInfo;
-import com.x.attendance.entity.AttendanceAppealInfo_;
+import com.x.attendance.entity.AttendanceAppealInfoStatic;
 import com.x.base.core.project.bean.NameValueCountPair;
 import com.x.base.core.project.exception.ExceptionWhen;
 /**
@@ -40,7 +40,7 @@ public class AttendanceAppealInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceAppealInfo> cq = cb.createQuery(AttendanceAppealInfo.class);
 		Root<AttendanceAppealInfo> root = cq.from( AttendanceAppealInfo.class);
-		Predicate p = cb.equal( root.get(AttendanceAppealInfo_.detailId),  id );
+		Predicate p = cb.equal( root.get(AttendanceAppealInfoStatic.detailId),  id );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -50,7 +50,7 @@ public class AttendanceAppealInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceAppealInfo> root = cq.from( AttendanceAppealInfo.class);
-		cq.select(root.get(AttendanceAppealInfo_.id));
+		cq.select(root.get(AttendanceAppealInfoStatic.id));
 		return em.createQuery(cq).getResultList();
 	}
 	
@@ -60,7 +60,7 @@ public class AttendanceAppealInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceAppealInfo> cq = cb.createQuery(AttendanceAppealInfo.class);
 		Root<AttendanceAppealInfo> root = cq.from( AttendanceAppealInfo.class);
-		cq.orderBy( cb.desc( root.get( AttendanceAppealInfo_.recordDateString) ) );	
+		cq.orderBy( cb.desc( root.get( AttendanceAppealInfoStatic.recordDateString) ) );
 		List<AttendanceAppealInfo> resultList = em.createQuery(cq).setMaxResults(1).getResultList();
 		if( resultList == null || resultList.size() == 0 ){
 			return null;
@@ -79,9 +79,9 @@ public class AttendanceAppealInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceAppealInfo> root = cq.from( AttendanceAppealInfo.class);
-		cq.select(root.get(AttendanceAppealInfo_.id));
-		Predicate p = cb.equal( root.get(AttendanceAppealInfo_.empName),  employeeName );
-		p = cb.and( p, cb.equal( root.get(AttendanceAppealInfo_.appealDateString ),  appealDateString ) );
+		cq.select(root.get(AttendanceAppealInfoStatic.id));
+		Predicate p = cb.equal( root.get(AttendanceAppealInfoStatic.empName),  employeeName );
+		p = cb.and( p, cb.equal( root.get(AttendanceAppealInfoStatic.appealDateString ),  appealDateString ) );
 		return em.createQuery(cq.where( p )).getResultList();
 	}
 	
@@ -95,9 +95,9 @@ public class AttendanceAppealInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceAppealInfo> root = cq.from( AttendanceAppealInfo.class);
-		cq.select(root.get(AttendanceAppealInfo_.id));
-		Predicate p = cb.equal( root.get(AttendanceAppealInfo_.unitName),  unitName );
-		p = cb.and( p, cb.equal( root.get(AttendanceAppealInfo_.appealDateString ),  appealDateString ) );
+		cq.select(root.get(AttendanceAppealInfoStatic.id));
+		Predicate p = cb.equal( root.get(AttendanceAppealInfoStatic.unitName),  unitName );
+		p = cb.and( p, cb.equal( root.get(AttendanceAppealInfoStatic.appealDateString ),  appealDateString ) );
 		return em.createQuery(cq.where( p )).getResultList();
 	}
 	
@@ -111,9 +111,9 @@ public class AttendanceAppealInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceAppealInfo> root = cq.from( AttendanceAppealInfo.class);
-		cq.select(root.get(AttendanceAppealInfo_.id));
-		Predicate p = cb.equal( root.get(AttendanceAppealInfo_.topUnitName),  topUnitName );
-		p = cb.and( p, cb.equal( root.get(AttendanceAppealInfo_.appealDateString ),  appealDateString ) );
+		cq.select(root.get(AttendanceAppealInfoStatic.id));
+		Predicate p = cb.equal( root.get(AttendanceAppealInfoStatic.topUnitName),  topUnitName );
+		p = cb.and( p, cb.equal( root.get(AttendanceAppealInfoStatic.appealDateString ),  appealDateString ) );
 		return em.createQuery(cq.where( p )).getResultList();
 	}
 	
@@ -126,7 +126,7 @@ public class AttendanceAppealInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceAppealInfo> cq = cb.createQuery(AttendanceAppealInfo.class);
 		Root<AttendanceAppealInfo> root = cq.from(AttendanceAppealInfo.class);
-		Predicate p = root.get(AttendanceAppealInfo_.id).in(ids);
+		Predicate p = root.get(AttendanceAppealInfoStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -139,14 +139,14 @@ public class AttendanceAppealInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceAppealInfo> root = cq.from( AttendanceAppealInfo.class);
-		cq.select( root.get(AttendanceAppealInfo_.id ));
+		cq.select( root.get(AttendanceAppealInfoStatic.id ));
 		//一般始终为true, id is not null
-		Predicate p = cb.equal( root.get(AttendanceAppealInfo_.empName), user );
+		Predicate p = cb.equal( root.get(AttendanceAppealInfoStatic.empName), user );
 		if( StringUtils.isNotEmpty( year  ) ){
-			p = cb.and(p, cb.equal( root.get(AttendanceAppealInfo_.yearString), year ));
+			p = cb.and(p, cb.equal( root.get(AttendanceAppealInfoStatic.yearString), year ));
 		}
 		if( StringUtils.isNotEmpty( month ) ){
-			p = cb.and(p, cb.equal( root.get(AttendanceAppealInfo_.monthString), month ));
+			p = cb.and(p, cb.equal( root.get(AttendanceAppealInfoStatic.monthString), month ));
 		}
 		
 		return em.createQuery(cq.where(p)).getResultList();
@@ -158,14 +158,14 @@ public class AttendanceAppealInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceAppealInfo> root = cq.from( AttendanceAppealInfo.class);
-		cq.select( root.get(AttendanceAppealInfo_.id ));
+		cq.select( root.get(AttendanceAppealInfoStatic.id ));
 		//一般始终为true, id is not null
-		Predicate p = cb.equal( root.get(AttendanceAppealInfo_.unitName), unitName );
+		Predicate p = cb.equal( root.get(AttendanceAppealInfoStatic.unitName), unitName );
 		if( StringUtils.isNotEmpty( year ) ){
-			p = cb.and(p, cb.equal( root.get(AttendanceAppealInfo_.yearString), year ));
+			p = cb.and(p, cb.equal( root.get(AttendanceAppealInfoStatic.yearString), year ));
 		}
 		if( StringUtils.isNotEmpty( month ) ){
-			p = cb.and(p, cb.equal( root.get(AttendanceAppealInfo_.monthString), month ));
+			p = cb.and(p, cb.equal( root.get(AttendanceAppealInfoStatic.monthString), month ));
 		}
 		
 		return em.createQuery(cq.where(p)).getResultList();
@@ -177,14 +177,14 @@ public class AttendanceAppealInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceAppealInfo> root = cq.from( AttendanceAppealInfo.class);
-		cq.select( root.get(AttendanceAppealInfo_.id ));
+		cq.select( root.get(AttendanceAppealInfoStatic.id ));
 		//一般始终为true, id is not null
-		Predicate p = cb.equal( root.get(AttendanceAppealInfo_.topUnitName), topUnitName );
+		Predicate p = cb.equal( root.get(AttendanceAppealInfoStatic.topUnitName), topUnitName );
 		if( StringUtils.isNotEmpty( year ) ){
-			p = cb.and(p, cb.equal( root.get(AttendanceAppealInfo_.yearString), year ));
+			p = cb.and(p, cb.equal( root.get(AttendanceAppealInfoStatic.yearString), year ));
 		}
 		if( StringUtils.isNotEmpty( month ) ){
-			p = cb.and(p, cb.equal( root.get(AttendanceAppealInfo_.monthString), month ));
+			p = cb.and(p, cb.equal( root.get(AttendanceAppealInfoStatic.monthString), month ));
 		}
 		
 		return em.createQuery(cq.where(p)).getResultList();
@@ -196,9 +196,9 @@ public class AttendanceAppealInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceAppealInfo> root = cq.from( AttendanceAppealInfo.class);
-		cq.select( root.get(AttendanceAppealInfo_.id ));
+		cq.select( root.get(AttendanceAppealInfoStatic.id ));
 		//一般始终为true, id is not null
-		Predicate p = cb.isNotNull( root.get(AttendanceAppealInfo_.archiveTime) );
+		Predicate p = cb.isNotNull( root.get(AttendanceAppealInfoStatic.archiveTime) );
 		return em.createQuery(cq.where(p)).setMaxResults(2000).getResultList();
 	}
 	

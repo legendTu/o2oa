@@ -13,7 +13,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.calendar.assemble.control.AbstractFactory;
 import com.x.calendar.assemble.control.Business;
 import com.x.calendar.core.entity.Calendar_Setting;
-import com.x.calendar.core.entity.Calendar_Setting_;
+import com.x.calendar.core.entity.Calendar_SettingStatic;
 
 
 /**
@@ -64,7 +64,7 @@ public class Calendar_SettingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Calendar_Setting> cq = cb.createQuery(Calendar_Setting.class);
 		Root<Calendar_Setting> root = cq.from(Calendar_Setting.class);
-		Predicate p = root.get( Calendar_Setting_.id).in(ids);
+		Predicate p = root.get( Calendar_SettingStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -82,8 +82,8 @@ public class Calendar_SettingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Calendar_Setting> root = cq.from(Calendar_Setting.class);
-		Predicate p = cb.equal(root.get(Calendar_Setting_.configCode),  code);
-		cq.select(root.get(Calendar_Setting_.id));
+		Predicate p = cb.equal(root.get(Calendar_SettingStatic.configCode),  code);
+		cq.select(root.get(Calendar_SettingStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -103,7 +103,7 @@ public class Calendar_SettingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Calendar_Setting> cq = cb.createQuery(Calendar_Setting.class);
 		Root<Calendar_Setting> root = cq.from(Calendar_Setting.class);
-		Predicate p = cb.equal(root.get( Calendar_Setting_.configCode ),  configCode );
+		Predicate p = cb.equal(root.get( Calendar_SettingStatic.configCode ),  configCode );
 		settingList = em.createQuery(cq.where(p)).getResultList();
 		if( settingList != null && settingList.size() > 0 ){
 			attendanceSetting = settingList.get(0);

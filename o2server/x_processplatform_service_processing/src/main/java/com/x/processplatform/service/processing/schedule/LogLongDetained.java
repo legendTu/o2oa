@@ -30,9 +30,9 @@ import com.x.base.core.project.utils.time.TimeStamp;
 import com.x.processplatform.core.entity.content.Read;
 import com.x.processplatform.core.entity.content.Read_;
 import com.x.processplatform.core.entity.content.Task;
-import com.x.processplatform.core.entity.content.Task_;
+import com.x.processplatform.core.entity.content.TaskStatic;
 import com.x.processplatform.core.entity.content.Work;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkStatic;
 
 import fr.opensagres.poi.xwpf.converter.core.utils.StringUtils;
 
@@ -121,11 +121,11 @@ public class LogLongDetained extends AbstractJob {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<Work> root = cq.from(Work.class);
-		Path<String> id_path = root.get(Work_.id);
-		Path<String> job_path = root.get(Work_.job);
-		Path<String> sequence_path = root.get(Work_.sequence);
-		Path<String> title_path = root.get(Work_.title);
-		Path<Date> activityArrivedTime_path = root.get(Work_.activityArrivedTime);
+		Path<String> id_path = root.get(WorkStatic.id);
+		Path<String> job_path = root.get(WorkStatic.job);
+		Path<String> sequence_path = root.get(WorkStatic.sequence);
+		Path<String> title_path = root.get(WorkStatic.title);
+		Path<Date> activityArrivedTime_path = root.get(WorkStatic.activityArrivedTime);
 		Predicate p = cb.lessThan(activityArrivedTime_path, threshold);
 		if (StringUtils.isNotEmpty(sequence)) {
 			p = cb.and(p, cb.greaterThan(sequence_path, sequence));
@@ -151,11 +151,11 @@ public class LogLongDetained extends AbstractJob {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<Task> root = cq.from(Task.class);
-		Path<String> id_path = root.get(Task_.id);
-		Path<String> job_path = root.get(Task_.job);
-		Path<String> sequence_path = root.get(Task_.sequence);
-		Path<String> title_path = root.get(Task_.title);
-		Path<Date> startTime_path = root.get(Task_.startTime);
+		Path<String> id_path = root.get(TaskStatic.id);
+		Path<String> job_path = root.get(TaskStatic.job);
+		Path<String> sequence_path = root.get(TaskStatic.sequence);
+		Path<String> title_path = root.get(TaskStatic.title);
+		Path<Date> startTime_path = root.get(TaskStatic.startTime);
 		Predicate p = cb.lessThan(startTime_path, threshold);
 		if (StringUtils.isNotEmpty(sequence)) {
 			p = cb.and(p, cb.greaterThan(sequence_path, sequence));

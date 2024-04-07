@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
 import com.x.base.core.entity.JpaObject;
-import com.x.base.core.entity.JpaObject_;
+import com.x.base.core.entity.JpaObjectStatic;
 import com.x.base.core.project.Applications;
 import com.x.base.core.project.x_query_service_processing;
 import com.x.base.core.project.config.Config;
@@ -20,7 +20,7 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.schedule.AbstractJob;
 import com.x.base.core.project.utils.time.TimeStamp;
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
 import com.x.query.core.entity.segment.Entry;
 import com.x.query.core.entity.segment.Entry_;
 import com.x.query.core.express.program.Arguments;
@@ -84,7 +84,7 @@ public class CrawlWorkCompleted extends AbstractJob {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		cq.select(root.get(WorkCompleted_.id)).orderBy(cb.desc(root.get(WorkCompleted_.sequence)));
+		cq.select(root.get(WorkCompletedStatic.id)).orderBy(cb.desc(root.get(WorkCompletedStatic.sequence)));
 		List<String> os = em.createQuery(cq).setMaxResults(Config.query().getCrawlWorkCompleted().getCount())
 				.getResultList();
 		return os;
@@ -103,7 +103,7 @@ public class CrawlWorkCompleted extends AbstractJob {
 		if (StringUtils.isNotEmpty(sequence)) {
 			p = cb.and(cb.lessThan(root.get(JpaObject.sequence_FIELDNAME), sequence));
 		}
-		cq.select(root.get(WorkCompleted_.id)).where(p).orderBy(cb.desc(root.get(JpaObject_.sequence)));
+		cq.select(root.get(WorkCompletedStatic.id)).where(p).orderBy(cb.desc(root.get(JpaObjectStatic.sequence)));
 		Integer count = Config.query().getCrawlWorkCompleted().getCount() /4;
 		List<String> os = em.createQuery(cq).setMaxResults(count).getResultList();
 		if (os.size() == count) {
@@ -123,7 +123,7 @@ public class CrawlWorkCompleted extends AbstractJob {
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Entry> root = cq.from(Entry.class);
 		Predicate p = cb.equal(root.get(Entry_.type), Entry.TYPE_WORKCOMPLETED);
-		cq.select(root.get(Entry_.reference)).where(p).orderBy(cb.asc(root.get(JpaObject_.sequence)));
+		cq.select(root.get(Entry_.reference)).where(p).orderBy(cb.asc(root.get(JpaObjectStatic.sequence)));
 		Integer count = Config.query().getCrawlWorkCompleted().getCount() / 4;
 		return em.createQuery(cq).setMaxResults(count).getResultList();
 	}

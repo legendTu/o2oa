@@ -20,8 +20,8 @@ import com.x.base.core.project.gson.GsonPropertyObject;
 import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
+import com.x.cms.core.entity.ReviewStatic;
 import com.x.processplatform.core.entity.content.Review;
-import com.x.processplatform.core.entity.content.Review_;
 import com.x.query.assemble.surface.Business;
 import com.x.query.core.entity.segment.Entry;
 
@@ -93,7 +93,7 @@ class ActionListEntry extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Review> root = cq.from(Review.class);
-		cq.select(root.get(Review_.job)).where(cb.isMember(root.get(Review_.job), cb.literal(bundles)));
+		cq.select(root.get(ReviewStatic.job)).where(cb.isMember(root.get(ReviewStatic.job), cb.literal(bundles)));
 		List<String> os = em.createQuery(cq).getResultList();
 		return os;
 	}
@@ -103,7 +103,7 @@ class ActionListEntry extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Review> root = cq.from(Review.class);
-		cq.select(root.get(Review_.job)).where(cb.isMember(root.get(Review_.job), cb.literal(bundles)));
+		cq.select(root.get(ReviewStatic.job)).where(cb.isMember(root.get(ReviewStatic.job), cb.literal(bundles)));
 		List<String> os = em.createQuery(cq).getResultList();
 		return os;
 	}
@@ -113,8 +113,8 @@ class ActionListEntry extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<com.x.cms.core.entity.Review> root = cq.from(com.x.cms.core.entity.Review.class);
-		cq.select(root.get(com.x.cms.core.entity.Review_.docId))
-				.where(cb.isMember(root.get(com.x.cms.core.entity.Review_.docId), cb.literal(bundles)));
+		cq.select(root.get(ReviewStatic.docId))
+				.where(cb.isMember(root.get(ReviewStatic.docId), cb.literal(bundles)));
 		List<String> os = em.createQuery(cq).getResultList();
 		return os;
 	}

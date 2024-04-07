@@ -12,10 +12,9 @@ import javax.persistence.criteria.Root;
 
 import com.x.base.core.project.cache.ApplicationCache;
 import com.x.base.core.project.exception.ExceptionWhen;
-import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.element.Script;
-import com.x.cms.core.entity.element.Script_;
+import com.x.cms.core.entity.element.ScriptStatic;
 
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
@@ -50,8 +49,8 @@ public class ScriptFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.equal(root.get(Script_.appId), appId);
-		cq.select(root.get(Script_.id)).where(p);
+		Predicate p = cb.equal(root.get(ScriptStatic.appId), appId);
+		cq.select(root.get(ScriptStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -60,7 +59,7 @@ public class ScriptFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Script> cq = cb.createQuery(Script.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.equal(root.get(Script_.appId), appId);
+		Predicate p = cb.equal(root.get(ScriptStatic.appId), appId);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -69,10 +68,10 @@ public class ScriptFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.equal(root.get(Script_.alias), name);
-		p = cb.or(p, cb.equal(root.get(Script_.name), name));
-		p = cb.and(p, cb.equal(root.get(Script_.appId), appId));
-		cq.select(root.get(Script_.id)).where(p);
+		Predicate p = cb.equal(root.get(ScriptStatic.alias), name);
+		p = cb.or(p, cb.equal(root.get(ScriptStatic.name), name));
+		p = cb.and(p, cb.equal(root.get(ScriptStatic.appId), appId));
+		cq.select(root.get(ScriptStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		return list.isEmpty() ? null : list.get(0);
 	}
@@ -124,10 +123,10 @@ public class ScriptFactory extends ElementFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<Script> cq = cb.createQuery(Script.class);
 				Root<Script> root = cq.from(Script.class);
-				Predicate p = cb.equal( root.get(Script_.name), uniqueName );
-				p = cb.or( p, cb.equal( root.get(Script_.alias), uniqueName ));
-				p = cb.or( p, cb.equal( root.get(Script_.id), uniqueName ));
-				p = cb.and( p, cb.equal( root.get(Script_.appId), appId ));
+				Predicate p = cb.equal( root.get(ScriptStatic.name), uniqueName );
+				p = cb.or( p, cb.equal( root.get(ScriptStatic.alias), uniqueName ));
+				p = cb.or( p, cb.equal( root.get(ScriptStatic.id), uniqueName ));
+				p = cb.and( p, cb.equal( root.get(ScriptStatic.appId), appId ));
 				List<Script> list = em.createQuery( cq.where(p) ).setMaxResults(1).getResultList();
 				if (!list.isEmpty()) {
 					script = list.get(0);

@@ -14,7 +14,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.bbs.assemble.control.AbstractFactory;
 import com.x.bbs.assemble.control.Business;
 import com.x.bbs.entity.BBSConfigSetting;
-import com.x.bbs.entity.BBSConfigSetting_;
+import com.x.bbs.entity.BBSConfigSettingStatic;
 
 
 /**
@@ -54,7 +54,7 @@ public class BBSConfigSettingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSConfigSetting> cq = cb.createQuery(BBSConfigSetting.class);
 		Root<BBSConfigSetting> root = cq.from(BBSConfigSetting.class);
-		Predicate p = root.get(BBSConfigSetting_.id).in(ids);
+		Predicate p = root.get(BBSConfigSettingStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -67,8 +67,8 @@ public class BBSConfigSettingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<BBSConfigSetting> root = cq.from(BBSConfigSetting.class);
-		Predicate p = cb.equal( root.get( BBSConfigSetting_.configCode ), configCode );
-		cq.select(root.get(BBSConfigSetting_.configValue));
+		Predicate p = cb.equal( root.get( BBSConfigSettingStatic.configCode ), configCode );
+		cq.select(root.get(BBSConfigSettingStatic.configValue));
 		List<String> valueList = em.createQuery(cq.where(p)).getResultList();
 		if( ListTools.isNotEmpty(valueList) ){
 			return valueList.get(0);
@@ -84,7 +84,7 @@ public class BBSConfigSettingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSConfigSetting> cq = cb.createQuery(BBSConfigSetting.class);
 		Root<BBSConfigSetting> root = cq.from(BBSConfigSetting.class);
-		Predicate p = cb.equal( root.get( BBSConfigSetting_.configCode ), configCode );
+		Predicate p = cb.equal( root.get( BBSConfigSettingStatic.configCode ), configCode );
 		List<BBSConfigSetting> valueList = em.createQuery(cq.where(p)).getResultList();
 		if( ListTools.isNotEmpty(valueList) ){
 			return valueList.get(0);

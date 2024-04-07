@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root;
 import com.x.attendance.assemble.control.AbstractFactory;
 import com.x.attendance.assemble.control.Business;
 import com.x.attendance.entity.AttendanceSetting;
-import com.x.attendance.entity.AttendanceSetting_;
+import com.x.attendance.entity.AttendanceSettingStatic;
 import com.x.base.core.project.exception.ExceptionWhen;
 /**
  * 系统配置信息表基础功能服务类
@@ -47,7 +47,7 @@ public class AttendanceSettingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceSetting> cq = cb.createQuery(AttendanceSetting.class);
 		Root<AttendanceSetting> root = cq.from(AttendanceSetting.class);
-		Predicate p = root.get(AttendanceSetting_.id).in(ids);
+		Predicate p = root.get(AttendanceSettingStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -60,8 +60,8 @@ public class AttendanceSettingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceSetting> root = cq.from(AttendanceSetting.class);
-		Predicate p = cb.equal(root.get(AttendanceSetting_.configCode),  code);
-		cq.select(root.get(AttendanceSetting_.id));
+		Predicate p = cb.equal(root.get(AttendanceSettingStatic.configCode),  code);
+		cq.select(root.get(AttendanceSettingStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -75,7 +75,7 @@ public class AttendanceSettingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceSetting> cq = cb.createQuery(AttendanceSetting.class);
 		Root<AttendanceSetting> root = cq.from(AttendanceSetting.class);
-		Predicate p = cb.equal(root.get( AttendanceSetting_.configCode ),  configCode );
+		Predicate p = cb.equal(root.get( AttendanceSettingStatic.configCode ),  configCode );
 		settingList = em.createQuery(cq.where(p)).getResultList();
 		if( settingList != null && settingList.size() > 0 ){
 			attendanceSetting = settingList.get(0);

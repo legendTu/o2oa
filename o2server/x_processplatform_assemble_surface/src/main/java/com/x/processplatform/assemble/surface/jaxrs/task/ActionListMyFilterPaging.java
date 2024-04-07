@@ -25,7 +25,7 @@ import com.x.base.core.project.tools.DateTools;
 import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Task;
-import com.x.processplatform.core.entity.content.Task_;
+import com.x.processplatform.core.entity.content.TaskStatic;
 
 class ActionListMyFilterPaging extends BaseAction {
 
@@ -54,31 +54,31 @@ class ActionListMyFilterPaging extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Task> cq = cb.createQuery(Task.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(TaskStatic.person), effectivePerson.getDistinguishedName());
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(Task_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(TaskStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
 			if(BooleanUtils.isFalse(wi.getRelateEditionProcess())) {
-				p = cb.and(p, root.get(Task_.process).in(wi.getProcessList()));
+				p = cb.and(p, root.get(TaskStatic.process).in(wi.getProcessList()));
 			}else{
-				p = cb.and(p, root.get(Task_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+				p = cb.and(p, root.get(TaskStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 			}
 		}
 		if(DateTools.isDateTimeOrDate(wi.getStartTime())){
-			p = cb.and(p, cb.greaterThan(root.get(Task_.startTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(TaskStatic.startTime), DateTools.parse(wi.getStartTime())));
 		}
 		if(DateTools.isDateTimeOrDate(wi.getEndTime())){
-			p = cb.and(p, cb.lessThan(root.get(Task_.startTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(TaskStatic.startTime), DateTools.parse(wi.getEndTime())));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(Task_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(TaskStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(Task_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(TaskStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(Task_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(TaskStatic.activityName).in(wi.getActivityNameList()));
 		}
 		if(StringUtils.isNotBlank(wi.getExpireTime())){
 			int expireTime = 0;
@@ -86,7 +86,7 @@ class ActionListMyFilterPaging extends BaseAction {
 				expireTime = Integer.parseInt(wi.getExpireTime());
 			} catch (NumberFormatException e) {
 			}
-			p = cb.and(p, cb.lessThanOrEqualTo(root.get(Task_.expireTime), DateTools.getAdjustTimeDay(null, 0, -expireTime, 0, 0)));
+			p = cb.and(p, cb.lessThanOrEqualTo(root.get(TaskStatic.expireTime), DateTools.getAdjustTimeDay(null, 0, -expireTime, 0, 0)));
 		}
 		if(StringUtils.isNotBlank(wi.getUrgeTime())){
 			int urgeTime = 0;
@@ -94,26 +94,26 @@ class ActionListMyFilterPaging extends BaseAction {
 				urgeTime = Integer.parseInt(wi.getUrgeTime());
 			} catch (NumberFormatException e) {
 			}
-			p = cb.and(p, cb.lessThanOrEqualTo(root.get(Task_.urgeTime), DateTools.getAdjustTimeDay(null, 0, -urgeTime, 0, 0)));
+			p = cb.and(p, cb.lessThanOrEqualTo(root.get(TaskStatic.urgeTime), DateTools.getAdjustTimeDay(null, 0, -urgeTime, 0, 0)));
 		}
 		if(BooleanUtils.isTrue(wi.getExcludeDraft())){
-			p = cb.and(p, cb.or(cb.isFalse(root.get(Task_.first)),
-					cb.isNull(root.get(Task_.first)),
-					cb.equal(root.get(Task_.workCreateType), Business.WORK_CREATE_TYPE_ASSIGN)));
+			p = cb.and(p, cb.or(cb.isFalse(root.get(TaskStatic.first)),
+					cb.isNull(root.get(TaskStatic.first)),
+					cb.equal(root.get(TaskStatic.workCreateType), Business.WORK_CREATE_TYPE_ASSIGN)));
 		}
 		if (StringUtils.isNotEmpty(wi.getKey())) {
 			String key = StringUtils.trim(StringUtils.replace(wi.getKey(), "\u3000", " "));
 			if (StringUtils.isNotEmpty(key)) {
 				key = StringUtils.replaceEach(key, new String[] { "?", "%" }, new String[] { "", "" });
 				p = cb.and(p,
-						cb.or(cb.like(root.get(Task_.title), "%" + key + "%"),
-								cb.like(root.get(Task_.opinion), "%" + key + "%"),
-								cb.like(root.get(Task_.serial), "%" + key + "%"),
-								cb.like(root.get(Task_.creatorPerson), "%" + key + "%"),
-								cb.like(root.get(Task_.creatorUnit), "%" + key + "%")));
+						cb.or(cb.like(root.get(TaskStatic.title), "%" + key + "%"),
+								cb.like(root.get(TaskStatic.opinion), "%" + key + "%"),
+								cb.like(root.get(TaskStatic.serial), "%" + key + "%"),
+								cb.like(root.get(TaskStatic.creatorPerson), "%" + key + "%"),
+								cb.like(root.get(TaskStatic.creatorUnit), "%" + key + "%")));
 			}
 		}
-		cq.select(root).where(p).orderBy(cb.desc(root.get(Task_.startTime)));
+		cq.select(root).where(p).orderBy(cb.desc(root.get(TaskStatic.startTime)));
 		return em.createQuery(cq).setFirstResult((adjustPage - 1) * adjustPageSize).setMaxResults(adjustPageSize)
 				.getResultList();
 	}
@@ -123,31 +123,31 @@ class ActionListMyFilterPaging extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(TaskStatic.person), effectivePerson.getDistinguishedName());
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(Task_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(TaskStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
 			if(BooleanUtils.isFalse(wi.getRelateEditionProcess())) {
-				p = cb.and(p, root.get(Task_.process).in(wi.getProcessList()));
+				p = cb.and(p, root.get(TaskStatic.process).in(wi.getProcessList()));
 			}else{
-				p = cb.and(p, root.get(Task_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+				p = cb.and(p, root.get(TaskStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 			}
 		}
 		if(DateTools.isDateTimeOrDate(wi.getStartTime())){
-			p = cb.and(p, cb.greaterThan(root.get(Task_.startTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(TaskStatic.startTime), DateTools.parse(wi.getStartTime())));
 		}
 		if(DateTools.isDateTimeOrDate(wi.getEndTime())){
-			p = cb.and(p, cb.lessThan(root.get(Task_.startTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(TaskStatic.startTime), DateTools.parse(wi.getEndTime())));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(Task_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(TaskStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(Task_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(TaskStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(Task_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(TaskStatic.activityName).in(wi.getActivityNameList()));
 		}
 		if(StringUtils.isNotBlank(wi.getExpireTime())){
 			int expireTime = 0;
@@ -155,7 +155,7 @@ class ActionListMyFilterPaging extends BaseAction {
 				expireTime = Integer.parseInt(wi.getExpireTime());
 			} catch (NumberFormatException e) {
 			}
-			p = cb.and(p, cb.lessThanOrEqualTo(root.get(Task_.expireTime), DateTools.getAdjustTimeDay(null, 0, -expireTime, 0, 0)));
+			p = cb.and(p, cb.lessThanOrEqualTo(root.get(TaskStatic.expireTime), DateTools.getAdjustTimeDay(null, 0, -expireTime, 0, 0)));
 		}
 		if(StringUtils.isNotBlank(wi.getUrgeTime())){
 			int urgeTime = 0;
@@ -163,23 +163,23 @@ class ActionListMyFilterPaging extends BaseAction {
 				urgeTime = Integer.parseInt(wi.getUrgeTime());
 			} catch (NumberFormatException e) {
 			}
-			p = cb.and(p, cb.lessThanOrEqualTo(root.get(Task_.urgeTime), DateTools.getAdjustTimeDay(null, 0, -urgeTime, 0, 0)));
+			p = cb.and(p, cb.lessThanOrEqualTo(root.get(TaskStatic.urgeTime), DateTools.getAdjustTimeDay(null, 0, -urgeTime, 0, 0)));
 		}
 		if(BooleanUtils.isTrue(wi.getExcludeDraft())){
-			p = cb.and(p, cb.or(cb.isFalse(root.get(Task_.first)),
-					cb.isNull(root.get(Task_.first)),
-					cb.equal(root.get(Task_.workCreateType), Business.WORK_CREATE_TYPE_ASSIGN)));
+			p = cb.and(p, cb.or(cb.isFalse(root.get(TaskStatic.first)),
+					cb.isNull(root.get(TaskStatic.first)),
+					cb.equal(root.get(TaskStatic.workCreateType), Business.WORK_CREATE_TYPE_ASSIGN)));
 		}
 		if (StringUtils.isNotEmpty(wi.getKey())) {
 			String key = StringUtils.trim(StringUtils.replace(wi.getKey(), "\u3000", " "));
 			if (StringUtils.isNotEmpty(key)) {
 				key = StringUtils.replaceEach(key, new String[] { "?", "%" }, new String[] { "", "" });
 				p = cb.and(p,
-						cb.or(cb.like(root.get(Task_.title), "%" + key + "%"),
-								cb.like(root.get(Task_.opinion), "%" + key + "%"),
-								cb.like(root.get(Task_.serial), "%" + key + "%"),
-								cb.like(root.get(Task_.creatorPerson), "%" + key + "%"),
-								cb.like(root.get(Task_.creatorUnit), "%" + key + "%")));
+						cb.or(cb.like(root.get(TaskStatic.title), "%" + key + "%"),
+								cb.like(root.get(TaskStatic.opinion), "%" + key + "%"),
+								cb.like(root.get(TaskStatic.serial), "%" + key + "%"),
+								cb.like(root.get(TaskStatic.creatorPerson), "%" + key + "%"),
+								cb.like(root.get(TaskStatic.creatorUnit), "%" + key + "%")));
 			}
 		}
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();

@@ -14,7 +14,7 @@ import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.utils.time.ClockStamp;
 import com.x.processplatform.core.entity.content.Work;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkStatic;
 
 class ActionGroup2 extends BaseAction {
 
@@ -34,7 +34,7 @@ class ActionGroup2 extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		cq.select(root.get(Work_.id)).distinct(true);
+		cq.select(root.get(WorkStatic.id)).distinct(true);
 		em.createQuery(cq).getResultList();
 		ClockStamp.STAMP("执行work的job distinct{}.", "结束");
 	}

@@ -22,7 +22,7 @@ import com.x.base.core.project.organization.OrganizationDefinition;
 import com.x.base.core.project.tools.SortTools;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.element.QueryView;
-import com.x.cms.core.entity.element.QueryView_;
+import com.x.cms.core.entity.element.QueryViewStatic;
 
 public class ActionList extends BaseAction {
 
@@ -54,17 +54,17 @@ public class ActionList extends BaseAction {
 		Predicate p = cb.conjunction();
 		/* 不是管理员或者流程管理员 */
 		if ( effectivePerson.isNotManager() && userManagerService.isHasPlatformRole( effectivePerson.getDistinguishedName(), OrganizationDefinition.ProcessPlatformManager )) {
-			p = cb.equal(root.get(QueryView_.creatorPerson), effectivePerson.getDistinguishedName());
-			p = cb.or(p, root.get(QueryView_.controllerList).in(effectivePerson.getDistinguishedName()));
+			p = cb.equal(root.get(QueryViewStatic.creatorPerson), effectivePerson.getDistinguishedName());
+			p = cb.or(p, root.get(QueryViewStatic.controllerList).in(effectivePerson.getDistinguishedName()));
 			p = cb.or(p,
-					cb.and(cb.isEmpty(root.get(QueryView_.availablePersonList)),
-							cb.isEmpty(root.get(QueryView_.availableUnitList)),
-							cb.isEmpty(root.get(QueryView_.availableIdentityList))));
-			p = cb.or(p, cb.isMember(effectivePerson.getDistinguishedName(), root.get(QueryView_.availablePersonList)));
-			p = cb.or(p, root.get(QueryView_.availableUnitList).in(unitNames));
-			p = cb.or(p, root.get(QueryView_.availableIdentityList).in(identities));
+					cb.and(cb.isEmpty(root.get(QueryViewStatic.availablePersonList)),
+							cb.isEmpty(root.get(QueryViewStatic.availableUnitList)),
+							cb.isEmpty(root.get(QueryViewStatic.availableIdentityList))));
+			p = cb.or(p, cb.isMember(effectivePerson.getDistinguishedName(), root.get(QueryViewStatic.availablePersonList)));
+			p = cb.or(p, root.get(QueryViewStatic.availableUnitList).in(unitNames));
+			p = cb.or(p, root.get(QueryViewStatic.availableIdentityList).in(identities));
 		}
-		cq.select(root.get(QueryView_.id)).where(p);
+		cq.select(root.get(QueryViewStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		return list;
 	}

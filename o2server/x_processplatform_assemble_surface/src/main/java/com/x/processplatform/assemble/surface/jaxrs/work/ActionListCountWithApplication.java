@@ -18,7 +18,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Work;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkStatic;
 
 class ActionListCountWithApplication extends BaseAction {
 
@@ -31,9 +31,9 @@ class ActionListCountWithApplication extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 			Root<Work> root = cq.from(Work.class);
-			Predicate p = cb.equal(root.get(Work_.creatorPerson), effectivePerson.getDistinguishedName());
-			javax.persistence.criteria.Path<String> applicationPath = root.get(Work_.application);
-			javax.persistence.criteria.Path<String> applicationNamePath = root.get(Work_.applicationName);
+			Predicate p = cb.equal(root.get(WorkStatic.creatorPerson), effectivePerson.getDistinguishedName());
+			javax.persistence.criteria.Path<String> applicationPath = root.get(WorkStatic.application);
+			javax.persistence.criteria.Path<String> applicationNamePath = root.get(WorkStatic.applicationName);
 			/* count group by 的值只会返回首行，看上去是个BUG 只能分成多个语句执行 */
 			cq.multiselect(applicationPath, applicationNamePath).where(p).groupBy(applicationPath, applicationNamePath);
 			for (Tuple o : em.createQuery(cq).getResultList()) {
@@ -94,9 +94,9 @@ class ActionListCountWithApplication extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.creatorPerson), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(Work_.application), application));
-		p = cb.and(p, cb.equal(root.get(Work_.applicationName), applicationName));
+		Predicate p = cb.equal(root.get(WorkStatic.creatorPerson), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(WorkStatic.application), application));
+		p = cb.and(p, cb.equal(root.get(WorkStatic.applicationName), applicationName));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

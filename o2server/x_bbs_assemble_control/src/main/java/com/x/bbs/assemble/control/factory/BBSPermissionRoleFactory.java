@@ -16,7 +16,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.bbs.assemble.control.AbstractFactory;
 import com.x.bbs.assemble.control.Business;
 import com.x.bbs.entity.BBSPermissionRole;
-import com.x.bbs.entity.BBSPermissionRole_;
+import com.x.bbs.entity.BBSPermissionRoleStatic;
 
 /**
  * 类   名：BBSPermissionRoleFactory<br/>
@@ -45,7 +45,7 @@ public class BBSPermissionRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSPermissionRole> cq = cb.createQuery(BBSPermissionRole.class);
 		Root<BBSPermissionRole> root = cq.from(BBSPermissionRole.class);
-		Predicate p = root.get(BBSPermissionRole_.id).in(ids);
+		Predicate p = root.get(BBSPermissionRoleStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -66,8 +66,8 @@ public class BBSPermissionRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSPermissionRole> root = cq.from( BBSPermissionRole.class );
-		Predicate p = cb.equal( root.get( BBSPermissionRole_.roleCode ), roleCode );
-		cq.select( root.get( BBSPermissionRole_.id ) );
+		Predicate p = cb.equal( root.get( BBSPermissionRoleStatic.roleCode ), roleCode );
+		cq.select( root.get( BBSPermissionRoleStatic.id ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 
@@ -84,8 +84,8 @@ public class BBSPermissionRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSPermissionRole> cq = cb.createQuery( BBSPermissionRole.class );
 		Root<BBSPermissionRole> root = cq.from( BBSPermissionRole.class );
-		Predicate p = cb.equal( root.get( BBSPermissionRole_.roleCode ), roleCode );
-		p = cb.and( p, cb.equal( root.get( BBSPermissionRole_.permissionCode ), permissionCode ));
+		Predicate p = cb.equal( root.get( BBSPermissionRoleStatic.roleCode ), roleCode );
+		p = cb.and( p, cb.equal( root.get( BBSPermissionRoleStatic.permissionCode ), permissionCode ));
 		roleInfoList = em.createQuery( cq.where(p) ).getResultList();
 		if( ListTools.isNotEmpty(roleInfoList) ){
 			return true;
@@ -107,8 +107,8 @@ public class BBSPermissionRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSPermissionRole> cq = cb.createQuery( BBSPermissionRole.class );
 		Root<BBSPermissionRole> root = cq.from( BBSPermissionRole.class );
-		Predicate p = cb.equal( root.get( BBSPermissionRole_.roleCode ), roleCode );
-		p = cb.and( p, cb.equal( root.get( BBSPermissionRole_.permissionCode ), permissionCode ));
+		Predicate p = cb.equal( root.get( BBSPermissionRoleStatic.roleCode ), roleCode );
+		p = cb.and( p, cb.equal( root.get( BBSPermissionRoleStatic.permissionCode ), permissionCode ));
 		roleInfoList = em.createQuery( cq.where(p) ).getResultList();
 		if( ListTools.isNotEmpty(roleInfoList) ){
 			return roleInfoList.get( 0 );
@@ -126,8 +126,8 @@ public class BBSPermissionRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSPermissionRole> root = cq.from( BBSPermissionRole.class );
-		Predicate p = root.get( BBSPermissionRole_.roleCode ).in( roleCodes );
-		cq.select( root.get( BBSPermissionRole_.permissionCode ) );
+		Predicate p = root.get( BBSPermissionRoleStatic.roleCode ).in( roleCodes );
+		cq.select( root.get( BBSPermissionRoleStatic.permissionCode ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 
@@ -140,7 +140,7 @@ public class BBSPermissionRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSPermissionRole> cq = cb.createQuery( BBSPermissionRole.class );
 		Root<BBSPermissionRole> root = cq.from( BBSPermissionRole.class );
-		Predicate p = cb.equal( root.get( BBSPermissionRole_.permissionCode ), permissionCode );
+		Predicate p = cb.equal( root.get( BBSPermissionRoleStatic.permissionCode ), permissionCode );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 	
@@ -153,7 +153,7 @@ public class BBSPermissionRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSPermissionRole> cq = cb.createQuery( BBSPermissionRole.class );
 		Root<BBSPermissionRole> root = cq.from( BBSPermissionRole.class );
-		Predicate p = root.get( BBSPermissionRole_.permissionCode ).in( permissionCodes );
+		Predicate p = root.get( BBSPermissionRoleStatic.permissionCode ).in( permissionCodes );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 
@@ -165,8 +165,8 @@ public class BBSPermissionRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSPermissionRole> root = cq.from( BBSPermissionRole.class );
-		Predicate p = cb.equal( root.get( BBSPermissionRole_.forumId ), forumId );
-		cq.select( root.get( BBSPermissionRole_.id ) );
+		Predicate p = cb.equal( root.get( BBSPermissionRoleStatic.forumId ), forumId );
+		cq.select( root.get( BBSPermissionRoleStatic.id ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 
@@ -185,11 +185,11 @@ public class BBSPermissionRoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSPermissionRole> root = cq.from( BBSPermissionRole.class );
-		Predicate p = cb.equal( root.get( BBSPermissionRole_.sectionId ), sectionId );
+		Predicate p = cb.equal( root.get( BBSPermissionRoleStatic.sectionId ), sectionId );
 		if( queryMainSectionId ) {
-			p = cb.or( p, cb.equal( root.get( BBSPermissionRole_.mainSectionId ), sectionId ) );
+			p = cb.or( p, cb.equal( root.get( BBSPermissionRoleStatic.mainSectionId ), sectionId ) );
 		}
-		cq.select( root.get( BBSPermissionRole_.id ) );
+		cq.select( root.get( BBSPermissionRoleStatic.id ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}	
 }

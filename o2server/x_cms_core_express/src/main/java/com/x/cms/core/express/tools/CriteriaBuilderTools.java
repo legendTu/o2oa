@@ -1,7 +1,7 @@
 package com.x.cms.core.express.tools;
 
 import com.x.base.core.entity.JpaObject;
-import com.x.base.core.entity.SliceJpaObject_;
+import com.x.base.core.entity.SliceJpaObjectStatic;
 import com.x.base.core.project.tools.ListTools;
 import com.x.cms.core.entity.Document;
 import com.x.cms.core.express.tools.filter.QueryFilter;
@@ -49,7 +49,7 @@ public class CriteriaBuilderTools {
 	 * @throws NoSuchFieldException
 	 * @throws SecurityException
 	 */
-	public static <T extends JpaObject, T_ extends SliceJpaObject_> Predicate composePredicateWithQueryFilter( 
+	public static <T extends JpaObject, T_ extends SliceJpaObjectStatic> Predicate composePredicateWithQueryFilter(
 			Class<T> cls, Class<T_> cls_, EntityManager em,  QueryFilter queryFilter ) throws NoSuchFieldException, SecurityException {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<T> cq = cb.createQuery( cls );
@@ -69,7 +69,7 @@ public class CriteriaBuilderTools {
 	 * @throws NoSuchFieldException
 	 * @throws SecurityException
 	 */
-	public static <T extends JpaObject, T_ extends SliceJpaObject_> Predicate composePredicateWithQueryFilter( 
+	public static <T extends JpaObject, T_ extends SliceJpaObjectStatic> Predicate composePredicateWithQueryFilter(
 			Class<T_> cls_, CriteriaBuilder cb, Predicate p, Root<T> root,  QueryFilter queryFilter ) throws NoSuchFieldException, SecurityException {
 		if( queryFilter == null ) {
 			queryFilter = new QueryFilter();
@@ -227,8 +227,8 @@ public class CriteriaBuilderTools {
 	 * @return
 	 * @throws Exception
 	 */
-	public static <T extends JpaObject, T_ extends SliceJpaObject_> List<T> listNextWithCondition(  EntityManager em, Class<T> cls, Class<T_> cls_, Integer maxCount, 
-			QueryFilter queryFilter, Object sequenceFieldValue,  String orderField, String order ) throws Exception {
+	public static <T extends JpaObject, T_ extends SliceJpaObjectStatic> List<T> listNextWithCondition(EntityManager em, Class<T> cls, Class<T_> cls_, Integer maxCount,
+                                                                                                       QueryFilter queryFilter, Object sequenceFieldValue, String orderField, String order ) throws Exception {
 		
 		if( StringUtils.isEmpty( order ) ){
 			order = "DESC";
@@ -278,7 +278,7 @@ public class CriteriaBuilderTools {
 	 * @param orderType
 	 * @return
 	 */
-	public static <T extends JpaObject, T_ extends SliceJpaObject_>Order getOrder( CriteriaBuilder cb, Root<T> root, Class<T_> cls_, String fieldName, String orderType ) {
+	public static <T extends JpaObject, T_ extends SliceJpaObjectStatic>Order getOrder(CriteriaBuilder cb, Root<T> root, Class<T_> cls_, String fieldName, String orderType ) {
 		if( StringUtils.isEmpty( fieldName )) {
 			fieldName = Document.sequence_FIELDNAME;
 		}

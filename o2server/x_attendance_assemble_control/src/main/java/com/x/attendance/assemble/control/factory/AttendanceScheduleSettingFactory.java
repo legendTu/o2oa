@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root;
 import com.x.attendance.assemble.control.AbstractFactory;
 import com.x.attendance.assemble.control.Business;
 import com.x.attendance.entity.AttendanceScheduleSetting;
-import com.x.attendance.entity.AttendanceScheduleSetting_;
+import com.x.attendance.entity.AttendanceScheduleSettingStatic;
 import com.x.base.core.project.exception.ExceptionWhen;
 /**
  * 系统配置信息表基础功能服务类
@@ -47,7 +47,7 @@ public class AttendanceScheduleSettingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceScheduleSetting> cq = cb.createQuery(AttendanceScheduleSetting.class);
 		Root<AttendanceScheduleSetting> root = cq.from(AttendanceScheduleSetting.class);
-		Predicate p = root.get(AttendanceScheduleSetting_.id).in(ids);
+		Predicate p = root.get(AttendanceScheduleSettingStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -57,8 +57,8 @@ public class AttendanceScheduleSettingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceScheduleSetting> root = cq.from(AttendanceScheduleSetting.class);
-		Predicate p = cb.equal(root.get(AttendanceScheduleSetting_.unitName), unitName );
-		cq.select(root.get(AttendanceScheduleSetting_.id));
+		Predicate p = cb.equal(root.get(AttendanceScheduleSettingStatic.unitName), unitName );
+		cq.select(root.get(AttendanceScheduleSettingStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -68,8 +68,8 @@ public class AttendanceScheduleSettingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceScheduleSetting> root = cq.from(AttendanceScheduleSetting.class);
-		Predicate p = root.get(AttendanceScheduleSetting_.unitName).in(unitNameList);
-		cq.select(root.get(AttendanceScheduleSetting_.id));
+		Predicate p = root.get(AttendanceScheduleSettingStatic.unitName).in(unitNameList);
+		cq.select(root.get(AttendanceScheduleSettingStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -79,8 +79,8 @@ public class AttendanceScheduleSettingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceScheduleSetting> root = cq.from(AttendanceScheduleSetting.class);
-		Predicate p = cb.equal(root.get(AttendanceScheduleSetting_.topUnitName), topUnitName );
-		cq.select(root.get(AttendanceScheduleSetting_.id));
+		Predicate p = cb.equal(root.get(AttendanceScheduleSettingStatic.topUnitName), topUnitName );
+		cq.select(root.get(AttendanceScheduleSettingStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -89,9 +89,9 @@ public class AttendanceScheduleSettingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceScheduleSetting> root = cq.from(AttendanceScheduleSetting.class);
-		Predicate p = cb.equal(root.get(AttendanceScheduleSetting_.topUnitName), topUnitName );
-		p = cb.and( p, cb.equal(root.get(AttendanceScheduleSetting_.unitName), unitName ) );
-		cq.select(root.get(AttendanceScheduleSetting_.id));
+		Predicate p = cb.equal(root.get(AttendanceScheduleSettingStatic.topUnitName), topUnitName );
+		p = cb.and( p, cb.equal(root.get(AttendanceScheduleSettingStatic.unitName), unitName ) );
+		cq.select(root.get(AttendanceScheduleSettingStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 }

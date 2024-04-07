@@ -14,7 +14,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.bbs.assemble.control.AbstractFactory;
 import com.x.bbs.assemble.control.Business;
 import com.x.bbs.entity.BBSSectionInfo;
-import com.x.bbs.entity.BBSSectionInfo_;
+import com.x.bbs.entity.BBSSectionInfoStatic;
 import org.apache.commons.lang3.BooleanUtils;
 
 /**
@@ -44,9 +44,9 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSSectionInfo> cq = cb.createQuery(BBSSectionInfo.class);
 		Root<BBSSectionInfo> root = cq.from(BBSSectionInfo.class);
-		Predicate p = cb.equal( root.get( BBSSectionInfo_.mainSectionName ), mainSectionName );
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionLevel ), "主版块" ));
-		cq.orderBy( cb.asc( root.get( BBSSectionInfo_.orderNumber ) ) );
+		Predicate p = cb.equal( root.get( BBSSectionInfoStatic.mainSectionName ), mainSectionName );
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionLevel ), "主版块" ));
+		cq.orderBy( cb.asc( root.get( BBSSectionInfoStatic.orderNumber ) ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -59,8 +59,8 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSSectionInfo> cq = cb.createQuery(BBSSectionInfo.class);
 		Root<BBSSectionInfo> root = cq.from(BBSSectionInfo.class);
-		Predicate p = root.get(BBSSectionInfo_.id).in(ids);
-		cq.orderBy( cb.asc( root.get( BBSSectionInfo_.orderNumber ) ) );
+		Predicate p = root.get(BBSSectionInfoStatic.id).in(ids);
+		cq.orderBy( cb.asc( root.get( BBSSectionInfoStatic.orderNumber ) ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -70,7 +70,7 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSSectionInfo> cq = cb.createQuery(BBSSectionInfo.class);
 		Root<BBSSectionInfo> root = cq.from(BBSSectionInfo.class);
-		cq.orderBy( cb.asc( root.get( BBSSectionInfo_.orderNumber ) ) );
+		cq.orderBy( cb.asc( root.get( BBSSectionInfoStatic.orderNumber ) ) );
 		return em.createQuery( cq ).getResultList();
 	}
 
@@ -83,9 +83,9 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSSectionInfo> cq = cb.createQuery(BBSSectionInfo.class);
 		Root<BBSSectionInfo> root = cq.from(BBSSectionInfo.class);
-		Predicate p = cb.equal( root.get( BBSSectionInfo_.forumId ), forumId );
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionLevel ), "主版块" ));
-		cq.orderBy( cb.asc( root.get( BBSSectionInfo_.orderNumber ) ) );
+		Predicate p = cb.equal( root.get( BBSSectionInfoStatic.forumId ), forumId );
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionLevel ), "主版块" ));
+		cq.orderBy( cb.asc( root.get( BBSSectionInfoStatic.orderNumber ) ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -98,9 +98,9 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSSectionInfo> cq = cb.createQuery(BBSSectionInfo.class);
 		Root<BBSSectionInfo> root = cq.from(BBSSectionInfo.class);
-		Predicate p = cb.equal( root.get( BBSSectionInfo_.mainSectionId ), sectionId );
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionLevel ), "子版块" ));
-		cq.orderBy( cb.asc( root.get( BBSSectionInfo_.orderNumber ) ) );
+		Predicate p = cb.equal( root.get( BBSSectionInfoStatic.mainSectionId ), sectionId );
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionLevel ), "子版块" ));
+		cq.orderBy( cb.asc( root.get( BBSSectionInfoStatic.orderNumber ) ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -113,9 +113,9 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class);
 		Root<BBSSectionInfo> root = cq.from(BBSSectionInfo.class);
-		Predicate p = cb.equal( root.get( BBSSectionInfo_.mainSectionId ), sectionId );
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionLevel ), "子版块" ));
-		cq.select( root.get( BBSSectionInfo_.id ) );
+		Predicate p = cb.equal( root.get( BBSSectionInfoStatic.mainSectionId ), sectionId );
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionLevel ), "子版块" ));
+		cq.select( root.get( BBSSectionInfoStatic.id ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -125,8 +125,8 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<BBSSectionInfo> root = cq.from( BBSSectionInfo.class);
-		Predicate p = cb.equal( root.get( BBSSectionInfo_.forumId ), forumId );
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionLevel ), "主版块" ));
+		Predicate p = cb.equal( root.get( BBSSectionInfoStatic.forumId ), forumId );
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionLevel ), "主版块" ));
 		cq.select( cb.count( root ) );
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -137,7 +137,7 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<BBSSectionInfo> root = cq.from( BBSSectionInfo.class);
-		Predicate p = cb.equal( root.get( BBSSectionInfo_.forumId ), forumId );
+		Predicate p = cb.equal( root.get( BBSSectionInfoStatic.forumId ), forumId );
 		cq.select( cb.count( root ) );
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -148,9 +148,9 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<BBSSectionInfo> root = cq.from( BBSSectionInfo.class);
-		Predicate p = cb.equal( root.get( BBSSectionInfo_.mainSectionId ), sectionId );
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionStatus ), "启用" ));
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionLevel ), "子版块" ));
+		Predicate p = cb.equal( root.get( BBSSectionInfoStatic.mainSectionId ), sectionId );
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionStatus ), "启用" ));
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionLevel ), "子版块" ));
 		cq.select( cb.count( root ) );
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -164,7 +164,7 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSSectionInfo> cq = cb.createQuery(BBSSectionInfo.class);
 		Root<BBSSectionInfo> root = cq.from(BBSSectionInfo.class);
-		Predicate p = cb.equal( root.get( BBSSectionInfo_.forumId ), forumId );
+		Predicate p = cb.equal( root.get( BBSSectionInfoStatic.forumId ), forumId );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -177,8 +177,8 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<BBSSectionInfo> root = cq.from(BBSSectionInfo.class);
-		Predicate p = cb.equal( root.get( BBSSectionInfo_.forumId ), forumId );
-		cq.select( root.get( BBSSectionInfo_.id ) );
+		Predicate p = cb.equal( root.get( BBSSectionInfoStatic.forumId ), forumId );
+		cq.select( root.get( BBSSectionInfoStatic.id ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -191,15 +191,15 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSSectionInfo> cq = cb.createQuery(BBSSectionInfo.class);
 		Root<BBSSectionInfo> root = cq.from(BBSSectionInfo.class);
-		Predicate p = cb.equal( root.get( BBSSectionInfo_.forumId ), forumId );
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionLevel ), "主版块" ));
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionStatus ), "启用" ));
-		Predicate or = cb.equal( root.get( BBSSectionInfo_.sectionVisible ), "所有人" );
+		Predicate p = cb.equal( root.get( BBSSectionInfoStatic.forumId ), forumId );
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionLevel ), "主版块" ));
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionStatus ), "启用" ));
+		Predicate or = cb.equal( root.get( BBSSectionInfoStatic.sectionVisible ), "所有人" );
 		if( ListTools.isNotEmpty( viewableSectionIds ) ){
-			or = cb.or(p, root.get( BBSSectionInfo_.id ).in( viewableSectionIds ) );
+			or = cb.or(p, root.get( BBSSectionInfoStatic.id ).in( viewableSectionIds ) );
 		}
 		p = cb.and( p, or );
-		cq.orderBy( cb.asc( root.get( BBSSectionInfo_.orderNumber ) ) );
+		cq.orderBy( cb.asc( root.get( BBSSectionInfoStatic.orderNumber ) ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -212,15 +212,15 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSSectionInfo> cq = cb.createQuery(BBSSectionInfo.class);
 		Root<BBSSectionInfo> root = cq.from(BBSSectionInfo.class);
-		Predicate p = cb.equal( root.get( BBSSectionInfo_.mainSectionId ), sectionId );
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionLevel ), "子版块" ));
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionStatus ), "启用" ));
-		Predicate or = cb.equal( root.get( BBSSectionInfo_.sectionVisible ), "所有人" );
+		Predicate p = cb.equal( root.get( BBSSectionInfoStatic.mainSectionId ), sectionId );
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionLevel ), "子版块" ));
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionStatus ), "启用" ));
+		Predicate or = cb.equal( root.get( BBSSectionInfoStatic.sectionVisible ), "所有人" );
 		if( ListTools.isNotEmpty( viewableSectionIds ) ){
-			or = cb.or(p, root.get( BBSSectionInfo_.id ).in( viewableSectionIds ) );
+			or = cb.or(p, root.get( BBSSectionInfoStatic.id ).in( viewableSectionIds ) );
 		}
 		p = cb.and( p, or );
-		cq.orderBy( cb.asc( root.get( BBSSectionInfo_.orderNumber ) ) );
+		cq.orderBy( cb.asc( root.get( BBSSectionInfoStatic.orderNumber ) ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -230,13 +230,13 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<BBSSectionInfo> root = cq.from(BBSSectionInfo.class);
-		Predicate p = cb.equal( root.get( BBSSectionInfo_.sectionLevel ), "主版块" );
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionVisible ), "所有人" ));
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionStatus ), "启用" ));
+		Predicate p = cb.equal( root.get( BBSSectionInfoStatic.sectionLevel ), "主版块" );
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionVisible ), "所有人" ));
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionStatus ), "启用" ));
 		if( ListTools.isNotEmpty( forumIds ) ){
-			p = cb.and(p, root.get( BBSSectionInfo_.forumId ).in( forumIds ));
+			p = cb.and(p, root.get( BBSSectionInfoStatic.forumId ).in( forumIds ));
 		}
-		cq.select( root.get( BBSSectionInfo_.id ) );
+		cq.select( root.get( BBSSectionInfoStatic.id ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -246,16 +246,16 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<BBSSectionInfo> root = cq.from(BBSSectionInfo.class);
-		Predicate p = cb.equal( root.get( BBSSectionInfo_.sectionLevel ), "子版块" );
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionVisible ), "所有人" ));
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionStatus ), "启用" ));
+		Predicate p = cb.equal( root.get( BBSSectionInfoStatic.sectionLevel ), "子版块" );
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionVisible ), "所有人" ));
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionStatus ), "启用" ));
 		if( ListTools.isNotEmpty( forumIds ) ){
-			p = cb.and(p, root.get( BBSSectionInfo_.forumId ).in( forumIds ));
+			p = cb.and(p, root.get( BBSSectionInfoStatic.forumId ).in( forumIds ));
 		}
 		if( ListTools.isNotEmpty( mainSectionIds ) ){
-			p = cb.and(p, root.get( BBSSectionInfo_.mainSectionId ).in( mainSectionIds ) );
+			p = cb.and(p, root.get( BBSSectionInfoStatic.mainSectionId ).in( mainSectionIds ) );
 		}
-		cq.select( root.get( BBSSectionInfo_.id ) );
+		cq.select( root.get( BBSSectionInfoStatic.id ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -268,12 +268,12 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<BBSSectionInfo> root = cq.from(BBSSectionInfo.class);
-		Predicate p = root.get( BBSSectionInfo_.forumId ).in( viewforumIds );
-		p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionStatus ), "启用" ));
+		Predicate p = root.get( BBSSectionInfoStatic.forumId ).in( viewforumIds );
+		p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionStatus ), "启用" ));
 		if( BooleanUtils.isTrue(publicStatus) ){
-			p = cb.and(p, cb.equal( root.get( BBSSectionInfo_.sectionVisible ), "所有人" ));
+			p = cb.and(p, cb.equal( root.get( BBSSectionInfoStatic.sectionVisible ), "所有人" ));
 		}
-		cq.select( root.get( BBSSectionInfo_.id ) );
+		cq.select( root.get( BBSSectionInfoStatic.id ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -285,8 +285,8 @@ public class BBSSectionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<BBSSectionInfo> root = cq.from(BBSSectionInfo.class);
-		Predicate p = cb.equal( root.get( BBSSectionInfo_.forumId ), forumId);
-		cq.select( root.get( BBSSectionInfo_.id ) );
+		Predicate p = cb.equal( root.get( BBSSectionInfoStatic.forumId ), forumId);
+		cq.select( root.get( BBSSectionInfoStatic.id ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 }

@@ -16,7 +16,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.bbs.assemble.control.AbstractFactory;
 import com.x.bbs.assemble.control.Business;
 import com.x.bbs.entity.BBSVoteRecord;
-import com.x.bbs.entity.BBSVoteRecord_;
+import com.x.bbs.entity.BBSVoteRecordStatic;
 
 /**
  * 类   名：BBSVoteRecordFactory<br/>
@@ -45,8 +45,8 @@ public class BBSVoteRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSVoteRecord> cq = cb.createQuery(BBSVoteRecord.class);
 		Root<BBSVoteRecord> root = cq.from(BBSVoteRecord.class);
-		Predicate p = root.get(BBSVoteRecord_.id).in(ids);
-		cq.orderBy( cb.desc( root.get( BBSVoteRecord_.sequence ) ) );
+		Predicate p = root.get(BBSVoteRecordStatic.id).in(ids);
+		cq.orderBy( cb.desc( root.get( BBSVoteRecordStatic.sequence ) ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -59,8 +59,8 @@ public class BBSVoteRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class);
 		Root<BBSVoteRecord> root = cq.from( BBSVoteRecord.class );
-		cq.select(root.get( BBSVoteRecord_.id));
-		Predicate p = cb.equal( root.get( BBSVoteRecord_.subjectId ), subjectId );
+		cq.select(root.get( BBSVoteRecordStatic.id));
+		Predicate p = cb.equal( root.get( BBSVoteRecordStatic.subjectId ), subjectId );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -73,7 +73,7 @@ public class BBSVoteRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSVoteRecord> cq = cb.createQuery( BBSVoteRecord.class);
 		Root<BBSVoteRecord> root = cq.from( BBSVoteRecord.class );
-		Predicate p = cb.equal( root.get( BBSVoteRecord_.subjectId ), subjectId );
+		Predicate p = cb.equal( root.get( BBSVoteRecordStatic.subjectId ), subjectId );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -88,8 +88,8 @@ public class BBSVoteRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery( Long.class);
 		Root<BBSVoteRecord> root = cq.from( BBSVoteRecord.class );
-		Predicate p = cb.equal( root.get( BBSVoteRecord_.votorName ), personName );
-		p = cb.and( p, cb.equal( root.get( BBSVoteRecord_.subjectId ), subjectId ) );
+		Predicate p = cb.equal( root.get( BBSVoteRecordStatic.votorName ), personName );
+		p = cb.and( p, cb.equal( root.get( BBSVoteRecordStatic.subjectId ), subjectId ) );
 		cq.select( cb.count( root ));
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -105,8 +105,8 @@ public class BBSVoteRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery( Long.class);
 		Root<BBSVoteRecord> root = cq.from( BBSVoteRecord.class );
-		Predicate p = cb.equal( root.get( BBSVoteRecord_.votorName ), personName );
-		p = cb.and( p, cb.equal( root.get( BBSVoteRecord_.optionId ), optionId ) );
+		Predicate p = cb.equal( root.get( BBSVoteRecordStatic.votorName ), personName );
+		p = cb.and( p, cb.equal( root.get( BBSVoteRecordStatic.optionId ), optionId ) );
 		cq.select( cb.count( root ));
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -116,9 +116,9 @@ public class BBSVoteRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<BBSVoteRecord> root = cq.from( BBSVoteRecord.class);
-		Predicate p = cb.equal( root.get( BBSVoteRecord_.subjectId ), subjectId );
+		Predicate p = cb.equal( root.get( BBSVoteRecordStatic.subjectId ), subjectId );
 		if( StringUtils.isNotEmpty( voteOptionId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSVoteRecord_.optionId ), voteOptionId ));
+			p = cb.and( p, cb.equal( root.get( BBSVoteRecordStatic.optionId ), voteOptionId ));
 		}
 		cq.select( cb.count( root ) );
 		return em.createQuery(cq.where(p)).getSingleResult();
@@ -129,11 +129,11 @@ public class BBSVoteRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<BBSVoteRecord> root = cq.from( BBSVoteRecord.class);
-		Predicate p = cb.equal( root.get( BBSVoteRecord_.subjectId ), subjectId );
+		Predicate p = cb.equal( root.get( BBSVoteRecordStatic.subjectId ), subjectId );
 		if( StringUtils.isNotEmpty( voteOptionId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSVoteRecord_.optionId ), voteOptionId ));
+			p = cb.and( p, cb.equal( root.get( BBSVoteRecordStatic.optionId ), voteOptionId ));
 		}
-		cq.select( root.get( BBSVoteRecord_.votorName ) );
+		cq.select( root.get( BBSVoteRecordStatic.votorName ) );
 		return em.createQuery(cq.where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 
@@ -145,9 +145,9 @@ public class BBSVoteRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSVoteRecord> cq = cb.createQuery(BBSVoteRecord.class);
 		Root<BBSVoteRecord> root = cq.from(BBSVoteRecord.class);
-		Predicate p = cb.isNotNull( root.get( BBSVoteRecord_.id ) );
-		p = cb.and( p, cb.equal( root.get( BBSVoteRecord_.optionId ), voteOptionId ));
-		cq.orderBy( cb.desc( root.get( BBSVoteRecord_.createTime ) ) );
+		Predicate p = cb.isNotNull( root.get( BBSVoteRecordStatic.id ) );
+		p = cb.and( p, cb.equal( root.get( BBSVoteRecordStatic.optionId ), voteOptionId ));
+		cq.orderBy( cb.desc( root.get( BBSVoteRecordStatic.createTime ) ) );
 		return em.createQuery(cq.where(p)).setMaxResults( maxRecordCount ).getResultList();
 	}
 
@@ -169,8 +169,8 @@ public class BBSVoteRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSVoteRecord> cq = cb.createQuery( BBSVoteRecord.class);
 		Root<BBSVoteRecord> root = cq.from( BBSVoteRecord.class );
-		Predicate p = cb.equal( root.get( BBSVoteRecord_.votorName ), personName );
-		p = cb.and( p, cb.equal( root.get( BBSVoteRecord_.optionGroupId ), optionGroupId ));
+		Predicate p = cb.equal( root.get( BBSVoteRecordStatic.votorName ), personName );
+		p = cb.and( p, cb.equal( root.get( BBSVoteRecordStatic.optionGroupId ), optionGroupId ));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 }

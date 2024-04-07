@@ -15,7 +15,7 @@ import javax.persistence.criteria.Root;
 
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
-import com.x.base.core.entity.JpaObject_;
+import com.x.base.core.entity.JpaObjectStatic;
 import com.x.base.core.project.Applications;
 import com.x.base.core.project.x_processplatform_assemble_surface;
 import com.x.base.core.project.x_processplatform_service_processing;
@@ -28,7 +28,7 @@ import com.x.base.core.project.utils.time.TimeStamp;
 import com.x.processplatform.core.entity.content.Draft;
 import com.x.processplatform.core.entity.content.Draft_;
 import com.x.processplatform.core.entity.content.Work;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkStatic;
 import com.x.processplatform.service.processing.ThisApplication;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -111,13 +111,13 @@ public class DeleteDraft extends AbstractJob {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<Work> root = cq.from(Work.class);
-		Path<String> idPath = root.get(Work_.id);
-		Path<String> jobPath = root.get(Work_.job);
-		Path<String> sequencePath = root.get(JpaObject_.sequence);
-		Path<Date> sequenceActivityArrivedTime = root.get(Work_.activityArrivedTime);
+		Path<String> idPath = root.get(WorkStatic.id);
+		Path<String> jobPath = root.get(WorkStatic.job);
+		Path<String> sequencePath = root.get(JpaObjectStatic.sequence);
+		Path<Date> sequenceActivityArrivedTime = root.get(WorkStatic.activityArrivedTime);
 		Predicate p = cb.lessThan(sequenceActivityArrivedTime, date);
-		p = cb.and(p, cb.equal(root.get(Work_.workThroughManual), false));
-		p = cb.and(p, cb.equal(root.get(Work_.workCreateType), Work.WORKCREATETYPE_SURFACE));
+		p = cb.and(p, cb.equal(root.get(WorkStatic.workThroughManual), false));
+		p = cb.and(p, cb.equal(root.get(WorkStatic.workCreateType), Work.WORKCREATETYPE_SURFACE));
 		if (StringUtils.isNotEmpty(sequence)) {
 			p = cb.and(p, cb.greaterThan(sequencePath, sequence));
 		}
@@ -142,8 +142,8 @@ public class DeleteDraft extends AbstractJob {
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<Draft> root = cq.from(Draft.class);
 		Path<String> idPath = root.get(Draft_.id);
-		Path<String> sequencePath = root.get(JpaObject_.sequence);
-		Predicate p = cb.lessThan(root.get(JpaObject_.createTime), date);
+		Path<String> sequencePath = root.get(JpaObjectStatic.sequence);
+		Predicate p = cb.lessThan(root.get(JpaObjectStatic.createTime), date);
 		if (StringUtils.isNotEmpty(sequence)) {
 			p = cb.and(p, cb.greaterThan(sequencePath, sequence));
 		}

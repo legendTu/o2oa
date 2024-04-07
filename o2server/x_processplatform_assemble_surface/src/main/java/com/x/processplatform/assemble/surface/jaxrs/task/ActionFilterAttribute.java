@@ -22,7 +22,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.SortTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Task;
-import com.x.processplatform.core.entity.content.Task_;
+import com.x.processplatform.core.entity.content.TaskStatic;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Process;
 
@@ -108,8 +108,8 @@ class ActionFilterAttribute extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.person), effectivePerson.getDistinguishedName());
-		cq.select(root.get(Task_.application)).where(p);
+		Predicate p = cb.equal(root.get(TaskStatic.person), effectivePerson.getDistinguishedName());
+		cq.select(root.get(TaskStatic.application)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		List<NameValueCountPair> wos = new ArrayList<>();
 		for (String str : os) {
@@ -136,8 +136,8 @@ class ActionFilterAttribute extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.person), effectivePerson.getDistinguishedName());
-		cq.select(root.get(Task_.process)).where(p);
+		Predicate p = cb.equal(root.get(TaskStatic.person), effectivePerson.getDistinguishedName());
+		cq.select(root.get(TaskStatic.process)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		List<NameValueCountPair> wos = new ArrayList<>();
 		for (String str : os) {
@@ -164,8 +164,8 @@ class ActionFilterAttribute extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.person), effectivePerson.getDistinguishedName());
-		cq.select(root.get(Task_.creatorUnit)).where(p);
+		Predicate p = cb.equal(root.get(TaskStatic.person), effectivePerson.getDistinguishedName());
+		cq.select(root.get(TaskStatic.creatorUnit)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		List<NameValueCountPair> wos = new ArrayList<>();
 		for (String str : os) {
@@ -186,8 +186,8 @@ class ActionFilterAttribute extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.person), effectivePerson.getDistinguishedName());
-		cq.select(root.get(Task_.activityName)).where(p);
+		Predicate p = cb.equal(root.get(TaskStatic.person), effectivePerson.getDistinguishedName());
+		cq.select(root.get(TaskStatic.activityName)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		List<NameValueCountPair> wos = new ArrayList<>();
 		for (String str : os) {
@@ -208,8 +208,8 @@ class ActionFilterAttribute extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.person), effectivePerson.getDistinguishedName());
-		cq.select(root.get(Task_.startTimeMonth)).where(p);
+		Predicate p = cb.equal(root.get(TaskStatic.person), effectivePerson.getDistinguishedName());
+		cq.select(root.get(TaskStatic.startTimeMonth)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		List<NameValueCountPair> wos = new ArrayList<>();
 		for (String str : os) {

@@ -19,7 +19,7 @@ import org.quartz.JobExecutionException;
 
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
-import com.x.base.core.entity.JpaObject_;
+import com.x.base.core.entity.JpaObjectStatic;
 import com.x.base.core.project.Applications;
 import com.x.base.core.project.x_processplatform_service_processing;
 import com.x.base.core.project.config.Config;
@@ -29,7 +29,7 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.schedule.AbstractJob;
 import com.x.base.core.project.utils.time.TimeStamp;
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
 import com.x.processplatform.service.processing.ThisApplication;
 
 import fr.opensagres.poi.xwpf.converter.core.utils.StringUtils;
@@ -81,12 +81,12 @@ public class Merge extends AbstractJob {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Path<String> idPath = root.get(WorkCompleted_.id);
-		Path<String> jobPath = root.get(WorkCompleted_.job);
-		Path<String> sequencePath = root.get(JpaObject_.sequence);
-		Predicate p = cb.or(cb.isNull(root.get(WorkCompleted_.merged)),
-				cb.equal(root.get(WorkCompleted_.merged), false));
-		p = cb.and(p, cb.lessThan(root.get(WorkCompleted_.completedTime), date));
+		Path<String> idPath = root.get(WorkCompletedStatic.id);
+		Path<String> jobPath = root.get(WorkCompletedStatic.job);
+		Path<String> sequencePath = root.get(JpaObjectStatic.sequence);
+		Predicate p = cb.or(cb.isNull(root.get(WorkCompletedStatic.merged)),
+				cb.equal(root.get(WorkCompletedStatic.merged), false));
+		p = cb.and(p, cb.lessThan(root.get(WorkCompletedStatic.completedTime), date));
 		if (StringUtils.isNotEmpty(sequence)) {
 			p = cb.and(p, cb.greaterThan(sequencePath, sequence));
 		}

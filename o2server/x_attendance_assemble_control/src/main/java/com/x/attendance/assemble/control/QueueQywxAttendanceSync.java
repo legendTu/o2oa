@@ -1,7 +1,7 @@
 package com.x.attendance.assemble.control;
 
 import com.x.attendance.entity.AttendanceQywxDetail;
-import com.x.attendance.entity.AttendanceQywxDetail_;
+import com.x.attendance.entity.AttendanceQywxDetailStatic;
 import com.x.attendance.entity.DingdingQywxSyncRecord;
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
@@ -196,7 +196,7 @@ public class QueueQywxAttendanceSync extends AbstractQueue<DingdingQywxSyncRecor
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<AttendanceQywxDetail> query = cb.createQuery(AttendanceQywxDetail.class);
             Root<AttendanceQywxDetail> root = query.from(AttendanceQywxDetail.class);
-            Predicate p = cb.between(root.get(AttendanceQywxDetail_.checkin_time_date), fromDate, toDate);
+            Predicate p = cb.between(root.get(AttendanceQywxDetailStatic.checkin_time_date), fromDate, toDate);
             query.select(root).where(p);
             List<AttendanceQywxDetail> detailList = em.createQuery(query).getResultList();
             //先删除

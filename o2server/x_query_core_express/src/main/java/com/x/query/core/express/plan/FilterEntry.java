@@ -6,16 +6,14 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import com.x.processplatform.core.entity.content.Task_;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
-import com.x.base.core.entity.dataitem.ItemCategory;
 import com.x.base.core.project.gson.GsonPropertyObject;
 import com.x.base.core.project.tools.DateTools;
 import com.x.query.core.entity.Item;
-import com.x.query.core.entity.Item_;
+import com.x.query.core.entity.ItemStatic;
 import com.x.cms.core.entity.Document;
 
 public class FilterEntry extends GsonPropertyObject {
@@ -141,10 +139,10 @@ public class FilterEntry extends GsonPropertyObject {
 			if (null != booleanValue) {
 				if (Comparison.isNotEquals(this.comparison)) {
 					/** 不等于返回等于值,在外部运算 */
-					p = cb.and(p, cb.or(cb.isNull(root.get(Item_.booleanValue)),
-							cb.equal(root.get(Item_.booleanValue), booleanValue)));
+					p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.booleanValue)),
+							cb.equal(root.get(ItemStatic.booleanValue), booleanValue)));
 				} else {
-					p = cb.and(p, cb.equal(root.get(Item_.booleanValue), booleanValue));
+					p = cb.and(p, cb.equal(root.get(ItemStatic.booleanValue), booleanValue));
 				}
 			}
 		} else if (StringUtils.equals(this.formatType, FORMAT_NUMBERVALUE)) {
@@ -152,23 +150,23 @@ public class FilterEntry extends GsonPropertyObject {
 			if (null != doubleValue) {
 				if (Comparison.isNotEquals(this.comparison)) {
 					/** 不等于返回等于值,在外部运算 */
-					p = cb.and(p, cb.or(cb.isNull(root.get(Item_.numberValue)),
-							cb.equal(root.get(Item_.numberValue), doubleValue)));
+					p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.numberValue)),
+							cb.equal(root.get(ItemStatic.numberValue), doubleValue)));
 				} else if (Comparison.isGreaterThan(this.comparison)) {
-					p = cb.and(p, cb.greaterThan(root.get(Item_.numberValue), doubleValue));
+					p = cb.and(p, cb.greaterThan(root.get(ItemStatic.numberValue), doubleValue));
 				} else if (Comparison.isGreaterThanOrEqualTo(this.comparison)) {
-					p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Item_.numberValue), doubleValue));
+					p = cb.and(p, cb.greaterThanOrEqualTo(root.get(ItemStatic.numberValue), doubleValue));
 				} else if (Comparison.isLessThan(this.comparison)) {
-					p = cb.and(p, cb.lessThan(root.get(Item_.numberValue), doubleValue));
+					p = cb.and(p, cb.lessThan(root.get(ItemStatic.numberValue), doubleValue));
 				} else if (Comparison.isLessThanOrEqualTo(this.comparison)) {
-					p = cb.and(p, cb.lessThanOrEqualTo(root.get(Item_.numberValue), doubleValue));
+					p = cb.and(p, cb.lessThanOrEqualTo(root.get(ItemStatic.numberValue), doubleValue));
 				} else if (Comparison.isBetween(this.comparison)) {
 					Double doubleOtherValue = NumberUtils.toDouble(compareOtherValue);
 					if (null != doubleOtherValue) {
-						p = cb.and(p, cb.between(root.get(Item_.numberValue), doubleValue, doubleOtherValue));
+						p = cb.and(p, cb.between(root.get(ItemStatic.numberValue), doubleValue, doubleOtherValue));
 					}
 				} else {
-					p = cb.and(p, cb.equal(root.get(Item_.numberValue), doubleValue));
+					p = cb.and(p, cb.equal(root.get(ItemStatic.numberValue), doubleValue));
 				}
 			}
 		} else if (StringUtils.equals(this.formatType, FORMAT_DATEVALUE)) {
@@ -193,24 +191,24 @@ public class FilterEntry extends GsonPropertyObject {
 					value = DateTools.floorDate(value, 0);
 					if (Comparison.isNotEquals(this.comparison)) {
 						/** 不等于返回等于值,在外部运算 */
-						p = cb.and(p, cb.or(cb.isNull(root.get(Item_.dateValue)),
-								cb.equal(root.get(Item_.dateValue), value)));
+						p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.dateValue)),
+								cb.equal(root.get(ItemStatic.dateValue), value)));
 					} else if (Comparison.isGreaterThan(this.comparison)) {
-						p = cb.and(p, cb.greaterThan(root.get(Item_.dateValue), value));
+						p = cb.and(p, cb.greaterThan(root.get(ItemStatic.dateValue), value));
 					} else if (Comparison.isGreaterThanOrEqualTo(this.comparison)) {
-						p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Item_.dateValue), value));
+						p = cb.and(p, cb.greaterThanOrEqualTo(root.get(ItemStatic.dateValue), value));
 					} else if (Comparison.isLessThan(this.comparison)) {
-						p = cb.and(p, cb.lessThan(root.get(Item_.dateValue), value));
+						p = cb.and(p, cb.lessThan(root.get(ItemStatic.dateValue), value));
 					} else if (Comparison.isLessThanOrEqualTo(this.comparison)) {
-						p = cb.and(p, cb.lessThanOrEqualTo(root.get(Item_.dateValue), value));
+						p = cb.and(p, cb.lessThanOrEqualTo(root.get(ItemStatic.dateValue), value));
 					} else if (Comparison.isBetween(this.comparison)) {
 						if (null != otherValue) {
-							p = cb.and(p, cb.between(root.get(Item_.dateValue), value, otherValue));
+							p = cb.and(p, cb.between(root.get(ItemStatic.dateValue), value, otherValue));
 						} else {
 							throw new Exception("unkown comparison:" + this.comparison);
 						}
 					} else {
-						p = cb.and(p, cb.equal(root.get(Item_.dateValue), value));
+						p = cb.and(p, cb.equal(root.get(ItemStatic.dateValue), value));
 					}
 				} else if (StringUtils.equals(compareValue, DEFINE_DATE)
 						|| StringUtils.equals(compareValue, DEFINE_MONTH)
@@ -233,16 +231,16 @@ public class FilterEntry extends GsonPropertyObject {
 					}
 					if (Comparison.isNotEquals(this.comparison)) {
 						/** 不等于返回等于值,在外部运算 */
-						p = cb.and(p, cb.or(cb.isNull(root.get(Item_.dateValue)),
-								cb.between(root.get(Item_.dateValue), floor, ceil)));
+						p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.dateValue)),
+								cb.between(root.get(ItemStatic.dateValue), floor, ceil)));
 					} else if (Comparison.isGreaterThan(this.comparison)) {
-						p = cb.and(p, cb.greaterThan(root.get(Item_.dateValue), ceil));
+						p = cb.and(p, cb.greaterThan(root.get(ItemStatic.dateValue), ceil));
 					} else if (Comparison.isGreaterThanOrEqualTo(this.comparison)) {
-						p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Item_.dateValue), floor));
+						p = cb.and(p, cb.greaterThanOrEqualTo(root.get(ItemStatic.dateValue), floor));
 					} else if (Comparison.isLessThan(this.comparison)) {
-						p = cb.and(p, cb.lessThan(root.get(Item_.dateValue), floor));
+						p = cb.and(p, cb.lessThan(root.get(ItemStatic.dateValue), floor));
 					} else if (Comparison.isLessThanOrEqualTo(this.comparison)) {
-						p = cb.and(p, cb.lessThanOrEqualTo(root.get(Item_.dateValue), ceil));
+						p = cb.and(p, cb.lessThanOrEqualTo(root.get(ItemStatic.dateValue), ceil));
 					} else if (Comparison.isBetween(this.comparison)) {
 						// throw new Exception("unkown comparison:" + this.comparison);
 					} else {
@@ -251,16 +249,16 @@ public class FilterEntry extends GsonPropertyObject {
 				} else if (StringUtils.equals(compareValue, DEFINE_TIME)) {
 					if (Comparison.isNotEquals(this.comparison)) {
 						/** 不等于返回等于值,在外部运算 */
-						p = cb.and(p, cb.or(cb.isNull(root.get(Item_.dateValue)),
-								cb.equal(root.get(Item_.dateValue), new Date())));
+						p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.dateValue)),
+								cb.equal(root.get(ItemStatic.dateValue), new Date())));
 					} else if (Comparison.isGreaterThan(this.comparison)) {
-						p = cb.and(p, cb.greaterThan(root.get(Item_.dateValue), new Date()));
+						p = cb.and(p, cb.greaterThan(root.get(ItemStatic.dateValue), new Date()));
 					} else if (Comparison.isGreaterThanOrEqualTo(this.comparison)) {
-						p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Item_.dateValue), new Date()));
+						p = cb.and(p, cb.greaterThanOrEqualTo(root.get(ItemStatic.dateValue), new Date()));
 					} else if (Comparison.isLessThan(this.comparison)) {
-						p = cb.and(p, cb.lessThan(root.get(Item_.dateValue), new Date()));
+						p = cb.and(p, cb.lessThan(root.get(ItemStatic.dateValue), new Date()));
 					} else if (Comparison.isLessThanOrEqualTo(this.comparison)) {
-						p = cb.and(p, cb.lessThanOrEqualTo(root.get(Item_.dateValue), new Date()));
+						p = cb.and(p, cb.lessThanOrEqualTo(root.get(ItemStatic.dateValue), new Date()));
 					} else if (Comparison.isBetween(this.comparison)) {
 						// throw new Exception("unkown comparison:" + this.comparison);
 					} else {
@@ -286,36 +284,36 @@ public class FilterEntry extends GsonPropertyObject {
 				if (null != value) {
 					if (Comparison.isNotEquals(this.comparison)) {
 						/** 不等于返回等于值,在外部运算 */
-						p = cb.and(p, cb.or(cb.isNull(root.get(Item_.timeValue)),
-								cb.equal(root.get(Item_.timeValue), value)));
+						p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.timeValue)),
+								cb.equal(root.get(ItemStatic.timeValue), value)));
 					} else if (Comparison.isGreaterThan(this.comparison)) {
-						p = cb.and(p, cb.greaterThan(root.get(Item_.timeValue), value));
+						p = cb.and(p, cb.greaterThan(root.get(ItemStatic.timeValue), value));
 					} else if (Comparison.isGreaterThanOrEqualTo(this.comparison)) {
-						p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Item_.timeValue), value));
+						p = cb.and(p, cb.greaterThanOrEqualTo(root.get(ItemStatic.timeValue), value));
 					} else if (Comparison.isLessThan(this.comparison)) {
-						p = cb.and(p, cb.lessThan(root.get(Item_.timeValue), value));
+						p = cb.and(p, cb.lessThan(root.get(ItemStatic.timeValue), value));
 					} else if (Comparison.isLessThanOrEqualTo(this.comparison)) {
-						p = cb.and(p, cb.lessThanOrEqualTo(root.get(Item_.timeValue), value));
+						p = cb.and(p, cb.lessThanOrEqualTo(root.get(ItemStatic.timeValue), value));
 					} else if (Comparison.isBetween(this.comparison)) {
 						if (null != otherValue) {
-							p = cb.and(p, cb.between(root.get(Item_.timeValue), value, otherValue));
+							p = cb.and(p, cb.between(root.get(ItemStatic.timeValue), value, otherValue));
 						}
 					} else {
-						p = cb.and(p, cb.equal(root.get(Item_.timeValue), value));
+						p = cb.and(p, cb.equal(root.get(ItemStatic.timeValue), value));
 					}
 				} else if (StringUtils.equals(compareValue, DEFINE_TIME)) {
 					if (Comparison.isNotEquals(this.comparison)) {
 						/** 不等于返回等于值,在外部运算 */
-						p = cb.and(p, cb.or(cb.isNull(root.get(Item_.timeValue)),
-								cb.equal(root.get(Item_.timeValue), new Date())));
+						p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.timeValue)),
+								cb.equal(root.get(ItemStatic.timeValue), new Date())));
 					} else if (Comparison.isGreaterThan(this.comparison)) {
-						p = cb.and(p, cb.greaterThan(root.get(Item_.timeValue), new Date()));
+						p = cb.and(p, cb.greaterThan(root.get(ItemStatic.timeValue), new Date()));
 					} else if (Comparison.isGreaterThanOrEqualTo(this.comparison)) {
-						p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Item_.timeValue), new Date()));
+						p = cb.and(p, cb.greaterThanOrEqualTo(root.get(ItemStatic.timeValue), new Date()));
 					} else if (Comparison.isLessThan(this.comparison)) {
-						p = cb.and(p, cb.lessThan(root.get(Item_.timeValue), new Date()));
+						p = cb.and(p, cb.lessThan(root.get(ItemStatic.timeValue), new Date()));
 					} else if (Comparison.isLessThanOrEqualTo(this.comparison)) {
-						p = cb.and(p, cb.lessThanOrEqualTo(root.get(Item_.timeValue), new Date()));
+						p = cb.and(p, cb.lessThanOrEqualTo(root.get(ItemStatic.timeValue), new Date()));
 					} else if (Comparison.isBetween(this.comparison)) {
 						throw new Exception("unkown comparison:" + this.comparison);
 					} else {
@@ -339,24 +337,24 @@ public class FilterEntry extends GsonPropertyObject {
 			if (null != value) {
 				if (Comparison.isNotEquals(this.comparison)) {
 					/** 不等于返回等于值,在外部运算 */
-					p = cb.and(p, cb.or(cb.isNull(root.get(Item_.dateTimeValue)),
-							cb.equal(root.get(Item_.dateTimeValue), value)));
+					p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.dateTimeValue)),
+							cb.equal(root.get(ItemStatic.dateTimeValue), value)));
 				} else if (Comparison.isGreaterThan(this.comparison)) {
-					p = cb.and(p, cb.greaterThan(root.get(Item_.dateTimeValue), value));
+					p = cb.and(p, cb.greaterThan(root.get(ItemStatic.dateTimeValue), value));
 				} else if (Comparison.isGreaterThanOrEqualTo(this.comparison)) {
-					p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Item_.dateTimeValue), value));
+					p = cb.and(p, cb.greaterThanOrEqualTo(root.get(ItemStatic.dateTimeValue), value));
 				} else if (Comparison.isLessThan(this.comparison)) {
-					p = cb.and(p, cb.lessThan(root.get(Item_.dateTimeValue), value));
+					p = cb.and(p, cb.lessThan(root.get(ItemStatic.dateTimeValue), value));
 				} else if (Comparison.isLessThanOrEqualTo(this.comparison)) {
-					p = cb.and(p, cb.lessThanOrEqualTo(root.get(Item_.dateTimeValue), value));
+					p = cb.and(p, cb.lessThanOrEqualTo(root.get(ItemStatic.dateTimeValue), value));
 				} else if (Comparison.isBetween(this.comparison)) {
 					if (null != otherValue) {
-						p = cb.and(p, cb.between(root.get(Item_.dateTimeValue), value, otherValue));
+						p = cb.and(p, cb.between(root.get(ItemStatic.dateTimeValue), value, otherValue));
 					} else {
 						throw new Exception("unkown comparison:" + this.comparison);
 					}
 				} else {
-					p = cb.and(p, cb.equal(root.get(Item_.dateTimeValue), value));
+					p = cb.and(p, cb.equal(root.get(ItemStatic.dateTimeValue), value));
 				}
 			} else if (StringUtils.equals(compareValue, DEFINE_DATE) || StringUtils.equals(compareValue, DEFINE_MONTH)
 					|| StringUtils.equals(compareValue, DEFINE_SEASON)
@@ -378,16 +376,16 @@ public class FilterEntry extends GsonPropertyObject {
 				}
 				if (Comparison.isNotEquals(this.comparison)) {
 					/** 不等于返回等于值,在外部运算 */
-					p = cb.and(p, cb.or(cb.isNull(root.get(Item_.dateTimeValue)),
-							cb.between(root.get(Item_.dateTimeValue), floor, ceil)));
+					p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.dateTimeValue)),
+							cb.between(root.get(ItemStatic.dateTimeValue), floor, ceil)));
 				} else if (Comparison.isGreaterThan(this.comparison)) {
-					p = cb.and(p, cb.greaterThan(root.get(Item_.dateTimeValue), ceil));
+					p = cb.and(p, cb.greaterThan(root.get(ItemStatic.dateTimeValue), ceil));
 				} else if (Comparison.isGreaterThanOrEqualTo(this.comparison)) {
-					p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Item_.dateTimeValue), floor));
+					p = cb.and(p, cb.greaterThanOrEqualTo(root.get(ItemStatic.dateTimeValue), floor));
 				} else if (Comparison.isLessThan(this.comparison)) {
-					p = cb.and(p, cb.lessThan(root.get(Item_.dateTimeValue), floor));
+					p = cb.and(p, cb.lessThan(root.get(ItemStatic.dateTimeValue), floor));
 				} else if (Comparison.isLessThanOrEqualTo(this.comparison)) {
-					p = cb.and(p, cb.lessThanOrEqualTo(root.get(Item_.dateTimeValue), ceil));
+					p = cb.and(p, cb.lessThanOrEqualTo(root.get(ItemStatic.dateTimeValue), ceil));
 				} else if (Comparison.isBetween(this.comparison)) {
 					// p = cb.and(p, cb.between(root.get(Item_.dateTimeValue), floor, ceil));
 				} else {
@@ -396,16 +394,16 @@ public class FilterEntry extends GsonPropertyObject {
 			} else if (StringUtils.equals(compareValue, DEFINE_TIME)) {
 				if (Comparison.isNotEquals(this.comparison)) {
 					/** 不等于返回等于值,在外部运算 */
-					p = cb.and(p, cb.or(cb.isNull(root.get(Item_.dateTimeValue)),
-							cb.equal(root.get(Item_.dateTimeValue), new Date())));
+					p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.dateTimeValue)),
+							cb.equal(root.get(ItemStatic.dateTimeValue), new Date())));
 				} else if (Comparison.isGreaterThan(this.comparison)) {
-					p = cb.and(p, cb.greaterThan(root.get(Item_.dateTimeValue), new Date()));
+					p = cb.and(p, cb.greaterThan(root.get(ItemStatic.dateTimeValue), new Date()));
 				} else if (Comparison.isGreaterThanOrEqualTo(this.comparison)) {
-					p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Item_.dateTimeValue), new Date()));
+					p = cb.and(p, cb.greaterThanOrEqualTo(root.get(ItemStatic.dateTimeValue), new Date()));
 				} else if (Comparison.isLessThan(this.comparison)) {
-					p = cb.and(p, cb.lessThan(root.get(Item_.dateTimeValue), new Date()));
+					p = cb.and(p, cb.lessThan(root.get(ItemStatic.dateTimeValue), new Date()));
 				} else if (Comparison.isLessThanOrEqualTo(this.comparison)) {
-					p = cb.and(p, cb.lessThanOrEqualTo(root.get(Item_.dateTimeValue), new Date()));
+					p = cb.and(p, cb.lessThanOrEqualTo(root.get(ItemStatic.dateTimeValue), new Date()));
 				} else if (Comparison.isBetween(this.comparison)) {
 					throw new Exception("unkown comparison:" + this.comparison);
 				} else {
@@ -417,33 +415,33 @@ public class FilterEntry extends GsonPropertyObject {
 			if (StringUtils.equals(compareValue, DEFINE_PERSON)) {
 				if (Comparison.isNotEquals(this.comparison)) {
 					/** 不等于返回等于值,在外部运算 */
-					p = cb.and(p, cb.or(cb.isNull(root.get(Item_.stringShortValue)),
-							cb.equal(root.get(Item_.stringShortValue), runtime.person)));
+					p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.stringShortValue)),
+							cb.equal(root.get(ItemStatic.stringShortValue), runtime.person)));
 				} else if (Comparison.isGreaterThan(this.comparison)) {
-					p = cb.and(p, cb.greaterThan(root.get(Item_.stringShortValue), runtime.person));
+					p = cb.and(p, cb.greaterThan(root.get(ItemStatic.stringShortValue), runtime.person));
 				} else if (Comparison.isGreaterThanOrEqualTo(this.comparison)) {
-					p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Item_.stringShortValue), runtime.person));
+					p = cb.and(p, cb.greaterThanOrEqualTo(root.get(ItemStatic.stringShortValue), runtime.person));
 				} else if (Comparison.isLessThan(this.comparison)) {
-					p = cb.and(p, cb.lessThan(root.get(Item_.stringShortValue), runtime.person));
+					p = cb.and(p, cb.lessThan(root.get(ItemStatic.stringShortValue), runtime.person));
 				} else if (Comparison.isLessThanOrEqualTo(this.comparison)) {
-					p = cb.and(p, cb.lessThanOrEqualTo(root.get(Item_.stringShortValue), runtime.person));
+					p = cb.and(p, cb.lessThanOrEqualTo(root.get(ItemStatic.stringShortValue), runtime.person));
 				} else if (Comparison.isLike(this.comparison)) {
-					p = cb.and(p, cb.like(root.get(Item_.stringShortValue), "%" + runtime.person + "%"));
+					p = cb.and(p, cb.like(root.get(ItemStatic.stringShortValue), "%" + runtime.person + "%"));
 				} else if (Comparison.isNotLike(this.comparison)) {
-					p = cb.and(p, cb.notLike(root.get(Item_.stringShortValue), "%" + runtime.person + "%"));
+					p = cb.and(p, cb.notLike(root.get(ItemStatic.stringShortValue), "%" + runtime.person + "%"));
 				} else if (Comparison.isBetween(this.comparison)) {
 					throw new Exception("unkown comparison:" + this.comparison);
 				} else {
-					p = cb.and(p, cb.equal(root.get(Item_.stringShortValue), runtime.person));
+					p = cb.and(p, cb.equal(root.get(ItemStatic.stringShortValue), runtime.person));
 				}
 			} else if (StringUtils.equals(compareValue, DEFINE_UNITLIST)) {
 				if (Comparison.isNotEquals(this.comparison)) {
 					/** 不等于返回等于值,在外部运算 */
 					if(runtime.unitList.size()==1){
-						p = cb.and(p, cb.or(cb.isNull(root.get(Item_.stringShortValue)),
-								cb.equal(root.get(Item_.stringShortValue), runtime.unitList.get(0))));
+						p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.stringShortValue)),
+								cb.equal(root.get(ItemStatic.stringShortValue), runtime.unitList.get(0))));
 					}else {
-						p = cb.and(p, root.get(Item_.stringShortValue).in(runtime.unitList));
+						p = cb.and(p, root.get(ItemStatic.stringShortValue).in(runtime.unitList));
 					}
 				} else if (Comparison.isGreaterThan(this.comparison)) {
 					throw new Exception("unkown comparison:" + this.comparison);
@@ -461,15 +459,15 @@ public class FilterEntry extends GsonPropertyObject {
 					throw new Exception("unkown comparison:" + this.comparison);
 				} else {
 					if(runtime.unitList.size()==1){
-						p = cb.and(p, cb.equal(root.get(Item_.stringShortValue), runtime.unitList.get(0)));
+						p = cb.and(p, cb.equal(root.get(ItemStatic.stringShortValue), runtime.unitList.get(0)));
 					}else {
-						p = cb.and(p, root.get(Item_.stringShortValue).in(runtime.unitList));
+						p = cb.and(p, root.get(ItemStatic.stringShortValue).in(runtime.unitList));
 					}
 				}
 			} else if (StringUtils.equals(compareValue, DEFINE_UNITALLLIST)) {
 				if (Comparison.isNotEquals(this.comparison)) {
 					/** 不等于返回等于值,在外部运算 */
-					p = cb.and(p, root.get(Item_.stringShortValue).in(runtime.unitAllList));
+					p = cb.and(p, root.get(ItemStatic.stringShortValue).in(runtime.unitAllList));
 				} else if (Comparison.isGreaterThan(this.comparison)) {
 					throw new Exception("unkown comparison:" + this.comparison);
 				} else if (Comparison.isGreaterThanOrEqualTo(this.comparison)) {
@@ -485,12 +483,12 @@ public class FilterEntry extends GsonPropertyObject {
 				} else if (Comparison.isBetween(this.comparison)) {
 					throw new Exception("unkown comparison:" + this.comparison);
 				} else {
-					p = cb.and(p, root.get(Item_.stringShortValue).in(runtime.unitAllList));
+					p = cb.and(p, root.get(ItemStatic.stringShortValue).in(runtime.unitAllList));
 				}
 			} else if (StringUtils.equals(compareValue, DEFINE_IDENTITYLIST)) {
 				if (Comparison.isNotEquals(this.comparison)) {
 					/** 不等于返回等于值,在外部运算 */
-					p = cb.and(p, root.get(Item_.stringShortValue).in(runtime.identityList));
+					p = cb.and(p, root.get(ItemStatic.stringShortValue).in(runtime.identityList));
 				} else if (Comparison.isGreaterThan(this.comparison)) {
 					throw new Exception("unkown comparison:" + this.comparison);
 				} else if (Comparison.isGreaterThanOrEqualTo(this.comparison)) {
@@ -506,32 +504,32 @@ public class FilterEntry extends GsonPropertyObject {
 				} else if (Comparison.isBetween(this.comparison)) {
 					throw new Exception("unkown comparison:" + this.comparison);
 				} else {
-					p = cb.and(p, root.get(Item_.stringShortValue).in(runtime.identityList));
+					p = cb.and(p, root.get(ItemStatic.stringShortValue).in(runtime.identityList));
 				}
 			} else {
 				if (Comparison.isNotEquals(this.comparison)) {
 					/** 不等于返回等于值,在外部运算 */
-					p = cb.and(p, cb.or(cb.isNull(root.get(Item_.stringShortValue)),
-							cb.equal(root.get(Item_.stringShortValue), compareValue)));
+					p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.stringShortValue)),
+							cb.equal(root.get(ItemStatic.stringShortValue), compareValue)));
 				} else if (Comparison.isGreaterThan(this.comparison)) {
-					p = cb.and(p, cb.greaterThan(root.get(Item_.stringShortValue), compareValue));
+					p = cb.and(p, cb.greaterThan(root.get(ItemStatic.stringShortValue), compareValue));
 				} else if (Comparison.isGreaterThanOrEqualTo(this.comparison)) {
-					p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Item_.stringShortValue), compareValue));
+					p = cb.and(p, cb.greaterThanOrEqualTo(root.get(ItemStatic.stringShortValue), compareValue));
 				} else if (Comparison.isLessThan(this.comparison)) {
-					p = cb.and(p, cb.lessThan(root.get(Item_.stringShortValue), compareValue));
+					p = cb.and(p, cb.lessThan(root.get(ItemStatic.stringShortValue), compareValue));
 				} else if (Comparison.isLessThanOrEqualTo(this.comparison)) {
-					p = cb.and(p, cb.lessThanOrEqualTo(root.get(Item_.stringShortValue), compareValue));
+					p = cb.and(p, cb.lessThanOrEqualTo(root.get(ItemStatic.stringShortValue), compareValue));
 				} else if (Comparison.isLike(this.comparison)) {
-					p = cb.and(p, cb.like(root.get(Item_.stringShortValue), "%" + compareValue + "%"));
+					p = cb.and(p, cb.like(root.get(ItemStatic.stringShortValue), "%" + compareValue + "%"));
 				} else if (Comparison.isNotLike(this.comparison)) {
-					p = cb.and(p, cb.notLike(root.get(Item_.stringShortValue), "%" + compareValue + "%"));
+					p = cb.and(p, cb.notLike(root.get(ItemStatic.stringShortValue), "%" + compareValue + "%"));
 				} else if (Comparison.isBetween(this.comparison)) {
-					p = cb.and(p, cb.between(root.get(Item_.stringShortValue), compareValue, compareOtherValue));
+					p = cb.and(p, cb.between(root.get(ItemStatic.stringShortValue), compareValue, compareOtherValue));
 				} else if (Comparison.isIsMember(this.comparison)) {
 					if(compareValue.indexOf(",") > -1){
-						p = cb.and(p,  root.get(Item_.stringShortValue).in(Arrays.asList(compareValue.split(","))));
+						p = cb.and(p,  root.get(ItemStatic.stringShortValue).in(Arrays.asList(compareValue.split(","))));
 					}else{
-						p = cb.and(p, cb.equal(root.get(Item_.stringShortValue), compareValue));
+						p = cb.and(p, cb.equal(root.get(ItemStatic.stringShortValue), compareValue));
 					}
 				} else if (Comparison.isListLike(this.comparison)) {
 					if(compareValue.indexOf(",") > -1){
@@ -539,9 +537,9 @@ public class FilterEntry extends GsonPropertyObject {
 						for(String cv : compareValue.split(",")){
 							if(StringUtils.isNotBlank(cv)) {
 								if(op == null){
-									op = cb.like(root.get(Item_.stringShortValue), cv.trim());
+									op = cb.like(root.get(ItemStatic.stringShortValue), cv.trim());
 								}else {
-									op = cb.or(op, cb.like(root.get(Item_.stringShortValue), cv.trim()));
+									op = cb.or(op, cb.like(root.get(ItemStatic.stringShortValue), cv.trim()));
 								}
 							}
 						}
@@ -549,45 +547,45 @@ public class FilterEntry extends GsonPropertyObject {
 							p = cb.and(p, op);
 						}
 					}else{
-						p = cb.and(p, cb.like(root.get(Item_.stringShortValue), compareValue));
+						p = cb.and(p, cb.like(root.get(ItemStatic.stringShortValue), compareValue));
 					}
 				} else {
-					p = cb.and(p, cb.equal(root.get(Item_.stringShortValue), compareValue));
+					p = cb.and(p, cb.equal(root.get(ItemStatic.stringShortValue), compareValue));
 				}
 			}
 		}
 
 		String[] paths = StringUtils.split(this.path, ".");
 		if ((paths.length > 0) && StringUtils.isNotEmpty(paths[0])) {
-			p = cb.and(p, cb.equal(root.get(Item_.path0), paths[0]));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path0), paths[0]));
 		}
 
 		if ((paths.length > 1) && StringUtils.isNotEmpty(paths[1]) && !WILDCARD.equals(paths[1])) {
-			p = cb.and(p, cb.equal(root.get(Item_.path1), paths[1]));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path1), paths[1]));
 		}
 
 		if ((paths.length > 2) && StringUtils.isNotEmpty(paths[2]) && !WILDCARD.equals(paths[2])) {
-			p = cb.and(p, cb.equal(root.get(Item_.path2), paths[2]));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path2), paths[2]));
 		}
 
 		if ((paths.length > 3) && StringUtils.isNotEmpty(paths[3]) && !WILDCARD.equals(paths[3])) {
-			p = cb.and(p, cb.equal(root.get(Item_.path3), paths[3]));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path3), paths[3]));
 		}
 
 		if ((paths.length > 4) && StringUtils.isNotEmpty(paths[4]) && !WILDCARD.equals(paths[4])) {
-			p = cb.and(p, cb.equal(root.get(Item_.path4), paths[4]));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path4), paths[4]));
 		}
 
 		if ((paths.length > 5) && StringUtils.isNotEmpty(paths[5]) && !WILDCARD.equals(paths[5])) {
-			p = cb.and(p, cb.equal(root.get(Item_.path5), paths[5]));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path5), paths[5]));
 		}
 
 		if ((paths.length > 6) && StringUtils.isNotEmpty(paths[6]) && !WILDCARD.equals(paths[6])) {
-			p = cb.and(p, cb.equal(root.get(Item_.path6), paths[6]));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path6), paths[6]));
 		}
 
 		if ((paths.length > 7) && StringUtils.isNotEmpty(paths[7]) && !WILDCARD.equals(paths[7])) {
-			p = cb.and(p, cb.equal(root.get(Item_.path7), paths[7]));
+			p = cb.and(p, cb.equal(root.get(ItemStatic.path7), paths[7]));
 		}
 
 		return p;

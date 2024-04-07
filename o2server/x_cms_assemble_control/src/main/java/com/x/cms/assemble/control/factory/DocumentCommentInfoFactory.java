@@ -4,7 +4,7 @@ import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.DocumentCommentContent;
 import com.x.cms.core.entity.DocumentCommentInfo;
-import com.x.cms.core.entity.DocumentCommentInfo_;
+import com.x.cms.core.entity.DocumentCommentInfoStatic;
 import com.x.cms.core.express.tools.CriteriaBuilderTools;
 import com.x.cms.core.express.tools.DateOperation;
 import com.x.cms.core.express.tools.filter.QueryFilter;
@@ -41,7 +41,7 @@ public class DocumentCommentInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<DocumentCommentInfo> cq = cb.createQuery( DocumentCommentInfo.class );
 		Root<DocumentCommentInfo> root = cq.from( DocumentCommentInfo.class );
-		Predicate p = root.get( DocumentCommentInfo_.documentId ).in( ids );
+		Predicate p = root.get( DocumentCommentInfoStatic.documentId ).in( ids );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -50,8 +50,8 @@ public class DocumentCommentInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentCommentInfo> root = cq.from( DocumentCommentInfo.class );
-		Predicate p = cb.equal(root.get( DocumentCommentInfo_.documentId ), docId );
-		cq.select( root.get( DocumentCommentInfo_.id ));
+		Predicate p = cb.equal(root.get( DocumentCommentInfoStatic.documentId ), docId );
+		cq.select( root.get( DocumentCommentInfoStatic.id ));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -60,8 +60,8 @@ public class DocumentCommentInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Integer> cq = cb.createQuery( Integer.class );
 		Root<DocumentCommentInfo> root = cq.from( DocumentCommentInfo.class );
-		Predicate p = cb.equal(root.get( DocumentCommentInfo_.documentId ), documentId );
-		cq.select( cb.max( root.get( DocumentCommentInfo_.orderNumber )));
+		Predicate p = cb.equal(root.get( DocumentCommentInfoStatic.documentId ), documentId );
+		cq.select( cb.max( root.get( DocumentCommentInfoStatic.orderNumber )));
 		Integer max = em.createQuery(cq.where(p)).getSingleResult();
 		return max == null ? 0 : max;
 	}
@@ -71,8 +71,8 @@ public class DocumentCommentInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentCommentInfo> root = cq.from( DocumentCommentInfo.class );
-		Predicate p = cb.equal(root.get( DocumentCommentInfo_.creatorName ), personName );
-		cq.select( root.get( DocumentCommentInfo_.id ));
+		Predicate p = cb.equal(root.get( DocumentCommentInfoStatic.creatorName ), personName );
+		cq.select( root.get( DocumentCommentInfoStatic.id ));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -81,9 +81,9 @@ public class DocumentCommentInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<DocumentCommentInfo> root = cq.from( DocumentCommentInfo.class );
-		Predicate p = cb.equal(root.get( DocumentCommentInfo_.creatorName ), personName );
-		p = cb.and( p, cb.equal( root.get( DocumentCommentInfo_.documentId ), docId ));
-		cq.select( root.get( DocumentCommentInfo_.id ));
+		Predicate p = cb.equal(root.get( DocumentCommentInfoStatic.creatorName ), personName );
+		p = cb.and( p, cb.equal( root.get( DocumentCommentInfoStatic.documentId ), docId ));
+		cq.select( root.get( DocumentCommentInfoStatic.id ));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -98,7 +98,7 @@ public class DocumentCommentInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<DocumentCommentInfo> root = cq.from(DocumentCommentInfo.class);		
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( DocumentCommentInfo_.class, cb, null, root, queryFilter );
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( DocumentCommentInfoStatic.class, cb, null, root, queryFilter );
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -117,8 +117,8 @@ public class DocumentCommentInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<DocumentCommentInfo> cq = cb.createQuery(DocumentCommentInfo.class);
 		Root<DocumentCommentInfo> root = cq.from(DocumentCommentInfo.class);		
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( DocumentCommentInfo_.class, cb, null, root, queryFilter );
-		Order orderWithField = CriteriaBuilderTools.getOrder(cb, root, DocumentCommentInfo_.class, orderField, orderType);
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( DocumentCommentInfoStatic.class, cb, null, root, queryFilter );
+		Order orderWithField = CriteriaBuilderTools.getOrder(cb, root, DocumentCommentInfoStatic.class, orderField, orderType);
 		if( orderWithField != null ){
 			cq.orderBy( orderWithField );
 		}
@@ -140,19 +140,19 @@ public class DocumentCommentInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<DocumentCommentInfo> cq = cb.createQuery(DocumentCommentInfo.class);
 		Root<DocumentCommentInfo> root = cq.from(DocumentCommentInfo.class);
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( DocumentCommentInfo_.class, cb, null, root, queryFilter );
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( DocumentCommentInfoStatic.class, cb, null, root, queryFilter );
 		
 		if( sequenceFieldValue != null && StringUtils.isNotEmpty( sequenceFieldValue.toString() )) {
-			Predicate p_seq = cb.isNotNull( root.get( DocumentCommentInfo_.sequence ) );
+			Predicate p_seq = cb.isNotNull( root.get( DocumentCommentInfoStatic.sequence ) );
 			if( "desc".equalsIgnoreCase( orderType )){
-				p_seq = cb.and( p_seq, cb.lessThan( root.get( DocumentCommentInfo_.sequence ), sequenceFieldValue.toString() ));
+				p_seq = cb.and( p_seq, cb.lessThan( root.get( DocumentCommentInfoStatic.sequence ), sequenceFieldValue.toString() ));
 			}else{
-				p_seq = cb.and( p_seq, cb.greaterThan( root.get( DocumentCommentInfo_.sequence ), sequenceFieldValue.toString() ));
+				p_seq = cb.and( p_seq, cb.greaterThan( root.get( DocumentCommentInfoStatic.sequence ), sequenceFieldValue.toString() ));
 			}
 			p = cb.and( p, p_seq);
 		}		
 		
-		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, DocumentCommentInfo_.class, orderField, orderType );
+		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, DocumentCommentInfoStatic.class, orderField, orderType );
 		if( orderWithField != null ){
 			cq.orderBy( orderWithField );
 		}

@@ -31,12 +31,12 @@ import com.x.processplatform.core.entity.content.ReadCompleted;
 import com.x.processplatform.core.entity.content.Task;
 import com.x.processplatform.core.entity.content.TaskCompleted;
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
 import com.x.processplatform.core.entity.content.WorkLog;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Form;
 import com.x.query.core.entity.Item;
-import com.x.query.core.entity.Item_;
+import com.x.query.core.entity.ItemStatic;
 
 abstract class BaseAction extends StandardJaxrsAction {
 
@@ -54,9 +54,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.equal(root.get(WorkCompleted_.creatorPerson), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(WorkCompleted_.application), id));
-		cq.select(root.get(WorkCompleted_.applicationName)).where(p);
+		Predicate p = cb.equal(root.get(WorkCompletedStatic.creatorPerson), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(WorkCompletedStatic.application), id));
+		cq.select(root.get(WorkCompletedStatic.applicationName)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -69,7 +69,7 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Item> cq = cb.createQuery(Item.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = cb.equal(root.get(Item_.bundle), workCompleted.getJob());
+		Predicate p = cb.equal(root.get(ItemStatic.bundle), workCompleted.getJob());
 		List<Item> list = em.createQuery(cq.where(p)).getResultList();
 		if (list.isEmpty()) {
 			return new Data();

@@ -14,7 +14,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.bbs.assemble.control.AbstractFactory;
 import com.x.bbs.assemble.control.Business;
 import com.x.bbs.entity.BBSPermissionInfo;
-import com.x.bbs.entity.BBSPermissionInfo_;
+import com.x.bbs.entity.BBSPermissionInfoStatic;
 
 /**
  * 类   名：BBSPermissionInfoFactory<br/>
@@ -43,7 +43,7 @@ public class BBSPermissionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSPermissionInfo> cq = cb.createQuery(BBSPermissionInfo.class);
 		Root<BBSPermissionInfo> root = cq.from(BBSPermissionInfo.class);
-		Predicate p = root.get(BBSPermissionInfo_.id).in(ids);
+		Predicate p = root.get(BBSPermissionInfoStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -65,7 +65,7 @@ public class BBSPermissionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSPermissionInfo> cq = cb.createQuery(BBSPermissionInfo.class);
 		Root<BBSPermissionInfo> root = cq.from(BBSPermissionInfo.class);
-		Predicate p = cb.equal( root.get(BBSPermissionInfo_.permissionCode), permissionCode );
+		Predicate p = cb.equal( root.get(BBSPermissionInfoStatic.permissionCode), permissionCode );
 		permissionInfoList = em.createQuery(cq.where(p)).getResultList();
 		if( ListTools.isNotEmpty(permissionInfoList) ){
 			return permissionInfoList.get(0);
@@ -83,9 +83,9 @@ public class BBSPermissionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSPermissionInfo> root = cq.from( BBSPermissionInfo.class );
-		Predicate p = cb.equal( root.get( BBSPermissionInfo_.forumId ), forumId );
-		p = cb.and( p, cb.equal( root.get( BBSPermissionInfo_.permissionType ), "论坛权限" ));
-		cq.select( root.get( BBSPermissionInfo_.id ) );
+		Predicate p = cb.equal( root.get( BBSPermissionInfoStatic.forumId ), forumId );
+		p = cb.and( p, cb.equal( root.get( BBSPermissionInfoStatic.permissionType ), "论坛权限" ));
+		cq.select( root.get( BBSPermissionInfoStatic.id ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 	
@@ -104,11 +104,11 @@ public class BBSPermissionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSPermissionInfo> root = cq.from( BBSPermissionInfo.class );
-		Predicate p = cb.equal( root.get( BBSPermissionInfo_.sectionId ), sectionId );
+		Predicate p = cb.equal( root.get( BBSPermissionInfoStatic.sectionId ), sectionId );
 		if( queryMainSection ) {
-			p = cb.or( p, cb.equal( root.get( BBSPermissionInfo_.mainSectionId ), sectionId ) );
+			p = cb.or( p, cb.equal( root.get( BBSPermissionInfoStatic.mainSectionId ), sectionId ) );
 		}
-		cq.select( root.get( BBSPermissionInfo_.id ) );
+		cq.select( root.get( BBSPermissionInfoStatic.id ) );
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 
@@ -121,7 +121,7 @@ public class BBSPermissionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSPermissionInfo> cq = cb.createQuery(BBSPermissionInfo.class);
 		Root<BBSPermissionInfo> root = cq.from(BBSPermissionInfo.class);
-		Predicate p = root.get(BBSPermissionInfo_.permissionCode).in( permissionCodes );
+		Predicate p = root.get(BBSPermissionInfoStatic.permissionCode).in( permissionCodes );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -134,7 +134,7 @@ public class BBSPermissionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSPermissionInfo> cq = cb.createQuery(BBSPermissionInfo.class);
 		Root<BBSPermissionInfo> root = cq.from(BBSPermissionInfo.class);
-		Predicate p = cb.equal( root.get(BBSPermissionInfo_.mainSectionId ), mainSectionId );
+		Predicate p = cb.equal( root.get(BBSPermissionInfoStatic.mainSectionId ), mainSectionId );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -146,8 +146,8 @@ public class BBSPermissionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<BBSPermissionInfo> root = cq.from(BBSPermissionInfo.class);
-		Predicate p = cb.equal( root.get(BBSPermissionInfo_.mainSectionId ), mainSectionId );
-		cq.select( root.get( BBSPermissionInfo_.id ) );
+		Predicate p = cb.equal( root.get(BBSPermissionInfoStatic.mainSectionId ), mainSectionId );
+		cq.select( root.get( BBSPermissionInfoStatic.id ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 }

@@ -2,10 +2,9 @@ package com.x.cms.assemble.control.factory;
 
 import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.base.core.project.tools.ListTools;
-import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.CategoryInfo;
-import com.x.cms.core.entity.CategoryInfo_;
+import com.x.cms.core.entity.CategoryInfoStatic;
 import com.x.cms.core.express.tools.CriteriaBuilderTools;
 import org.apache.commons.lang3.StringUtils;
 
@@ -58,7 +57,7 @@ public class CategoryInfoFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<CategoryInfo> root = cq.from( CategoryInfo.class );
-		cq.select(root.get(CategoryInfo_.id));
+		cq.select(root.get(CategoryInfoStatic.id));
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -78,8 +77,8 @@ public class CategoryInfoFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<CategoryInfo> root = cq.from( CategoryInfo.class );
-		Predicate p = cb.equal(root.get( CategoryInfo_.appId ), appId );
-		cq.select(root.get( CategoryInfo_.id));
+		Predicate p = cb.equal(root.get( CategoryInfoStatic.appId ), appId );
+		cq.select(root.get( CategoryInfoStatic.id));
 		return em.createQuery( cq.where(p) ).setMaxResults(1000).getResultList();
 	}
 
@@ -101,16 +100,16 @@ public class CategoryInfoFactory extends ElementFactory {
 
 		//需要过滤的栏目ID为空
 		if( ListTools.isEmpty( appIds )) {
-			p = CriteriaBuilderTools.predicate_and(cb, null, root.get( CategoryInfo_.appId ).in( appIds ) );
+			p = CriteriaBuilderTools.predicate_and(cb, null, root.get( CategoryInfoStatic.appId ).in( appIds ) );
 		}
 		//查询指定信息类别下的所有分类信息列表
 		if( StringUtils.isNotEmpty( documentType ) && !"全部".equals(documentType)&& !"all".equalsIgnoreCase(documentType)) {
-			p = CriteriaBuilderTools.predicate_and(cb, null, cb.equal( root.get( CategoryInfo_.documentType ), documentType ) );
+			p = CriteriaBuilderTools.predicate_and(cb, null, cb.equal( root.get( CategoryInfoStatic.documentType ), documentType ) );
 		}
 		if( p != null ){
-			cq.select(root.get( CategoryInfo_.id)).where( p );
+			cq.select(root.get( CategoryInfoStatic.id)).where( p );
 		}else{
-			cq.select(root.get( CategoryInfo_.id));
+			cq.select(root.get( CategoryInfoStatic.id));
 		}
 
 		return em.createQuery( cq.where(p) ).setMaxResults(maxCount).getResultList();
@@ -121,9 +120,9 @@ public class CategoryInfoFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<CategoryInfo> cq = cb.createQuery( CategoryInfo.class );
 		Root<CategoryInfo> root = cq.from( CategoryInfo.class );
-		Predicate p = cb.equal(root.get( CategoryInfo_.appId ), appId );
+		Predicate p = cb.equal(root.get( CategoryInfoStatic.appId ), appId );
 		if( StringUtils.isNotEmpty( documentType ) && !"全部".equals(documentType)&& !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and( p, cb.equal( root.get( CategoryInfo_.documentType ), documentType ));
+			p = cb.and( p, cb.equal( root.get( CategoryInfoStatic.documentType ), documentType ));
 		}
 		return em.createQuery( cq.where(p) ).setMaxResults(maxCount).getResultList();
 	}
@@ -134,9 +133,9 @@ public class CategoryInfoFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<CategoryInfo> root = cq.from(CategoryInfo.class);
-		Predicate p = cb.equal( root.get(CategoryInfo_.appId), appId );
+		Predicate p = cb.equal( root.get(CategoryInfoStatic.appId), appId );
 		if( StringUtils.isNotEmpty( documentType ) && !"全部".equals(documentType)&& !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and( p, cb.equal( root.get( CategoryInfo_.documentType ), documentType ));
+			p = cb.and( p, cb.equal( root.get( CategoryInfoStatic.documentType ), documentType ));
 		}
 		cq.select(cb.count(root));
 		return em.createQuery(cq.where(p)).getSingleResult();
@@ -148,8 +147,8 @@ public class CategoryInfoFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<CategoryInfo> root = cq.from( CategoryInfo.class );
-		Predicate p = cb.equal(root.get( CategoryInfo_.parentId ), categoryId );
-		cq.select(root.get( CategoryInfo_.id));
+		Predicate p = cb.equal(root.get( CategoryInfoStatic.parentId ), categoryId );
+		cq.select(root.get( CategoryInfoStatic.id));
 		return em.createQuery( cq.where(p) ).setMaxResults(100).getResultList();
 	}
 
@@ -162,12 +161,12 @@ public class CategoryInfoFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<CategoryInfo> root = cq.from( CategoryInfo.class);
-		Predicate p = cb.like(root.get( CategoryInfo_.categoryName ), "%" + str + "%", '\\');
-		p = cb.or(p, cb.like(root.get( CategoryInfo_.categoryAlias ), str + "%", '\\'));
+		Predicate p = cb.like(root.get( CategoryInfoStatic.categoryName ), "%" + str + "%", '\\');
+		p = cb.or(p, cb.like(root.get( CategoryInfoStatic.categoryAlias ), str + "%", '\\'));
 		if( StringUtils.isNotEmpty( documentType ) && !"全部".equals(documentType)&& !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and( p, cb.equal( root.get( CategoryInfo_.documentType ), documentType ));
+			p = cb.and( p, cb.equal( root.get( CategoryInfoStatic.documentType ), documentType ));
 		}
-		cq.select(root.get( CategoryInfo_.id));
+		cq.select(root.get( CategoryInfoStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(200).getResultList();
 	}
 
@@ -176,13 +175,13 @@ public class CategoryInfoFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<CategoryInfo> root = cq.from(CategoryInfo.class);
-		cq.select(root.get(CategoryInfo_.id));
-		Predicate p = cb.equal( root.get( CategoryInfo_.appId ), appId );
+		cq.select(root.get(CategoryInfoStatic.id));
+		Predicate p = cb.equal( root.get( CategoryInfoStatic.appId ), appId );
 		if( myCategoryIds != null && !myCategoryIds.isEmpty() ){
-			p = cb.and( p, root.get( CategoryInfo_.id ).in( myCategoryIds ) );
+			p = cb.and( p, root.get( CategoryInfoStatic.id ).in( myCategoryIds ) );
 		}
 		if( StringUtils.isNotEmpty( documentType) && !"全部".equals(documentType) && !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and( p, cb.equal( root.get( CategoryInfo_.documentType), documentType));
+			p = cb.and( p, cb.equal( root.get( CategoryInfoStatic.documentType), documentType));
 		}
 		return em.createQuery(cq.where( p )).getResultList();
 	}
@@ -195,8 +194,8 @@ public class CategoryInfoFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<CategoryInfo> root = cq.from(CategoryInfo.class);
-		cq.select(root.get(CategoryInfo_.id));
-		Predicate p = root.get( CategoryInfo_.categoryAlias ).in( categoryAlias );
+		cq.select(root.get(CategoryInfoStatic.id));
+		Predicate p = root.get( CategoryInfoStatic.categoryAlias ).in( categoryAlias );
 		return em.createQuery(cq.where( p )).getResultList();
 	}
 
@@ -208,7 +207,7 @@ public class CategoryInfoFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<CategoryInfo> cq = cb.createQuery(CategoryInfo.class);
 		Root<CategoryInfo> root = cq.from(CategoryInfo.class);
-		Predicate p = root.get( CategoryInfo_.categoryAlias ).in( categoryAlias );
+		Predicate p = root.get( CategoryInfoStatic.categoryAlias ).in( categoryAlias );
 		return em.createQuery(cq.where( p )).getResultList();
 	}
 
@@ -236,42 +235,42 @@ public class CategoryInfoFactory extends ElementFactory {
 		Predicate p_filter = null;
 		//限定栏目范围
 		if( ListTools.isNotEmpty( inAppInfoIds )) {
-			p_filter = root.get( CategoryInfo_.appId ).in( inAppInfoIds );
+			p_filter = root.get( CategoryInfoStatic.appId ).in( inAppInfoIds );
 		}
 		//限定范围
 		if( ListTools.isNotEmpty( inCategoryIds )) {
 			if( p_filter == null ) {
-				p_filter = root.get( CategoryInfo_.id ).in( inCategoryIds );
+				p_filter = root.get( CategoryInfoStatic.id ).in( inCategoryIds );
 			}else {
-				p_filter = cb.and( p_filter, root.get( CategoryInfo_.id ).in( inCategoryIds ));
+				p_filter = cb.and( p_filter, root.get( CategoryInfoStatic.id ).in( inCategoryIds ));
 			}
 		}
 		//排除指定的ID列表
 		if( ListTools.isNotEmpty( excludCategoryIds )) {
 			if( p_filter == null ) {
-				p_filter = cb.not( root.get( CategoryInfo_.id ).in( excludCategoryIds ));
+				p_filter = cb.not( root.get( CategoryInfoStatic.id ).in( excludCategoryIds ));
 			}else {
-				p_filter = cb.and( p_filter, cb.not( root.get( CategoryInfo_.id ).in( excludCategoryIds )));
+				p_filter = cb.and( p_filter, cb.not( root.get( CategoryInfoStatic.id ).in( excludCategoryIds )));
 			}
 		}
 		Predicate p_permission = null;
 		if( StringUtils.isNotEmpty( personName )) {
 			//可以管理的栏目，肯定可以发布信息
-			p_permission = cb.isMember( personName, root.get( CategoryInfo_.manageablePersonList ));
-			p_permission = cb.or( p_permission, cb.isMember( personName, root.get( CategoryInfo_.publishablePersonList )));
+			p_permission = cb.isMember( personName, root.get( CategoryInfoStatic.manageablePersonList ));
+			p_permission = cb.or( p_permission, cb.isMember( personName, root.get( CategoryInfoStatic.publishablePersonList )));
 		}
 		if( ListTools.isNotEmpty( unitNames )) {
 			if( p_permission == null  ) {
-				p_permission = root.get( CategoryInfo_.publishableUnitList).in(unitNames);
+				p_permission = root.get( CategoryInfoStatic.publishableUnitList).in(unitNames);
 			}else {
-				p_permission = cb.or( p_permission,  root.get( CategoryInfo_.publishableUnitList).in(unitNames));
+				p_permission = cb.or( p_permission,  root.get( CategoryInfoStatic.publishableUnitList).in(unitNames));
 			}
 		}
 		if( ListTools.isNotEmpty( groupNames )) {
 			if( p_permission == null  ) {
-				p_permission = root.get( CategoryInfo_.publishableGroupList).in(groupNames);
+				p_permission = root.get( CategoryInfoStatic.publishableGroupList).in(groupNames);
 			}else {
-				p_permission = cb.or( p_permission,  root.get( CategoryInfo_.publishableGroupList).in(groupNames));
+				p_permission = cb.or( p_permission,  root.get( CategoryInfoStatic.publishableGroupList).in(groupNames));
 			}
 		}
 
@@ -289,9 +288,9 @@ public class CategoryInfoFactory extends ElementFactory {
 			}
 		}
 		if( StringUtils.isNotEmpty( documentType) && !"全部".equals(documentType)&& !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and( p, cb.equal( root.get( CategoryInfo_.documentType), documentType));
+			p = cb.and( p, cb.equal( root.get( CategoryInfoStatic.documentType), documentType));
 		}
-		cq.select(root.get( CategoryInfo_.id ));
+		cq.select(root.get( CategoryInfoStatic.id ));
 		return em.createQuery( cq.where( p ) ).setMaxResults(maxCount).getResultList();
 	}
 
@@ -319,47 +318,47 @@ public class CategoryInfoFactory extends ElementFactory {
 		Predicate p_filter = null;
 		//限定栏目范围
 		if( ListTools.isNotEmpty( inAppInfoIds )) {
-			p_filter = root.get( CategoryInfo_.appId ).in( inAppInfoIds );
+			p_filter = root.get( CategoryInfoStatic.appId ).in( inAppInfoIds );
 		}
 		//限定范围
 		if( ListTools.isNotEmpty( inCategoryIds )) {
 			if( p_filter == null ) {
-				p_filter = root.get( CategoryInfo_.id ).in( inCategoryIds );
+				p_filter = root.get( CategoryInfoStatic.id ).in( inCategoryIds );
 			}else {
-				p_filter = cb.and( p_filter, root.get( CategoryInfo_.id ).in( inCategoryIds ));
+				p_filter = cb.and( p_filter, root.get( CategoryInfoStatic.id ).in( inCategoryIds ));
 			}
 		}
 		//排除指定的ID列表
 		if( ListTools.isNotEmpty( excludCategoryIds )) {
 			if( p_filter == null ) {
-				p_filter = cb.not( root.get( CategoryInfo_.id ).in( excludCategoryIds ));
+				p_filter = cb.not( root.get( CategoryInfoStatic.id ).in( excludCategoryIds ));
 			}else {
-				p_filter = cb.and( p_filter, cb.not( root.get( CategoryInfo_.id ).in( excludCategoryIds )));
+				p_filter = cb.and( p_filter, cb.not( root.get( CategoryInfoStatic.id ).in( excludCategoryIds )));
 			}
 		}
 
 		Predicate p_permission = null;
 		if( StringUtils.isNotEmpty( personName )) {
 			//可以管理的栏目，肯定可以发布信息
-			p_permission = cb.isMember( personName, root.get( CategoryInfo_.manageablePersonList ));
-			p_permission = cb.or( p_permission, cb.isMember( personName, root.get( CategoryInfo_.publishablePersonList )));
+			p_permission = cb.isMember( personName, root.get( CategoryInfoStatic.manageablePersonList ));
+			p_permission = cb.or( p_permission, cb.isMember( personName, root.get( CategoryInfoStatic.publishablePersonList )));
 		}
 		if( ListTools.isNotEmpty( unitNames )) {
 			if( p_permission == null ){
-				p_permission =  root.get( CategoryInfo_.publishableUnitList).in(unitNames);
-				p_permission = cb.or( p_permission,  root.get( CategoryInfo_.viewableUnitList).in(unitNames));
+				p_permission =  root.get( CategoryInfoStatic.publishableUnitList).in(unitNames);
+				p_permission = cb.or( p_permission,  root.get( CategoryInfoStatic.viewableUnitList).in(unitNames));
 			}else {
-				p_permission = cb.or( p_permission,  root.get( CategoryInfo_.publishableUnitList).in(unitNames));
-				p_permission = cb.or( p_permission,  root.get( CategoryInfo_.viewableUnitList).in(unitNames));
+				p_permission = cb.or( p_permission,  root.get( CategoryInfoStatic.publishableUnitList).in(unitNames));
+				p_permission = cb.or( p_permission,  root.get( CategoryInfoStatic.viewableUnitList).in(unitNames));
 			}
 		}
 		if( ListTools.isNotEmpty( groupNames )) {
 			if( p_permission == null ){
-				p_permission = root.get( CategoryInfo_.publishableGroupList).in(groupNames);
-				p_permission = cb.or( p_permission,  root.get( CategoryInfo_.viewableGroupList).in(groupNames));
+				p_permission = root.get( CategoryInfoStatic.publishableGroupList).in(groupNames);
+				p_permission = cb.or( p_permission,  root.get( CategoryInfoStatic.viewableGroupList).in(groupNames));
 			}else {
-				p_permission = cb.or( p_permission,  root.get( CategoryInfo_.publishableGroupList).in(groupNames));
-				p_permission = cb.or( p_permission,  root.get( CategoryInfo_.viewableGroupList).in(groupNames));
+				p_permission = cb.or( p_permission,  root.get( CategoryInfoStatic.publishableGroupList).in(groupNames));
+				p_permission = cb.or( p_permission,  root.get( CategoryInfoStatic.viewableGroupList).in(groupNames));
 			}
 		}
 
@@ -377,9 +376,9 @@ public class CategoryInfoFactory extends ElementFactory {
 			}
 		}
 		if( StringUtils.isNotEmpty( documentType) && !"全部".equals(documentType) && !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and( p, cb.equal( root.get( CategoryInfo_.documentType), documentType));
+			p = cb.and( p, cb.equal( root.get( CategoryInfoStatic.documentType), documentType));
 		}
-		cq.select(root.get( CategoryInfo_.id ));
+		cq.select(root.get( CategoryInfoStatic.id ));
 		return em.createQuery( cq.where( p ) ).setMaxResults(maxCount).getResultList();
 	}
 
@@ -397,19 +396,19 @@ public class CategoryInfoFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<CategoryInfo> root = cq.from(CategoryInfo.class);
-		cq.select(root.get(CategoryInfo_.id));
-		Predicate p = cb.isTrue( root.get( CategoryInfo_.allPeoplePublish ) );
+		cq.select(root.get(CategoryInfoStatic.id));
+		Predicate p = cb.isTrue( root.get( CategoryInfoStatic.allPeoplePublish ) );
 		if( ListTools.isNotEmpty( inAppInfoIds )) {
-			p = cb.and( p,  root.get( CategoryInfo_.appId ).in( inAppInfoIds ) );
+			p = cb.and( p,  root.get( CategoryInfoStatic.appId ).in( inAppInfoIds ) );
 		}
 		if( ListTools.isNotEmpty( inCategoryIds )) {
-			p = cb.and( p, root.get( CategoryInfo_.id ).in( inCategoryIds ));
+			p = cb.and( p, root.get( CategoryInfoStatic.id ).in( inCategoryIds ));
 		}
 		if( ListTools.isNotEmpty( excludCategoryIds )) {
-			p = cb.and( p, cb.not( root.get( CategoryInfo_.id ).in( excludCategoryIds )));
+			p = cb.and( p, cb.not( root.get( CategoryInfoStatic.id ).in( excludCategoryIds )));
 		}
 		if( StringUtils.isNotEmpty( documentType) && !"全部".equals(documentType) && !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and( p, cb.equal( root.get( CategoryInfo_.documentType), documentType));
+			p = cb.and( p, cb.equal( root.get( CategoryInfoStatic.documentType), documentType));
 		}
 		return em.createQuery(cq.where( p )).setMaxResults(maxCount).getResultList();
 	}
@@ -428,24 +427,24 @@ public class CategoryInfoFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<CategoryInfo> root = cq.from(CategoryInfo.class);
-		cq.select(root.get(CategoryInfo_.id));
+		cq.select(root.get(CategoryInfoStatic.id));
 
-		Predicate p_all = cb.isTrue( root.get( CategoryInfo_.allPeopleView ) );
-		p_all = cb.or( p_all,  cb.isTrue( root.get( CategoryInfo_.allPeoplePublish )));
+		Predicate p_all = cb.isTrue( root.get( CategoryInfoStatic.allPeopleView ) );
+		p_all = cb.or( p_all,  cb.isTrue( root.get( CategoryInfoStatic.allPeoplePublish )));
 
-		Predicate p = root.get( CategoryInfo_.id ).isNotNull();
+		Predicate p = root.get( CategoryInfoStatic.id ).isNotNull();
 		if( ListTools.isNotEmpty( inAppInfoIds )) {
-			p = cb.and( p,  root.get( CategoryInfo_.appId ).in( inAppInfoIds ) );
+			p = cb.and( p,  root.get( CategoryInfoStatic.appId ).in( inAppInfoIds ) );
 		}
 		if( ListTools.isNotEmpty( inCategoryIds )) {
-			p = cb.and( p, root.get( CategoryInfo_.id ).in( inCategoryIds ));
+			p = cb.and( p, root.get( CategoryInfoStatic.id ).in( inCategoryIds ));
 		}
 		if( ListTools.isNotEmpty( excludCategoryIds )) {
-			p = cb.and( p, cb.not( root.get( CategoryInfo_.id ).in( excludCategoryIds )));
+			p = cb.and( p, cb.not( root.get( CategoryInfoStatic.id ).in( excludCategoryIds )));
 		}
 		p = cb.and( p, p_all );
 		if( StringUtils.isNotEmpty( documentType) && !"全部".equals(documentType) && !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and( p, cb.equal( root.get( CategoryInfo_.documentType), documentType));
+			p = cb.and( p, cb.equal( root.get( CategoryInfoStatic.documentType), documentType));
 		}
 		return em.createQuery(cq.where( p )).setMaxResults(maxCount).getResultList();
 	}
@@ -466,19 +465,19 @@ public class CategoryInfoFactory extends ElementFactory {
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<CategoryInfo> root = cq.from(CategoryInfo.class);
 
-		Predicate p = cb.isMember( personName, root.get( CategoryInfo_.manageablePersonList ));
+		Predicate p = cb.isMember( personName, root.get( CategoryInfoStatic.manageablePersonList ));
 		if( ListTools.isNotEmpty( inAppInfoIds )) {
-			p = cb.and( p, root.get( CategoryInfo_.appId ).in( inAppInfoIds ) );
+			p = cb.and( p, root.get( CategoryInfoStatic.appId ).in( inAppInfoIds ) );
 		}
 		if( ListTools.isNotEmpty( unitNames )) {
-			p = cb.or( p,  root.get( CategoryInfo_.manageableUnitList).in(unitNames));
+			p = cb.or( p,  root.get( CategoryInfoStatic.manageableUnitList).in(unitNames));
 		}
 		if( ListTools.isNotEmpty( groupNames )) {
-			p = cb.or( p,  root.get( CategoryInfo_.manageableGroupList).in(groupNames));
+			p = cb.or( p,  root.get( CategoryInfoStatic.manageableGroupList).in(groupNames));
 		}
-		cq.select(root.get( CategoryInfo_.id ));
+		cq.select(root.get( CategoryInfoStatic.id ));
 		if( StringUtils.isNotEmpty( documentType) && !"全部".equals(documentType) && !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and( p, cb.equal( root.get( CategoryInfo_.documentType), documentType));
+			p = cb.and( p, cb.equal( root.get( CategoryInfoStatic.documentType), documentType));
 		}
 		return em.createQuery( cq.where( p ) ).setMaxResults(maxCount).getResultList();
 	}

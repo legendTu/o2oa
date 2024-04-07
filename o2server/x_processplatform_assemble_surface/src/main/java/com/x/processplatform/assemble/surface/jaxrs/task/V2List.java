@@ -22,7 +22,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Task;
-import com.x.processplatform.core.entity.content.Task_;
+import com.x.processplatform.core.entity.content.TaskStatic;
 
 class V2List extends V2Base {
 
@@ -39,10 +39,10 @@ class V2List extends V2Base {
 				Root<Task> root = cq.from(Task.class);
 				Predicate p = this.toFilterPredicate(effectivePerson, business, wi);
 				if (ListTools.isNotEmpty(wi.getJobList())) {
-					p = cb.and(p, root.get(Task_.job).in(wi.getJobList()));
+					p = cb.and(p, root.get(TaskStatic.job).in(wi.getJobList()));
 				}
 				if (ListTools.isNotEmpty(wi.getIdList())) {
-					p = cb.and(p, root.get(Task_.id).in(wi.getIdList()));
+					p = cb.and(p, root.get(TaskStatic.id).in(wi.getIdList()));
 				}
 				wos = emc.fetch(Task.class, Wo.copier, p);
 				this.relate(business, wos, wi);

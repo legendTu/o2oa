@@ -11,7 +11,6 @@ import javax.persistence.criteria.Root;
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
 import com.x.base.core.entity.annotation.CheckPersistType;
-import com.x.base.core.project.cache.ApplicationCache;
 import com.x.base.core.project.cache.CacheManager;
 import com.x.base.core.project.exception.ExceptionAccessDenied;
 import com.x.base.core.project.exception.ExceptionEntityNotExist;
@@ -21,7 +20,7 @@ import com.x.base.core.project.jaxrs.WoId;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.AppInfo;
 import com.x.cms.core.entity.element.File;
-import com.x.cms.core.entity.element.File_;
+import com.x.cms.core.entity.element.FileStatic;
 
 class ActionCopy extends BaseAction {
 	ActionResult<Wo> execute(EffectivePerson effectivePerson, String flag, String applicationFlag) throws Exception {
@@ -80,9 +79,9 @@ class ActionCopy extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<File> root = cq.from(File.class);
-		Predicate p = cb.or(cb.equal(root.get(File_.name), name), cb.equal(root.get(File_.alias), name),
-				cb.equal(root.get(File_.id), name));
-		p = cb.and(p, cb.equal(root.get(File_.appId), applicationId), cb.notEqual(root.get(File_.id), id));
+		Predicate p = cb.or(cb.equal(root.get(FileStatic.name), name), cb.equal(root.get(FileStatic.alias), name),
+				cb.equal(root.get(FileStatic.id), name));
+		p = cb.and(p, cb.equal(root.get(FileStatic.appId), applicationId), cb.notEqual(root.get(FileStatic.id), id));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult() > 0;
 	}

@@ -14,7 +14,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.Log;
-import com.x.cms.core.entity.Log_;
+import com.x.cms.core.entity.LogStatic;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -37,23 +37,23 @@ class ActionListPaging extends BaseAction {
 			Root<Log> root = cq.from(Log.class);
 			Predicate p = cb.conjunction();
 			if (ListTools.isNotEmpty(wi.getAppIdList())) {
-				p = cb.and(p, root.get(Log_.appId).in(wi.getAppIdList()));
+				p = cb.and(p, root.get(LogStatic.appId).in(wi.getAppIdList()));
 			}
 			if (ListTools.isNotEmpty(wi.getCategoryIdList())) {
-				p = cb.and(p, root.get(Log_.categoryId).in(wi.getCategoryIdList()));
+				p = cb.and(p, root.get(LogStatic.categoryId).in(wi.getCategoryIdList()));
 			}
 			if (ListTools.isNotEmpty(wi.getOperatorList())) {
 				List<String> person_ids = business.organization().person().list(wi.getOperatorList());
 				if (ListTools.isNotEmpty(person_ids)) {
-					p = cb.and(p, root.get(Log_.operatorUid).in(person_ids));
+					p = cb.and(p, root.get(LogStatic.operatorUid).in(person_ids));
 				}
 			}
 			if (StringUtils.isNotBlank(wi.getOperationType())) {
-				p = cb.and(p, cb.equal(root.get(Log_.operationType), wi.getOperationType()));
+				p = cb.and(p, cb.equal(root.get(LogStatic.operationType), wi.getOperationType()));
 			}
 			if (StringUtils.isNoneBlank(wi.getKey())) {
 				String key = StringTools.escapeSqlLikeKey(wi.getKey());
-				p = cb.and(p, cb.like(root.get(Log_.description), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR));
+				p = cb.and(p, cb.like(root.get(LogStatic.description), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR));
 			}
 			List<Wo> wos = emc.fetchDescPaging(Log.class, Wo.copier, p, page, size, Log.sequence_FIELDNAME);
 			result.setData(wos);

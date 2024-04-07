@@ -49,7 +49,7 @@ public class Calendar_EventCommentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Calendar_EventComment> cq = cb.createQuery(Calendar_EventComment.class);
 		Root<Calendar_EventComment> root = cq.from(Calendar_EventComment.class);
-		Predicate p = root.get( Calendar_EventComment_.id).in(ids);
+		Predicate p = root.get( Calendar_EventCommentStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -61,7 +61,7 @@ public class Calendar_EventCommentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Calendar_Event> root = cq.from(Calendar_Event.class);
-		Predicate p = cb.equal( root.get(Calendar_Event_.commentId ), commentId);
+		Predicate p = cb.equal( root.get(Calendar_EventStatic.commentId ), commentId);
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -74,7 +74,7 @@ public class Calendar_EventCommentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Calendar_EventRepeatMaster> root = cq.from(Calendar_EventRepeatMaster.class);
-		Predicate p = cb.equal( root.get( Calendar_EventRepeatMaster_.commentId ), commentId);
+		Predicate p = cb.equal( root.get( Calendar_EventRepeatMasterStatic.commentId ), commentId);
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -97,8 +97,8 @@ public class Calendar_EventCommentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Calendar_EventComment> root = cq.from(Calendar_EventComment.class);
-		Predicate p = cb.lessThan( root.get( Calendar_EventComment_.checkTime ), now );
-		cq.select(root.get(Calendar_EventComment_.id));
+		Predicate p = cb.lessThan( root.get( Calendar_EventCommentStatic.checkTime ), now );
+		cq.select(root.get(Calendar_EventCommentStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(maxCount).getResultList();
 	}
 }

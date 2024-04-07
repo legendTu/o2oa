@@ -24,7 +24,7 @@ import com.x.base.core.project.tools.SortTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Work;
 import com.x.processplatform.core.entity.content.WorkStatus;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkStatic;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Process;
 
@@ -121,8 +121,8 @@ class ActionManageFilterAttribute extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.application), application.getId());
-		cq.select(root.get(Work_.process)).where(p);
+		Predicate p = cb.equal(root.get(WorkStatic.application), application.getId());
+		cq.select(root.get(WorkStatic.process)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		for (String str : os) {
 			NameValueCountPair o = new NameValueCountPair();
@@ -146,8 +146,8 @@ class ActionManageFilterAttribute extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.application), application.getId());
-		cq.select(root.get(Work_.creatorUnit)).where(p);
+		Predicate p = cb.equal(root.get(WorkStatic.application), application.getId());
+		cq.select(root.get(WorkStatic.creatorUnit)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		for (String str : os) {
 			NameValueCountPair o = new NameValueCountPair();
@@ -165,8 +165,8 @@ class ActionManageFilterAttribute extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.application), application.getId());
-		cq.select(root.get(Work_.activityName)).where(p);
+		Predicate p = cb.equal(root.get(WorkStatic.application), application.getId());
+		cq.select(root.get(WorkStatic.activityName)).where(p);
 		List<String> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		for (String str : list) {
 			NameValueCountPair o = new NameValueCountPair();
@@ -184,8 +184,8 @@ class ActionManageFilterAttribute extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.application), application.getId());
-		cq.select(root.get(Work_.startTimeMonth)).where(p);
+		Predicate p = cb.equal(root.get(WorkStatic.application), application.getId());
+		cq.select(root.get(WorkStatic.startTimeMonth)).where(p);
 		List<String> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		for (String str : list) {
 			NameValueCountPair o = new NameValueCountPair();
@@ -203,8 +203,8 @@ class ActionManageFilterAttribute extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<WorkStatus> cq = cb.createQuery(WorkStatus.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.application), application.getId());
-		cq.select(root.get(Work_.workStatus)).where(p);
+		Predicate p = cb.equal(root.get(WorkStatic.application), application.getId());
+		cq.select(root.get(WorkStatic.workStatus)).where(p);
 		List<WorkStatus> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		for (WorkStatus status : list) {
 			NameValueCountPair o = new NameValueCountPair();

@@ -1,12 +1,9 @@
 package com.x.processplatform.assemble.surface.jaxrs.work;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Tuple;
 import javax.persistence.criteria.*;
 
 import com.x.base.core.container.EntityManagerContainer;
@@ -18,10 +15,9 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.SortTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Work;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkStatic;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Process;
-import org.apache.commons.lang3.BooleanUtils;
 
 class ActionListCountWithProcess extends BaseAction {
 
@@ -37,9 +33,9 @@ class ActionListCountWithProcess extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Wo> cq = cb.createQuery(Wo.class);
 			Root<Work> root = cq.from(Work.class);
-			Predicate p = cb.equal(root.get(Work_.creatorPerson), effectivePerson.getDistinguishedName());
-			p = cb.and(p, cb.equal(root.get(Work_.application), application.getId()));
-			Path<String> value = root.get(Work_.process);
+			Predicate p = cb.equal(root.get(WorkStatic.creatorPerson), effectivePerson.getDistinguishedName());
+			p = cb.and(p, cb.equal(root.get(WorkStatic.application), application.getId()));
+			Path<String> value = root.get(WorkStatic.process);
 			cq.multiselect(value, cb.count(root).as(Long.class)).where(p).groupBy(value);
 			List<Wo> list = em.createQuery(cq).getResultList();
 			List<Wo> wos = new ArrayList<>();
@@ -109,9 +105,9 @@ class ActionListCountWithProcess extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.creatorPerson), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(Work_.process), process));
-		p = cb.and(p, cb.equal(root.get(Work_.processName), processName));
+		Predicate p = cb.equal(root.get(WorkStatic.creatorPerson), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(WorkStatic.process), process));
+		p = cb.and(p, cb.equal(root.get(WorkStatic.processName), processName));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

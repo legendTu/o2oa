@@ -13,7 +13,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.bbs.assemble.control.AbstractFactory;
 import com.x.bbs.assemble.control.Business;
 import com.x.bbs.entity.BBSUserInfo;
-import com.x.bbs.entity.BBSUserInfo_;
+import com.x.bbs.entity.BBSUserInfoStatic;
 
 /**
  * 类   名：BBSUserInfoFactory<br/>
@@ -42,7 +42,7 @@ public class BBSUserInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSUserInfo> cq = cb.createQuery(BBSUserInfo.class);
 		Root<BBSUserInfo> root = cq.from(BBSUserInfo.class);
-		Predicate p = root.get(BBSUserInfo_.id).in(ids);
+		Predicate p = root.get(BBSUserInfoStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -55,7 +55,7 @@ public class BBSUserInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSUserInfo> cq = cb.createQuery(BBSUserInfo.class);
 		Root<BBSUserInfo> root = cq.from(BBSUserInfo.class);
-		Predicate p = cb.equal( root.get(BBSUserInfo_.userName), userName );
+		Predicate p = cb.equal( root.get(BBSUserInfoStatic.userName), userName );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 }

@@ -5,7 +5,7 @@ import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.express.tools.CriteriaBuilderTools;
 import com.x.query.core.entity.Item;
-import com.x.query.core.entity.Item_;
+import com.x.query.core.entity.ItemStatic;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
@@ -24,8 +24,8 @@ public class ItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = cb.equal(root.get(Item_.bundle), docId);
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), itemCategory));
+		Predicate p = cb.equal(root.get(ItemStatic.bundle), docId);
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), itemCategory));
 		for (int i = 0; (i < paths.length && i < 8); i++) {
 			p = cb.and(p, cb.equal(root.get(("path" + i)), paths[i]));
 		}
@@ -38,8 +38,8 @@ public class ItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Item> cq = cb.createQuery(Item.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = cb.equal(root.get(Item_.bundle), docId);
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), itemCategory));
+		Predicate p = cb.equal(root.get(ItemStatic.bundle), docId);
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), itemCategory));
 		for (int i = 0; (i < paths.length && i < 8); i++) {
 			p = cb.and(p, cb.equal(root.get(("path" + i)), paths[i]));
 		}
@@ -54,8 +54,8 @@ public class ItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Item> cq = cb.createQuery(Item.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = cb.equal(root.get(Item_.bundle), docId);
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), itemCategory));
+		Predicate p = cb.equal(root.get(ItemStatic.bundle), docId);
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), itemCategory));
 		p = cb.and(p, cb.equal(root.get(Item.path0_FIELDNAME), path0));
 		p = cb.and(p, cb.equal(root.get(Item.path1_FIELDNAME), path1));
 		p = cb.and(p, cb.equal(root.get(Item.path2_FIELDNAME), path2));
@@ -83,8 +83,8 @@ public class ItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Item> cq = cb.createQuery(Item.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = cb.equal(root.get(Item_.bundle), docId);
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), itemCategory));
+		Predicate p = cb.equal(root.get(ItemStatic.bundle), docId);
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), itemCategory));
 		for (int i = 0; ((i < paths.length) && (i < 8)); i++) {
 			p = cb.and(p, cb.equal(root.get("path" + i), paths[i]));
 		}
@@ -106,8 +106,8 @@ public class ItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Item> cq = cb.createQuery(Item.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = cb.equal(root.get(Item_.bundle), docId);
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), itemCategory));
+		Predicate p = cb.equal(root.get(ItemStatic.bundle), docId);
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), itemCategory));
 		for (int i = 0; ((i < (paths.length - 1)) && (i < 8)); i++) {
 			p = cb.and(p, cb.equal(root.get("path" + i), paths[i]));
 		}
@@ -123,27 +123,27 @@ public class ItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Item> cq = cb.createQuery(Item.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = root.get(Item_.bundle).in(docIds);
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), itemCategory));
-		p = cb.and( p, cb.equal(root.get(Item_.path0 ), path0Name ));
+		Predicate p = root.get(ItemStatic.bundle).in(docIds);
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), itemCategory));
+		p = cb.and( p, cb.equal(root.get(ItemStatic.path0 ), path0Name ));
 		
 		Order orderWithField = null;
 		if( "string".equals( fieldType )) {
-			orderWithField = CriteriaBuilderTools.getOrder( cb, root, Item_.class, Item.stringShortValue_FIELDNAME, orderType );
+			orderWithField = CriteriaBuilderTools.getOrder( cb, root, ItemStatic.class, Item.stringShortValue_FIELDNAME, orderType );
 		}else if( "text".equals( fieldType )) {
-			orderWithField = CriteriaBuilderTools.getOrder( cb, root, Item_.class, Item.stringLongValue_FIELDNAME, orderType );
+			orderWithField = CriteriaBuilderTools.getOrder( cb, root, ItemStatic.class, Item.stringLongValue_FIELDNAME, orderType );
 		}else if( "date".equals( fieldType )) {
-			orderWithField = CriteriaBuilderTools.getOrder( cb, root, Item_.class, Item.dateValue_FIELDNAME, orderType );
+			orderWithField = CriteriaBuilderTools.getOrder( cb, root, ItemStatic.class, Item.dateValue_FIELDNAME, orderType );
 		}else if( "time".equals( fieldType )) {
-			orderWithField = CriteriaBuilderTools.getOrder( cb, root, Item_.class, Item.timeValue_FIELDNAME, orderType );
+			orderWithField = CriteriaBuilderTools.getOrder( cb, root, ItemStatic.class, Item.timeValue_FIELDNAME, orderType );
 		}else if( "datetime".equals( fieldType )) {
-			orderWithField = CriteriaBuilderTools.getOrder( cb, root, Item_.class, Item.dateTimeValue_FIELDNAME, orderType );
+			orderWithField = CriteriaBuilderTools.getOrder( cb, root, ItemStatic.class, Item.dateTimeValue_FIELDNAME, orderType );
 		}else if( "number".equals( fieldType )) {
-			orderWithField = CriteriaBuilderTools.getOrder( cb, root, Item_.class, Item.numberValue_FIELDNAME, orderType );
+			orderWithField = CriteriaBuilderTools.getOrder( cb, root, ItemStatic.class, Item.numberValue_FIELDNAME, orderType );
 		}else if( "boolean".equals( fieldType )) {
-			orderWithField = CriteriaBuilderTools.getOrder( cb, root, Item_.class, Item.booleanValue_FIELDNAME, orderType );
+			orderWithField = CriteriaBuilderTools.getOrder( cb, root, ItemStatic.class, Item.booleanValue_FIELDNAME, orderType );
 		}else {
-			orderWithField = CriteriaBuilderTools.getOrder( cb, root, Item_.class, Item.stringShortValue_FIELDNAME, orderType );
+			orderWithField = CriteriaBuilderTools.getOrder( cb, root, ItemStatic.class, Item.stringShortValue_FIELDNAME, orderType );
 		}
 		if( orderWithField != null ){
 			cq.orderBy( orderWithField );

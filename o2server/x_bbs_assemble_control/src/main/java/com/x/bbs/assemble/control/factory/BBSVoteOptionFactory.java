@@ -14,8 +14,8 @@ import com.x.bbs.assemble.control.AbstractFactory;
 import com.x.bbs.assemble.control.Business;
 import com.x.bbs.entity.BBSVoteOption;
 import com.x.bbs.entity.BBSVoteOptionGroup;
-import com.x.bbs.entity.BBSVoteOptionGroup_;
-import com.x.bbs.entity.BBSVoteOption_;
+import com.x.bbs.entity.BBSVoteOptionGroupStatic;
+import com.x.bbs.entity.BBSVoteOptionStatic;
 
 /**
  * 类   名：BBSVoteOptionFactory<br/>
@@ -44,8 +44,8 @@ public class BBSVoteOptionFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSVoteOption> cq = cb.createQuery(BBSVoteOption.class);
 		Root<BBSVoteOption> root = cq.from(BBSVoteOption.class);
-		Predicate p = root.get(BBSVoteOption_.id).in(ids);
-		cq.orderBy( cb.desc( root.get( BBSVoteOption_.orderNumber ) ) );
+		Predicate p = root.get(BBSVoteOptionStatic.id).in(ids);
+		cq.orderBy( cb.desc( root.get( BBSVoteOptionStatic.orderNumber ) ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -58,8 +58,8 @@ public class BBSVoteOptionFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class);
 		Root<BBSVoteOption> root = cq.from( BBSVoteOption.class );
-		Predicate p = cb.equal( root.get( BBSVoteOption_.subjectId ), subjectId );
-		cq.select( root.get( BBSVoteOption_.id ) );
+		Predicate p = cb.equal( root.get( BBSVoteOptionStatic.subjectId ), subjectId );
+		cq.select( root.get( BBSVoteOptionStatic.id ) );
 		return em.createQuery( cq.where(p)).getResultList();
 	}
 	
@@ -72,7 +72,7 @@ public class BBSVoteOptionFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSVoteOption> cq = cb.createQuery( BBSVoteOption.class);
 		Root<BBSVoteOption> root = cq.from( BBSVoteOption.class );
-		Predicate p = cb.equal( root.get( BBSVoteOption_.subjectId ), subjectId );
+		Predicate p = cb.equal( root.get( BBSVoteOptionStatic.subjectId ), subjectId );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -85,7 +85,7 @@ public class BBSVoteOptionFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSVoteOptionGroup> cq = cb.createQuery( BBSVoteOptionGroup.class);
 		Root<BBSVoteOptionGroup> root = cq.from( BBSVoteOptionGroup.class );
-		Predicate p = cb.equal( root.get( BBSVoteOptionGroup_.subjectId ), subjectId );
+		Predicate p = cb.equal( root.get( BBSVoteOptionGroupStatic.subjectId ), subjectId );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -97,7 +97,7 @@ public class BBSVoteOptionFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSVoteOption> cq = cb.createQuery( BBSVoteOption.class);
 		Root<BBSVoteOption> root = cq.from( BBSVoteOption.class );
-		Predicate p = cb.equal( root.get( BBSVoteOption_.optionGroupId ), groupId );
+		Predicate p = cb.equal( root.get( BBSVoteOptionStatic.optionGroupId ), groupId );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 }

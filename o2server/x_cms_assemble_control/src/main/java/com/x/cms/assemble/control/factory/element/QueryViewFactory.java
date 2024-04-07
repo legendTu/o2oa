@@ -13,7 +13,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.AppInfo;
 import com.x.cms.core.entity.element.QueryView;
-import com.x.cms.core.entity.element.QueryView_;
+import com.x.cms.core.entity.element.QueryViewStatic;
 
 public class QueryViewFactory extends ElementFactory {
 
@@ -71,8 +71,8 @@ public class QueryViewFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<QueryView> root = cq.from(QueryView.class);
-		Predicate p = cb.equal(root.get(QueryView_.appId), appId);
-		cq.select(root.get(QueryView_.id)).where(p);
+		Predicate p = cb.equal(root.get(QueryViewStatic.appId), appId);
+		cq.select(root.get(QueryViewStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

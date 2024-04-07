@@ -15,7 +15,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.calendar.assemble.control.AbstractFactory;
 import com.x.calendar.assemble.control.Business;
 import com.x.calendar.core.entity.Calendar;
-import com.x.calendar.core.entity.Calendar_;
+import com.x.calendar.core.entity.CalendarStatic;
 import com.x.calendar.core.tools.CriteriaBuilderTools;
 
 
@@ -67,7 +67,7 @@ public class CalendarFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Calendar> cq = cb.createQuery(Calendar.class);
 		Root<Calendar> root = cq.from(Calendar.class);
-		Predicate p = root.get( Calendar_.id).in(ids);
+		Predicate p = root.get( CalendarStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -92,42 +92,42 @@ public class CalendarFactory extends AbstractFactory {
 
 		Predicate p = null;
 		if( ListTools.isNotEmpty( inFilterCalendarIds )) {
-			p = CriteriaBuilderTools.predicate_and( cb, p, root.get(Calendar_.id).in( inFilterCalendarIds ));
+			p = CriteriaBuilderTools.predicate_and( cb, p, root.get(CalendarStatic.id).in( inFilterCalendarIds ));
 		}
 		if( StringUtils.isNotEmpty( name )) {
-			p = CriteriaBuilderTools.predicate_and( cb, p, cb.equal(root.get(Calendar_.name), name));
+			p = CriteriaBuilderTools.predicate_and( cb, p, cb.equal(root.get(CalendarStatic.name), name));
 		}
 		if( StringUtils.isNotEmpty( type )) {
-			p = CriteriaBuilderTools.predicate_and( cb, p, cb.equal(root.get(Calendar_.type), type));
+			p = CriteriaBuilderTools.predicate_and( cb, p, cb.equal(root.get(CalendarStatic.type), type));
 		}
 		if( StringUtils.isNotEmpty( source )) {
-			p = CriteriaBuilderTools.predicate_and( cb, p, cb.equal(root.get(Calendar_.source), source));
+			p = CriteriaBuilderTools.predicate_and( cb, p, cb.equal(root.get(CalendarStatic.source), source));
 		}
 		if( StringUtils.isNotEmpty( createor )) {
 			p = CriteriaBuilderTools.predicate_and( cb, p, cb.or(
-					cb.equal(root.get(Calendar_.createor), createor),
-					cb.equal(root.get(Calendar_.target), createor)
+					cb.equal(root.get(CalendarStatic.createor), createor),
+					cb.equal(root.get(CalendarStatic.target), createor)
 			));
 		}		
 		
 		Predicate permission = null;
 		if( StringUtils.isNotEmpty( personName )) {
-			permission = CriteriaBuilderTools.predicate_or( cb, permission, cb.isMember(personName, root.get(Calendar_.manageablePersonList)));
-			permission = CriteriaBuilderTools.predicate_or( cb, permission, cb.isMember(personName, root.get(Calendar_.publishablePersonList)));
-			permission = CriteriaBuilderTools.predicate_or( cb, permission, cb.isMember(personName, root.get(Calendar_.viewablePersonList)));
-			permission = CriteriaBuilderTools.predicate_or( cb, permission, cb.isMember(personName, root.get(Calendar_.followers)));
+			permission = CriteriaBuilderTools.predicate_or( cb, permission, cb.isMember(personName, root.get(CalendarStatic.manageablePersonList)));
+			permission = CriteriaBuilderTools.predicate_or( cb, permission, cb.isMember(personName, root.get(CalendarStatic.publishablePersonList)));
+			permission = CriteriaBuilderTools.predicate_or( cb, permission, cb.isMember(personName, root.get(CalendarStatic.viewablePersonList)));
+			permission = CriteriaBuilderTools.predicate_or( cb, permission, cb.isMember(personName, root.get(CalendarStatic.followers)));
 		}
 		if( ListTools.isNotEmpty( unitNames )) {
-			permission = CriteriaBuilderTools.predicate_or( cb, permission, root.get(Calendar_.publishableUnitList).in( unitNames ));
-			permission = CriteriaBuilderTools.predicate_or( cb, permission, root.get(Calendar_.viewableUnitList).in( unitNames ));
+			permission = CriteriaBuilderTools.predicate_or( cb, permission, root.get(CalendarStatic.publishableUnitList).in( unitNames ));
+			permission = CriteriaBuilderTools.predicate_or( cb, permission, root.get(CalendarStatic.viewableUnitList).in( unitNames ));
 		}
 		if( ListTools.isNotEmpty( groupNames )) {
-			permission = CriteriaBuilderTools.predicate_or( cb, permission, root.get(Calendar_.publishableGroupList).in( groupNames ));
-			permission = CriteriaBuilderTools.predicate_or( cb, permission, root.get(Calendar_.viewableGroupList).in( groupNames ));		
+			permission = CriteriaBuilderTools.predicate_or( cb, permission, root.get(CalendarStatic.publishableGroupList).in( groupNames ));
+			permission = CriteriaBuilderTools.predicate_or( cb, permission, root.get(CalendarStatic.viewableGroupList).in( groupNames ));
 		}
 		//permission = CriteriaBuilderTools.predicate_or( cb, permission, cb.isTrue( root.get(Calendar_.isPublic) ));
 		p = CriteriaBuilderTools.predicate_and( cb, p, permission );
-		cq.select(root.get(Calendar_.id));
+		cq.select(root.get(CalendarStatic.id));
 		
 		return em.createQuery(cq.where(p)).getResultList();
 	}
@@ -144,10 +144,10 @@ public class CalendarFactory extends AbstractFactory {
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Calendar> root = cq.from(Calendar.class);
 		Predicate permission = cb.or(
-				cb.equal(root.get(Calendar_.createor), personName),
-				cb.equal(root.get(Calendar_.target), personName)
+				cb.equal(root.get(CalendarStatic.createor), personName),
+				cb.equal(root.get(CalendarStatic.target), personName)
 		);
-		cq.select(root.get(Calendar_.id));
+		cq.select(root.get(CalendarStatic.id));
 		return em.createQuery(cq.where(permission)).getResultList();
 	}
 
@@ -156,8 +156,8 @@ public class CalendarFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Calendar> root = cq.from(Calendar.class);
-		Predicate permission = cb.isTrue( root.get(Calendar_.isPublic) );
-		cq.select(root.get(Calendar_.id));
+		Predicate permission = cb.isTrue( root.get(CalendarStatic.isPublic) );
+		cq.select(root.get(CalendarStatic.id));
 		return em.createQuery(cq.where(permission)).getResultList();
 	}	
 }

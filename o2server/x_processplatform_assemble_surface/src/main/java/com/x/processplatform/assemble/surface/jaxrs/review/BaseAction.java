@@ -21,7 +21,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Review;
-import com.x.processplatform.core.entity.content.Review_;
+import com.x.processplatform.core.entity.content.ReviewStatic;
 
 abstract class BaseAction extends StandardJaxrsAction {
 
@@ -143,46 +143,46 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p = cb.equal(root.get(Review_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(ReviewStatic.person), effectivePerson.getDistinguishedName());
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(Review_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(ReviewStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
-			p = cb.and(p, root.get(Review_.process).in(wi.getProcessList()));
+			p = cb.and(p, root.get(ReviewStatic.process).in(wi.getProcessList()));
 		}
 		if (DateTools.isDateTimeOrDate(wi.getStartTime())) {
-			p = cb.and(p, cb.greaterThan(root.get(Review_.startTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(ReviewStatic.startTime), DateTools.parse(wi.getStartTime())));
 		}
 		if (DateTools.isDateTimeOrDate(wi.getEndTime())) {
-			p = cb.and(p, cb.lessThan(root.get(Review_.startTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(ReviewStatic.startTime), DateTools.parse(wi.getEndTime())));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorPersonList())) {
 			List<String> person_ids = business.organization().person().list(wi.getCreatorPersonList());
-			p = cb.and(p, root.get(Review_.creatorPerson).in(person_ids));
+			p = cb.and(p, root.get(ReviewStatic.creatorPerson).in(person_ids));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
 			List<String> unit_ids = business.organization().unit().list(wi.getCreatorUnitList());
-			p = cb.and(p, root.get(Review_.creatorUnit).in(unit_ids));
+			p = cb.and(p, root.get(ReviewStatic.creatorUnit).in(unit_ids));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(Review_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(ReviewStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCompletedTimeMonthList())) {
-			p = cb.and(p, root.get(Review_.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
+			p = cb.and(p, root.get(ReviewStatic.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
 		}
 		if (null != wi.getCompleted()) {
 			if (BooleanUtils.isTrue(wi.getCompleted())) {
-				p = cb.and(p, cb.equal(root.get(Review_.completed), true));
+				p = cb.and(p, cb.equal(root.get(ReviewStatic.completed), true));
 			} else {
 				p = cb.and(p,
-						cb.or(cb.isNull(root.get(Review_.completed)), cb.equal(root.get(Review_.completed), false)));
+						cb.or(cb.isNull(root.get(ReviewStatic.completed)), cb.equal(root.get(ReviewStatic.completed), false)));
 			}
 		}
 		String key = StringTools.escapeSqlLikeKey(wi.getKey());
 		if (StringUtils.isNotEmpty(key)) {
 			key = "%" + key + "%";
-			p = cb.and(p, cb.or(cb.like(root.get(Review_.title), key), cb.like(root.get(Review_.serial), key),
-					cb.like(root.get(Review_.creatorPerson), key), cb.like(root.get(Review_.creatorUnit), key)));
+			p = cb.and(p, cb.or(cb.like(root.get(ReviewStatic.title), key), cb.like(root.get(ReviewStatic.serial), key),
+					cb.like(root.get(ReviewStatic.creatorPerson), key), cb.like(root.get(ReviewStatic.creatorUnit), key)));
 		}
 		return p;
 	}

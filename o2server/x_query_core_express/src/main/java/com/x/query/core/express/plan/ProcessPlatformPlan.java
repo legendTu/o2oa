@@ -21,22 +21,21 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
-import com.x.base.core.entity.dataitem.ItemCategory;
 import com.x.base.core.project.config.Config;
 import com.x.base.core.project.gson.GsonPropertyObject;
 import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.core.entity.content.Review;
-import com.x.processplatform.core.entity.content.Review_;
+import com.x.processplatform.core.entity.content.ReviewStatic;
 import com.x.processplatform.core.entity.content.Work;
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
+import com.x.processplatform.core.entity.content.WorkStatic;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Process;
 import com.x.query.core.entity.Item;
-import com.x.query.core.entity.Item_;
+import com.x.query.core.entity.ItemStatic;
 
 public class ProcessPlatformPlan extends Plan {
 
@@ -138,7 +137,7 @@ public class ProcessPlatformPlan extends Plan {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<String> cq = cb.createQuery(String.class);
 			Root<Work> root = cq.from(Work.class);
-			cq.select(root.get(Work_.job)).where(this.where.workPredicate(cb, root));
+			cq.select(root.get(WorkStatic.job)).where(this.where.workPredicate(cb, root));
 			List<String> jobs = em.createQuery(cq).getResultList();
 			return jobs.stream().distinct().collect(Collectors.toList());
 		}
@@ -150,7 +149,7 @@ public class ProcessPlatformPlan extends Plan {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<String> cq = cb.createQuery(String.class);
 			Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-			cq.select(root.get(WorkCompleted_.job)).where(this.where.workCompletedPredicate(cb, root));
+			cq.select(root.get(WorkCompletedStatic.job)).where(this.where.workCompletedPredicate(cb, root));
 			List<String> jobs = em.createQuery(cq).getResultList();
 			return jobs.stream().distinct().collect(Collectors.toList());
 		}
@@ -172,9 +171,9 @@ public class ProcessPlatformPlan extends Plan {
 						map.put(o, o);
 					});
 					Expression<Set<String>> expression = cb.keys(map);
-					Predicate p = cb.isMember(root.get(Review_.job), expression);
-					p = cb.and(p, cb.equal(root.get(Review_.person), person));
-					cq.select(root.get(Review_.job)).where(p);
+					Predicate p = cb.isMember(root.get(ReviewStatic.job), expression);
+					p = cb.and(p, cb.equal(root.get(ReviewStatic.person), person));
+					cq.select(root.get(ReviewStatic.job)).where(p);
 					List<String> parts = em.createQuery(cq).getResultList();
 					return parts.stream().distinct().collect(Collectors.toList());
 				} catch (Exception e) {
@@ -208,9 +207,9 @@ public class ProcessPlatformPlan extends Plan {
 						CriteriaBuilder cb = em.getCriteriaBuilder();
 						CriteriaQuery<String> cq = cb.createQuery(String.class);
 						Root<Item> root = cq.from(Item.class);
-						Predicate p = root.get(Item_.bundle).in(_batch);
+						Predicate p = root.get(ItemStatic.bundle).in(_batch);
 						p = f.toPredicate(cb, root, this.runtime, p);
-						cq.select(root.get(Item_.bundle)).where(p);
+						cq.select(root.get(ItemStatic.bundle)).where(p);
 						List<String> parts = em.createQuery(cq).getResultList();
 						return parts.stream().distinct().collect(Collectors.toList());
 					} catch (Exception e) {
@@ -351,10 +350,10 @@ public class ProcessPlatformPlan extends Plan {
 			}
 			Predicate p = cb.disjunction();
 			if (!_application_ids.isEmpty()) {
-				p = cb.or(p, root.get(Work_.application).in(_application_ids));
+				p = cb.or(p, root.get(WorkStatic.application).in(_application_ids));
 			}
 			if (!_process_ids.isEmpty()) {
-				p = cb.or(p, root.get(Work_.process).in(_process_ids));
+				p = cb.or(p, root.get(WorkStatic.process).in(_process_ids));
 			}
 			return p;
 		}
@@ -370,13 +369,13 @@ public class ProcessPlatformPlan extends Plan {
 			}
 			Predicate p = cb.disjunction();
 			if (!_creatorUnits.isEmpty()) {
-				p = cb.or(p, root.get(Work_.creatorUnit).in(_creatorUnits));
+				p = cb.or(p, root.get(WorkStatic.creatorUnit).in(_creatorUnits));
 			}
 			if (!_creatorPersons.isEmpty()) {
-				p = cb.or(p, root.get(Work_.creatorPerson).in(_creatorPersons));
+				p = cb.or(p, root.get(WorkStatic.creatorPerson).in(_creatorPersons));
 			}
 			if (!_creatorIdentitys.isEmpty()) {
-				p = cb.or(p, root.get(Work_.creatorIdentity).in(_creatorIdentitys));
+				p = cb.or(p, root.get(WorkStatic.creatorIdentity).in(_creatorIdentitys));
 			}
 			return p;
 		}
@@ -386,11 +385,11 @@ public class ProcessPlatformPlan extends Plan {
 				return null;
 			}
 			if (null == this.dateRange.start) {
-				return cb.lessThanOrEqualTo(root.get(Work_.startTime), this.dateRange.completed);
+				return cb.lessThanOrEqualTo(root.get(WorkStatic.startTime), this.dateRange.completed);
 			} else if (null == this.dateRange.completed) {
-				return cb.greaterThanOrEqualTo(root.get(Work_.startTime), this.dateRange.start);
+				return cb.greaterThanOrEqualTo(root.get(WorkStatic.startTime), this.dateRange.start);
 			} else {
-				return cb.between(root.get(Work_.startTime), this.dateRange.start, this.dateRange.completed);
+				return cb.between(root.get(WorkStatic.startTime), this.dateRange.start, this.dateRange.completed);
 			}
 		}
 
@@ -432,22 +431,22 @@ public class ProcessPlatformPlan extends Plan {
 			}
 			Predicate p = cb.disjunction();
 			if (!_application_ids.isEmpty()) {
-				p = cb.or(p, root.get(WorkCompleted_.application).in(_application_ids));
+				p = cb.or(p, root.get(WorkCompletedStatic.application).in(_application_ids));
 			}
 			if (!_application_names.isEmpty()) {
-				p = cb.or(p, root.get(WorkCompleted_.applicationName).in(_application_names));
+				p = cb.or(p, root.get(WorkCompletedStatic.applicationName).in(_application_names));
 			}
 			if (!_application_alias.isEmpty()) {
-				p = cb.or(p, root.get(WorkCompleted_.applicationAlias).in(_application_alias));
+				p = cb.or(p, root.get(WorkCompletedStatic.applicationAlias).in(_application_alias));
 			}
 			if (!_process_ids.isEmpty()) {
-				p = cb.or(p, root.get(WorkCompleted_.process).in(_process_ids));
+				p = cb.or(p, root.get(WorkCompletedStatic.process).in(_process_ids));
 			}
 			if (!_process_names.isEmpty()) {
-				p = cb.or(p, root.get(WorkCompleted_.processName).in(_process_names));
+				p = cb.or(p, root.get(WorkCompletedStatic.processName).in(_process_names));
 			}
 			if (!_process_alias.isEmpty()) {
-				p = cb.or(p, root.get(WorkCompleted_.processAlias).in(_process_alias));
+				p = cb.or(p, root.get(WorkCompletedStatic.processAlias).in(_process_alias));
 			}
 			return p;
 		}
@@ -464,13 +463,13 @@ public class ProcessPlatformPlan extends Plan {
 			}
 			Predicate p = cb.disjunction();
 			if (!_creatorUnits.isEmpty()) {
-				p = cb.or(p, root.get(WorkCompleted_.creatorUnit).in(_creatorUnits));
+				p = cb.or(p, root.get(WorkCompletedStatic.creatorUnit).in(_creatorUnits));
 			}
 			if (!_creatorPersons.isEmpty()) {
-				p = cb.or(p, root.get(WorkCompleted_.creatorPerson).in(_creatorPersons));
+				p = cb.or(p, root.get(WorkCompletedStatic.creatorPerson).in(_creatorPersons));
 			}
 			if (!_creatorIdentitys.isEmpty()) {
-				p = cb.or(p, root.get(WorkCompleted_.creatorIdentity).in(_creatorIdentitys));
+				p = cb.or(p, root.get(WorkCompletedStatic.creatorIdentity).in(_creatorIdentitys));
 			}
 			return p;
 		}
@@ -480,12 +479,12 @@ public class ProcessPlatformPlan extends Plan {
 				return null;
 			}
 			if (null == this.dateRange.start) {
-				return cb.lessThanOrEqualTo(root.get(WorkCompleted_.startTime), this.dateRange.completed);
+				return cb.lessThanOrEqualTo(root.get(WorkCompletedStatic.startTime), this.dateRange.completed);
 			} else if (null == this.dateRange.completed) {
-				return cb.greaterThanOrEqualTo(root.get(WorkCompleted_.startTime), this.dateRange.start);
+				return cb.greaterThanOrEqualTo(root.get(WorkCompletedStatic.startTime), this.dateRange.start);
 			} else {
-				return cb.and(cb.greaterThanOrEqualTo(root.get(WorkCompleted_.startTime), this.dateRange.start),
-						cb.lessThanOrEqualTo(root.get(WorkCompleted_.startTime), this.dateRange.completed));
+				return cb.and(cb.greaterThanOrEqualTo(root.get(WorkCompletedStatic.startTime), this.dateRange.start),
+						cb.lessThanOrEqualTo(root.get(WorkCompletedStatic.startTime), this.dateRange.completed));
 			}
 		}
 	}

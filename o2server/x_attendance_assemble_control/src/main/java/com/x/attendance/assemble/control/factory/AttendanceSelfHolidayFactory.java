@@ -5,7 +5,7 @@ import com.x.attendance.assemble.control.Business;
 import com.x.attendance.assemble.control.jaxrs.selfholiday.ActionListNextWithFilter;
 import com.x.attendance.assemble.control.jaxrs.selfholiday.WrapInFilter;
 import com.x.attendance.entity.AttendanceSelfHoliday;
-import com.x.attendance.entity.AttendanceSelfHoliday_;
+import com.x.attendance.entity.AttendanceSelfHolidayStatic;
 import com.x.base.core.project.exception.ExceptionWhen;
 import org.apache.commons.lang3.StringUtils;
 
@@ -38,7 +38,7 @@ public class AttendanceSelfHolidayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceSelfHoliday> root = cq.from( AttendanceSelfHoliday.class);
-		cq.select(root.get(AttendanceSelfHoliday_.id));
+		cq.select(root.get(AttendanceSelfHolidayStatic.id));
 		return em.createQuery(cq).getResultList();
 	}
 	
@@ -51,7 +51,7 @@ public class AttendanceSelfHolidayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceSelfHoliday> cq = cb.createQuery(AttendanceSelfHoliday.class);
 		Root<AttendanceSelfHoliday> root = cq.from(AttendanceSelfHoliday.class);
-		Predicate p = root.get(AttendanceSelfHoliday_.id).in(ids);
+		Predicate p = root.get(AttendanceSelfHolidayStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -63,7 +63,7 @@ public class AttendanceSelfHolidayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceSelfHoliday> cq = cb.createQuery(AttendanceSelfHoliday.class);
 		Root<AttendanceSelfHoliday> root = cq.from(AttendanceSelfHoliday.class);
-		Predicate p = cb.equal( root.get(AttendanceSelfHoliday_.batchFlag), batchFlag );
+		Predicate p = cb.equal( root.get(AttendanceSelfHolidayStatic.batchFlag), batchFlag );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -75,8 +75,8 @@ public class AttendanceSelfHolidayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceSelfHoliday> root = cq.from(AttendanceSelfHoliday.class);
-		Predicate p = cb.equal( root.get(AttendanceSelfHoliday_.batchFlag), batchFlag );
-		cq.select(root.get(AttendanceSelfHoliday_.id));
+		Predicate p = cb.equal( root.get(AttendanceSelfHolidayStatic.batchFlag), batchFlag );
+		cq.select(root.get(AttendanceSelfHolidayStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -86,8 +86,8 @@ public class AttendanceSelfHolidayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceSelfHoliday> root = cq.from( AttendanceSelfHoliday.class);
-		Predicate p = root.get(AttendanceSelfHoliday_.employeeName).in( empName );
-		cq.select(root.get(AttendanceSelfHoliday_.id));
+		Predicate p = root.get(AttendanceSelfHolidayStatic.employeeName).in( empName );
+		cq.select(root.get(AttendanceSelfHolidayStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -107,9 +107,9 @@ public class AttendanceSelfHolidayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceSelfHoliday> root = cq.from( AttendanceSelfHoliday.class);
-		Predicate p = cb.between(root.get(AttendanceSelfHoliday_.startTime), startDate, endDate);
-		p = cb.and( p, cb.between(root.get(AttendanceSelfHoliday_.endTime), startDate, endDate));
-		cq.select(root.get(AttendanceSelfHoliday_.id));
+		Predicate p = cb.between(root.get(AttendanceSelfHolidayStatic.startTime), startDate, endDate);
+		p = cb.and( p, cb.between(root.get(AttendanceSelfHolidayStatic.endTime), startDate, endDate));
+		cq.select(root.get(AttendanceSelfHolidayStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -288,8 +288,8 @@ public class AttendanceSelfHolidayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceSelfHoliday> root = cq.from( AttendanceSelfHoliday.class);
-		Predicate p = cb.equal(root.get(AttendanceSelfHoliday_.employeeName ), personName );
-		cq.select(root.get(AttendanceSelfHoliday_.id));
+		Predicate p = cb.equal(root.get(AttendanceSelfHolidayStatic.employeeName ), personName );
+		cq.select(root.get(AttendanceSelfHolidayStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 }

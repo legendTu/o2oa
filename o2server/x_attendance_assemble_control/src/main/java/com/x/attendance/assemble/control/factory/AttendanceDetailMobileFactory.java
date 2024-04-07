@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.x.attendance.assemble.control.AbstractFactory;
 import com.x.attendance.assemble.control.Business;
 import com.x.attendance.entity.AttendanceDetailMobile;
-import com.x.attendance.entity.AttendanceDetailMobile_;
+import com.x.attendance.entity.AttendanceDetailMobileStatic;
 /**
  * 系统配置信息表基础功能服务类
  */
@@ -37,10 +37,10 @@ public class AttendanceDetailMobileFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceDetailMobile> root = cq.from( AttendanceDetailMobile.class);
-		cq.select(root.get(AttendanceDetailMobile_.id));
-		Predicate p = cb.equal( root.get(AttendanceDetailMobile_.empName),  empName );
-		p = cb.and( p, cb.equal( root.get(AttendanceDetailMobile_.recordDateString ),  recordDateString ) );
-		p = cb.and( p, cb.equal( root.get(AttendanceDetailMobile_.signTime ),  signTime ) );
+		cq.select(root.get(AttendanceDetailMobileStatic.id));
+		Predicate p = cb.equal( root.get(AttendanceDetailMobileStatic.empName),  empName );
+		p = cb.and( p, cb.equal( root.get(AttendanceDetailMobileStatic.recordDateString ),  recordDateString ) );
+		p = cb.and( p, cb.equal( root.get(AttendanceDetailMobileStatic.signTime ),  signTime ) );
 		return em.createQuery(cq.where( p )).getResultList();
 	}
 	
@@ -62,8 +62,8 @@ public class AttendanceDetailMobileFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceDetailMobile> cq = cb.createQuery(AttendanceDetailMobile.class);
 		Root<AttendanceDetailMobile> root = cq.from( AttendanceDetailMobile.class);
-		Predicate p = cb.equal( root.get(AttendanceDetailMobile_.empName),  empName );
-		p = cb.and( p, cb.equal( root.get(AttendanceDetailMobile_.recordDateString ),  recordDateString ) );
+		Predicate p = cb.equal( root.get(AttendanceDetailMobileStatic.empName),  empName );
+		p = cb.and( p, cb.equal( root.get(AttendanceDetailMobileStatic.recordDateString ),  recordDateString ) );
 		return em.createQuery(cq.where( p )).getResultList();
 	}
 	
@@ -77,7 +77,7 @@ public class AttendanceDetailMobileFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceDetailMobile> cq = cb.createQuery(AttendanceDetailMobile.class);
 		Root<AttendanceDetailMobile> root = cq.from(AttendanceDetailMobile.class);
-		Predicate p = root.get( AttendanceDetailMobile_.id).in( ids );
+		Predicate p = root.get( AttendanceDetailMobileStatic.id).in( ids );
 		resultList = em.createQuery( cq.where(p) ).getResultList();
 		return resultList;
 	}
@@ -88,22 +88,22 @@ public class AttendanceDetailMobileFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetailMobile> root = cq.from(AttendanceDetailMobile.class);
-		Predicate p = cb.isNotNull( root.get( AttendanceDetailMobile_.id ) );
+		Predicate p = cb.isNotNull( root.get( AttendanceDetailMobileStatic.id ) );
 		if( StringUtils.isNotEmpty( empNo ) ){
-			p = cb.and( p, cb.equal( root.get( AttendanceDetailMobile_.empNo ), empNo ) );
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailMobileStatic.empNo ), empNo ) );
 		}
 		if( StringUtils.isNotEmpty( empName ) ){
-			p = cb.and( p, cb.equal( root.get( AttendanceDetailMobile_.empName ), empName ) );
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailMobileStatic.empName ), empName ) );
 		}
 		if( StringUtils.isNotEmpty( signDescription ) ){
-			p = cb.and( p, cb.equal( root.get( AttendanceDetailMobile_.signDescription ), signDescription ) );
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailMobileStatic.signDescription ), signDescription ) );
 		}
 		if( StringUtils.isNotEmpty( startDate ) ){
 			if( StringUtils.isNotEmpty( endDate ) && !endDate.equals( startDate ) ){//查询日期区间
-				p = cb.between( root.get( AttendanceDetailMobile_.recordDateString ), startDate, endDate );
+				p = cb.between( root.get( AttendanceDetailMobileStatic.recordDateString ), startDate, endDate );
 			}else{
 				//查询startDate当天
-				p = cb.and( p, cb.equal( root.get( AttendanceDetailMobile_.recordDateString ), startDate ) );
+				p = cb.and( p, cb.equal( root.get( AttendanceDetailMobileStatic.recordDateString ), startDate ) );
 			}
 		}
 		cq.select( cb.count( root ) );		
@@ -119,22 +119,22 @@ public class AttendanceDetailMobileFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceDetailMobile> cq = cb.createQuery(AttendanceDetailMobile.class);
 		Root<AttendanceDetailMobile> root = cq.from(AttendanceDetailMobile.class);
-		Predicate p = cb.isNotNull( root.get( AttendanceDetailMobile_.id ) );
+		Predicate p = cb.isNotNull( root.get( AttendanceDetailMobileStatic.id ) );
 		if( StringUtils.isNotEmpty( empNo ) ){
-			p = cb.and( p, cb.equal( root.get( AttendanceDetailMobile_.empNo ), empNo ) );
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailMobileStatic.empNo ), empNo ) );
 		}
 		if( StringUtils.isNotEmpty( empName ) ){
-			p = cb.and( p, cb.equal( root.get( AttendanceDetailMobile_.empName ), empName ) );
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailMobileStatic.empName ), empName ) );
 		}
 		if( StringUtils.isNotEmpty( signDescription ) ){
-			p = cb.and( p, cb.equal( root.get( AttendanceDetailMobile_.signDescription ), signDescription ) );
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailMobileStatic.signDescription ), signDescription ) );
 		}
 		if( StringUtils.isNotEmpty( startDate ) ){
 			if( StringUtils.isNotEmpty( endDate ) && !endDate.equals( startDate ) ){//查询日期区间
-				p = cb.between( root.get( AttendanceDetailMobile_.recordDateString ), startDate, endDate );
+				p = cb.between( root.get( AttendanceDetailMobileStatic.recordDateString ), startDate, endDate );
 			}else{
 				//查询startDate当天
-				p = cb.and( p, cb.equal( root.get( AttendanceDetailMobile_.recordDateString ), startDate ) );
+				p = cb.and( p, cb.equal( root.get( AttendanceDetailMobileStatic.recordDateString ), startDate ) );
 			}
 		}
 		return em.createQuery(cq.where(p)).setMaxResults( selectTotal ).getResultList();
@@ -151,15 +151,15 @@ public class AttendanceDetailMobileFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceDetailMobile> cq = cb.createQuery(AttendanceDetailMobile.class);
 		Root<AttendanceDetailMobile> root = cq.from(AttendanceDetailMobile.class);
-		Predicate p = cb.isNotNull( root.get( AttendanceDetailMobile_.id ) );
+		Predicate p = cb.isNotNull( root.get( AttendanceDetailMobileStatic.id ) );
 		if( StringUtils.isNotEmpty( distinguishedName ) ){
 			p = cb.or(
-					cb.equal( root.get( AttendanceDetailMobile_.empNo ), distinguishedName ),
-					cb.equal( root.get( AttendanceDetailMobile_.empName ), distinguishedName )
+					cb.equal( root.get( AttendanceDetailMobileStatic.empNo ), distinguishedName ),
+					cb.equal( root.get( AttendanceDetailMobileStatic.empName ), distinguishedName )
 			);
 		}
 		if( StringUtils.isNotEmpty( signDate ) ){
-			p = cb.and( cb.equal( root.get( AttendanceDetailMobile_.recordDateString ), signDate ), p );
+			p = cb.and( cb.equal( root.get( AttendanceDetailMobileStatic.recordDateString ), signDate ), p );
 		}
 		return em.createQuery(cq.where(p)).setMaxResults( 100 ).getResultList();
 	}
@@ -173,8 +173,8 @@ public class AttendanceDetailMobileFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceDetailMobile> root = cq.from( AttendanceDetailMobile.class);
-		cq.select(root.get(AttendanceDetailMobile_.id));
-		Predicate p = cb.equal( root.get(AttendanceDetailMobile_.recordStatus), status );
+		cq.select(root.get(AttendanceDetailMobileStatic.id));
+		Predicate p = cb.equal( root.get(AttendanceDetailMobileStatic.recordStatus), status );
 		return em.createQuery(cq.where( p )).getResultList();
 	}
 

@@ -13,7 +13,7 @@ import com.x.base.core.entity.dataitem.ItemCategory;
 import com.x.processplatform.service.processing.AbstractFactory;
 import com.x.processplatform.service.processing.Business;
 import com.x.query.core.entity.Item;
-import com.x.query.core.entity.Item_;
+import com.x.query.core.entity.ItemStatic;
 
 public class ItemFactory extends AbstractFactory {
 
@@ -26,8 +26,8 @@ public class ItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = cb.equal(root.get(Item_.bundle), job);
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), ItemCategory.pp));
+		Predicate p = cb.equal(root.get(ItemStatic.bundle), job);
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), ItemCategory.pp));
 		for (int i = 0; (i < paths.length && i < 8); i++) {
 			p = cb.and(p, cb.equal(root.get(("path" + i)), paths[i]));
 		}
@@ -40,8 +40,8 @@ public class ItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Item> cq = cb.createQuery(Item.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = cb.equal(root.get(Item_.bundle), job);
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), ItemCategory.pp));
+		Predicate p = cb.equal(root.get(ItemStatic.bundle), job);
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), ItemCategory.pp));
 		for (int i = 0; (i < paths.length && i < 8); i++) {
 			p = cb.and(p, cb.equal(root.get(("path" + i)), paths[i]));
 		}
@@ -56,8 +56,8 @@ public class ItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Item> cq = cb.createQuery(Item.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = cb.equal(root.get(Item_.bundle), job);
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), ItemCategory.pp));
+		Predicate p = cb.equal(root.get(ItemStatic.bundle), job);
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), ItemCategory.pp));
 		p = cb.and(p, cb.equal(root.get(Item.path0_FIELDNAME), path0));
 		p = cb.and(p, cb.equal(root.get(Item.path1_FIELDNAME), path1));
 		p = cb.and(p, cb.equal(root.get(Item.path2_FIELDNAME), path2));
@@ -84,8 +84,8 @@ public class ItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Item> cq = cb.createQuery(Item.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = cb.equal(root.get(Item_.bundle), job);
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), ItemCategory.pp));
+		Predicate p = cb.equal(root.get(ItemStatic.bundle), job);
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), ItemCategory.pp));
 		for (int i = 0; ((i < paths.length) && (i < 8)); i++) {
 			p = cb.and(p, cb.equal(root.get("path" + i), paths[i]));
 		}
@@ -107,8 +107,8 @@ public class ItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Item> cq = cb.createQuery(Item.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = cb.equal(root.get(Item_.bundle), job);
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), ItemCategory.pp));
+		Predicate p = cb.equal(root.get(ItemStatic.bundle), job);
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), ItemCategory.pp));
 		for (int i = 0; ((i < (paths.length - 1)) && (i < 8)); i++) {
 			p = cb.and(p, cb.equal(root.get("path" + i), paths[i]));
 		}

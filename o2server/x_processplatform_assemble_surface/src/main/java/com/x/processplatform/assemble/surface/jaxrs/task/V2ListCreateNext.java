@@ -19,7 +19,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Task;
-import com.x.processplatform.core.entity.content.Task_;
+import com.x.processplatform.core.entity.content.TaskStatic;
 
 class V2ListCreateNext extends V2Base {
 
@@ -32,7 +32,7 @@ class V2ListCreateNext extends V2Base {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 			Root<Task> root = cq.from(Task.class);
-			Predicate p = cb.equal(root.get(Task_.creatorPerson), effectivePerson.getDistinguishedName());
+			Predicate p = cb.equal(root.get(TaskStatic.creatorPerson), effectivePerson.getDistinguishedName());
 			p = cb.and(p, this.toFilterPredicate(effectivePerson, business, wi));
 			ActionResult<List<Wo>> result = this.standardListNext(Wo.copier, id, count, JpaObject.sequence_FIELDNAME,
 					DESC, p);

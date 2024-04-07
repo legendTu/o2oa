@@ -18,7 +18,7 @@ import com.x.bbs.assemble.common.date.DateOperation;
 import com.x.bbs.assemble.control.AbstractFactory;
 import com.x.bbs.assemble.control.Business;
 import com.x.bbs.entity.BBSReplyInfo;
-import com.x.bbs.entity.BBSReplyInfo_;
+import com.x.bbs.entity.BBSReplyInfoStatic;
 
 /**
  * 类   名：BBSReplyInfoFactory<br/>
@@ -47,7 +47,7 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSReplyInfo> cq = cb.createQuery(BBSReplyInfo.class);
 		Root<BBSReplyInfo> root = cq.from(BBSReplyInfo.class);
-		Predicate p = root.get(BBSReplyInfo_.id).in(ids);
+		Predicate p = root.get(BBSReplyInfoStatic.id).in(ids);
 		return em.createQuery( cq.where(p) ).getResultList();
 	}
 
@@ -63,11 +63,11 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<BBSReplyInfo> root = cq.from( BBSReplyInfo.class);
-		Predicate p = cb.equal( root.get( BBSReplyInfo_.subjectId ), subjectId );
+		Predicate p = cb.equal( root.get( BBSReplyInfoStatic.subjectId ), subjectId );
 
 		if( !showSubReply ){
-			Predicate p_showSubReply = cb.isNull( root.get( BBSReplyInfo_.parentId ));
-			p_showSubReply = cb.or( p_showSubReply, cb.equal( root.get( BBSReplyInfo_.parentId), ""));
+			Predicate p_showSubReply = cb.isNull( root.get( BBSReplyInfoStatic.parentId ));
+			p_showSubReply = cb.or( p_showSubReply, cb.equal( root.get( BBSReplyInfoStatic.parentId), ""));
 			p = cb.and( p, p_showSubReply);
 		}
 		cq.select( cb.count( root ) );
@@ -81,8 +81,8 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<BBSReplyInfo> root = cq.from( BBSReplyInfo.class);
-		Predicate p = cb.equal( root.get( BBSReplyInfo_.mainSectionId ), sectionId );
-		p = cb.or( p, cb.equal( root.get( BBSReplyInfo_.sectionId ), sectionId ) );
+		Predicate p = cb.equal( root.get( BBSReplyInfoStatic.mainSectionId ), sectionId );
+		p = cb.or( p, cb.equal( root.get( BBSReplyInfoStatic.sectionId ), sectionId ) );
 		cq.select( cb.count( root ) );		
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -93,7 +93,7 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<BBSReplyInfo> root = cq.from( BBSReplyInfo.class);
-		Predicate p = cb.equal( root.get( BBSReplyInfo_.forumId ), forumId );
+		Predicate p = cb.equal( root.get( BBSReplyInfoStatic.forumId ), forumId );
 		cq.select( cb.count( root ) );		
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -114,16 +114,16 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSReplyInfo> cq = cb.createQuery( BBSReplyInfo.class );
 		Root<BBSReplyInfo> root = cq.from( BBSReplyInfo.class );
-		Predicate p = cb.equal( root.get( BBSReplyInfo_.subjectId ), subjectId );
+		Predicate p = cb.equal( root.get( BBSReplyInfoStatic.subjectId ), subjectId );
 		if( !showSubReply ){
-			Predicate p_showSubReply = cb.isNull( root.get( BBSReplyInfo_.parentId ));
-			p_showSubReply = cb.or( p_showSubReply, cb.equal( root.get( BBSReplyInfo_.parentId), ""));
+			Predicate p_showSubReply = cb.isNull( root.get( BBSReplyInfoStatic.parentId ));
+			p_showSubReply = cb.or( p_showSubReply, cb.equal( root.get( BBSReplyInfoStatic.parentId), ""));
 			p = cb.and( p, p_showSubReply);
 		}
 		if( StringUtils.equalsIgnoreCase(orderType, "DESC")){
-			cq.orderBy( cb.desc( root.get( BBSReplyInfo_.createTime ) ) );
+			cq.orderBy( cb.desc( root.get( BBSReplyInfoStatic.createTime ) ) );
 		}else{
-			cq.orderBy( cb.asc( root.get( BBSReplyInfo_.createTime ) ) );
+			cq.orderBy( cb.asc( root.get( BBSReplyInfoStatic.createTime ) ) );
 		}
 		if( maxCount == null ){
 			return em.createQuery(cq.where(p)).setMaxResults( 2000 ).getResultList();
@@ -142,8 +142,8 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSReplyInfo> cq = cb.createQuery( BBSReplyInfo.class );
 		Root<BBSReplyInfo> root = cq.from( BBSReplyInfo.class );
-		Predicate p = cb.equal( root.get( BBSReplyInfo_.subjectId ), subjectId );
-		cq.orderBy( cb.desc( root.get( BBSReplyInfo_.orderNumber ) ) );
+		Predicate p = cb.equal( root.get( BBSReplyInfoStatic.subjectId ), subjectId );
+		cq.orderBy( cb.desc( root.get( BBSReplyInfoStatic.orderNumber ) ) );
 		replyInfoList = em.createQuery(cq.where(p)).setMaxResults( 1 ).getResultList();
 		if( ListTools.isNotEmpty( replyInfoList ) ){
 			return replyInfoList.get(0).getOrderNumber();
@@ -177,21 +177,21 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<BBSReplyInfo> root = cq.from( BBSReplyInfo.class);
-		Predicate p = cb.isNotNull( root.get( BBSReplyInfo_.id ) );
+		Predicate p = cb.isNotNull( root.get( BBSReplyInfoStatic.id ) );
 		if( StringUtils.isNotEmpty( creatorName ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.creatorName ), creatorName ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.creatorName ), creatorName ) );
 		}
 		if( StringUtils.isNotEmpty( forumId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.forumId ), forumId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.forumId ), forumId ) );
 		}
 		if( StringUtils.isNotEmpty( mainSectionId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.mainSectionId ), mainSectionId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.mainSectionId ), mainSectionId ) );
 		}
 		if( StringUtils.isNotEmpty( sectionId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.sectionId ), sectionId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.sectionId ), sectionId ) );
 		}
 		if( StringUtils.isNotEmpty( subjectId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.subjectId ), subjectId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.subjectId ), subjectId ) );
 		}
 		cq.select( cb.count( root ) );		
 		return em.createQuery(cq.where(p)).getSingleResult();
@@ -225,26 +225,26 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSReplyInfo> cq = cb.createQuery( BBSReplyInfo.class );
 		Root<BBSReplyInfo> root = cq.from( BBSReplyInfo.class );
-		Predicate p = cb.isNotNull( root.get( BBSReplyInfo_.id ) );
+		Predicate p = cb.isNotNull( root.get( BBSReplyInfoStatic.id ) );
 		if( StringUtils.isNotEmpty( creatorName ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.creatorName ), creatorName ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.creatorName ), creatorName ) );
 		}
 		if( StringUtils.isNotEmpty( forumId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.forumId ), forumId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.forumId ), forumId ) );
 		}
 		if( StringUtils.isNotEmpty( mainSectionId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.mainSectionId ), mainSectionId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.mainSectionId ), mainSectionId ) );
 		}
 		if( StringUtils.isNotEmpty( sectionId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.sectionId ), sectionId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.sectionId ), sectionId ) );
 		}
 		if( StringUtils.isNotEmpty( subjectId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.subjectId ), subjectId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.subjectId ), subjectId ) );
 		}
 		if( StringUtils.equalsIgnoreCase(orderType, "DESC")){
-			cq.orderBy( cb.desc( root.get( BBSReplyInfo_.createTime ) ) );
+			cq.orderBy( cb.desc( root.get( BBSReplyInfoStatic.createTime ) ) );
 		}else{
-			cq.orderBy( cb.asc( root.get( BBSReplyInfo_.createTime ) ) );
+			cq.orderBy( cb.asc( root.get( BBSReplyInfoStatic.createTime ) ) );
 		}
 		return em.createQuery(cq.where(p)).setMaxResults( maxCount ).getResultList();
 	}
@@ -275,21 +275,21 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<BBSReplyInfo> root = cq.from( BBSReplyInfo.class);
-		Predicate p = cb.greaterThanOrEqualTo( root.get( BBSReplyInfo_.createTime ), dateOperation.getTodayStartTime() );
+		Predicate p = cb.greaterThanOrEqualTo( root.get( BBSReplyInfoStatic.createTime ), dateOperation.getTodayStartTime() );
 		if( StringUtils.isNotEmpty( creatorName ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.creatorName ), creatorName ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.creatorName ), creatorName ) );
 		}
 		if( StringUtils.isNotEmpty( forumId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.forumId ), forumId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.forumId ), forumId ) );
 		}
 		if( StringUtils.isNotEmpty( mainSectionId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.mainSectionId ), mainSectionId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.mainSectionId ), mainSectionId ) );
 		}
 		if( StringUtils.isNotEmpty( sectionId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.sectionId ), sectionId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.sectionId ), sectionId ) );
 		}
 		if( StringUtils.isNotEmpty( subjectId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.subjectId ), subjectId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.subjectId ), subjectId ) );
 		}
 		cq.select( cb.count( root ) );		
 		return em.createQuery(cq.where(p)).getSingleResult();
@@ -324,23 +324,23 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSReplyInfo> cq = cb.createQuery( BBSReplyInfo.class );
 		Root<BBSReplyInfo> root = cq.from( BBSReplyInfo.class );
-		Predicate p = cb.greaterThanOrEqualTo( root.get( BBSReplyInfo_.createTime ), dateOperation.getTodayStartTime() );
+		Predicate p = cb.greaterThanOrEqualTo( root.get( BBSReplyInfoStatic.createTime ), dateOperation.getTodayStartTime() );
 		if( StringUtils.isNotEmpty( creatorName ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.creatorName ), creatorName ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.creatorName ), creatorName ) );
 		}
 		if( StringUtils.isNotEmpty( forumId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.forumId ), forumId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.forumId ), forumId ) );
 		}
 		if( StringUtils.isNotEmpty( mainSectionId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.mainSectionId ), mainSectionId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.mainSectionId ), mainSectionId ) );
 		}
 		if( StringUtils.isNotEmpty( sectionId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.sectionId ), sectionId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.sectionId ), sectionId ) );
 		}
 		if( StringUtils.isNotEmpty( subjectId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.subjectId ), subjectId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.subjectId ), subjectId ) );
 		}
-		cq.orderBy( cb.asc( root.get( BBSReplyInfo_.orderNumber ) ) );
+		cq.orderBy( cb.asc( root.get( BBSReplyInfoStatic.orderNumber ) ) );
 		return em.createQuery(cq.where(p)).setMaxResults( maxCount ).getResultList();
 	}
 
@@ -350,10 +350,10 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<BBSReplyInfo> root = cq.from(BBSReplyInfo.class);
-		Predicate p = cb.greaterThanOrEqualTo( root.get( BBSReplyInfo_.createTime ), dateOperation.getTodayStartTime() );
+		Predicate p = cb.greaterThanOrEqualTo( root.get( BBSReplyInfoStatic.createTime ), dateOperation.getTodayStartTime() );
 		if( StringUtils.isNotEmpty( sectionId ) ){
-			Predicate or = cb.equal( root.get( BBSReplyInfo_.mainSectionId ), sectionId );
-			or = cb.or( or, cb.equal( root.get( BBSReplyInfo_.sectionId ), sectionId ) );
+			Predicate or = cb.equal( root.get( BBSReplyInfoStatic.mainSectionId ), sectionId );
+			or = cb.or( or, cb.equal( root.get( BBSReplyInfoStatic.sectionId ), sectionId ) );
 			p = cb.and( p, or );
 		}
 		cq.select( cb.count( root ) );		
@@ -366,9 +366,9 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<BBSReplyInfo> root = cq.from(BBSReplyInfo.class);
-		Predicate p = cb.greaterThanOrEqualTo( root.get( BBSReplyInfo_.createTime ), dateOperation.getTodayStartTime() );
+		Predicate p = cb.greaterThanOrEqualTo( root.get( BBSReplyInfoStatic.createTime ), dateOperation.getTodayStartTime() );
 		if( StringUtils.isNotEmpty( forumId ) ){
-			p = cb.and( p, cb.equal( root.get( BBSReplyInfo_.forumId ), forumId ) );
+			p = cb.and( p, cb.equal( root.get( BBSReplyInfoStatic.forumId ), forumId ) );
 		}
 		cq.select( cb.count( root ) );		
 		return em.createQuery(cq.where(p)).getSingleResult();
@@ -397,11 +397,11 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<BBSReplyInfo> root = cq.from( BBSReplyInfo.class );
-		Predicate p = cb.equal( root.get( BBSReplyInfo_.sectionId ), sectionId );
+		Predicate p = cb.equal( root.get( BBSReplyInfoStatic.sectionId ), sectionId );
 		if( queryMainSection ) {
-			p = cb.or( p, cb.equal( root.get( BBSReplyInfo_.mainSectionId ), sectionId ));
+			p = cb.or( p, cb.equal( root.get( BBSReplyInfoStatic.mainSectionId ), sectionId ));
 		}		
-		Predicate p_time = cb.between( root.get( BBSReplyInfo_.createTime ), todayStartTime, todayEndTime ) ;
+		Predicate p_time = cb.between( root.get( BBSReplyInfoStatic.createTime ), todayStartTime, todayEndTime ) ;
 		p = cb.and( p, p_time );
 		cq.select( cb.count( root ) );
 		return em.createQuery(cq.where(p)).getSingleResult();
@@ -415,9 +415,9 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSReplyInfo> root = cq.from( BBSReplyInfo.class );
-		Predicate p = cb.equal( root.get( BBSReplyInfo_.mainSectionId ), sectionId );
-		p = cb.or( p, cb.equal( root.get( BBSReplyInfo_.sectionId ), sectionId ) );
-		cq.select( root.get( BBSReplyInfo_.id ) );
+		Predicate p = cb.equal( root.get( BBSReplyInfoStatic.mainSectionId ), sectionId );
+		p = cb.or( p, cb.equal( root.get( BBSReplyInfoStatic.sectionId ), sectionId ) );
+		cq.select( root.get( BBSReplyInfoStatic.id ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -435,15 +435,15 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSReplyInfo> cq = cb.createQuery( BBSReplyInfo.class );
 		Root<BBSReplyInfo> root = cq.from( BBSReplyInfo.class );
-		Predicate p = cb.equal( root.get( BBSReplyInfo_.parentId ), replyId );
+		Predicate p = cb.equal( root.get( BBSReplyInfoStatic.parentId ), replyId );
 		p = cb.and( p, cb.or(
-				cb.equal( root.get( BBSReplyInfo_.replyAuditStatus ), "无审核" ),
-				cb.equal( root.get( BBSReplyInfo_.replyAuditStatus ), "审核通过" )
+				cb.equal( root.get( BBSReplyInfoStatic.replyAuditStatus ), "无审核" ),
+				cb.equal( root.get( BBSReplyInfoStatic.replyAuditStatus ), "审核通过" )
 		));
 		if( StringUtils.equalsIgnoreCase( orderType, "DESC")){
-			cq.orderBy( cb.desc( root.get( BBSReplyInfo_.createTime ) ) );
+			cq.orderBy( cb.desc( root.get( BBSReplyInfoStatic.createTime ) ) );
 		}else{
-			cq.orderBy( cb.asc( root.get( BBSReplyInfo_.createTime ) ) );
+			cq.orderBy( cb.asc( root.get( BBSReplyInfoStatic.createTime ) ) );
 		}
 		return em.createQuery(cq.where(p)).getResultList();
     }
@@ -462,8 +462,8 @@ public class BBSReplyInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<BBSReplyInfo> root = cq.from( BBSReplyInfo.class );
-		Predicate p = cb.equal( root.get( BBSReplyInfo_.parentId ), replyId );
-		cq.select( root.get( BBSReplyInfo_.id ) );
+		Predicate p = cb.equal( root.get( BBSReplyInfoStatic.parentId ), replyId );
+		cq.select( root.get( BBSReplyInfoStatic.id ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 

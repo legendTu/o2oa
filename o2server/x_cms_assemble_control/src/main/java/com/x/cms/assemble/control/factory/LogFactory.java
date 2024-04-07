@@ -14,7 +14,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.Log;
-import com.x.cms.core.entity.Log_;
+import com.x.cms.core.entity.LogStatic;
 
 /**
  * 日志管理管理表基础功能服务类
@@ -47,7 +47,7 @@ public class LogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Log> root = cq.from(Log.class);
-		cq.select(root.get(Log_.id));
+		cq.select(root.get(LogStatic.id));
 		return em.createQuery(cq).setMaxResults(100).getResultList();
 	}
 	
@@ -87,30 +87,30 @@ public class LogFactory extends AbstractFactory {
 		Root<Log> root = cq.from( Log.class );
 		Predicate p = null;
 		if( appId != null && !appId.isEmpty() ){
-			p = cb.equal(root.get(Log_.appId), appId );
+			p = cb.equal(root.get(LogStatic.appId), appId );
 		}
 		if( categoryId != null && !categoryId.isEmpty() ){
 			if( p == null ){
-				p = cb.equal(root.get(Log_.categoryId), categoryId );
+				p = cb.equal(root.get(LogStatic.categoryId), categoryId );
 			}else{
-				p = cb.and( p, cb.equal(root.get(Log_.categoryId), categoryId ) );
+				p = cb.and( p, cb.equal(root.get(LogStatic.categoryId), categoryId ) );
 			}
 		}
 		if( documentId != null && !documentId.isEmpty() ){
 			if( p == null ){
-				p = cb.equal(root.get(Log_.documentId), documentId );
+				p = cb.equal(root.get(LogStatic.documentId), documentId );
 			}else{
-				p = cb.and( p, cb.equal(root.get(Log_.documentId), documentId ) );
+				p = cb.and( p, cb.equal(root.get(LogStatic.documentId), documentId ) );
 			}
 		}
 		if( fileId != null && !fileId.isEmpty() ){
 			if( p == null ){
-				p = cb.equal(root.get(Log_.fileId), fileId );
+				p = cb.equal(root.get(LogStatic.fileId), fileId );
 			}else{
-				p = cb.and( p, cb.equal(root.get(Log_.fileId), fileId ) );
+				p = cb.and( p, cb.equal(root.get(LogStatic.fileId), fileId ) );
 			}
 		}
-		cq.select(root.get(Log_.id));
+		cq.select(root.get(LogStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(100).getResultList();
 	}
 	
@@ -126,8 +126,8 @@ public class LogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Log> root = cq.from( Log.class );
-		Predicate p = cb.equal(root.get(Log_.operationLevel), operationLevel );
-		cq.select(root.get(Log_.id));
+		Predicate p = cb.equal(root.get(LogStatic.operationLevel), operationLevel );
+		cq.select(root.get(LogStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(100).getResultList();
 	}
 	
@@ -143,9 +143,9 @@ public class LogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Log> root = cq.from( Log.class );
-		Predicate p = cb.equal(root.get(Log_.operatorUid), operatorUid );
-		p = cb.and( p, cb.equal(root.get(Log_.operationType), operationType ) );
-		cq.select(root.get(Log_.id));
+		Predicate p = cb.equal(root.get(LogStatic.operatorUid), operatorUid );
+		p = cb.and( p, cb.equal(root.get(LogStatic.operationType), operationType ) );
+		cq.select(root.get(LogStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(100).getResultList();
 	}
 
@@ -154,8 +154,8 @@ public class LogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Log> root = cq.from( Log.class );
-		Predicate p = cb.lessThan( root.get(Log_.createTime), limitDate );
-		cq.select(root.get(Log_.id));
+		Predicate p = cb.lessThan( root.get(LogStatic.createTime), limitDate );
+		cq.select(root.get(LogStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(1000000).getResultList();
 	}
 
@@ -173,8 +173,8 @@ public class LogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Log> root = cq.from( Log.class );
-		cq.orderBy( cb.desc( root.get( Log_.createTime )));
-		cq.select(root.get(Log_.id));
+		cq.orderBy( cb.desc( root.get( LogStatic.createTime )));
+		cq.select(root.get(LogStatic.id));
 		return em.createQuery(cq).setMaxResults( maxCount ).getResultList();
 	}
 }

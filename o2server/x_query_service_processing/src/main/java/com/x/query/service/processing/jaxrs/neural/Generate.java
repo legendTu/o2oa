@@ -66,7 +66,7 @@ import com.x.base.core.project.utils.time.TimeStamp;
 import com.x.cms.core.entity.content.Data;
 import com.x.processplatform.core.entity.content.Attachment;
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
 import com.x.query.core.entity.Item;
 import com.x.query.core.entity.neural.Entry;
 import com.x.query.core.entity.neural.InText;
@@ -354,12 +354,12 @@ public class Generate {
 			p = cb.and(p, cb.isMember(root.get(WorkCompleted.process_FIELDNAME), cb.literal(model.getProcessList())));
 		}
 		if (null != model.getStartDate()) {
-			p = cb.and(p, cb.greaterThanOrEqualTo(root.get(WorkCompleted_.startTime), model.getStartDate()));
+			p = cb.and(p, cb.greaterThanOrEqualTo(root.get(WorkCompletedStatic.startTime), model.getStartDate()));
 		}
 		if (null != model.getEndDate()) {
-			p = cb.and(p, cb.lessThanOrEqualTo(root.get(WorkCompleted_.startTime), model.getEndDate()));
+			p = cb.and(p, cb.lessThanOrEqualTo(root.get(WorkCompletedStatic.startTime), model.getEndDate()));
 		}
-		cq.select(root.get(WorkCompleted_.id)).where(p);
+		cq.select(root.get(WorkCompletedStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

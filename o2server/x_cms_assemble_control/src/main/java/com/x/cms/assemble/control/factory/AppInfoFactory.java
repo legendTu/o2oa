@@ -5,7 +5,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.AppInfo;
-import com.x.cms.core.entity.AppInfo_;
+import com.x.cms.core.entity.AppInfoStatic;
 import com.x.cms.core.express.tools.CriteriaBuilderTools;
 import org.apache.commons.lang3.StringUtils;
 
@@ -43,9 +43,9 @@ public class AppInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AppInfo> root = cq.from(AppInfo.class);
-		cq.select(root.get(AppInfo_.id));
+		cq.select(root.get(AppInfoStatic.id));
 		if (StringUtils.isNotEmpty(documentType) && !"全部".equals(documentType) && !"all".equalsIgnoreCase(documentType)) {
-			Predicate p = cb.equal(root.get(AppInfo_.documentType), documentType);
+			Predicate p = cb.equal(root.get(AppInfoStatic.documentType), documentType);
 			return em.createQuery(cq.where(p)).getResultList();
 		}
 		return em.createQuery(cq).getResultList();
@@ -58,18 +58,18 @@ public class AppInfoFactory extends AbstractFactory {
 		Root<AppInfo> root = cq.from(AppInfo.class);
 		Predicate p = null;
 		if (StringUtils.isNotEmpty(documentType) && !"全部".equals(documentType) && !"all".equalsIgnoreCase(documentType)) {
-			p = CriteriaBuilderTools.predicate_and(cb, p, cb.equal(root.get(AppInfo_.documentType), documentType) );
+			p = CriteriaBuilderTools.predicate_and(cb, p, cb.equal(root.get(AppInfoStatic.documentType), documentType) );
 		}
 		if (StringUtils.isNotEmpty(appType) &&!StringUtils.equals( "未分类",appType )) {
-			p = CriteriaBuilderTools.predicate_and(cb, p, cb.equal(root.get(AppInfo_.appType), appType) );
+			p = CriteriaBuilderTools.predicate_and(cb, p, cb.equal(root.get(AppInfoStatic.appType), appType) );
 		}
 		if (StringUtils.isNotEmpty(appType) &&StringUtils.equals( "未分类",appType )) {
 			p = CriteriaBuilderTools.predicate_and(cb, p, 
 					CriteriaBuilderTools.predicate_or(
-							cb, cb.isNull(root.get(AppInfo_.appType)), 
+							cb, cb.isNull(root.get(AppInfoStatic.appType)),
 							CriteriaBuilderTools.predicate_or(
-									cb, cb.equal(root.get(AppInfo_.appType), ""), 
-									cb.equal(root.get(AppInfo_.appType), "未分类")
+									cb, cb.equal(root.get(AppInfoStatic.appType), ""),
+									cb.equal(root.get(AppInfoStatic.appType), "未分类")
 							)
 					)
 			);
@@ -85,9 +85,9 @@ public class AppInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AppInfo> root = cq.from(AppInfo.class);
-		Predicate p = cb.like(root.get(AppInfo_.appName), "%" + str + "%", '\\');
-		p = cb.or(p, cb.like(root.get(AppInfo_.appAlias), str + "%", '\\'));
-		cq.select(root.get(AppInfo_.id)).where(p);
+		Predicate p = cb.like(root.get(AppInfoStatic.appName), "%" + str + "%", '\\');
+		p = cb.or(p, cb.like(root.get(AppInfoStatic.appAlias), str + "%", '\\'));
+		cq.select(root.get(AppInfoStatic.id)).where(p);
 		return em.createQuery(cq).setMaxResults(200).getResultList();
 	}
 
@@ -96,10 +96,10 @@ public class AppInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AppInfo> root = cq.from(AppInfo.class);
-		cq.select(root.get(AppInfo_.id));
-		Predicate p = cb.isTrue(root.get(AppInfo_.allPeoplePublish));
+		cq.select(root.get(AppInfoStatic.id));
+		Predicate p = cb.isTrue(root.get(AppInfoStatic.allPeoplePublish));
 		if (StringUtils.isNotEmpty(documentType) && !"全部".equals(documentType) && !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and(p, cb.equal(root.get(AppInfo_.documentType), documentType));
+			p = cb.and(p, cb.equal(root.get(AppInfoStatic.documentType), documentType));
 		}
 		return em.createQuery(cq.where(p)).getResultList();
 	}
@@ -116,11 +116,11 @@ public class AppInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AppInfo> root = cq.from(AppInfo.class);
-		cq.select(root.get(AppInfo_.id));
-		Predicate p = cb.isTrue(root.get(AppInfo_.allPeopleView));
-		p = cb.or(p, cb.isTrue(root.get(AppInfo_.allPeoplePublish)));
+		cq.select(root.get(AppInfoStatic.id));
+		Predicate p = cb.isTrue(root.get(AppInfoStatic.allPeopleView));
+		p = cb.or(p, cb.isTrue(root.get(AppInfoStatic.allPeoplePublish)));
 		if (StringUtils.isNotEmpty(documentType) && !"全部".equals(documentType) && !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and(p, cb.equal(root.get(AppInfo_.documentType), documentType));
+			p = cb.and(p, cb.equal(root.get(AppInfoStatic.documentType), documentType));
 		}
 		return em.createQuery(cq.where(p)).getResultList();
 	}
@@ -130,8 +130,8 @@ public class AppInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AppInfo> root = cq.from(AppInfo.class);
-		Predicate p = cb.equal(root.get(AppInfo_.appName), appName);
-		cq.select(root.get(AppInfo_.id));
+		Predicate p = cb.equal(root.get(AppInfoStatic.appName), appName);
+		cq.select(root.get(AppInfoStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -140,8 +140,8 @@ public class AppInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AppInfo> root = cq.from(AppInfo.class);
-		Predicate p = cb.equal(root.get(AppInfo_.appAlias), appAlias);
-		cq.select(root.get(AppInfo_.id));
+		Predicate p = cb.equal(root.get(AppInfoStatic.appAlias), appAlias);
+		cq.select(root.get(AppInfoStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -150,8 +150,8 @@ public class AppInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AppInfo> cq = cb.createQuery(AppInfo.class);
 		Root<AppInfo> root = cq.from(AppInfo.class);
-		Predicate p = root.get(AppInfo_.appAlias).in(appAliases);
-		p = cb.or(p, root.get(AppInfo_.appName).in(appAliases));
+		Predicate p = root.get(AppInfoStatic.appAlias).in(appAliases);
+		p = cb.or(p, root.get(AppInfoStatic.appName).in(appAliases));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -181,18 +181,18 @@ public class AppInfoFactory extends AbstractFactory {
 		Predicate p_permission = null;
 		if (StringUtils.isNotEmpty(personName)) {
 			// 可以管理的栏目，肯定可以发布信息
-			p_permission = cb.isMember(personName, root.get(AppInfo_.manageablePersonList));
+			p_permission = cb.isMember(personName, root.get(AppInfoStatic.manageablePersonList));
 		}
 		if (ListTools.isNotEmpty(unitNames)) {
-			p_permission = cb.or(p_permission, root.get(AppInfo_.manageableUnitList).in(unitNames));
+			p_permission = cb.or(p_permission, root.get(AppInfoStatic.manageableUnitList).in(unitNames));
 		}
 		if (ListTools.isNotEmpty(groupNames)) {
-			p_permission = cb.or(p_permission, root.get(AppInfo_.manageableGroupList).in(groupNames));
+			p_permission = cb.or(p_permission, root.get(AppInfoStatic.manageableGroupList).in(groupNames));
 		}
 		if (StringUtils.isNotEmpty(documentType) && !"全部".equals(documentType) && !"all".equalsIgnoreCase(documentType)) {
-			p_permission = cb.equal(p_permission, cb.equal(root.get(AppInfo_.documentType), documentType));
+			p_permission = cb.equal(p_permission, cb.equal(root.get(AppInfoStatic.documentType), documentType));
 		}
-		cq.select(root.get(AppInfo_.id));
+		cq.select(root.get(AppInfoStatic.id));
 		return em.createQuery(cq.where(p_permission)).setMaxResults(maxCount).getResultList();
 	}
 
@@ -221,30 +221,30 @@ public class AppInfoFactory extends AbstractFactory {
 		Predicate p_filter = null;
 		// 限定范围
 		if (ListTools.isNotEmpty(inAppInfoIds)) {
-			p_filter = root.get(AppInfo_.id).in(inAppInfoIds);
+			p_filter = root.get(AppInfoStatic.id).in(inAppInfoIds);
 		}
 		// 排队指定的ID列表
 		if (ListTools.isNotEmpty(excludAppInfoIds)) {
 			if (p_filter == null) {
-				p_filter = cb.not(root.get(AppInfo_.id).in(excludAppInfoIds));
+				p_filter = cb.not(root.get(AppInfoStatic.id).in(excludAppInfoIds));
 			} else {
-				p_filter = cb.and(p_filter, cb.not(root.get(AppInfo_.id).in(excludAppInfoIds)));
+				p_filter = cb.and(p_filter, cb.not(root.get(AppInfoStatic.id).in(excludAppInfoIds)));
 			}
 		}
 
 		Predicate p_permission = null;
-		p_permission = cb.isTrue(root.get(AppInfo_.allPeoplePublish));
+		p_permission = cb.isTrue(root.get(AppInfoStatic.allPeoplePublish));
 
 		if (StringUtils.isNotEmpty(personName)) {
 			// 可以管理的栏目，肯定可以发布信息
-			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfo_.manageablePersonList)));
-			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfo_.publishablePersonList)));
+			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfoStatic.manageablePersonList)));
+			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfoStatic.publishablePersonList)));
 		}
 		if (ListTools.isNotEmpty(unitNames)) {
-			p_permission = cb.or(p_permission, root.get(AppInfo_.publishableUnitList).in(unitNames));
+			p_permission = cb.or(p_permission, root.get(AppInfoStatic.publishableUnitList).in(unitNames));
 		}
 		if (ListTools.isNotEmpty(groupNames)) {
-			p_permission = cb.or(p_permission, root.get(AppInfo_.publishableGroupList).in(groupNames));
+			p_permission = cb.or(p_permission, root.get(AppInfoStatic.publishableGroupList).in(groupNames));
 		}
 
 		// 使用新的条件将两个条件组合起来
@@ -261,9 +261,9 @@ public class AppInfoFactory extends AbstractFactory {
 			}
 		}
 		if (StringUtils.isNotEmpty(documentType) && !"全部".equals(documentType) && !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and(p, cb.equal(root.get(AppInfo_.documentType), documentType));
+			p = cb.and(p, cb.equal(root.get(AppInfoStatic.documentType), documentType));
 		}
-		cq.select(root.get(AppInfo_.id));
+		cq.select(root.get(AppInfoStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(maxCount).getResultList();
 	}
 
@@ -292,28 +292,28 @@ public class AppInfoFactory extends AbstractFactory {
 		Predicate p_filter = null;
 		// 限定范围
 		if (ListTools.isNotEmpty(inAppInfoIds)) {
-			p_filter = root.get(AppInfo_.id).in(inAppInfoIds);
+			p_filter = root.get(AppInfoStatic.id).in(inAppInfoIds);
 		}
 		// 排队指定的ID列表
 		if (ListTools.isNotEmpty(excludAppInfoIds)) {
 			if (p_filter == null) {
-				p_filter = cb.not(root.get(AppInfo_.id).in(excludAppInfoIds));
+				p_filter = cb.not(root.get(AppInfoStatic.id).in(excludAppInfoIds));
 			} else {
-				p_filter = cb.and(p_filter, cb.not(root.get(AppInfo_.id).in(excludAppInfoIds)));
+				p_filter = cb.and(p_filter, cb.not(root.get(AppInfoStatic.id).in(excludAppInfoIds)));
 			}
 		}
 
 		Predicate p_permission = null;
 		if (StringUtils.isNotEmpty(personName)) {
 			// 可以管理的栏目，肯定可以发布信息
-			p_permission = cb.isMember(personName, root.get(AppInfo_.manageablePersonList));
-			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfo_.publishablePersonList)));
+			p_permission = cb.isMember(personName, root.get(AppInfoStatic.manageablePersonList));
+			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfoStatic.publishablePersonList)));
 		}
 		if (ListTools.isNotEmpty(unitNames)) {
-			p_permission = cb.or(p_permission, root.get(AppInfo_.publishableUnitList).in(unitNames));
+			p_permission = cb.or(p_permission, root.get(AppInfoStatic.publishableUnitList).in(unitNames));
 		}
 		if (ListTools.isNotEmpty(groupNames)) {
-			p_permission = cb.or(p_permission, root.get(AppInfo_.publishableGroupList).in(groupNames));
+			p_permission = cb.or(p_permission, root.get(AppInfoStatic.publishableGroupList).in(groupNames));
 		}
 
 		// 使用新的条件将两个条件组合起来
@@ -330,9 +330,9 @@ public class AppInfoFactory extends AbstractFactory {
 			}
 		}
 		if (StringUtils.isNotEmpty(documentType) && !"全部".equals(documentType) && !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and(p, cb.equal(root.get(AppInfo_.documentType), documentType));
+			p = cb.and(p, cb.equal(root.get(AppInfoStatic.documentType), documentType));
 		}
-		cq.select(root.get(AppInfo_.id));
+		cq.select(root.get(AppInfoStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(maxCount).getResultList();
 	}
 
@@ -359,33 +359,33 @@ public class AppInfoFactory extends AbstractFactory {
 		Predicate p_filter = null;
 		// 限定范围
 		if (ListTools.isNotEmpty(inAppInfoIds)) {
-			p_filter = root.get(AppInfo_.id).in(inAppInfoIds);
+			p_filter = root.get(AppInfoStatic.id).in(inAppInfoIds);
 		}
 		// 排队指定的ID列表
 		if (ListTools.isNotEmpty(excludAppInfoIds)) {
 			if (p_filter == null) {
-				p_filter = cb.not(root.get(AppInfo_.id).in(excludAppInfoIds));
+				p_filter = cb.not(root.get(AppInfoStatic.id).in(excludAppInfoIds));
 			} else {
-				p_filter = cb.and(p_filter, cb.not(root.get(AppInfo_.id).in(excludAppInfoIds)));
+				p_filter = cb.and(p_filter, cb.not(root.get(AppInfoStatic.id).in(excludAppInfoIds)));
 			}
 		}
 
 		Predicate p_permission = null;
-		p_permission = cb.isTrue(root.get(AppInfo_.allPeopleView));
-		p_permission = cb.or(p_permission, cb.isTrue(root.get(AppInfo_.allPeoplePublish)));
+		p_permission = cb.isTrue(root.get(AppInfoStatic.allPeopleView));
+		p_permission = cb.or(p_permission, cb.isTrue(root.get(AppInfoStatic.allPeoplePublish)));
 		if (StringUtils.isNotEmpty(personName)) {
 			// 可以管理的栏目，肯定可以发布信息
-			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfo_.manageablePersonList)));
-			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfo_.publishablePersonList)));
-			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfo_.viewablePersonList)));
+			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfoStatic.manageablePersonList)));
+			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfoStatic.publishablePersonList)));
+			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfoStatic.viewablePersonList)));
 		}
 		if (ListTools.isNotEmpty(unitNames)) {
-			p_permission = cb.or(p_permission, root.get(AppInfo_.publishableUnitList).in(unitNames));
-			p_permission = cb.or(p_permission, root.get(AppInfo_.viewableUnitList).in(unitNames));
+			p_permission = cb.or(p_permission, root.get(AppInfoStatic.publishableUnitList).in(unitNames));
+			p_permission = cb.or(p_permission, root.get(AppInfoStatic.viewableUnitList).in(unitNames));
 		}
 		if (ListTools.isNotEmpty(groupNames)) {
-			p_permission = cb.or(p_permission, root.get(AppInfo_.publishableGroupList).in(groupNames));
-			p_permission = cb.or(p_permission, root.get(AppInfo_.viewableGroupList).in(groupNames));
+			p_permission = cb.or(p_permission, root.get(AppInfoStatic.publishableGroupList).in(groupNames));
+			p_permission = cb.or(p_permission, root.get(AppInfoStatic.viewableGroupList).in(groupNames));
 		}
 
 		// 使用新的条件将两个条件组合起来
@@ -402,9 +402,9 @@ public class AppInfoFactory extends AbstractFactory {
 			}
 		}
 		if (StringUtils.isNotEmpty(documentType) && !"全部".equals(documentType) && !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and(p, cb.equal(root.get(AppInfo_.documentType), documentType));
+			p = cb.and(p, cb.equal(root.get(AppInfoStatic.documentType), documentType));
 		}
-		cq.select(root.get(AppInfo_.id));
+		cq.select(root.get(AppInfoStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(maxCount).getResultList();
 	}
 
@@ -431,31 +431,31 @@ public class AppInfoFactory extends AbstractFactory {
 		Predicate p_filter = null;
 		// 限定范围
 		if (ListTools.isNotEmpty(inAppInfoIds)) {
-			p_filter = root.get(AppInfo_.id).in(inAppInfoIds);
+			p_filter = root.get(AppInfoStatic.id).in(inAppInfoIds);
 		}
 		// 排队指定的ID列表
 		if (ListTools.isNotEmpty(excludAppInfoIds)) {
 			if (p_filter == null) {
-				p_filter = cb.not(root.get(AppInfo_.id).in(excludAppInfoIds));
+				p_filter = cb.not(root.get(AppInfoStatic.id).in(excludAppInfoIds));
 			} else {
-				p_filter = cb.and(p_filter, cb.not(root.get(AppInfo_.id).in(excludAppInfoIds)));
+				p_filter = cb.and(p_filter, cb.not(root.get(AppInfoStatic.id).in(excludAppInfoIds)));
 			}
 		}
 
 		Predicate p_permission = null;
 		if (StringUtils.isNotEmpty(personName)) {
 			// 可以管理的栏目，肯定可以发布信息
-			p_permission = cb.isMember(personName, root.get(AppInfo_.manageablePersonList));
-			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfo_.publishablePersonList)));
-			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfo_.viewablePersonList)));
+			p_permission = cb.isMember(personName, root.get(AppInfoStatic.manageablePersonList));
+			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfoStatic.publishablePersonList)));
+			p_permission = cb.or(p_permission, cb.isMember(personName, root.get(AppInfoStatic.viewablePersonList)));
 		}
 		if (ListTools.isNotEmpty(unitNames)) {
-			p_permission = cb.or(p_permission, root.get(AppInfo_.publishableUnitList).in(unitNames));
-			p_permission = cb.or(p_permission, root.get(AppInfo_.viewableUnitList).in(unitNames));
+			p_permission = cb.or(p_permission, root.get(AppInfoStatic.publishableUnitList).in(unitNames));
+			p_permission = cb.or(p_permission, root.get(AppInfoStatic.viewableUnitList).in(unitNames));
 		}
 		if (ListTools.isNotEmpty(groupNames)) {
-			p_permission = cb.or(p_permission, root.get(AppInfo_.publishableGroupList).in(groupNames));
-			p_permission = cb.or(p_permission, root.get(AppInfo_.viewableGroupList).in(groupNames));
+			p_permission = cb.or(p_permission, root.get(AppInfoStatic.publishableGroupList).in(groupNames));
+			p_permission = cb.or(p_permission, root.get(AppInfoStatic.viewableGroupList).in(groupNames));
 		}
 
 		// 使用新的条件将两个条件组合起来
@@ -472,9 +472,9 @@ public class AppInfoFactory extends AbstractFactory {
 			}
 		}
 		if (StringUtils.isNotEmpty(documentType) && !"全部".equals(documentType) && !"all".equalsIgnoreCase(documentType)) {
-			p = cb.and(p, cb.equal(root.get(AppInfo_.documentType), documentType));
+			p = cb.and(p, cb.equal(root.get(AppInfoStatic.documentType), documentType));
 		}
-		cq.select(root.get(AppInfo_.id));
+		cq.select(root.get(AppInfoStatic.id));
 		return em.createQuery(cq.where(p)).setMaxResults(maxCount).getResultList();
 	}
 
@@ -491,8 +491,8 @@ public class AppInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AppInfo> root = cq.from(AppInfo.class);
-		Predicate p = cb.isNotNull( root.get(AppInfo_.appType));
-		cq.select(root.get(AppInfo_.appType));
+		Predicate p = cb.isNotNull( root.get(AppInfoStatic.appType));
+		cq.select(root.get(AppInfoStatic.appType));
 		return em.createQuery(cq.where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 
@@ -523,8 +523,8 @@ public class AppInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AppInfo> root = cq.from(AppInfo.class);
-		Predicate p = cb.equal( root.get(AppInfo_.appType), type );
-		cq.select(root.get(AppInfo_.id));
+		Predicate p = cb.equal( root.get(AppInfoStatic.appType), type );
+		cq.select(root.get(AppInfoStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -533,10 +533,10 @@ public class AppInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AppInfo> root = cq.from(AppInfo.class);
-		Predicate p = cb.isNull( root.get(AppInfo_.appType) );
-		p = cb.or( p, cb.equal( root.get(AppInfo_.appType), ""));
-		p = cb.or( p, cb.equal( root.get(AppInfo_.appType), "未分类"));
-		cq.select(root.get(AppInfo_.id));
+		Predicate p = cb.isNull( root.get(AppInfoStatic.appType) );
+		p = cb.or( p, cb.equal( root.get(AppInfoStatic.appType), ""));
+		p = cb.or( p, cb.equal( root.get(AppInfoStatic.appType), "未分类"));
+		cq.select(root.get(AppInfoStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 }

@@ -15,11 +15,9 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.SortTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Work;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkStatic;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Process;
-import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.StringUtils;
 
 class ActionManageListCountWithProcess extends BaseAction {
 
@@ -35,8 +33,8 @@ class ActionManageListCountWithProcess extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Wo> cq = cb.createQuery(Wo.class);
 			Root<Work> root = cq.from(Work.class);
-			Predicate p = cb.equal(root.get(Work_.application),  application.getId());
-			Path<String> value = root.get(Work_.process);
+			Predicate p = cb.equal(root.get(WorkStatic.application),  application.getId());
+			Path<String> value = root.get(WorkStatic.process);
 			cq.multiselect(value, cb.count(root).as(Long.class)).where(p).groupBy(value);
 			List<Wo> list = em.createQuery(cq).getResultList();
 			List<Wo> wos = new ArrayList<>();

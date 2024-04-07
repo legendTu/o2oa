@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.content.Review;
-import com.x.processplatform.core.entity.content.Review_;
+import com.x.processplatform.core.entity.content.ReviewStatic;
 
 public class ReviewFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p = cb.equal(root.get(Review_.application), id);
-		cq.select(root.get(Review_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReviewStatic.application), id);
+		cq.select(root.get(ReviewStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,9 +34,9 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p = cb.equal(root.get(Review_.application), id);
-		p = cb.and(p, cb.equal(root.get(Review_.completed), completed));
-		cq.select(root.get(Review_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReviewStatic.application), id);
+		p = cb.and(p, cb.equal(root.get(ReviewStatic.completed), completed));
+		cq.select(root.get(ReviewStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -45,8 +45,8 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p = cb.equal(root.get(Review_.process), id);
-		cq.select(root.get(Review_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReviewStatic.process), id);
+		cq.select(root.get(ReviewStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -55,9 +55,9 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p = cb.equal(root.get(Review_.process), id);
-		p = cb.and(p, cb.equal(root.get(Review_.completed), completed));
-		cq.select(root.get(Review_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReviewStatic.process), id);
+		p = cb.and(p, cb.equal(root.get(ReviewStatic.completed), completed));
+		cq.select(root.get(ReviewStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

@@ -28,7 +28,7 @@ import com.x.base.core.project.organization.OrganizationDefinition;
 import com.x.base.core.project.script.ScriptFactory;
 import com.x.base.core.project.tools.ListTools;
 import com.x.query.core.entity.Item;
-import com.x.query.core.entity.Item_;
+import com.x.query.core.entity.ItemStatic;
 
 public abstract class Plan extends GsonPropertyObject {
 
@@ -449,81 +449,81 @@ public abstract class Plan extends GsonPropertyObject {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 			Root<Item> root = cq.from(Item.class);
-			Predicate p = cb.isMember(root.get(Item_.bundle), cb.literal(bundles));
+			Predicate p = cb.isMember(root.get(ItemStatic.bundle), cb.literal(bundles));
 			String[] paths = StringUtils.split(selectEntry.path, ".");
 			List<Order> orderList = new ArrayList<>();
 			if ((paths.length > 0) && StringUtils.isNotEmpty(paths[0])) {
-				p = cb.and(p, cb.equal(root.get(Item_.path0), paths[0]));
+				p = cb.and(p, cb.equal(root.get(ItemStatic.path0), paths[0]));
 			} else {
-				p = cb.and(p, cb.or(cb.isNull(root.get(Item_.path0)), cb.equal(root.get(Item_.path0), "")));
+				p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.path0)), cb.equal(root.get(ItemStatic.path0), "")));
 			}
 			if ((paths.length > 1) && StringUtils.isNotEmpty(paths[1])) {
 				if (!FilterEntry.WILDCARD.equals(paths[1])) {
-					p = cb.and(p, cb.equal(root.get(Item_.path1), paths[1]));
+					p = cb.and(p, cb.equal(root.get(ItemStatic.path1), paths[1]));
 				} else {
-					orderList.add(cb.asc(root.get(Item_.path1)));
+					orderList.add(cb.asc(root.get(ItemStatic.path1)));
 				}
 			} else {
-				p = cb.and(p, cb.or(cb.isNull(root.get(Item_.path1)), cb.equal(root.get(Item_.path1), "")));
+				p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.path1)), cb.equal(root.get(ItemStatic.path1), "")));
 			}
 			if ((paths.length > 2) && StringUtils.isNotEmpty(paths[2])) {
 				if (!FilterEntry.WILDCARD.equals(paths[2])) {
-					p = cb.and(p, cb.equal(root.get(Item_.path2), paths[2]));
+					p = cb.and(p, cb.equal(root.get(ItemStatic.path2), paths[2]));
 				} else {
-					orderList.add(cb.asc(root.get(Item_.path2)));
+					orderList.add(cb.asc(root.get(ItemStatic.path2)));
 				}
 			} else {
-				p = cb.and(p, cb.or(cb.isNull(root.get(Item_.path2)), cb.equal(root.get(Item_.path2), "")));
+				p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.path2)), cb.equal(root.get(ItemStatic.path2), "")));
 			}
 			if ((paths.length > 3) && StringUtils.isNotEmpty(paths[3])) {
 				if (!FilterEntry.WILDCARD.equals(paths[3])) {
-					p = cb.and(p, cb.equal(root.get(Item_.path3), paths[3]));
+					p = cb.and(p, cb.equal(root.get(ItemStatic.path3), paths[3]));
 				} else {
-					orderList.add(cb.asc(root.get(Item_.path3)));
+					orderList.add(cb.asc(root.get(ItemStatic.path3)));
 				}
 			} else {
-				p = cb.and(p, cb.or(cb.isNull(root.get(Item_.path3)), cb.equal(root.get(Item_.path3), "")));
+				p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.path3)), cb.equal(root.get(ItemStatic.path3), "")));
 			}
 			if ((paths.length > 4) && StringUtils.isNotEmpty(paths[4])) {
 				if (!FilterEntry.WILDCARD.equals(paths[4])) {
-					p = cb.and(p, cb.equal(root.get(Item_.path4), paths[4]));
+					p = cb.and(p, cb.equal(root.get(ItemStatic.path4), paths[4]));
 				} else {
-					orderList.add(cb.asc(root.get(Item_.path4)));
+					orderList.add(cb.asc(root.get(ItemStatic.path4)));
 				}
 			} else {
-				p = cb.and(p, cb.or(cb.isNull(root.get(Item_.path4)), cb.equal(root.get(Item_.path4), "")));
+				p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.path4)), cb.equal(root.get(ItemStatic.path4), "")));
 			}
 			if ((paths.length > 5) && StringUtils.isNotEmpty(paths[5])) {
 				if (!FilterEntry.WILDCARD.equals(paths[5])) {
-					p = cb.and(p, cb.equal(root.get(Item_.path5), paths[5]));
+					p = cb.and(p, cb.equal(root.get(ItemStatic.path5), paths[5]));
 				} else {
-					orderList.add(cb.asc(root.get(Item_.path5)));
+					orderList.add(cb.asc(root.get(ItemStatic.path5)));
 				}
 			} else {
-				p = cb.and(p, cb.or(cb.isNull(root.get(Item_.path5)), cb.equal(root.get(Item_.path5), "")));
+				p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.path5)), cb.equal(root.get(ItemStatic.path5), "")));
 			}
 			if ((paths.length > 6) && StringUtils.isNotEmpty(paths[6])) {
 				if (!FilterEntry.WILDCARD.equals(paths[6])) {
-					p = cb.and(p, cb.equal(root.get(Item_.path6), paths[6]));
+					p = cb.and(p, cb.equal(root.get(ItemStatic.path6), paths[6]));
 				} else {
-					orderList.add(cb.asc(root.get(Item_.path6)));
+					orderList.add(cb.asc(root.get(ItemStatic.path6)));
 				}
 			} else {
-				p = cb.and(p, cb.or(cb.isNull(root.get(Item_.path6)), cb.equal(root.get(Item_.path6), "")));
+				p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.path6)), cb.equal(root.get(ItemStatic.path6), "")));
 			}
 			if ((paths.length > 7) && StringUtils.isNotEmpty(paths[7])) {
 				if (!FilterEntry.WILDCARD.equals(paths[7])) {
-					p = cb.and(p, cb.equal(root.get(Item_.path7), paths[7]));
+					p = cb.and(p, cb.equal(root.get(ItemStatic.path7), paths[7]));
 				} else {
-					orderList.add(cb.asc(root.get(Item_.path7)));
+					orderList.add(cb.asc(root.get(ItemStatic.path7)));
 				}
 			} else {
-				p = cb.and(p, cb.or(cb.isNull(root.get(Item_.path7)), cb.equal(root.get(Item_.path7), "")));
+				p = cb.and(p, cb.or(cb.isNull(root.get(ItemStatic.path7)), cb.equal(root.get(ItemStatic.path7), "")));
 			}
-			cq.multiselect(root.get(Item_.bundle), root.get(Item_.itemPrimitiveType),
-					root.get(Item_.itemStringValueType), root.get(Item_.stringShortValue),
-					root.get(Item_.stringLongValue), root.get(Item_.dateValue), root.get(Item_.timeValue),
-					root.get(Item_.dateTimeValue), root.get(Item_.booleanValue), root.get(Item_.numberValue)).where(p);
+			cq.multiselect(root.get(ItemStatic.bundle), root.get(ItemStatic.itemPrimitiveType),
+					root.get(ItemStatic.itemStringValueType), root.get(ItemStatic.stringShortValue),
+					root.get(ItemStatic.stringLongValue), root.get(ItemStatic.dateValue), root.get(ItemStatic.timeValue),
+					root.get(ItemStatic.dateTimeValue), root.get(ItemStatic.booleanValue), root.get(ItemStatic.numberValue)).where(p);
 			boolean isList = false;
 			if (!orderList.isEmpty()) {
 				isList = true;

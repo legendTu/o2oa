@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root;
 import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.element.AppDictItem;
-import com.x.cms.core.entity.element.AppDictItem_;
+import com.x.cms.core.entity.element.AppDictItemStatic;
 
 public class AppDictItemFactory extends AbstractFactory {
 
@@ -25,8 +25,8 @@ public class AppDictItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AppDictItem> root = cq.from(AppDictItem.class);
-		Predicate p = cb.equal(root.get(AppDictItem_.bundle), appDictId);
-		cq.select(root.get(AppDictItem_.id)).where(p);
+		Predicate p = cb.equal(root.get(AppDictItemStatic.bundle), appDictId);
+		cq.select(root.get(AppDictItemStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 	
@@ -35,7 +35,7 @@ public class AppDictItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AppDictItem> cq = cb.createQuery(AppDictItem.class);
 		Root<AppDictItem> root = cq.from(AppDictItem.class);
-		Predicate p = cb.equal(root.get(AppDictItem_.bundle), appDictId);
+		Predicate p = cb.equal(root.get(AppDictItemStatic.bundle), appDictId);
 		for (int i = 0; (i < paths.length && i < 8); i++) {
 			p = cb.and(p, cb.equal(root.get(("path" + i)), paths[i]));
 		}
@@ -49,7 +49,7 @@ public class AppDictItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AppDictItem> cq = cb.createQuery(AppDictItem.class);
 		Root<AppDictItem> root = cq.from(AppDictItem.class);
-		Predicate p = cb.equal(root.get(AppDictItem_.bundle), appDictId);
+		Predicate p = cb.equal(root.get(AppDictItemStatic.bundle), appDictId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -60,7 +60,7 @@ public class AppDictItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AppDictItem> cq = cb.createQuery(AppDictItem.class);
 		Root<AppDictItem> root = cq.from(AppDictItem.class);
-		Predicate p = cb.equal(root.get(AppDictItem_.bundle), appDict);
+		Predicate p = cb.equal(root.get(AppDictItemStatic.bundle), appDict);
 		p = cb.and(p, cb.equal(root.get("path0"), path0));
 		p = cb.and(p, cb.equal(root.get("path1"), path1));
 		p = cb.and(p, cb.equal(root.get("path2"), path2));
@@ -86,7 +86,7 @@ public class AppDictItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AppDictItem> cq = cb.createQuery(AppDictItem.class);
 		Root<AppDictItem> root = cq.from(AppDictItem.class);
-		Predicate p = cb.equal(root.get(AppDictItem_.bundle), appDict);
+		Predicate p = cb.equal(root.get(AppDictItemStatic.bundle), appDict);
 		for (int i = 0; ((i < paths.length) && (i < 8)); i++) {
 			p = cb.and(p, cb.equal(root.get("path" + i), paths[i]));
 		}
@@ -107,7 +107,7 @@ public class AppDictItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AppDictItem> cq = cb.createQuery(AppDictItem.class);
 		Root<AppDictItem> root = cq.from(AppDictItem.class);
-		Predicate p = cb.equal(root.get(AppDictItem_.bundle), appDict);
+		Predicate p = cb.equal(root.get(AppDictItemStatic.bundle), appDict);
 		for (int i = 0; ((i < (paths.length - 1)) && (i < 8)); i++) {
 			p = cb.and(p, cb.equal(root.get("path" + i), paths[i]));
 		}
@@ -123,7 +123,7 @@ public class AppDictItemFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AppDictItem> cq = cb.createQuery(AppDictItem.class);
 		Root<AppDictItem> root = cq.from(AppDictItem.class);
-		Predicate p = cb.equal(root.get(AppDictItem_.bundle), appDictId);
+		Predicate p = cb.equal(root.get(AppDictItemStatic.bundle), appDictId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}

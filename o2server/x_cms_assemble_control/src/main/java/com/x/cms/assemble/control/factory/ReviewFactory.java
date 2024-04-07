@@ -5,9 +5,9 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.Document;
-import com.x.cms.core.entity.Document_;
+import com.x.cms.core.entity.DocumentStatic;
 import com.x.cms.core.entity.Review;
-import com.x.cms.core.entity.Review_;
+import com.x.cms.core.entity.ReviewStatic;
 import com.x.cms.core.express.tools.CriteriaBuilderTools;
 import com.x.cms.core.express.tools.filter.QueryFilter;
 import org.apache.commons.lang3.StringUtils;
@@ -37,8 +37,8 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Review> root = cq.from( Review.class );
-		Predicate p = cb.equal(root.get( Review_.appId ), appId );
-		cq.select( root.get( Review_.id) ).where(p);
+		Predicate p = cb.equal(root.get( ReviewStatic.appId ), appId );
+		cq.select( root.get( ReviewStatic.id) ).where(p);
 		return em.createQuery( cq ).setMaxResults(maxCount).getResultList();
 	}
 	
@@ -50,8 +50,8 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Review> root = cq.from( Review.class );
-		Predicate p = cb.equal(root.get( Review_.categoryId ), categoryId );
-		cq.select(root.get( Review_.id)).where(p);
+		Predicate p = cb.equal(root.get( ReviewStatic.categoryId ), categoryId );
+		cq.select(root.get( ReviewStatic.id)).where(p);
 		return em.createQuery( cq ).setMaxResults(maxCount).getResultList();
 	}
 	
@@ -60,8 +60,8 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Review> root = cq.from( Review.class );
-		Predicate p = cb.equal(root.get( Review_.docId ), docId );
-		cq.select(root.get( Review_.id)).where(p);
+		Predicate p = cb.equal(root.get( ReviewStatic.docId ), docId );
+		cq.select(root.get( ReviewStatic.id)).where(p);
 		return em.createQuery( cq ).setMaxResults(maxCount).getResultList();
 	}	
 	
@@ -76,9 +76,9 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Review> root = cq.from( Review.class );
-		Predicate p = cb.equal(root.get( Review_.docId ), docId );
-		p = cb.and( p, cb.equal( root.get( Review_.permissionObj ), person));
-		cq.select(root.get( Review_.id)).where(p);
+		Predicate p = cb.equal(root.get( ReviewStatic.docId ), docId );
+		p = cb.and( p, cb.equal( root.get( ReviewStatic.permissionObj ), person));
+		cq.select(root.get( ReviewStatic.id)).where(p);
 		return em.createQuery( cq ).getResultList();
 	}
 	
@@ -87,7 +87,7 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p = cb.equal( root.get(Review_.categoryId), categoryId );
+		Predicate p = cb.equal( root.get(ReviewStatic.categoryId), categoryId );
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -97,7 +97,7 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p = cb.equal( root.get(Review_.docId), docId );
+		Predicate p = cb.equal( root.get(ReviewStatic.docId), docId );
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -107,7 +107,7 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p = cb.equal( root.get(Review_.appId), appId );
+		Predicate p = cb.equal( root.get(ReviewStatic.appId), appId );
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -124,11 +124,11 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p_permission = cb.equal( root.get( Review_.permissionObj ), "*");
+		Predicate p_permission = cb.equal( root.get( ReviewStatic.permissionObj ), "*");
 		if( StringUtils.isNotEmpty( personName )) {
-			p_permission = CriteriaBuilderTools.predicate_or( cb, p_permission, cb.equal( root.get( Review_.permissionObj ), personName ) );
+			p_permission = CriteriaBuilderTools.predicate_or( cb, p_permission, cb.equal( root.get( ReviewStatic.permissionObj ), personName ) );
 		}
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( Review_.class, cb, p_permission, root, queryFilter );
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( ReviewStatic.class, cb, p_permission, root, queryFilter );
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -148,20 +148,20 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Review> cq = cb.createQuery(Review.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p_permission = cb.equal( root.get( Review_.permissionObj ), "*");
+		Predicate p_permission = cb.equal( root.get( ReviewStatic.permissionObj ), "*");
 		if( StringUtils.isNotEmpty( personName )) {
-			p_permission = CriteriaBuilderTools.predicate_or( cb, p_permission, cb.equal( root.get( Review_.permissionObj ), personName ) );
+			p_permission = CriteriaBuilderTools.predicate_or( cb, p_permission, cb.equal( root.get( ReviewStatic.permissionObj ), personName ) );
 		}
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( Review_.class, cb, p_permission, root, queryFilter );
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( ReviewStatic.class, cb, p_permission, root, queryFilter );
 		
 		List<Order> orders = new ArrayList<>();
 		if( !Review.isTop_FIELDNAME.equals( orderField )) {
-			Order isTopOrder = CriteriaBuilderTools.getOrder( cb, root, Review_.class, Review.isTop_FIELDNAME, "desc" );
+			Order isTopOrder = CriteriaBuilderTools.getOrder( cb, root, ReviewStatic.class, Review.isTop_FIELDNAME, "desc" );
 			if( isTopOrder != null ){
 				orders.add( isTopOrder );
 			}
 		}
-		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, Review_.class, orderField, orderType );
+		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, ReviewStatic.class, orderField, orderType );
 		if( orderWithField != null ){
 			orders.add( orderWithField );
 		}
@@ -189,30 +189,30 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Review> cq = cb.createQuery(Review.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p_permission = cb.equal( root.get( Review_.permissionObj ), "*");
+		Predicate p_permission = cb.equal( root.get( ReviewStatic.permissionObj ), "*");
 		if( StringUtils.isNotEmpty( personName )) {
-			p_permission = CriteriaBuilderTools.predicate_or( cb, p_permission, cb.equal( root.get( Review_.permissionObj ), personName ) );
+			p_permission = CriteriaBuilderTools.predicate_or( cb, p_permission, cb.equal( root.get( ReviewStatic.permissionObj ), personName ) );
 		}
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( Review_.class, cb, p_permission, root, queryFilter );
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( ReviewStatic.class, cb, p_permission, root, queryFilter );
 		if( StringUtils.isNotEmpty( sequenceFieldValue ) ) {
-			Predicate p_seq = cb.isNotNull( root.get( Review_.docSequence ) );
+			Predicate p_seq = cb.isNotNull( root.get( ReviewStatic.docSequence ) );
 			if( "desc".equalsIgnoreCase( orderType )){
-				p_seq = cb.and( p_seq, cb.lessThan( root.get( Review_.docSequence ), sequenceFieldValue.toString() ));
+				p_seq = cb.and( p_seq, cb.lessThan( root.get( ReviewStatic.docSequence ), sequenceFieldValue.toString() ));
 			}else{
-				p_seq = cb.and( p_seq, cb.greaterThan( root.get( Review_.docSequence ), sequenceFieldValue.toString() ));
+				p_seq = cb.and( p_seq, cb.greaterThan( root.get( ReviewStatic.docSequence ), sequenceFieldValue.toString() ));
 			}
 			p = cb.and( p, p_seq);
 		}
 		
 		List<Order> orders = new ArrayList<>();
 		if( !Document.isTop_FIELDNAME.equals( orderField )) {
-			Order isTopOrder = CriteriaBuilderTools.getOrder( cb, root, Document_.class, Document.isTop_FIELDNAME, "desc" );
+			Order isTopOrder = CriteriaBuilderTools.getOrder( cb, root, DocumentStatic.class, Document.isTop_FIELDNAME, "desc" );
 			if( isTopOrder != null ){
 				orders.add( isTopOrder );
 			}
 		}
 		
-		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, Review_.class, orderField, orderType );
+		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, ReviewStatic.class, orderField, orderType );
 		if( orderWithField != null ){
 			orders.add( orderWithField );
 		}
@@ -239,30 +239,30 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Review> cq = cb.createQuery(Review.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p_permission = cb.equal( root.get( Review_.permissionObj ), "*");
+		Predicate p_permission = cb.equal( root.get( ReviewStatic.permissionObj ), "*");
 		if( StringUtils.isNotEmpty( personName )) {
-			p_permission = CriteriaBuilderTools.predicate_or( cb, p_permission, cb.equal( root.get( Review_.permissionObj ), personName ) );
+			p_permission = CriteriaBuilderTools.predicate_or( cb, p_permission, cb.equal( root.get( ReviewStatic.permissionObj ), personName ) );
 		}
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( Review_.class, cb, p_permission, root, queryFilter );
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( ReviewStatic.class, cb, p_permission, root, queryFilter );
 		if( StringUtils.isNotEmpty( sequenceFieldValue ) ) {
-			Predicate p_seq = cb.isNotNull( root.get( Review_.docSequence ) );
+			Predicate p_seq = cb.isNotNull( root.get( ReviewStatic.docSequence ) );
 			if( "desc".equalsIgnoreCase( orderType )){
-				p_seq = cb.and( p_seq, cb.greaterThan( root.get( Review_.docSequence ), sequenceFieldValue.toString() ));
+				p_seq = cb.and( p_seq, cb.greaterThan( root.get( ReviewStatic.docSequence ), sequenceFieldValue.toString() ));
 			}else{
-				p_seq = cb.and( p_seq, cb.lessThan( root.get( Review_.docSequence ), sequenceFieldValue.toString() ));
+				p_seq = cb.and( p_seq, cb.lessThan( root.get( ReviewStatic.docSequence ), sequenceFieldValue.toString() ));
 			}
 			p = cb.and( p, p_seq);
 		}
 
 		List<Order> orders = new ArrayList<>();
 		if( !Document.isTop_FIELDNAME.equals( orderField )) {
-			Order isTopOrder = CriteriaBuilderTools.getOrder( cb, root, Document_.class, Document.isTop_FIELDNAME, "desc" );
+			Order isTopOrder = CriteriaBuilderTools.getOrder( cb, root, DocumentStatic.class, Document.isTop_FIELDNAME, "desc" );
 			if( isTopOrder != null ){
 				orders.add( isTopOrder );
 			}
 		}
 
-		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, Review_.class, orderField, orderType );
+		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, ReviewStatic.class, orderField, orderType );
 		if( orderWithField != null ){
 			orders.add( orderWithField );
 		}
@@ -288,22 +288,22 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Review> cq = cb.createQuery(Review.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p_permission = cb.equal( root.get( Review_.permissionObj ), "*");
+		Predicate p_permission = cb.equal( root.get( ReviewStatic.permissionObj ), "*");
 		if( StringUtils.isNotEmpty( personName )) {
-			p_permission = CriteriaBuilderTools.predicate_or( cb, p_permission, cb.equal( root.get( Review_.permissionObj ), personName ) );
+			p_permission = CriteriaBuilderTools.predicate_or( cb, p_permission, cb.equal( root.get( ReviewStatic.permissionObj ), personName ) );
 		}
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( Review_.class, cb, p_permission, root, queryFilter );
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( ReviewStatic.class, cb, p_permission, root, queryFilter );
 		
 		//排序，添加排序列，默认使用sequence
 		List<Order> orders = new ArrayList<>();
-		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, Review_.class, orderField, orderType );
+		Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, ReviewStatic.class, orderField, orderType );
 		if( orderWithField != null ){
 			orders.add( orderWithField );
 		}
 		
 		if( !Document.isFieldInSequence(orderField)) {
 			//如果是其他的列，很可能排序值不唯一，所以使用多一列排序列来确定每次查询的顺序
-			orderWithField = CriteriaBuilderTools.getOrder( cb, root, Review_.class, Review.id_FIELDNAME, orderType );
+			orderWithField = CriteriaBuilderTools.getOrder( cb, root, ReviewStatic.class, Review.id_FIELDNAME, orderType );
 			if( orderWithField != null ){
 				orders.add( orderWithField );
 			}
@@ -319,12 +319,12 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p_permission = cb.equal( root.get( Review_.permissionObj ), "*");
+		Predicate p_permission = cb.equal( root.get( ReviewStatic.permissionObj ), "*");
 		if( StringUtils.isNotEmpty( personName )) {
-			p_permission = CriteriaBuilderTools.predicate_or( cb, p_permission, cb.equal( root.get( Review_.permissionObj ), personName ) );
+			p_permission = CriteriaBuilderTools.predicate_or( cb, p_permission, cb.equal( root.get( ReviewStatic.permissionObj ), personName ) );
 		}
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( Review_.class, cb, p_permission, root, queryFilter );
-		cq.select(root.get( Review_.docId )).where(p);
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( ReviewStatic.class, cb, p_permission, root, queryFilter );
+		cq.select(root.get( ReviewStatic.docId )).where(p);
 		
 		return em.createQuery(cq.where(p)).setMaxResults( maxCount).getResultList();
 	}
@@ -335,17 +335,17 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Review> cq = cb.createQuery(Review.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p_permission = cb.equal( root.get( Review_.permissionObj ), "*");
+		Predicate p_permission = cb.equal( root.get( ReviewStatic.permissionObj ), "*");
 		if( StringUtils.isNotEmpty( personName )) {
-			p_permission = CriteriaBuilderTools.predicate_or( cb, p_permission, cb.equal( root.get( Review_.permissionObj ), personName ) );
+			p_permission = CriteriaBuilderTools.predicate_or( cb, p_permission, cb.equal( root.get( ReviewStatic.permissionObj ), personName ) );
 		}
 		if( StringUtils.isNotEmpty( orderField ) ) {
-			Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, Review_.class, orderField, orderType );
+			Order orderWithField = CriteriaBuilderTools.getOrder( cb, root, ReviewStatic.class, orderField, orderType );
 			if( orderWithField != null ){
 				cq.orderBy( orderWithField );
 			}
 		}
-		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( Review_.class, cb, p_permission, root, queryFilter );
+		Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter( ReviewStatic.class, cb, p_permission, root, queryFilter );
 
 		List<Review> reviewList = em.createQuery(cq.where(p)).setMaxResults( maxCount).getResultList();
 		if( ListTools.isNotEmpty(reviewList) ) {

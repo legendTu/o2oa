@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.CmsBatchOperation;
-import com.x.cms.core.entity.CmsBatchOperation_;
+import com.x.cms.core.entity.CmsBatchOperationStatic;
 
 /**
  * 批处理操作信息记录，比如需要级联删除大量的分类，文档等等
@@ -27,8 +27,8 @@ public class CmsBatchOperationFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<CmsBatchOperation> cq = cb.createQuery( CmsBatchOperation.class );
 		Root<CmsBatchOperation> root = cq.from( CmsBatchOperation.class );
-		Predicate p = root.get( CmsBatchOperation_.id).in( ids );
-		cq.orderBy( cb.asc( root.get( CmsBatchOperation_.createTime ) ) );
+		Predicate p = root.get( CmsBatchOperationStatic.id).in( ids );
+		cq.orderBy( cb.asc( root.get( CmsBatchOperationStatic.createTime ) ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -37,7 +37,7 @@ public class CmsBatchOperationFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<CmsBatchOperation> cq = cb.createQuery( CmsBatchOperation.class );
 		Root<CmsBatchOperation> root = cq.from( CmsBatchOperation.class );
-		cq.orderBy( cb.asc( root.get( CmsBatchOperation_.createTime ) ) );
+		cq.orderBy( cb.asc( root.get( CmsBatchOperationStatic.createTime ) ) );
 		return em.createQuery(cq).setMaxResults(maxCount).getResultList();
 	}
 	
@@ -46,8 +46,8 @@ public class CmsBatchOperationFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<CmsBatchOperation> cq = cb.createQuery( CmsBatchOperation.class );
 		Root<CmsBatchOperation> root = cq.from( CmsBatchOperation.class );
-		Predicate p = cb.isFalse( root.get( CmsBatchOperation_.isRunning ) );
-		cq.orderBy( cb.asc( root.get( CmsBatchOperation_.createTime ) ) );
+		Predicate p = cb.isFalse( root.get( CmsBatchOperationStatic.isRunning ) );
+		cq.orderBy( cb.asc( root.get( CmsBatchOperationStatic.createTime ) ) );
 		return em.createQuery(cq.where(p)).setMaxResults(maxCount).getResultList();
 	}
 }

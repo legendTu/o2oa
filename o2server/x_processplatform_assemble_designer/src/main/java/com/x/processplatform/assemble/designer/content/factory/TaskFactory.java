@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.content.Task;
-import com.x.processplatform.core.entity.content.Task_;
+import com.x.processplatform.core.entity.content.TaskStatic;
 
 public class TaskFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.application), id);
-		cq.select(root.get(Task_.id)).where(p);
+		Predicate p = cb.equal(root.get(TaskStatic.application), id);
+		cq.select(root.get(TaskStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,8 +34,8 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.process), id);
-		cq.select(root.get(Task_.id)).where(p);
+		Predicate p = cb.equal(root.get(TaskStatic.process), id);
+		cq.select(root.get(TaskStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

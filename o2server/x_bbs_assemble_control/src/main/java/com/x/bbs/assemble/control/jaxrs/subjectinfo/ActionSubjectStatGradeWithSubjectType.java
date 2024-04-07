@@ -25,9 +25,9 @@ public class ActionSubjectStatGradeWithSubjectType extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Wo> cq = cb.createQuery(Wo.class);
 			Root<BBSSubjectInfo> root = cq.from(BBSSubjectInfo.class);
-			Predicate p = cb.equal(root.get(BBSSubjectInfo_.sectionName), sectionName);
-			p = cb.and( p, cb.equal( root.get(BBSSubjectInfo_.type ), subjectType ) );
-			Path<Integer> grade = root.get(BBSSubjectInfo_.grade);
+			Predicate p = cb.equal(root.get(BBSSubjectInfoStatic.sectionName), sectionName);
+			p = cb.and( p, cb.equal( root.get(BBSSubjectInfoStatic.type ), subjectType ) );
+			Path<Integer> grade = root.get(BBSSubjectInfoStatic.grade);
 			cq.multiselect(grade, cb.count(root).as(Integer.class)).where(p).groupBy(grade).orderBy(cb.desc(grade));
 			List<Wo> wos = em.createQuery(cq).getResultList();
 

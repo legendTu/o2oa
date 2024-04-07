@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.x.base.core.project.cache.ApplicationCache;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.element.File;
-import com.x.cms.core.entity.element.File_;
+import com.x.cms.core.entity.element.FileStatic;
 
 import net.sf.ehcache.Element;
 
@@ -32,8 +32,8 @@ public class FileFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<File> root = cq.from(File.class);
-		Predicate p = cb.equal(root.get(File_.appId), applicationId);
-		cq.select(root.get(File_.id)).where(p);
+		Predicate p = cb.equal(root.get(FileStatic.appId), applicationId);
+		cq.select(root.get(FileStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -42,7 +42,7 @@ public class FileFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<File> cq = cb.createQuery(File.class);
 		Root<File> root = cq.from(File.class);
-		Predicate p = cb.equal(root.get(File_.appId), applicationId);
+		Predicate p = cb.equal(root.get(FileStatic.appId), applicationId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -93,7 +93,7 @@ public class FileFactory extends ElementFactory {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<File> cq = cb.createQuery(File.class);
 			Root<File> root = cq.from(File.class);
-			Predicate p = cb.equal(root.get(File_.name), flag);
+			Predicate p = cb.equal(root.get(FileStatic.name), flag);
 			List<File> os = em.createQuery(cq.select(root).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 			if (os.size() == 1) {
 				o = os.get(0);

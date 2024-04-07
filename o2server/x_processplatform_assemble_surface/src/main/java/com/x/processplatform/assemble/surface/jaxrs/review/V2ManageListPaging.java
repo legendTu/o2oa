@@ -12,7 +12,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Review;
-import com.x.processplatform.core.entity.content.Review_;
+import com.x.processplatform.core.entity.content.ReviewStatic;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Tuple;
@@ -38,13 +38,13 @@ class V2ManageListPaging extends V2Base {
 			Predicate p = this.toFilterPredicate(effectivePerson, business, wi, true);
 			if(ListTools.isNotEmpty(wi.getPersonList())) {
 				List<String> person_ids = business.organization().person().list(wi.getPersonList());
-				p = cb.and(p, root.get(Review_.person).in(person_ids));
+				p = cb.and(p, root.get(ReviewStatic.person).in(person_ids));
 			}
 			if (ListTools.isNotEmpty(wi.getJobList())) {
-				p = cb.and(p, root.get(Review_.job).in(wi.getJobList()));
+				p = cb.and(p, root.get(ReviewStatic.job).in(wi.getJobList()));
 			}
 			if (ListTools.isNotEmpty(wi.getIdList())) {
-				p = cb.and(p, root.get(Review_.id).in(wi.getIdList()));
+				p = cb.and(p, root.get(ReviewStatic.id).in(wi.getIdList()));
 			}
 			List<Wo> wos = emc.fetchDescPaging(Review.class, Wo.copier, p, page, size, Review.sequence_FIELDNAME);
 			result.setData(wos);

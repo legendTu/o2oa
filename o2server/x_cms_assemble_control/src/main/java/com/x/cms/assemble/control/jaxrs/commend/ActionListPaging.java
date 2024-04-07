@@ -9,7 +9,7 @@ import com.x.base.core.project.bean.WrapCopierFactory;
 import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.cms.core.entity.DocumentCommend;
-import com.x.cms.core.entity.DocumentCommend_;
+import com.x.cms.core.entity.DocumentCommendStatic;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -30,10 +30,10 @@ class ActionListPaging extends BaseAction {
 			Root<DocumentCommend> root = cq.from(DocumentCommend.class);
 			Predicate p = cb.conjunction();
 			if (StringUtils.isNotBlank(wi.getDocumentId())){
-				p = cb.and(p, root.get(DocumentCommend_.documentId).in(wi.getDocumentId()));
+				p = cb.and(p, root.get(DocumentCommendStatic.documentId).in(wi.getDocumentId()));
 			}
 			if (StringUtils.isNotBlank(wi.getCommendPerson())){
-				p = cb.and(p, root.get(DocumentCommend_.commendPerson).in(wi.getCommendPerson()));
+				p = cb.and(p, root.get(DocumentCommendStatic.commendPerson).in(wi.getCommendPerson()));
 			}
 			List<Wo> wos = emc.fetchDescPaging(DocumentCommend.class, Wo.copier, p, page, size, DocumentCommend.sequence_FIELDNAME);
 			result.setData(wos);

@@ -16,7 +16,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.AbstractFactory;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Review;
-import com.x.processplatform.core.entity.content.Review_;
+import com.x.processplatform.core.entity.content.ReviewStatic;
 import com.x.processplatform.core.entity.content.Work;
 import com.x.processplatform.core.entity.content.WorkCompleted;
 
@@ -31,8 +31,8 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p = cb.equal(root.get(Review_.work), work.getId());
-		cq.select(root.get(Review_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReviewStatic.work), work.getId());
+		cq.select(root.get(ReviewStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -49,8 +49,8 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p = cb.equal(root.get(Review_.job), job);
-		cq.select(root.get(Review_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReviewStatic.job), job);
+		cq.select(root.get(ReviewStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -59,8 +59,8 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p = cb.equal(root.get(Review_.workCompleted), workCompletedId);
-		cq.select(root.get(Review_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReviewStatic.workCompleted), workCompletedId);
+		cq.select(root.get(ReviewStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -69,8 +69,8 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p = cb.equal(root.get(Review_.work), work.getId());
-		p = cb.and(p, cb.equal(root.get(Review_.person), person));
+		Predicate p = cb.equal(root.get(ReviewStatic.work), work.getId());
+		p = cb.and(p, cb.equal(root.get(ReviewStatic.person), person));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -80,8 +80,8 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p = cb.equal(root.get(Review_.workCompleted), workCompleted.getId());
-		p = cb.and(p, cb.equal(root.get(Review_.person), person));
+		Predicate p = cb.equal(root.get(ReviewStatic.workCompleted), workCompleted.getId());
+		p = cb.and(p, cb.equal(root.get(ReviewStatic.person), person));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -91,8 +91,8 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p = cb.equal(root.get(Review_.job), job);
-		p = cb.and(p, cb.equal(root.get(Review_.person), person));
+		Predicate p = cb.equal(root.get(ReviewStatic.job), job);
+		p = cb.and(p, cb.equal(root.get(ReviewStatic.person), person));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -102,7 +102,7 @@ public class ReviewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Review> root = cq.from(Review.class);
-		Predicate p = cb.equal(root.get(Review_.person), person);
+		Predicate p = cb.equal(root.get(ReviewStatic.person), person);
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root;
 import com.x.attendance.assemble.control.AbstractFactory;
 import com.x.attendance.assemble.control.Business;
 import com.x.attendance.entity.AttendanceStatisticalCycle;
-import com.x.attendance.entity.AttendanceStatisticalCycle_;
+import com.x.attendance.entity.AttendanceStatisticalCycleStatic;
 import com.x.base.core.project.exception.ExceptionWhen;
 /**
  * 系统配置信息表基础功能服务类
@@ -47,7 +47,7 @@ public class AttendanceStatisticalCycleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceStatisticalCycle> cq = cb.createQuery(AttendanceStatisticalCycle.class);
 		Root<AttendanceStatisticalCycle> root = cq.from(AttendanceStatisticalCycle.class);
-		Predicate p = root.get(AttendanceStatisticalCycle_.id).in(ids);
+		Predicate p = root.get(AttendanceStatisticalCycleStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -57,17 +57,17 @@ public class AttendanceStatisticalCycleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceStatisticalCycle> root = cq.from(AttendanceStatisticalCycle.class);
-		Predicate p = cb.equal( root.get( AttendanceStatisticalCycle_.cycleYear), cycleYear);		
+		Predicate p = cb.equal( root.get( AttendanceStatisticalCycleStatic.cycleYear), cycleYear);
 		if( topUnitName != null ){ 
-			 p = cb.and( p, cb.equal( root.get( AttendanceStatisticalCycle_.topUnitName), topUnitName));
+			 p = cb.and( p, cb.equal( root.get( AttendanceStatisticalCycleStatic.topUnitName), topUnitName));
 		}
 		if( organizatinName != null ){ 
-			 p = cb.and( p, cb.equal( root.get( AttendanceStatisticalCycle_.unitName), organizatinName));
+			 p = cb.and( p, cb.equal( root.get( AttendanceStatisticalCycleStatic.unitName), organizatinName));
 		}
 		if( cycleMonth != null ){ 
-			 p = cb.and( p, cb.equal( root.get( AttendanceStatisticalCycle_.cycleMonth), cycleMonth));
+			 p = cb.and( p, cb.equal( root.get( AttendanceStatisticalCycleStatic.cycleMonth), cycleMonth));
 		}
-		cq.select(root.get(AttendanceStatisticalCycle_.id));
+		cq.select(root.get(AttendanceStatisticalCycleStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 }

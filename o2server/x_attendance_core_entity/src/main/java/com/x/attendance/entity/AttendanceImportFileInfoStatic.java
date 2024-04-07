@@ -1,0 +1,35 @@
+package com.x.attendance.entity;
+
+import com.x.base.core.entity.SliceJpaObjectStatic;
+import java.util.Date;
+import javax.persistence.metamodel.SingularAttribute;
+import javax.persistence.metamodel.StaticMetamodel;
+
+@StaticMetamodel(AttendanceImportFileInfo.class)
+public class AttendanceImportFileInfoStatic extends SliceJpaObjectStatic {
+    public static volatile SingularAttribute<AttendanceImportFileInfo, String> creatorUid;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, String> currentProcessName;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, String> dataContent;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, String> description;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, Date> endDate;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, String> errorContent;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, String> extension;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, byte[]> fileBody;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, String> fileName;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, String> fileStatus;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, String> id;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, Date> lastUpdateTime;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, Long> length;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, String> name;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, Long> processCount;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, Boolean> processing;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, Long> recordTotle;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, Long> rowCount;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, String> site;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, Date> startDate;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, String> tempFilePath;
+    public static volatile SingularAttribute<AttendanceImportFileInfo, Boolean> validateOk;
+
+    public AttendanceImportFileInfoStatic() {
+    }
+}

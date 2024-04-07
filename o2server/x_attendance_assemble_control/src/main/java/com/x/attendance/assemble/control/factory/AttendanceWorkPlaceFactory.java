@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root;
 import com.x.attendance.assemble.control.AbstractFactory;
 import com.x.attendance.assemble.control.Business;
 import com.x.attendance.entity.AttendanceWorkPlace;
-import com.x.attendance.entity.AttendanceWorkPlace_;
+import com.x.attendance.entity.AttendanceWorkPlaceStatic;
 import com.x.base.core.project.exception.ExceptionWhen;
 /**
  * 工作场所信息服务类
@@ -47,7 +47,7 @@ public class AttendanceWorkPlaceFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceWorkPlace> cq = cb.createQuery(AttendanceWorkPlace.class);
 		Root<AttendanceWorkPlace> root = cq.from(AttendanceWorkPlace.class);
-		Predicate p = root.get(AttendanceWorkPlace_.id).in(ids);
+		Predicate p = root.get(AttendanceWorkPlaceStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}	
 }

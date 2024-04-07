@@ -39,12 +39,12 @@ import com.x.processplatform.core.entity.content.Task;
 import com.x.processplatform.core.entity.content.TaskCompleted;
 import com.x.processplatform.core.entity.content.Work;
 import com.x.processplatform.core.entity.content.WorkLog;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkStatic;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Form;
 import com.x.processplatform.core.entity.element.Process;
 import com.x.query.core.entity.Item;
-import com.x.query.core.entity.Item_;
+import com.x.query.core.entity.ItemStatic;
 
 abstract class BaseAction extends StandardJaxrsAction {
 
@@ -62,9 +62,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.creatorPerson), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(Work_.application), id));
-		cq.select(root.get(Work_.applicationName)).where(p);
+		Predicate p = cb.equal(root.get(WorkStatic.creatorPerson), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(WorkStatic.application), id));
+		cq.select(root.get(WorkStatic.applicationName)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -82,9 +82,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.equal(root.get(Work_.creatorPerson), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(Work_.process), id));
-		cq.select(root.get(Work_.processName)).where(p);
+		Predicate p = cb.equal(root.get(WorkStatic.creatorPerson), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(WorkStatic.process), id));
+		cq.select(root.get(WorkStatic.processName)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -97,8 +97,8 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Item> cq = cb.createQuery(Item.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = cb.equal(root.get(Item_.bundle), work.getJob());
-		p = cb.and(p, cb.equal(root.get(Item_.itemCategory), ItemCategory.pp));
+		Predicate p = cb.equal(root.get(ItemStatic.bundle), work.getJob());
+		p = cb.and(p, cb.equal(root.get(ItemStatic.itemCategory), ItemCategory.pp));
 		List<Item> list = em.createQuery(cq.where(p)).getResultList();
 		if (list.isEmpty()) {
 			return new Data();

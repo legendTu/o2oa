@@ -16,7 +16,7 @@ import javax.persistence.criteria.Root;
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
 import com.x.base.core.entity.JpaObject;
-import com.x.base.core.entity.JpaObject_;
+import com.x.base.core.entity.JpaObjectStatic;
 import com.x.base.core.project.Applications;
 import com.x.base.core.project.x_processplatform_service_processing;
 import com.x.base.core.project.config.Config;
@@ -32,7 +32,7 @@ import com.x.processplatform.core.entity.content.Record;
 import com.x.processplatform.core.entity.content.RecordProperties.NextManual;
 import com.x.processplatform.core.entity.content.Task;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.Task_;
+import com.x.processplatform.core.entity.content.TaskStatic;
 import com.x.processplatform.core.entity.content.WorkLog;
 import com.x.processplatform.core.entity.element.Manual;
 import com.x.processplatform.core.entity.element.Route;
@@ -288,12 +288,12 @@ public class PassExpired extends AbstractJob {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Task> cq = cb.createQuery(Task.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.expired), true);
-		p = cb.and(p, root.get(Task_.activity).in(manualToRoute.keySet()));
+		Predicate p = cb.equal(root.get(TaskStatic.expired), true);
+		p = cb.and(p, root.get(TaskStatic.activity).in(manualToRoute.keySet()));
 		if (StringUtils.isNotEmpty(sequence)) {
-			p = cb.and(p, cb.greaterThan(root.get(JpaObject_.sequence), sequence));
+			p = cb.and(p, cb.greaterThan(root.get(JpaObjectStatic.sequence), sequence));
 		}
-		return em.createQuery(cq.select(root).where(p).orderBy(cb.asc(root.get(JpaObject_.sequence))))
+		return em.createQuery(cq.select(root).where(p).orderBy(cb.asc(root.get(JpaObjectStatic.sequence))))
 				.setMaxResults(200).getResultList();
 	}
 

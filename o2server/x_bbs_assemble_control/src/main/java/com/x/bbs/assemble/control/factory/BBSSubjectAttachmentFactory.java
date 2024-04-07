@@ -15,7 +15,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.bbs.assemble.control.AbstractFactory;
 import com.x.bbs.assemble.control.Business;
 import com.x.bbs.entity.BBSSubjectAttachment;
-import com.x.bbs.entity.BBSSubjectAttachment_;
+import com.x.bbs.entity.BBSSubjectAttachmentStatic;
 
 /**
  * 类   名：BBSSubjectAttachmentFactory<br/>
@@ -44,7 +44,7 @@ public class BBSSubjectAttachmentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSSubjectAttachment> cq = cb.createQuery(BBSSubjectAttachment.class);
 		Root<BBSSubjectAttachment> root = cq.from(BBSSubjectAttachment.class);
-		Predicate p = root.get(BBSSubjectAttachment_.id).in(ids);
+		Predicate p = root.get(BBSSubjectAttachmentStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -57,7 +57,7 @@ public class BBSSubjectAttachmentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<BBSSubjectAttachment> cq = cb.createQuery(BBSSubjectAttachment.class);
 		Root<BBSSubjectAttachment> root = cq.from(BBSSubjectAttachment.class);
-		Predicate p = cb.equal( root.get(BBSSubjectAttachment_.subjectId ), subjectId );
+		Predicate p = cb.equal( root.get(BBSSubjectAttachmentStatic.subjectId ), subjectId );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -84,11 +84,11 @@ public class BBSSubjectAttachmentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<BBSSubjectAttachment> root = cq.from(BBSSubjectAttachment.class);
-		Predicate p = cb.equal( root.get(BBSSubjectAttachment_.sectionId ), sectionId );
+		Predicate p = cb.equal( root.get(BBSSubjectAttachmentStatic.sectionId ), sectionId );
 		if( queryMainSectionId ) {
-			p = cb.or( p, cb.equal( root.get(BBSSubjectAttachment_.mainSectionId ), sectionId ) );
+			p = cb.or( p, cb.equal( root.get(BBSSubjectAttachmentStatic.mainSectionId ), sectionId ) );
 		}
-		cq.select( root.get( BBSSubjectAttachment_.id ) );
+		cq.select( root.get( BBSSubjectAttachmentStatic.id ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 }

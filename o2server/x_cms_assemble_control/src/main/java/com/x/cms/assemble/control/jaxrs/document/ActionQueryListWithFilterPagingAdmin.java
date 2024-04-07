@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
 import com.x.base.core.entity.JpaObject;
-import com.x.base.core.project.annotation.FieldDescribe;
 import com.x.base.core.project.bean.WrapCopier;
 import com.x.base.core.project.bean.WrapCopierFactory;
 import com.x.base.core.project.http.ActionResult;
@@ -14,9 +13,7 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.tools.ListTools;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.Document;
-import com.x.cms.core.entity.Document_;
-import com.x.cms.core.entity.Review;
-import com.x.cms.core.entity.Review_;
+import com.x.cms.core.entity.DocumentStatic;
 import com.x.cms.core.express.tools.CriteriaBuilderTools;
 import com.x.cms.core.express.tools.filter.QueryFilter;
 import org.apache.commons.lang3.StringUtils;
@@ -73,7 +70,7 @@ public class ActionQueryListWithFilterPagingAdmin extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Document> cq = cb.createQuery(Document.class);
 			Root<Document> root = cq.from(Document.class);
-			Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter(Document_.class, cb, null, root, queryFilter);
+			Predicate p = CriteriaBuilderTools.composePredicateWithQueryFilter(DocumentStatic.class, cb, null, root, queryFilter);
 
 			if("asc".equalsIgnoreCase(wi.getOrderType())){
 				docWos = emc.fetchAscPaging(Document.class, DocumentWo.copier, p, page, size, wi.getOrderField());

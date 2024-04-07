@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.attendance.assemble.control.AbstractFactory;
 import com.x.attendance.assemble.control.Business;
 import com.x.attendance.entity.AttendanceDetail;
-import com.x.attendance.entity.AttendanceDetail_;
+import com.x.attendance.entity.AttendanceDetailStatic;
 import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 
@@ -43,18 +43,18 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.empName).in( employeeNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isAbnormalDuty) ));
+		Predicate p = root.get( AttendanceDetailStatic.empName).in( employeeNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isAbnormalDuty) ));
 		if( cycleYear == null || cycleYear.isEmpty() ){
 			logger.error( new CycleYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleYear), cycleYear));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleYear), cycleYear));
 		}
 		if( cycleMonth == null || cycleMonth.isEmpty() ){
 			logger.error( new CycleMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleMonth), cycleMonth));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleMonth), cycleMonth));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -78,18 +78,18 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.empName).in( employeeNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isLackOfTime) ));
+		Predicate p = root.get( AttendanceDetailStatic.empName).in( employeeNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isLackOfTime) ));
 		if( cycleYear == null || cycleYear.isEmpty() ){
 			logger.error( new CycleYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleYear), cycleYear));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleYear), cycleYear));
 		}
 		if( cycleMonth == null || cycleMonth.isEmpty() ){
 			logger.error( new CycleMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleMonth), cycleMonth));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleMonth), cycleMonth));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -113,18 +113,18 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.empName).in( employeeNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isLeaveEarlier ) ));
+		Predicate p = root.get( AttendanceDetailStatic.empName).in( employeeNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isLeaveEarlier ) ));
 		if( cycleYear == null || cycleYear.isEmpty() ){
 			logger.error( new CycleYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleYear), cycleYear));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleYear), cycleYear));
 		}
 		if( cycleMonth == null || cycleMonth.isEmpty() ){
 			logger.error( new CycleMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleMonth), cycleMonth));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleMonth), cycleMonth));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -148,18 +148,18 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.empName).in( employeeNames );
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isLate ) ));
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
+		Predicate p = root.get( AttendanceDetailStatic.empName).in( employeeNames );
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isLate ) ));
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
 		if( cycleYear == null || cycleYear.isEmpty() ){
 			logger.error( new CycleYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleYear), cycleYear));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleYear), cycleYear));
 		}
 		if( cycleMonth == null || cycleMonth.isEmpty() ){
 			logger.error( new CycleMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleMonth), cycleMonth));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleMonth), cycleMonth));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -183,19 +183,19 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = cb.isNotNull(root.get( AttendanceDetail_.offDutyTime ));
-		p = cb.and( p, cb.notEqual( root.get( AttendanceDetail_.offDutyTime), ""));
-		p = cb.and( p, root.get( AttendanceDetail_.empName).in( employeeNames ));
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
+		Predicate p = cb.isNotNull(root.get( AttendanceDetailStatic.offDutyTime ));
+		p = cb.and( p, cb.notEqual( root.get( AttendanceDetailStatic.offDutyTime), ""));
+		p = cb.and( p, root.get( AttendanceDetailStatic.empName).in( employeeNames ));
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
 		if( cycleYear == null || cycleYear.isEmpty() ){
 			logger.error( new CycleYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleYear), cycleYear));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleYear), cycleYear));
 		}
 		if( cycleMonth == null || cycleMonth.isEmpty() ){
 			logger.error( new CycleMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleMonth), cycleMonth));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleMonth), cycleMonth));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -219,19 +219,19 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = cb.isNotNull(root.get( AttendanceDetail_.onDutyTime ));
-		p = cb.and( p, cb.notEqual( root.get( AttendanceDetail_.onDutyTime), ""));
-		p = cb.and( p, root.get( AttendanceDetail_.empName).in( employeeNames ));
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
+		Predicate p = cb.isNotNull(root.get( AttendanceDetailStatic.onDutyTime ));
+		p = cb.and( p, cb.notEqual( root.get( AttendanceDetailStatic.onDutyTime), ""));
+		p = cb.and( p, root.get( AttendanceDetailStatic.empName).in( employeeNames ));
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
 		if( cycleYear == null || cycleYear.isEmpty() ){
 			logger.error( new CycleYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleYear), cycleYear));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleYear), cycleYear));
 		}
 		if( cycleMonth == null || cycleMonth.isEmpty() ){
 			logger.error( new CycleMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleMonth), cycleMonth));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleMonth), cycleMonth));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -256,26 +256,26 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaQuery<Double> cq = cb.createQuery(Double.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
 		// 不是周末，或者是周末但是调工作日了
-		Predicate p1 = cb.isFalse(root.get( AttendanceDetail_.isWeekend ));
-		p1 = cb.or( p1, cb.and(cb.isTrue(root.get( AttendanceDetail_.isWeekend )), cb.isTrue(root.get( AttendanceDetail_.isWorkday )) ));
+		Predicate p1 = cb.isFalse(root.get( AttendanceDetailStatic.isWeekend ));
+		p1 = cb.or( p1, cb.and(cb.isTrue(root.get( AttendanceDetailStatic.isWeekend )), cb.isTrue(root.get( AttendanceDetailStatic.isWorkday )) ));
 								
-		Predicate p = root.get( AttendanceDetail_.empName).in( employeeNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isFalse(root.get( AttendanceDetail_.isHoliday ))); //不是节假日
+		Predicate p = root.get( AttendanceDetailStatic.empName).in( employeeNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isFalse(root.get( AttendanceDetailStatic.isHoliday ))); //不是节假日
 		p = cb.and( p, p1 ); //不是周末并且未调休工作晶
 		if( cycleYear == null || cycleYear.isEmpty() ){
 			logger.error( new CycleYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleYear), cycleYear ));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleYear), cycleYear ));
 		}
 		if( cycleMonth == null || cycleMonth.isEmpty() ){
 			logger.error( new CycleMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(AttendanceDetail_.cycleMonth), cycleMonth ));
+			p = cb.and( p, cb.equal( root.get(AttendanceDetailStatic.cycleMonth), cycleMonth ));
 		}
 		
 		//查询总数
-		cq.select( cb.sum( root.get( AttendanceDetail_.getSelfHolidayDays ) ) );	
+		cq.select( cb.sum( root.get( AttendanceDetailStatic.getSelfHolidayDays ) ) );
 				
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -299,22 +299,22 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Double> cq = cb.createQuery(Double.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);	
-		Predicate p = root.get(AttendanceDetail_.empName).in( employeeNames );		
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isAbsent) ));
+		Predicate p = root.get(AttendanceDetailStatic.empName).in( employeeNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isAbsent) ));
 		if( cycleYear == null || cycleYear.isEmpty() ){
 			logger.error( new CycleYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(AttendanceDetail_.cycleYear), cycleYear));
+			p = cb.and( p, cb.equal( root.get(AttendanceDetailStatic.cycleYear), cycleYear));
 		}
 		
 		if( cycleMonth == null || cycleMonth.isEmpty() ){
 			logger.error( new CycleMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(AttendanceDetail_.cycleMonth), cycleMonth));
+			p = cb.and( p, cb.equal( root.get(AttendanceDetailStatic.cycleMonth), cycleMonth));
 		}
 		//查询总数
-		cq.select( cb.sum( root.get(AttendanceDetail_.absence ) ) );	
+		cq.select( cb.sum( root.get(AttendanceDetailStatic.absence ) ) );
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
 	
@@ -335,18 +335,18 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.unitName ).in( unitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isAbnormalDuty) ));
+		Predicate p = root.get( AttendanceDetailStatic.unitName ).in( unitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isAbnormalDuty) ));
 		if( cycleYear == null || cycleYear.isEmpty() ){
 			logger.error( new CycleYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleYear), cycleYear));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleYear), cycleYear));
 		}
 		if( cycleMonth == null || cycleMonth.isEmpty() ){
 			logger.error( new CycleMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleMonth), cycleMonth));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleMonth), cycleMonth));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -370,18 +370,18 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.unitName ).in( unitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isLackOfTime) ));
+		Predicate p = root.get( AttendanceDetailStatic.unitName ).in( unitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isLackOfTime) ));
 		if( cycleYear == null || cycleYear.isEmpty() ){
 			logger.error( new CycleYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleYear), cycleYear));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleYear), cycleYear));
 		}
 		if( cycleMonth == null || cycleMonth.isEmpty() ){
 			logger.error( new CycleMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleMonth), cycleMonth));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleMonth), cycleMonth));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -405,18 +405,18 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.unitName ).in( unitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isLeaveEarlier ) ));
+		Predicate p = root.get( AttendanceDetailStatic.unitName ).in( unitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isLeaveEarlier ) ));
 		if( cycleYear == null || cycleYear.isEmpty() ){
 			logger.error( new CycleYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleYear), cycleYear));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleYear), cycleYear));
 		}
 		if( cycleMonth == null || cycleMonth.isEmpty() ){
 			logger.error( new CycleMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleMonth), cycleMonth));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleMonth), cycleMonth));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -440,18 +440,18 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.unitName ).in( unitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isLate ) ));
+		Predicate p = root.get( AttendanceDetailStatic.unitName ).in( unitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isLate ) ));
 		if( cycleYear == null || cycleYear.isEmpty() ){
 			logger.error( new CycleYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleYear), cycleYear));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleYear), cycleYear));
 		}
 		if( cycleMonth == null || cycleMonth.isEmpty() ){
 			logger.error( new CycleMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.cycleMonth), cycleMonth));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.cycleMonth), cycleMonth));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -474,13 +474,13 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.unitName ).in( unitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isAbnormalDuty) ));
+		Predicate p = root.get( AttendanceDetailStatic.unitName ).in( unitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isAbnormalDuty) ));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new RecordDateEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordDateString ), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordDateString ), recordDate));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -503,13 +503,13 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.unitName ).in( unitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isLackOfTime) ));
+		Predicate p = root.get( AttendanceDetailStatic.unitName ).in( unitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isLackOfTime) ));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new RecordDateEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordDateString ), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordDateString ), recordDate));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -532,13 +532,13 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.unitName ).in( unitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isLeaveEarlier ) ));
+		Predicate p = root.get( AttendanceDetailStatic.unitName ).in( unitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isLeaveEarlier ) ));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new RecordDateEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordDateString ), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordDateString ), recordDate));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -561,13 +561,13 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.unitName ).in( unitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isLate ) ));
+		Predicate p = root.get( AttendanceDetailStatic.unitName ).in( unitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isLate ) ));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new RecordDateEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordDateString ), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordDateString ), recordDate));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -590,15 +590,15 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Double> cq = cb.createQuery(Double.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);	
-		Predicate p = root.get( AttendanceDetail_.unitName ).in( unitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
+		Predicate p = root.get( AttendanceDetailStatic.unitName ).in( unitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new RecordDateEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordDateString ), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordDateString ), recordDate));
 		}
 		//查询总数
-		cq.select( cb.sum( root.get(AttendanceDetail_.absence ) ) );	
+		cq.select( cb.sum( root.get(AttendanceDetailStatic.absence ) ) );
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
 	
@@ -618,15 +618,15 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Double> cq = cb.createQuery(Double.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);			
-		Predicate p = root.get( AttendanceDetail_.unitName ).in( unitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
+		Predicate p = root.get( AttendanceDetailStatic.unitName ).in( unitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new RecordDateEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordDateString ), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordDateString ), recordDate));
 		}		
 		//查询总数
-		cq.select( cb.sum( root.get( AttendanceDetail_.getSelfHolidayDays ) ) );	
+		cq.select( cb.sum( root.get( AttendanceDetailStatic.getSelfHolidayDays ) ) );
 				
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -647,14 +647,14 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = cb.isNotNull(root.get( AttendanceDetail_.offDutyTime ));
-		p = cb.and( p, cb.notEqual( root.get( AttendanceDetail_.offDutyTime), ""));
-		p = cb.and( p, root.get( AttendanceDetail_.unitName).in( unitNames ));
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
+		Predicate p = cb.isNotNull(root.get( AttendanceDetailStatic.offDutyTime ));
+		p = cb.and( p, cb.notEqual( root.get( AttendanceDetailStatic.offDutyTime), ""));
+		p = cb.and( p, root.get( AttendanceDetailStatic.unitName).in( unitNames ));
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new CycleYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.unitName), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.unitName), recordDate));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -677,14 +677,14 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = cb.isNotNull(root.get( AttendanceDetail_.onDutyTime ));
-		p = cb.and( p, cb.notEqual( root.get( AttendanceDetail_.onDutyTime), ""));
-		p = cb.and( p, root.get( AttendanceDetail_.unitName ).in( unitNames ));
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
+		Predicate p = cb.isNotNull(root.get( AttendanceDetailStatic.onDutyTime ));
+		p = cb.and( p, cb.notEqual( root.get( AttendanceDetailStatic.onDutyTime), ""));
+		p = cb.and( p, root.get( AttendanceDetailStatic.unitName ).in( unitNames ));
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new CycleYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.unitName), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.unitName), recordDate));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -707,13 +707,13 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.topUnitName ).in( topUnitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isAbnormalDuty) ));
+		Predicate p = root.get( AttendanceDetailStatic.topUnitName ).in( topUnitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isAbnormalDuty) ));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new RecordDateEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordDateString ), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordDateString ), recordDate));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -736,13 +736,13 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.topUnitName ).in( topUnitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isLackOfTime) ));
+		Predicate p = root.get( AttendanceDetailStatic.topUnitName ).in( topUnitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isLackOfTime) ));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new RecordDateEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordDateString ), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordDateString ), recordDate));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -765,13 +765,13 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.topUnitName ).in( topUnitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isLeaveEarlier ) ));
+		Predicate p = root.get( AttendanceDetailStatic.topUnitName ).in( topUnitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isLeaveEarlier ) ));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new RecordDateEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordDateString ), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordDateString ), recordDate));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -794,13 +794,13 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = root.get( AttendanceDetail_.topUnitName ).in( topUnitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
-		p = cb.and( p, cb.isTrue( root.get( AttendanceDetail_.isLate ) ));
+		Predicate p = root.get( AttendanceDetailStatic.topUnitName ).in( topUnitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
+		p = cb.and( p, cb.isTrue( root.get( AttendanceDetailStatic.isLate ) ));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new RecordDateEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordDateString ), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordDateString ), recordDate));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -823,15 +823,15 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Double> cq = cb.createQuery(Double.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);	
-		Predicate p = root.get( AttendanceDetail_.topUnitName ).in( topUnitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
+		Predicate p = root.get( AttendanceDetailStatic.topUnitName ).in( topUnitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new RecordDateEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordDateString ), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordDateString ), recordDate));
 		}
 		//查询总数
-		cq.select( cb.sum( root.get(AttendanceDetail_.absence ) ) );	
+		cq.select( cb.sum( root.get(AttendanceDetailStatic.absence ) ) );
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
 	
@@ -851,15 +851,15 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Double> cq = cb.createQuery(Double.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);			
-		Predicate p = root.get( AttendanceDetail_.topUnitName ).in( topUnitNames );
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
+		Predicate p = root.get( AttendanceDetailStatic.topUnitName ).in( topUnitNames );
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new RecordDateEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordDateString ), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordDateString ), recordDate));
 		}		
 		//查询总数
-		cq.select( cb.sum( root.get( AttendanceDetail_.getSelfHolidayDays ) ) );	
+		cq.select( cb.sum( root.get( AttendanceDetailStatic.getSelfHolidayDays ) ) );
 				
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -880,14 +880,14 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = cb.isNotNull(root.get( AttendanceDetail_.offDutyTime ));
-		p = cb.and( p, cb.notEqual( root.get( AttendanceDetail_.offDutyTime), ""));
-		p = cb.and( p, root.get( AttendanceDetail_.topUnitName ).in( topUnitNames ));
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
+		Predicate p = cb.isNotNull(root.get( AttendanceDetailStatic.offDutyTime ));
+		p = cb.and( p, cb.notEqual( root.get( AttendanceDetailStatic.offDutyTime), ""));
+		p = cb.and( p, root.get( AttendanceDetailStatic.topUnitName ).in( topUnitNames ));
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new RecordDateEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordDateString), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordDateString), recordDate));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );
@@ -910,14 +910,14 @@ public class AttendanceDetailStatisticFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<AttendanceDetail> root = cq.from( AttendanceDetail.class);
-		Predicate p = cb.isNotNull(root.get( AttendanceDetail_.onDutyTime ));
-		p = cb.and( p, cb.notEqual( root.get( AttendanceDetail_.onDutyTime), ""));
-		p = cb.and( p, root.get( AttendanceDetail_.topUnitName).in( topUnitNames ));
-		p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordStatus ), 1));
+		Predicate p = cb.isNotNull(root.get( AttendanceDetailStatic.onDutyTime ));
+		p = cb.and( p, cb.notEqual( root.get( AttendanceDetailStatic.onDutyTime), ""));
+		p = cb.and( p, root.get( AttendanceDetailStatic.topUnitName).in( topUnitNames ));
+		p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordStatus ), 1));
 		if( recordDate == null || recordDate.isEmpty() ){
 			logger.error( new RecordDateEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( AttendanceDetail_.recordDateString), recordDate));
+			p = cb.and( p, cb.equal( root.get( AttendanceDetailStatic.recordDateString), recordDate));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );

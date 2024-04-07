@@ -16,10 +16,8 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.AbstractFactory;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Task;
-import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.Task_;
+import com.x.processplatform.core.entity.content.TaskStatic;
 import com.x.processplatform.core.entity.content.Work;
-import com.x.processplatform.core.entity.content.WorkLog;
 import org.apache.commons.lang3.BooleanUtils;
 
 public class TaskFactory extends AbstractFactory {
@@ -33,8 +31,8 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.work), work.getId());
-		cq.select(root.get(Task_.id)).where(p);
+		Predicate p = cb.equal(root.get(TaskStatic.work), work.getId());
+		cq.select(root.get(TaskStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -51,8 +49,8 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.job), job);
-		cq.select(root.get(Task_.id)).where(p);
+		Predicate p = cb.equal(root.get(TaskStatic.job), job);
+		cq.select(root.get(TaskStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -61,7 +59,7 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Task> cq = cb.createQuery(Task.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.job), job);
+		Predicate p = cb.equal(root.get(TaskStatic.job), job);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -71,8 +69,8 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.work), work.getId());
-		p = cb.and(p, cb.equal(root.get(Task_.person), person));
+		Predicate p = cb.equal(root.get(TaskStatic.work), work.getId());
+		p = cb.and(p, cb.equal(root.get(TaskStatic.person), person));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -83,7 +81,7 @@ public class TaskFactory extends AbstractFactory {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 			Root<Task> root = cq.from(Task.class);
-			Predicate p = cb.equal(root.get(Task_.work), work.getId());
+			Predicate p = cb.equal(root.get(TaskStatic.work), work.getId());
 			cq.select(cb.count(root)).where(p);
 			return em.createQuery(cq).getSingleResult();
 		}
@@ -95,9 +93,9 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.work), work);
-		p = cb.and(p, cb.equal(root.get(Task_.person), person));
-		cq.select(root.get(Task_.id)).where(p);
+		Predicate p = cb.equal(root.get(TaskStatic.work), work);
+		p = cb.and(p, cb.equal(root.get(TaskStatic.person), person));
+		cq.select(root.get(TaskStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		return list.isEmpty() ? null : list.get(0);
 	}
@@ -107,8 +105,8 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.job), job);
-		p = cb.and(p, cb.equal(root.get(Task_.person), person));
+		Predicate p = cb.equal(root.get(TaskStatic.job), job);
+		p = cb.and(p, cb.equal(root.get(TaskStatic.person), person));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -118,8 +116,8 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.work), work);
-		cq.select(root.get(Task_.person)).where(p);
+		Predicate p = cb.equal(root.get(TaskStatic.work), work);
+		cq.select(root.get(TaskStatic.person)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -128,13 +126,13 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Task> cq = cb.createQuery(Task.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.person), person);
+		Predicate p = cb.equal(root.get(TaskStatic.person), person);
 		if(BooleanUtils.isTrue(isExcludeDraft)){
-			p = cb.and(p, cb.or(cb.isFalse(root.get(Task_.first)),
-					cb.isNull(root.get(Task_.first)),
-					cb.equal(root.get(Task_.workCreateType), Business.WORK_CREATE_TYPE_ASSIGN)));
+			p = cb.and(p, cb.or(cb.isFalse(root.get(TaskStatic.first)),
+					cb.isNull(root.get(TaskStatic.first)),
+					cb.equal(root.get(TaskStatic.workCreateType), Business.WORK_CREATE_TYPE_ASSIGN)));
 		}
-		cq.select(root).where(p).orderBy(cb.desc(root.get(Task_.createTime)));
+		cq.select(root).where(p).orderBy(cb.desc(root.get(TaskStatic.createTime)));
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -146,7 +144,7 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.person), person);
+		Predicate p = cb.equal(root.get(TaskStatic.person), person);
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -159,8 +157,8 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.person), person);
-		p = cb.and(p, cb.equal(root.get(Task_.application), application));
+		Predicate p = cb.equal(root.get(TaskStatic.person), person);
+		p = cb.and(p, cb.equal(root.get(TaskStatic.application), application));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -170,8 +168,8 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.activityToken), activityToken);
-		cq.select(root.get(Task_.id)).where(p);
+		Predicate p = cb.equal(root.get(TaskStatic.activityToken), activityToken);
+		cq.select(root.get(TaskStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -180,8 +178,8 @@ public class TaskFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Task> root = cq.from(Task.class);
-		Predicate p = cb.equal(root.get(Task_.modified), true);
-		p = cb.and(p, cb.equal(root.get(Task_.work), workId));
+		Predicate p = cb.equal(root.get(TaskStatic.modified), true);
+		p = cb.and(p, cb.equal(root.get(TaskStatic.work), workId));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

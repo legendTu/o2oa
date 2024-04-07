@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.x.cms.assemble.control.AbstractFactory;
 import com.x.cms.assemble.control.Business;
 import com.x.cms.core.entity.Document;
-import com.x.cms.core.entity.Document_;
+import com.x.cms.core.entity.DocumentStatic;
 
 public class SearchFactory extends AbstractFactory {
 	
@@ -31,13 +31,13 @@ public class SearchFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal( root.get( Document_.docStatus), docStatus );
+		Predicate p = cb.equal( root.get( DocumentStatic.docStatus), docStatus );
 		if( StringUtils.isNotEmpty( categoryId ) ){
-			p = cb.and(p, cb.equal( root.get( Document_.categoryId), categoryId ));
+			p = cb.and(p, cb.equal( root.get( DocumentStatic.categoryId), categoryId ));
 		}else{
-			p = cb.and(p, root.get( Document_.appId ).in( appids ));
+			p = cb.and(p, root.get( DocumentStatic.appId ).in( appids ));
 		}
-		cq.select(root.get( Document_.creatorUnitName ) );
+		cq.select(root.get( DocumentStatic.creatorUnitName ) );
 		return em.createQuery( cq.where( p )).setMaxResults(500).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 	
@@ -50,13 +50,13 @@ public class SearchFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal( root.get( Document_.docStatus), docStatus );
+		Predicate p = cb.equal( root.get( DocumentStatic.docStatus), docStatus );
 		if( StringUtils.isNotEmpty( categoryId ) ){
-			p = cb.and(p, cb.equal( root.get( Document_.categoryId), categoryId ));
+			p = cb.and(p, cb.equal( root.get( DocumentStatic.categoryId), categoryId ));
 		}else{
-			p = cb.and(p, root.get( Document_.appId ).in( appids ));
+			p = cb.and(p, root.get( DocumentStatic.appId ).in( appids ));
 		}
-		cq.select(root.get( Document_.creatorTopUnitName ) );
+		cq.select(root.get( DocumentStatic.creatorTopUnitName ) );
 		return em.createQuery( cq.where( p )).setMaxResults(500).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 	
@@ -69,13 +69,13 @@ public class SearchFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal( root.get( Document_.docStatus), docStatus );
+		Predicate p = cb.equal( root.get( DocumentStatic.docStatus), docStatus );
 		if( StringUtils.isNotEmpty( categoryId ) ){
-			p = cb.and(p, cb.equal( root.get( Document_.categoryId), categoryId ));
+			p = cb.and(p, cb.equal( root.get( DocumentStatic.categoryId), categoryId ));
 		}else{
-			p = cb.and(p, root.get( Document_.appId ).in( appids ));
+			p = cb.and(p, root.get( DocumentStatic.appId ).in( appids ));
 		}
-		cq.select(root.get( Document_.appId ) );
+		cq.select(root.get( DocumentStatic.appId ) );
 		return em.createQuery( cq.where( p )).setMaxResults(500).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 	
@@ -88,13 +88,13 @@ public class SearchFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal( root.get( Document_.docStatus), docStatus );
+		Predicate p = cb.equal( root.get( DocumentStatic.docStatus), docStatus );
 		if( StringUtils.isNotEmpty( categoryId ) ){
-			p = cb.and(p, cb.equal( root.get( Document_.categoryId), categoryId ));
+			p = cb.and(p, cb.equal( root.get( DocumentStatic.categoryId), categoryId ));
 		}else{
-			p = cb.and(p, root.get( Document_.appId ).in( appids ));
+			p = cb.and(p, root.get( DocumentStatic.appId ).in( appids ));
 		}
-		cq.select(root.get( Document_.categoryId ) );
+		cq.select(root.get( DocumentStatic.categoryId ) );
 		return em.createQuery( cq.where( p )).setMaxResults(500).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 	
@@ -107,12 +107,12 @@ public class SearchFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery( Long.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal( root.get( Document_.creatorUnitName), creatorUnitName );
-		p = cb.and(p, cb.equal( root.get( Document_.docStatus), docStatus ));
+		Predicate p = cb.equal( root.get( DocumentStatic.creatorUnitName), creatorUnitName );
+		p = cb.and(p, cb.equal( root.get( DocumentStatic.docStatus), docStatus ));
 		if( StringUtils.isNotEmpty( targetCategoryId ) ){
-			p = cb.and(p, cb.equal( root.get( Document_.categoryId), targetCategoryId ));
+			p = cb.and(p, cb.equal( root.get( DocumentStatic.categoryId), targetCategoryId ));
 		}else{
-			p = cb.and(p, root.get( Document_.appId).in(appids));
+			p = cb.and(p, root.get( DocumentStatic.appId).in(appids));
 		}
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
@@ -127,12 +127,12 @@ public class SearchFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery( Long.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal( root.get( Document_.creatorTopUnitName), creatorTopUnitName );
-		p = cb.and(p, cb.equal( root.get( Document_.docStatus), docStatus ));
+		Predicate p = cb.equal( root.get( DocumentStatic.creatorTopUnitName), creatorTopUnitName );
+		p = cb.and(p, cb.equal( root.get( DocumentStatic.docStatus), docStatus ));
 		if( StringUtils.isNotEmpty( targetCategoryId ) ){
-			p = cb.and(p, cb.equal( root.get( Document_.categoryId), targetCategoryId ));
+			p = cb.and(p, cb.equal( root.get( DocumentStatic.categoryId), targetCategoryId ));
 		}else{
-			p = cb.and(p, root.get( Document_.appId).in(appids));
+			p = cb.and(p, root.get( DocumentStatic.appId).in(appids));
 		}
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
@@ -150,11 +150,11 @@ public class SearchFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery( Long.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal( root.get( Document_.docStatus), docStatus );
+		Predicate p = cb.equal( root.get( DocumentStatic.docStatus), docStatus );
 		if( StringUtils.isNotEmpty( targetCategoryId ) ){
-			p = cb.and(p, cb.equal( root.get( Document_.categoryId), targetCategoryId ));
+			p = cb.and(p, cb.equal( root.get( DocumentStatic.categoryId), targetCategoryId ));
 		}else{
-			p = cb.and(p, cb.equal( root.get( Document_.appId), appId));
+			p = cb.and(p, cb.equal( root.get( DocumentStatic.appId), appId));
 		}
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
@@ -169,8 +169,8 @@ public class SearchFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery( Long.class );
 		Root<Document> root = cq.from( Document.class );
-		Predicate p = cb.equal( root.get( Document_.categoryId), categoryId);
-		p = cb.and(p, cb.equal( root.get( Document_.docStatus), docStatus ));
+		Predicate p = cb.equal( root.get( DocumentStatic.categoryId), categoryId);
+		p = cb.and(p, cb.equal( root.get( DocumentStatic.docStatus), docStatus ));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

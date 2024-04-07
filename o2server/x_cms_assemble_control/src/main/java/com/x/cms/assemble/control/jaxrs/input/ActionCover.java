@@ -6,7 +6,6 @@ import com.x.base.core.container.factory.EntityManagerContainerFactory;
 import com.x.base.core.entity.JpaObject;
 import com.x.base.core.entity.annotation.CheckPersistType;
 import com.x.base.core.entity.dataitem.DataItemConverter;
-import com.x.base.core.project.cache.ApplicationCache;
 import com.x.base.core.project.cache.CacheManager;
 import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
@@ -385,12 +384,12 @@ class ActionCover extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<CategoryInfo> root = cq.from(CategoryInfo.class);
-		Predicate p = root.get( CategoryInfo_.categoryName ).in(list);
-		p = cb.and(p, cb.equal(root.get( CategoryInfo_.id ), id));
+		Predicate p = root.get( CategoryInfoStatic.categoryName ).in(list);
+		p = cb.and(p, cb.equal(root.get( CategoryInfoStatic.id ), id));
 		if (StringUtils.isNotEmpty(excludeId)) {
 			p = cb.and(p, cb.notEqual(root.get(JpaObject.id_FIELDNAME), excludeId));
 		}
-		cq.select(root.get( CategoryInfo_.categoryName  )).where(p);
+		cq.select(root.get( CategoryInfoStatic.categoryName  )).where(p);
 		List<String> os = em.createQuery(cq).getResultList();
 		list = ListUtils.subtract(list, os);
 		return list.get(0);
@@ -421,12 +420,12 @@ class ActionCover extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<CategoryInfo> root = cq.from(CategoryInfo.class);
-		Predicate p = root.get( CategoryInfo_.categoryAlias ).in( list );
-		p = cb.and(p, cb.equal(root.get(CategoryInfo_.id ), id));
+		Predicate p = root.get( CategoryInfoStatic.categoryAlias ).in( list );
+		p = cb.and(p, cb.equal(root.get(CategoryInfoStatic.id ), id));
 		if (StringUtils.isNotEmpty(excludeId)) {
 			p = cb.and(p, cb.notEqual(root.get(JpaObject.id_FIELDNAME), excludeId));
 		}
-		cq.select(root.get(CategoryInfo_.categoryAlias)).where(p);
+		cq.select(root.get(CategoryInfoStatic.categoryAlias)).where(p);
 		List<String> os = em.createQuery(cq).getResultList();
 		list = ListUtils.subtract(list, os);
 		return list.get(0);

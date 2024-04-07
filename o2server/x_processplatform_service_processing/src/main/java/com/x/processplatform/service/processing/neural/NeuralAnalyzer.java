@@ -31,7 +31,7 @@ import com.x.processplatform.core.entity.element.Process;
 import com.x.processplatform.core.entity.element.Route;
 import com.x.processplatform.service.processing.Business;
 import com.x.query.core.entity.Item;
-import com.x.query.core.entity.Item_;
+import com.x.query.core.entity.ItemStatic;
 
 public class NeuralAnalyzer {
 
@@ -164,7 +164,7 @@ public class NeuralAnalyzer {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Item> cq = cb.createQuery(Item.class);
 		Root<Item> root = cq.from(Item.class);
-		Predicate p = cb.equal(root.get(Item_.bundle), job);
+		Predicate p = cb.equal(root.get(ItemStatic.bundle), job);
 		List<Item> list = em.createQuery(cq.where(p)).getResultList();
 		if (list.isEmpty()) {
 			return new Data();

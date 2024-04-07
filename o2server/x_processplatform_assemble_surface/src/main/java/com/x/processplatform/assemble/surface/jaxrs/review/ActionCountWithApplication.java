@@ -21,7 +21,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Review;
-import com.x.processplatform.core.entity.content.Review_;
+import com.x.processplatform.core.entity.content.ReviewStatic;
 
 /**
  * 按应用统计当前用户可见的review数量
@@ -41,8 +41,8 @@ class ActionCountWithApplication extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 			Root<Review> root = cq.from(Review.class);
-			Path<String> pathApplication = root.get(Review_.application);
-			Path<String> pathApplicationName = root.get(Review_.applicationName);
+			Path<String> pathApplication = root.get(ReviewStatic.application);
+			Path<String> pathApplicationName = root.get(ReviewStatic.applicationName);
 			Predicate p = this.toFilterPredicate(effectivePerson, business, wi);
 			cq.multiselect(pathApplication, pathApplicationName, cb.count(root)).where(p).groupBy(pathApplication);
 			List<Tuple> os = em.createQuery(cq).getResultList();

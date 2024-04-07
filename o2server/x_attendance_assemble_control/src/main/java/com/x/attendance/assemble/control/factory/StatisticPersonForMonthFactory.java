@@ -16,11 +16,8 @@ import org.apache.commons.lang3.StringUtils;
 import com.x.attendance.assemble.control.AbstractFactory;
 import com.x.attendance.assemble.control.Business;
 import com.x.attendance.assemble.control.jaxrs.attendancestatistic.WrapInFilterStatisticPersonForMonth;
-import com.x.attendance.assemble.control.service.AttendanceEmployeeConfigServiceAdv;
-import com.x.attendance.assemble.control.service.UserManagerService;
-import com.x.attendance.entity.AttendanceEmployeeConfig;
 import com.x.attendance.entity.StatisticPersonForMonth;
-import com.x.attendance.entity.StatisticPersonForMonth_;
+import com.x.attendance.entity.StatisticPersonForMonthStatic;
 import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
@@ -45,7 +42,7 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);
-		cq.select(root.get(StatisticPersonForMonth_.id));
+		cq.select(root.get(StatisticPersonForMonthStatic.id));
 		return em.createQuery(cq).getResultList();
 	}
 	
@@ -58,7 +55,7 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<StatisticPersonForMonth> cq = cb.createQuery(StatisticPersonForMonth.class);
 		Root<StatisticPersonForMonth> root = cq.from(StatisticPersonForMonth.class);
-		Predicate p = root.get(StatisticPersonForMonth_.id).in(ids);
+		Predicate p = root.get(StatisticPersonForMonthStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -72,18 +69,18 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery( String.class );
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class );
-		Predicate p = cb.equal( root.get( StatisticPersonForMonth_.employeeName ), employeeName );
+		Predicate p = cb.equal( root.get( StatisticPersonForMonthStatic.employeeName ), employeeName );
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonth_.statisticYear ), sYear));
+			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonthStatic.statisticYear ), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonth_.statisticMonth ), sMonth));
+			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonthStatic.statisticMonth ), sMonth));
 		}
-		cq.select(root.get( StatisticPersonForMonth_.id ) );
+		cq.select(root.get( StatisticPersonForMonthStatic.id ) );
 		return em.createQuery( cq.where( p ) ).setMaxResults( 60 ).getResultList();
 	}
 
@@ -98,18 +95,18 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class );
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class );
-		Predicate p = root.get( StatisticPersonForMonth_.unitName ).in(unitNameList);
+		Predicate p = root.get( StatisticPersonForMonthStatic.unitName ).in(unitNameList);
 		if( year == null || year.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonth_.statisticYear ), year ) );
+			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonthStatic.statisticYear ), year ) );
 		}
 		if( month == null || month.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonth_.statisticMonth ), month ));
+			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonthStatic.statisticMonth ), month ));
 		}
-		cq.select(root.get( StatisticPersonForMonth_.id ));
+		cq.select(root.get( StatisticPersonForMonthStatic.id ));
 		return em.createQuery( cq.where( p ) ).setMaxResults( 60 ).getResultList();
 	}
 	
@@ -125,24 +122,24 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class );
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class );
-		Predicate p = root.get( StatisticPersonForMonth_.unitName ).in(unitNameList);
+		Predicate p = root.get( StatisticPersonForMonthStatic.unitName ).in(unitNameList);
 		if(ListTools.isNotEmpty(unUnitNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.unitName ), cb.literal(unUnitNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.unitName ), cb.literal(unUnitNameList)));
 		}
 		if(ListTools.isNotEmpty(personNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.employeeName ), cb.literal(personNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.employeeName ), cb.literal(personNameList)));
 		}
 		if( year == null || year.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonth_.statisticYear ), year ) );
+			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonthStatic.statisticYear ), year ) );
 		}
 		if( month == null || month.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonth_.statisticMonth ), month ));
+			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonthStatic.statisticMonth ), month ));
 		}
-		cq.select(root.get( StatisticPersonForMonth_.id ));
+		cq.select(root.get( StatisticPersonForMonthStatic.id ));
 		return em.createQuery( cq.where( p ) ).setMaxResults( 60 ).getResultList();
 	}
 	
@@ -334,17 +331,17 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<StatisticPersonForMonth> cq = cb.createQuery(StatisticPersonForMonth.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);	
-		Predicate p = cb.equal( root.get( StatisticPersonForMonth_.employeeName ), employeeName);		
+		Predicate p = cb.equal( root.get( StatisticPersonForMonthStatic.employeeName ), employeeName);
 		if( cycleYear == null || cycleYear.isEmpty() ){
 			logger.error( new CycleYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonth_.statisticYear), cycleYear));
+			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonthStatic.statisticYear), cycleYear));
 		}
 		
 		if( cycleMonth == null || cycleMonth.isEmpty() ){
 			logger.error( new CycleMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonth_.statisticMonth), cycleMonth));
+			p = cb.and( p, cb.equal( root.get( StatisticPersonForMonthStatic.statisticMonth), cycleMonth));
 		}
 		try{
 			return em.createQuery(cq.where(p)).getSingleResult();
@@ -370,16 +367,16 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		//查询总数
 		cq.select( cb.count( root ) );	
@@ -404,17 +401,17 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.lateTimes ) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.lateTimes ) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -437,24 +434,24 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.lateTimes ) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.lateTimes ) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		
 		if(ListTools.isNotEmpty(unUnitNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.unitName ), cb.literal(unUnitNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.unitName ), cb.literal(unUnitNameList)));
 		}
 		if(ListTools.isNotEmpty(personNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.employeeName ), cb.literal(personNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.employeeName ), cb.literal(personNameList)));
 		}
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -478,17 +475,17 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Double> cq = cb.createQuery(Double.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.onDutyDayCount) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.onDutyDayCount) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -511,23 +508,23 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Double> cq = cb.createQuery(Double.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.onDutyDayCount) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.onDutyDayCount) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		if(ListTools.isNotEmpty(unUnitNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.unitName ), cb.literal(unUnitNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.unitName ), cb.literal(unUnitNameList)));
 		}
 		if(ListTools.isNotEmpty(personNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.employeeName ), cb.literal(personNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.employeeName ), cb.literal(personNameList)));
 		}
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -550,17 +547,17 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.abNormalDutyCount) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.abNormalDutyCount) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -583,24 +580,24 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.abNormalDutyCount) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.abNormalDutyCount) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		
 		if(ListTools.isNotEmpty(unUnitNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.unitName ), cb.literal(unUnitNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.unitName ), cb.literal(unUnitNameList)));
 		}
 		if(ListTools.isNotEmpty(personNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.employeeName ), cb.literal(personNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.employeeName ), cb.literal(personNameList)));
 		}
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -623,17 +620,17 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.lackOfTimeCount) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.lackOfTimeCount) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -656,24 +653,24 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.lackOfTimeCount) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.lackOfTimeCount) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		
 		if(ListTools.isNotEmpty(unUnitNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.unitName ), cb.literal(unUnitNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.unitName ), cb.literal(unUnitNameList)));
 		}
 		if(ListTools.isNotEmpty(personNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.employeeName ), cb.literal(personNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.employeeName ), cb.literal(personNameList)));
 		}
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -696,17 +693,17 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.leaveEarlyTimes ) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.leaveEarlyTimes ) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -729,24 +726,24 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.leaveEarlyTimes ) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.leaveEarlyTimes ) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		
 		if(ListTools.isNotEmpty(unUnitNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.unitName ), cb.literal(unUnitNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.unitName ), cb.literal(unUnitNameList)));
 		}
 		if(ListTools.isNotEmpty(personNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.employeeName ), cb.literal(personNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.employeeName ), cb.literal(personNameList)));
 		}
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -769,17 +766,17 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.offDutyTimes ) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.offDutyTimes ) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -802,24 +799,24 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.offDutyTimes ) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.offDutyTimes ) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		
 		if(ListTools.isNotEmpty(unUnitNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.unitName ), cb.literal(unUnitNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.unitName ), cb.literal(unUnitNameList)));
 		}
 		if(ListTools.isNotEmpty(personNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.employeeName ), cb.literal(personNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.employeeName ), cb.literal(personNameList)));
 		}
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -842,17 +839,17 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.onDutyTimes ) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.onDutyTimes ) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -875,24 +872,24 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.onDutyTimes ) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.onDutyTimes ) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		
 		if(ListTools.isNotEmpty(unUnitNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.unitName ), cb.literal(unUnitNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.unitName ), cb.literal(unUnitNameList)));
 		}
 		if(ListTools.isNotEmpty(personNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.employeeName ), cb.literal(personNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.employeeName ), cb.literal(personNameList)));
 		}
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -915,17 +912,17 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Double> cq = cb.createQuery(Double.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.onSelfHolidayCount) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.onSelfHolidayCount) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -948,24 +945,24 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Double> cq = cb.createQuery(Double.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.onSelfHolidayCount) ) );		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.onSelfHolidayCount) ) );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		
 		if(ListTools.isNotEmpty(unUnitNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.unitName ), cb.literal(unUnitNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.unitName ), cb.literal(unUnitNameList)));
 		}
 		if(ListTools.isNotEmpty(personNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.employeeName ), cb.literal(personNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.employeeName ), cb.literal(personNameList)));
 		}
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -988,20 +985,20 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Double> cq = cb.createQuery(Double.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.absenceDayCount) ) );	
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.absenceDayCount) ) );
 		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -1024,26 +1021,26 @@ public class StatisticPersonForMonthFactory extends AbstractFactory {
 		CriteriaQuery<Double> cq = cb.createQuery(Double.class);
 		Root<StatisticPersonForMonth> root = cq.from( StatisticPersonForMonth.class);		
 		//查询总数
-		cq.select( cb.sum( root.get(StatisticPersonForMonth_.absenceDayCount) ) );	
+		cq.select( cb.sum( root.get(StatisticPersonForMonthStatic.absenceDayCount) ) );
 		
-		Predicate p = root.get(StatisticPersonForMonth_.unitName).in( unitName );
+		Predicate p = root.get(StatisticPersonForMonthStatic.unitName).in( unitName );
 		
 		if(ListTools.isNotEmpty(unUnitNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.unitName ), cb.literal(unUnitNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.unitName ), cb.literal(unUnitNameList)));
 		}
 		if(ListTools.isNotEmpty(personNameList)){
-			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonth_.employeeName ), cb.literal(personNameList)));
+			p = cb.and( p, cb.isNotMember(root.get( StatisticPersonForMonthStatic.employeeName ), cb.literal(personNameList)));
 		}
 		if( sYear == null || sYear.isEmpty() ){
 			logger.error( new StatisticYearEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticYear), sYear));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticYear), sYear));
 		}
 		
 		if( sMonth == null || sMonth.isEmpty() ){
 			logger.error( new StatisticMonthEmptyException() );
 		}else{
-			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonth_.statisticMonth), sMonth));
+			p = cb.and( p, cb.equal( root.get(StatisticPersonForMonthStatic.statisticMonth), sMonth));
 		}
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}

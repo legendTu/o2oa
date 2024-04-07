@@ -21,8 +21,8 @@ import com.x.processplatform.assemble.bam.stub.UnitStub;
 import com.x.processplatform.assemble.bam.stub.UnitStubs;
 import com.x.processplatform.core.entity.content.Work;
 import com.x.processplatform.core.entity.content.WorkCompleted;
-import com.x.processplatform.core.entity.content.WorkCompleted_;
-import com.x.processplatform.core.entity.content.Work_;
+import com.x.processplatform.core.entity.content.WorkCompletedStatic;
+import com.x.processplatform.core.entity.content.WorkStatic;
 
 public class TimerStartWorkUnitStubs extends BaseAction {
 
@@ -52,8 +52,8 @@ public class TimerStartWorkUnitStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Work> root = cq.from(Work.class);
-		Predicate p = cb.between(root.get(Work_.startTime), dateRange.getStart(), dateRange.getEnd());
-		cq.select(root.get(Work_.creatorUnit)).distinct(true).where(p);
+		Predicate p = cb.between(root.get(WorkStatic.startTime), dateRange.getStart(), dateRange.getEnd());
+		cq.select(root.get(WorkStatic.creatorUnit)).distinct(true).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return list;
 	}
@@ -64,8 +64,8 @@ public class TimerStartWorkUnitStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkCompleted> root = cq.from(WorkCompleted.class);
-		Predicate p = cb.between(root.get(WorkCompleted_.startTime), dateRange.getStart(), dateRange.getEnd());
-		cq.select(root.get(WorkCompleted_.creatorUnit)).distinct(true).where(p);
+		Predicate p = cb.between(root.get(WorkCompletedStatic.startTime), dateRange.getStart(), dateRange.getEnd());
+		cq.select(root.get(WorkCompletedStatic.creatorUnit)).distinct(true).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return list;
 	}

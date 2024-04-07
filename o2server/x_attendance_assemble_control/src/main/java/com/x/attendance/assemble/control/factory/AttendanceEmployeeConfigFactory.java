@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root;
 import com.x.attendance.assemble.control.AbstractFactory;
 import com.x.attendance.assemble.control.Business;
 import com.x.attendance.entity.AttendanceEmployeeConfig;
-import com.x.attendance.entity.AttendanceEmployeeConfig_;
+import com.x.attendance.entity.AttendanceEmployeeConfigStatic;
 import com.x.base.core.project.exception.ExceptionWhen;
 /**
  * 员工考勤需求配置服务器
@@ -47,7 +47,7 @@ public class AttendanceEmployeeConfigFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AttendanceEmployeeConfig> cq = cb.createQuery(AttendanceEmployeeConfig.class);
 		Root<AttendanceEmployeeConfig> root = cq.from(AttendanceEmployeeConfig.class);
-		Predicate p = root.get(AttendanceEmployeeConfig_.id).in(ids);
+		Predicate p = root.get(AttendanceEmployeeConfigStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -60,8 +60,8 @@ public class AttendanceEmployeeConfigFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<AttendanceEmployeeConfig> root = cq.from(AttendanceEmployeeConfig.class);
-		Predicate p = cb.equal(root.get(AttendanceEmployeeConfig_.configType), configType);	
-		cq.select(root.get(AttendanceEmployeeConfig_.id));
+		Predicate p = cb.equal(root.get(AttendanceEmployeeConfigStatic.configType), configType);
+		cq.select(root.get(AttendanceEmployeeConfigStatic.id));
 		return em.createQuery(cq.where(p)).getResultList();
 	}	
 }
