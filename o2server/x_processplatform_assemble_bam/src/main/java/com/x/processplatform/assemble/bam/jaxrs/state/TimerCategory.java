@@ -20,7 +20,7 @@ import com.x.processplatform.assemble.bam.stub.ApplicationStub;
 import com.x.processplatform.assemble.bam.stub.ProcessStub;
 import com.x.processplatform.core.entity.content.Task;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.TaskCompleted_;
+import com.x.processplatform.core.entity.content.TaskCompletedStatic;
 import com.x.processplatform.core.entity.content.TaskStatic;
 import com.x.processplatform.core.entity.content.Work;
 import com.x.processplatform.core.entity.content.WorkCompleted;
@@ -147,8 +147,8 @@ public class TimerCategory extends ActionBase {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.greaterThan(root.get(TaskCompleted_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.application), applicationStub.getValue()));
+		Predicate p = cb.greaterThan(root.get(TaskCompletedStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.application), applicationStub.getValue()));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -159,9 +159,9 @@ public class TimerCategory extends ActionBase {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.greaterThan(root.get(TaskCompleted_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.expired), true));
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.application), applicationStub.getValue()));
+		Predicate p = cb.greaterThan(root.get(TaskCompletedStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.expired), true));
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.application), applicationStub.getValue()));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -172,9 +172,9 @@ public class TimerCategory extends ActionBase {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.greaterThan(root.get(TaskCompleted_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.application), applicationStub.getValue()));
-		cq.select(cb.sum(root.get(TaskCompleted_.duration))).where(p);
+		Predicate p = cb.greaterThan(root.get(TaskCompletedStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.application), applicationStub.getValue()));
+		cq.select(cb.sum(root.get(TaskCompletedStatic.duration))).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
 
@@ -364,8 +364,8 @@ public class TimerCategory extends ActionBase {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.greaterThan(root.get(TaskCompleted_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.process), processStub.getValue()));
+		Predicate p = cb.greaterThan(root.get(TaskCompletedStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.process), processStub.getValue()));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -375,9 +375,9 @@ public class TimerCategory extends ActionBase {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.greaterThan(root.get(TaskCompleted_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.expired), true));
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.process), processStub.getValue()));
+		Predicate p = cb.greaterThan(root.get(TaskCompletedStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.expired), true));
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.process), processStub.getValue()));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -387,9 +387,9 @@ public class TimerCategory extends ActionBase {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.greaterThan(root.get(TaskCompleted_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.process), processStub.getValue()));
-		cq.select(cb.sum(root.get(TaskCompleted_.duration))).where(p);
+		Predicate p = cb.greaterThan(root.get(TaskCompletedStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.process), processStub.getValue()));
+		cq.select(cb.sum(root.get(TaskCompletedStatic.duration))).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
 
@@ -575,8 +575,8 @@ public class TimerCategory extends ActionBase {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.greaterThan(root.get(TaskCompleted_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.activity), activityStub.getValue()));
+		Predicate p = cb.greaterThan(root.get(TaskCompletedStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.activity), activityStub.getValue()));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -586,9 +586,9 @@ public class TimerCategory extends ActionBase {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.greaterThan(root.get(TaskCompleted_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.expired), true));
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.activity), activityStub.getValue()));
+		Predicate p = cb.greaterThan(root.get(TaskCompletedStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.expired), true));
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.activity), activityStub.getValue()));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -598,9 +598,9 @@ public class TimerCategory extends ActionBase {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.greaterThan(root.get(TaskCompleted_.startTime), start);
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.activity), activityStub.getValue()));
-		cq.select(cb.sum(root.get(TaskCompleted_.duration))).where(p);
+		Predicate p = cb.greaterThan(root.get(TaskCompletedStatic.startTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.activity), activityStub.getValue()));
+		cq.select(cb.sum(root.get(TaskCompletedStatic.duration))).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
 

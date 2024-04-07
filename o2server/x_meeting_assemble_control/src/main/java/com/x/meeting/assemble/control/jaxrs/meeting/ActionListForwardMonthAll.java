@@ -23,7 +23,7 @@ import com.x.meeting.assemble.control.Business;
 import com.x.meeting.assemble.control.WrapTools;
 import com.x.meeting.assemble.control.wrapout.WrapOutMeeting;
 import com.x.meeting.core.entity.Meeting;
-import com.x.meeting.core.entity.Meeting_;
+import com.x.meeting.core.entity.MeetingStatic;
 import com.x.meeting.core.entity.Room;
 
 class ActionListForwardMonthAll extends BaseAction {
@@ -76,10 +76,10 @@ class ActionListForwardMonthAll extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Meeting> cq = cb.createQuery(Meeting.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.greaterThanOrEqualTo(root.get(Meeting_.startTime), start);
+		Predicate p = cb.greaterThanOrEqualTo(root.get(MeetingStatic.startTime), start);
 		/** 这里两个都是startTime是对的 */
-		p = cb.and(p, cb.lessThanOrEqualTo(root.get(Meeting_.startTime), end));
-		p = cb.and(p, cb.notEqual(root.get(Meeting_.manualCompleted), true));
+		p = cb.and(p, cb.lessThanOrEqualTo(root.get(MeetingStatic.startTime), end));
+		p = cb.and(p, cb.notEqual(root.get(MeetingStatic.manualCompleted), true));
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}

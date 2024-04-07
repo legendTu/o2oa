@@ -1,6 +1,5 @@
 package com.x.processplatform.assemble.surface.jaxrs.taskcompleted;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -18,7 +17,6 @@ import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
 import com.x.base.core.entity.JpaObject;
 import com.x.base.core.project.annotation.FieldDescribe;
-import com.x.base.core.project.bean.NameValueCountPair;
 import com.x.base.core.project.bean.WrapCopier;
 import com.x.base.core.project.bean.WrapCopierFactory;
 import com.x.base.core.project.gson.GsonPropertyObject;
@@ -27,7 +25,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.TaskCompleted_;
+import com.x.processplatform.core.entity.content.TaskCompletedStatic;
 
 class ActionListMyFilterPaging extends BaseAction {
 
@@ -56,53 +54,53 @@ class ActionListMyFilterPaging extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<TaskCompleted> cq = cb.createQuery(TaskCompleted.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.equal(root.get(TaskCompleted_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(TaskCompletedStatic.person), effectivePerson.getDistinguishedName());
 		p = cb.and(p,
-				cb.or(cb.isNull(root.get(TaskCompleted_.latest)), cb.equal(root.get(TaskCompleted_.latest), true)));
+				cb.or(cb.isNull(root.get(TaskCompletedStatic.latest)), cb.equal(root.get(TaskCompletedStatic.latest), true)));
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(TaskCompleted_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
 			if(BooleanUtils.isFalse(wi.getRelateEditionProcess())) {
-				p = cb.and(p, root.get(TaskCompleted_.process).in(wi.getProcessList()));
+				p = cb.and(p, root.get(TaskCompletedStatic.process).in(wi.getProcessList()));
 			}else{
-				p = cb.and(p, root.get(TaskCompleted_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+				p = cb.and(p, root.get(TaskCompletedStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 			}
 		}
 		if(DateTools.isDateTimeOrDate(wi.getStartTime())){
-			p = cb.and(p, cb.greaterThan(root.get(TaskCompleted_.startTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(TaskCompletedStatic.startTime), DateTools.parse(wi.getStartTime())));
 		}
 		if(DateTools.isDateTimeOrDate(wi.getEndTime())){
-			p = cb.and(p, cb.lessThan(root.get(TaskCompleted_.startTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(TaskCompletedStatic.startTime), DateTools.parse(wi.getEndTime())));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(TaskCompleted_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(TaskCompleted_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCompletedTimeMonthList())) {
-			p = cb.and(p, root.get(TaskCompleted_.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(TaskCompleted_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.activityName).in(wi.getActivityNameList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCompletedList())) {
-			p = cb.and(p, root.get(TaskCompleted_.completed).in(wi.getCompletedList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.completed).in(wi.getCompletedList()));
 		}
 		if (StringUtils.isNotEmpty(wi.getKey())) {
 			String key = StringUtils.trim(StringUtils.replaceEach(wi.getKey(), new String[] { "\u3000", "?", "%" },
 					new String[] { " ", "", "" }));
 			if (StringUtils.isNotEmpty(key)) {
 				p = cb.and(p,
-						cb.or(cb.like(root.get(TaskCompleted_.title), "%" + key + "%"),
-								cb.like(root.get(TaskCompleted_.opinion), "%" + key + "%"),
-								cb.like(root.get(TaskCompleted_.serial), "%" + key + "%"),
-								cb.like(root.get(TaskCompleted_.creatorPerson), "%" + key + "%"),
-								cb.like(root.get(TaskCompleted_.creatorUnit), "%" + key + "%")));
+						cb.or(cb.like(root.get(TaskCompletedStatic.title), "%" + key + "%"),
+								cb.like(root.get(TaskCompletedStatic.opinion), "%" + key + "%"),
+								cb.like(root.get(TaskCompletedStatic.serial), "%" + key + "%"),
+								cb.like(root.get(TaskCompletedStatic.creatorPerson), "%" + key + "%"),
+								cb.like(root.get(TaskCompletedStatic.creatorUnit), "%" + key + "%")));
 			}
 		}
-		cq.select(root).where(p).orderBy(cb.desc(root.get(TaskCompleted_.completedTime)));
+		cq.select(root).where(p).orderBy(cb.desc(root.get(TaskCompletedStatic.completedTime)));
 		return em.createQuery(cq).setFirstResult((adjustPage - 1) * adjustPageSize).setMaxResults(adjustPageSize)
 				.getResultList();
 	}
@@ -112,50 +110,50 @@ class ActionListMyFilterPaging extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.equal(root.get(TaskCompleted_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(TaskCompletedStatic.person), effectivePerson.getDistinguishedName());
 		p = cb.and(p,
-				cb.or(cb.isNull(root.get(TaskCompleted_.latest)), cb.equal(root.get(TaskCompleted_.latest), true)));
+				cb.or(cb.isNull(root.get(TaskCompletedStatic.latest)), cb.equal(root.get(TaskCompletedStatic.latest), true)));
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(TaskCompleted_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
 			if(BooleanUtils.isFalse(wi.getRelateEditionProcess())) {
-				p = cb.and(p, root.get(TaskCompleted_.process).in(wi.getProcessList()));
+				p = cb.and(p, root.get(TaskCompletedStatic.process).in(wi.getProcessList()));
 			}else{
-				p = cb.and(p, root.get(TaskCompleted_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+				p = cb.and(p, root.get(TaskCompletedStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 			}
 		}
 		if(DateTools.isDateTimeOrDate(wi.getStartTime())){
-			p = cb.and(p, cb.greaterThan(root.get(TaskCompleted_.startTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(TaskCompletedStatic.startTime), DateTools.parse(wi.getStartTime())));
 		}
 		if(DateTools.isDateTimeOrDate(wi.getEndTime())){
-			p = cb.and(p, cb.lessThan(root.get(TaskCompleted_.startTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(TaskCompletedStatic.startTime), DateTools.parse(wi.getEndTime())));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(TaskCompleted_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(TaskCompleted_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCompletedTimeMonthList())) {
-			p = cb.and(p, root.get(TaskCompleted_.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(TaskCompleted_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.activityName).in(wi.getActivityNameList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCompletedList())) {
-			p = cb.and(p, root.get(TaskCompleted_.completed).in(wi.getCompletedList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.completed).in(wi.getCompletedList()));
 		}
 		if (StringUtils.isNotEmpty(wi.getKey())) {
 			String key = StringUtils.trim(StringUtils.replace(wi.getKey(), "\u3000", " "));
 			if (StringUtils.isNotEmpty(key)) {
 				key = StringUtils.replaceEach(key, new String[] { "?", "%" }, new String[] { "", "" });
 				p = cb.and(p,
-						cb.or(cb.like(root.get(TaskCompleted_.title), "%" + key + "%"),
-								cb.like(root.get(TaskCompleted_.opinion), "%" + key + "%"),
-								cb.like(root.get(TaskCompleted_.serial), "%" + key + "%"),
-								cb.like(root.get(TaskCompleted_.creatorPerson), "%" + key + "%"),
-								cb.like(root.get(TaskCompleted_.creatorUnit), "%" + key + "%")));
+						cb.or(cb.like(root.get(TaskCompletedStatic.title), "%" + key + "%"),
+								cb.like(root.get(TaskCompletedStatic.opinion), "%" + key + "%"),
+								cb.like(root.get(TaskCompletedStatic.serial), "%" + key + "%"),
+								cb.like(root.get(TaskCompletedStatic.creatorPerson), "%" + key + "%"),
+								cb.like(root.get(TaskCompletedStatic.creatorUnit), "%" + key + "%")));
 			}
 		}
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();

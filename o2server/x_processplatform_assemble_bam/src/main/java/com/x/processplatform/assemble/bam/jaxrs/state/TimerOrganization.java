@@ -18,7 +18,7 @@ import com.x.processplatform.assemble.bam.stub.PersonStub;
 import com.x.processplatform.assemble.bam.stub.UnitStub;
 import com.x.processplatform.core.entity.content.Task;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.TaskCompleted_;
+import com.x.processplatform.core.entity.content.TaskCompletedStatic;
 import com.x.processplatform.core.entity.content.TaskStatic;
 
 public class TimerOrganization extends ActionBase {
@@ -103,8 +103,8 @@ public class TimerOrganization extends ActionBase {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.greaterThan(root.get(TaskCompleted_.completedTime), start);
-		p = cb.and(p, root.get(TaskCompleted_.unit).in(units));
+		Predicate p = cb.greaterThan(root.get(TaskCompletedStatic.completedTime), start);
+		p = cb.and(p, root.get(TaskCompletedStatic.unit).in(units));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -114,9 +114,9 @@ public class TimerOrganization extends ActionBase {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.greaterThan(root.get(TaskCompleted_.completedTime), start);
-		p = cb.and(p, root.get(TaskCompleted_.unit).in(units));
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.expired), true));
+		Predicate p = cb.greaterThan(root.get(TaskCompletedStatic.completedTime), start);
+		p = cb.and(p, root.get(TaskCompletedStatic.unit).in(units));
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.expired), true));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -190,8 +190,8 @@ public class TimerOrganization extends ActionBase {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.greaterThan(root.get(TaskCompleted_.completedTime), start);
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.person), person));
+		Predicate p = cb.greaterThan(root.get(TaskCompletedStatic.completedTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.person), person));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -201,9 +201,9 @@ public class TimerOrganization extends ActionBase {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.greaterThan(root.get(TaskCompleted_.completedTime), start);
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.person), person));
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.expired), true));
+		Predicate p = cb.greaterThan(root.get(TaskCompletedStatic.completedTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.person), person));
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.expired), true));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

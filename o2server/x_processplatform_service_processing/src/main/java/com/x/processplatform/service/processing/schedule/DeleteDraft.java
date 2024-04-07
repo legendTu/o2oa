@@ -26,7 +26,7 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.schedule.AbstractJob;
 import com.x.base.core.project.utils.time.TimeStamp;
 import com.x.processplatform.core.entity.content.Draft;
-import com.x.processplatform.core.entity.content.Draft_;
+import com.x.processplatform.core.entity.content.DraftStatic;
 import com.x.processplatform.core.entity.content.Work;
 import com.x.processplatform.core.entity.content.WorkStatic;
 import com.x.processplatform.service.processing.ThisApplication;
@@ -141,7 +141,7 @@ public class DeleteDraft extends AbstractJob {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<Draft> root = cq.from(Draft.class);
-		Path<String> idPath = root.get(Draft_.id);
+		Path<String> idPath = root.get(DraftStatic.id);
 		Path<String> sequencePath = root.get(JpaObjectStatic.sequence);
 		Predicate p = cb.lessThan(root.get(JpaObjectStatic.createTime), date);
 		if (StringUtils.isNotEmpty(sequence)) {

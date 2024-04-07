@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root;
 import com.x.file.assemble.control.AbstractFactory;
 import com.x.file.assemble.control.Business;
 import com.x.file.core.entity.open.File;
-import com.x.file.core.entity.open.File_;
+import com.x.file.core.entity.open.FileStatic;
 import com.x.file.core.entity.open.ReferenceType;
 
 public class FileFactory extends AbstractFactory {
@@ -27,9 +27,9 @@ public class FileFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<File> root = cq.from(File.class);
-		Predicate p = cb.equal(root.get(File_.reference), reference);
-		p = cb.and(p, cb.equal(root.get(File_.referenceType), referenceType));
-		cq.select(root.get(File_.id)).where(p);
+		Predicate p = cb.equal(root.get(FileStatic.reference), reference);
+		p = cb.and(p, cb.equal(root.get(FileStatic.referenceType), referenceType));
+		cq.select(root.get(FileStatic.id)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 }

@@ -30,7 +30,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Role;
-import com.x.organization.core.entity.Role_;
+import com.x.organization.core.entity.RoleStatic;
 
 class ActionListLikePinyin extends BaseAction {
 
@@ -109,12 +109,12 @@ class ActionListLikePinyin extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Role> root = cq.from(Role.class);
-		Predicate p = cb.like(root.get(Role_.pinyin), str + "%");
-		p = cb.or(p, cb.like(root.get(Role_.pinyinInitial), str + "%"));
+		Predicate p = cb.like(root.get(RoleStatic.pinyin), str + "%");
+		p = cb.or(p, cb.like(root.get(RoleStatic.pinyinInitial), str + "%"));
 		if (ListTools.isNotEmpty(roleIds)) {
-			p = cb.and(p, root.get(Role_.id).in(roleIds));
+			p = cb.and(p, root.get(RoleStatic.id).in(roleIds));
 		}
-		List<String> ids = em.createQuery(cq.select(root.get(Role_.id)).where(p)).getResultList().stream().distinct()
+		List<String> ids = em.createQuery(cq.select(root.get(RoleStatic.id)).where(p)).getResultList().stream().distinct()
 				.collect(Collectors.toList());
 		List<Role> os = business.entityManagerContainer().list(Role.class, ids);
 		wos = Wo.copier.copy(os);

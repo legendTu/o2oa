@@ -13,7 +13,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.file.assemble.control.Business;
 import com.x.file.core.entity.open.FileStatus;
 import com.x.file.core.entity.personal.Attachment2;
-import com.x.file.core.entity.personal.Attachment2_;
+import com.x.file.core.entity.personal.Attachment2Static;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -56,12 +56,12 @@ class ActionListFileTypePaging extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Attachment2> cq = cb.createQuery(Attachment2.class);
 		Root<Attachment2> root = cq.from(Attachment2.class);
-		Predicate p = cb.equal(root.get(Attachment2_.person), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(Attachment2_.status), FileStatus.VALID.getName()));
+		Predicate p = cb.equal(root.get(Attachment2Static.person), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(Attachment2Static.status), FileStatus.VALID.getName()));
 		if(StringUtils.isNotEmpty(wi.getFileType())){
-			p = cb.and(p, cb.equal(root.get(Attachment2_.type), wi.getFileType()));
+			p = cb.and(p, cb.equal(root.get(Attachment2Static.type), wi.getFileType()));
 		}
-		cq.select(root).where(p).orderBy(cb.desc(root.get(Attachment2_.createTime)));
+		cq.select(root).where(p).orderBy(cb.desc(root.get(Attachment2Static.createTime)));
 		return em.createQuery(cq).setFirstResult((adjustPage - 1) * adjustPageSize).setMaxResults(adjustPageSize)
 				.getResultList();
 	}
@@ -71,10 +71,10 @@ class ActionListFileTypePaging extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Attachment2> root = cq.from(Attachment2.class);
-		Predicate p = cb.equal(root.get(Attachment2_.person), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(Attachment2_.status), FileStatus.VALID.getName()));
+		Predicate p = cb.equal(root.get(Attachment2Static.person), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(Attachment2Static.status), FileStatus.VALID.getName()));
 		if(StringUtils.isNotEmpty(wi.getFileType())){
-			p = cb.and(p, cb.equal(root.get(Attachment2_.type), wi.getFileType()));
+			p = cb.and(p, cb.equal(root.get(Attachment2Static.type), wi.getFileType()));
 		}
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();
 	}

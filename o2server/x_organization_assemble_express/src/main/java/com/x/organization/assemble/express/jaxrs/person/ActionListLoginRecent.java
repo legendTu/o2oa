@@ -22,7 +22,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.NumberTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Person;
-import com.x.organization.core.entity.Person_;
+import com.x.organization.core.entity.PersonStatic;
 
 class ActionListLoginRecent extends BaseAction {
 
@@ -68,7 +68,7 @@ class ActionListLoginRecent extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Person> cq = cb.createQuery(Person.class);
 		Root<Person> root = cq.from(Person.class);
-		cq.orderBy(cb.desc(root.get(Person_.lastLoginTime))).where(cb.isNotNull(root.get(Person_.lastLoginTime)));
+		cq.orderBy(cb.desc(root.get(PersonStatic.lastLoginTime))).where(cb.isNotNull(root.get(PersonStatic.lastLoginTime)));
 		List<Person> os = new ArrayList<>();
 		if (NumberTools.greaterThan(wi.getCount(), 0)) {
 			os = em.createQuery(cq.select(root)).setMaxResults(wi.getCount()).getResultList();

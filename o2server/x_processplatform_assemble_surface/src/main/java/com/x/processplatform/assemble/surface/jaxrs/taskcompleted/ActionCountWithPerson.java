@@ -15,7 +15,7 @@ import com.x.base.core.project.gson.GsonPropertyObject;
 import com.x.base.core.project.http.ActionResult;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.TaskCompleted_;
+import com.x.processplatform.core.entity.content.TaskCompletedStatic;
 
 class ActionCountWithPerson extends BaseAction {
 
@@ -40,9 +40,9 @@ class ActionCountWithPerson extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.equal(root.get(TaskCompleted_.person), person);
+		Predicate p = cb.equal(root.get(TaskCompletedStatic.person), person);
 		p = cb.and(p,
-				cb.or(cb.equal(root.get(TaskCompleted_.latest), true), cb.isNull(root.get(TaskCompleted_.latest))));
+				cb.or(cb.equal(root.get(TaskCompletedStatic.latest), true), cb.isNull(root.get(TaskCompletedStatic.latest))));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

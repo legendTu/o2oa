@@ -27,7 +27,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.AbstractFactory;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 
 public class IdentityFactory extends AbstractFactory {
 
@@ -75,7 +75,7 @@ public class IdentityFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<Identity> cq = cb.createQuery(Identity.class);
 				Root<Identity> root = cq.from(Identity.class);
-				Predicate p = cb.equal(root.get(Identity_.name), name);
+				Predicate p = cb.equal(root.get(IdentityStatic.name), name);
 				List<Identity> os = em.createQuery(cq.select(root).where(p)).getResultList();
 				if (os.size() == 1) {
 					o = os.get(0);
@@ -109,7 +109,7 @@ public class IdentityFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Identity> cq = cb.createQuery(Identity.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.equal(root.get(Identity_.person), personId);
+		Predicate p = cb.equal(root.get(IdentityStatic.person), personId);
 		List<Identity> is = em.createQuery(cq.select(root).where(p)).getResultList();
 		return is;
 	}
@@ -164,7 +164,7 @@ public class IdentityFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.equal(root.get(Identity_.unit), unitId);
+		Predicate p = cb.equal(root.get(IdentityStatic.unit), unitId);
 		Long count = em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();
 		return count;
 	}

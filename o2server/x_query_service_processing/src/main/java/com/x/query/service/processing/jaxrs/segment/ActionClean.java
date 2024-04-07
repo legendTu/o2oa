@@ -47,7 +47,7 @@ import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.tools.ListTools;
 import com.x.query.core.entity.segment.Entry;
-import com.x.query.core.entity.segment.Entry_;
+import com.x.query.core.entity.segment.EntryStatic;
 import com.x.query.core.entity.segment.Word;
 import com.x.query.service.processing.Business;
 
@@ -124,15 +124,15 @@ class ActionClean extends BaseAction {
 		Root<Entry> root = cq.from(Entry.class);
 		Predicate p = cb.disjunction();
 		if (BooleanUtils.isTrue(cleanWork)) {
-			p = cb.or(p, cb.equal(root.get(Entry_.type), Entry.TYPE_WORK));
+			p = cb.or(p, cb.equal(root.get(EntryStatic.type), Entry.TYPE_WORK));
 		}
 		if (BooleanUtils.isTrue(cleanWorkCompleted)) {
-			p = cb.or(p, cb.equal(root.get(Entry_.type), Entry.TYPE_WORKCOMPLETED));
+			p = cb.or(p, cb.equal(root.get(EntryStatic.type), Entry.TYPE_WORKCOMPLETED));
 		}
 		if (BooleanUtils.isTrue(cleanCms)) {
-			p = cb.or(p, cb.equal(root.get(Entry_.type), Entry.TYPE_CMS));
+			p = cb.or(p, cb.equal(root.get(EntryStatic.type), Entry.TYPE_CMS));
 		}
-		cq.select(root.get(Entry_.id)).where(p);
+		cq.select(root.get(EntryStatic.id)).where(p);
 		List<String> os = em.createQuery(cq).setMaxResults(BATCHSIZE).getResultList();
 		return os;
 	}

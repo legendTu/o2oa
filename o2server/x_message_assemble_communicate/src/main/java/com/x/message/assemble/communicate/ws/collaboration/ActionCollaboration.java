@@ -25,7 +25,7 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.message.MessageConnector;
 import com.x.base.core.project.message.WsMessage;
 import com.x.message.core.entity.Message;
-import com.x.message.core.entity.Message_;
+import com.x.message.core.entity.MessageStatic;
 import org.apache.commons.lang3.StringUtils;
 
 @ServerEndpoint(value = "/ws/collaboration", configurator = WsConfigurator.class)
@@ -93,10 +93,10 @@ public class ActionCollaboration {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Message> cq = cb.createQuery(Message.class);
 			Root<Message> root = cq.from(Message.class);
-			Predicate p = cb.equal(root.get(Message_.person), effectivePerson.getDistinguishedName());
-			p = cb.and(p, cb.equal(root.get(Message_.consumer), MessageConnector.CONSUME_WS));
-			p = cb.and(p, cb.equal(root.get(Message_.consumed), false));
-			cq.select(root).where(p).orderBy(cb.asc(root.get(Message_.createTime)));
+			Predicate p = cb.equal(root.get(MessageStatic.person), effectivePerson.getDistinguishedName());
+			p = cb.and(p, cb.equal(root.get(MessageStatic.consumer), MessageConnector.CONSUME_WS));
+			p = cb.and(p, cb.equal(root.get(MessageStatic.consumed), false));
+			cq.select(root).where(p).orderBy(cb.asc(root.get(MessageStatic.createTime)));
 			os = em.createQuery(cq).setMaxResults(100).getResultList();
 			emc.beginTransaction(Message.class);
 			for (Message o : os) {

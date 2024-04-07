@@ -19,7 +19,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.TaskCompleted_;
+import com.x.processplatform.core.entity.content.TaskCompletedStatic;
 
 class V2ListCreatePaging extends V2Base {
 
@@ -33,7 +33,7 @@ class V2ListCreatePaging extends V2Base {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 			Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-			Predicate p = cb.equal(root.get(TaskCompleted_.creatorPerson), effectivePerson.getDistinguishedName());
+			Predicate p = cb.equal(root.get(TaskCompletedStatic.creatorPerson), effectivePerson.getDistinguishedName());
 			p = cb.and(p, this.toFilterPredicate(effectivePerson, business, wi));
 			List<Wo> wos = emc.fetchDescPaging(TaskCompleted.class, Wo.copier, p, page, size, TaskCompleted.sequence_FIELDNAME);
 			result.setData(wos);

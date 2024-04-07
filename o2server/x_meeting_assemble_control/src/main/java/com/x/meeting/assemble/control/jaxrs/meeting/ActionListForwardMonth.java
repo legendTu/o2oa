@@ -24,7 +24,7 @@ import com.x.meeting.assemble.control.Business;
 import com.x.meeting.assemble.control.WrapTools;
 import com.x.meeting.assemble.control.wrapout.WrapOutMeeting;
 import com.x.meeting.core.entity.Meeting;
-import com.x.meeting.core.entity.Meeting_;
+import com.x.meeting.core.entity.MeetingStatic;
 import com.x.meeting.core.entity.Room;
 
 class ActionListForwardMonth extends BaseAction {
@@ -77,16 +77,16 @@ class ActionListForwardMonth extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Meeting> cq = cb.createQuery(Meeting.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.greaterThanOrEqualTo(root.get(Meeting_.startTime), start);
+		Predicate p = cb.greaterThanOrEqualTo(root.get(MeetingStatic.startTime), start);
 		/** 这里两个都是startTime是对的 */
-		p = cb.and(p, cb.lessThanOrEqualTo(root.get(Meeting_.startTime), end));
-		p = cb.and(p, cb.notEqual(root.get(Meeting_.manualCompleted), true));
+		p = cb.and(p, cb.lessThanOrEqualTo(root.get(MeetingStatic.startTime), end));
+		p = cb.and(p, cb.notEqual(root.get(MeetingStatic.manualCompleted), true));
 		if (effectivePerson.isNotManager() && (!business.organization().person().hasRole(effectivePerson,
 				OrganizationDefinition.MeetingManager))) {
 			p = cb.and(p,
-					cb.or(cb.equal(root.get(Meeting_.applicant), effectivePerson.getDistinguishedName()),
-							cb.equal(root.get(Meeting_.auditor), effectivePerson.getDistinguishedName()),
-							cb.isMember(effectivePerson.getDistinguishedName(), root.get(Meeting_.invitePersonList))));
+					cb.or(cb.equal(root.get(MeetingStatic.applicant), effectivePerson.getDistinguishedName()),
+							cb.equal(root.get(MeetingStatic.auditor), effectivePerson.getDistinguishedName()),
+							cb.isMember(effectivePerson.getDistinguishedName(), root.get(MeetingStatic.invitePersonList))));
 		}
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();

@@ -26,7 +26,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Role;
-import com.x.organization.core.entity.Role_;
+import com.x.organization.core.entity.RoleStatic;
 import com.x.base.core.project.cache.Cache;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
@@ -108,9 +108,9 @@ class ActionListPinyinInitial extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Role> cq = cb.createQuery(Role.class);
 		Root<Role> root = cq.from(Role.class);
-		Predicate p = cb.like(root.get(Role_.pinyinInitial), str + "%", StringTools.SQL_ESCAPE_CHAR);
+		Predicate p = cb.like(root.get(RoleStatic.pinyinInitial), str + "%", StringTools.SQL_ESCAPE_CHAR);
 		if (ListTools.isNotEmpty(roleIds)) {
-			p = cb.and(p, root.get(Role_.id).in(roleIds));
+			p = cb.and(p, root.get(RoleStatic.id).in(roleIds));
 		}
 		List<Role> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		wos = Wo.copier.copy(os);

@@ -28,7 +28,7 @@ import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.tools.DefaultCharset;
 import com.x.general.core.entity.area.District;
-import com.x.general.core.entity.area.District_;
+import com.x.general.core.entity.area.DistrictStatic;
 import com.x.program.center.Business;
 
 public class Area extends BaseAction {
@@ -124,8 +124,8 @@ public class Area extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<District> cq = cb.createQuery(District.class);
 		Root<District> root = cq.from(District.class);
-		Predicate p = cb.equal(root.get(District_.level), District.LEVEL_PROVINCE);
-		p = cb.and(p, cb.equal(root.get(District_.name), name));
+		Predicate p = cb.equal(root.get(DistrictStatic.level), District.LEVEL_PROVINCE);
+		p = cb.and(p, cb.equal(root.get(DistrictStatic.name), name));
 		cq.select(root).where(p);
 		List<District> os = em.createQuery(cq).getResultList();
 		if (os.isEmpty()) {

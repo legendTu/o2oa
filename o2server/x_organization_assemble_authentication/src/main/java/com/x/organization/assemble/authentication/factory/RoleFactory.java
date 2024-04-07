@@ -12,7 +12,7 @@ import com.x.base.core.project.organization.OrganizationDefinition;
 import com.x.organization.assemble.authentication.AbstractFactory;
 import com.x.organization.assemble.authentication.Business;
 import com.x.organization.core.entity.Role;
-import com.x.organization.core.entity.Role_;
+import com.x.organization.core.entity.RoleStatic;
 
 public class RoleFactory extends AbstractFactory {
 
@@ -25,8 +25,8 @@ public class RoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Role> root = cq.from(Role.class);
-		Predicate p = cb.isMember(id, root.get(Role_.personList));
-		cq.select(root.get(Role_.id)).where(p);
+		Predicate p = cb.isMember(id, root.get(RoleStatic.personList));
+		cq.select(root.get(RoleStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -35,8 +35,8 @@ public class RoleFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Role> root = cq.from(Role.class);
-		Predicate p = cb.equal(root.get(Role_.name), OrganizationDefinition.Manager);
-		cq.select(root.get(Role_.id)).where(p);
+		Predicate p = cb.equal(root.get(RoleStatic.name), OrganizationDefinition.Manager);
+		cq.select(root.get(RoleStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		if (!list.isEmpty()) {
 			return list.get(0);

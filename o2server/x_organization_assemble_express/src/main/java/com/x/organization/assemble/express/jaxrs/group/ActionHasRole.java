@@ -28,7 +28,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Group;
 import com.x.organization.core.entity.Role;
-import com.x.organization.core.entity.Role_;
+import com.x.organization.core.entity.RoleStatic;
 
 class ActionHasRole extends BaseAction {
 
@@ -102,8 +102,8 @@ class ActionHasRole extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Role> root = cq.from(Role.class);
-		Predicate p = root.get(Role_.groupList).in(groupIds);
-		List<String> os = em.createQuery(cq.select(root.get(Role_.id)).where(p))
+		Predicate p = root.get(RoleStatic.groupList).in(groupIds);
+		List<String> os = em.createQuery(cq.select(root.get(RoleStatic.id)).where(p))
 				.getResultList().stream().distinct().collect(Collectors.toList());
 		boolean value = ListTools.containsAny(os,
 				ListTools.extractProperty(roles, JpaObject.id_FIELDNAME, String.class, true, true));

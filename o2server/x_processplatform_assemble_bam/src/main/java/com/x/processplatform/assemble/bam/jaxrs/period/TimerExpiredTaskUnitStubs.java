@@ -21,7 +21,7 @@ import com.x.processplatform.assemble.bam.stub.UnitStub;
 import com.x.processplatform.assemble.bam.stub.UnitStubs;
 import com.x.processplatform.core.entity.content.Task;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.TaskCompleted_;
+import com.x.processplatform.core.entity.content.TaskCompletedStatic;
 import com.x.processplatform.core.entity.content.TaskStatic;
 
 public class TimerExpiredTaskUnitStubs extends BaseAction {
@@ -64,9 +64,9 @@ public class TimerExpiredTaskUnitStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.between(root.get(TaskCompleted_.expireTime), dateRange.getStart(), dateRange.getEnd());
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.expired), true));
-		cq.select(root.get(TaskCompleted_.unit)).distinct(true).where(p);
+		Predicate p = cb.between(root.get(TaskCompletedStatic.expireTime), dateRange.getStart(), dateRange.getEnd());
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.expired), true));
+		cq.select(root.get(TaskCompletedStatic.unit)).distinct(true).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return list;
 	}

@@ -23,7 +23,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.meeting.assemble.control.Business;
 import com.x.meeting.core.entity.ConfirmStatus;
 import com.x.meeting.core.entity.Meeting;
-import com.x.meeting.core.entity.Meeting_;
+import com.x.meeting.core.entity.MeetingStatic;
 import com.x.meeting.core.entity.Room;
 
 class ActionList extends BaseAction {
@@ -85,10 +85,10 @@ class ActionList extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Meeting> cq = cb.createQuery(Meeting.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.greaterThanOrEqualTo(root.get(Meeting_.startTime), new Date());
+		Predicate p = cb.greaterThanOrEqualTo(root.get(MeetingStatic.startTime), new Date());
 		// p = cb.and(p, cb.equal(root.get(Meeting_.room), room.getId()));
-		p = cb.and(p, cb.equal(root.get(Meeting_.manualCompleted), false));
-		p = cb.and(p, cb.equal(root.get(Meeting_.confirmStatus), ConfirmStatus.allow));
+		p = cb.and(p, cb.equal(root.get(MeetingStatic.manualCompleted), false));
+		p = cb.and(p, cb.equal(root.get(MeetingStatic.confirmStatus), ConfirmStatus.allow));
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}

@@ -22,7 +22,7 @@ import com.x.organization.assemble.personal.AbstractFactory;
 import com.x.organization.assemble.personal.Business;
 import com.x.organization.core.entity.PersistenceProperties;
 import com.x.organization.core.entity.Person;
-import com.x.organization.core.entity.Person_;
+import com.x.organization.core.entity.PersonStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 import java.util.Optional;
@@ -70,7 +70,7 @@ public class PersonFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<Person> cq = cb.createQuery(Person.class);
 				Root<Person> root = cq.from(Person.class);
-				Predicate p = cb.equal(root.get(Person_.name), name);
+				Predicate p = cb.equal(root.get(PersonStatic.name), name);
 				List<Person> os = em.createQuery(cq.select(root).where(p)).getResultList();
 				if (os.size() == 1) {
 					o = os.get(0);
@@ -114,10 +114,10 @@ public class PersonFactory extends AbstractFactory {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Person> cq = cb.createQuery(Person.class);
 			Root<Person> root = cq.from(Person.class);
-			Predicate p = cb.equal(root.get(Person_.mobile), value);
-			p = cb.or(p, cb.equal(root.get(Person_.qq), value));
-			p = cb.or(p, cb.equal(root.get(Person_.mail), value));
-			p = cb.or(p, cb.equal(root.get(Person_.weixin), value));
+			Predicate p = cb.equal(root.get(PersonStatic.mobile), value);
+			p = cb.or(p, cb.equal(root.get(PersonStatic.qq), value));
+			p = cb.or(p, cb.equal(root.get(PersonStatic.mail), value));
+			p = cb.or(p, cb.equal(root.get(PersonStatic.weixin), value));
 			List<Person> os = em.createQuery(cq.select(root).where(p)).getResultList();
 			if (os.size() == 1) {
 				person = os.get(0);
@@ -134,11 +134,11 @@ public class PersonFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.name), name);
+		Predicate p = cb.equal(root.get(PersonStatic.name), name);
 		if (StringUtils.isNotEmpty(excludeId)) {
-			p = cb.and(p, cb.notEqual(root.get(Person_.id), excludeId));
+			p = cb.and(p, cb.notEqual(root.get(PersonStatic.id), excludeId));
 		}
-		cq.select(root.get(Person_.id)).where(p);
+		cq.select(root.get(PersonStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return this.returnNotDuplicateId(list);
 	}
@@ -151,11 +151,11 @@ public class PersonFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.mobile), mobile);
+		Predicate p = cb.equal(root.get(PersonStatic.mobile), mobile);
 		if (StringUtils.isNotEmpty(excludeId)) {
-			p = cb.and(p, cb.notEqual(root.get(Person_.id), excludeId));
+			p = cb.and(p, cb.notEqual(root.get(PersonStatic.id), excludeId));
 		}
-		cq.select(root.get(Person_.id)).where(p);
+		cq.select(root.get(PersonStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return this.returnNotDuplicateId(list);
 	}
@@ -169,11 +169,11 @@ public class PersonFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.employee), employee);
+		Predicate p = cb.equal(root.get(PersonStatic.employee), employee);
 		if (StringUtils.isNotEmpty(excludeId)) {
-			p = cb.and(p, cb.notEqual(root.get(Person_.id), excludeId));
+			p = cb.and(p, cb.notEqual(root.get(PersonStatic.id), excludeId));
 		}
-		cq.select(root.get(Person_.id)).where(p);
+		cq.select(root.get(PersonStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return this.returnNotDuplicateId(list);
 	}
@@ -186,11 +186,11 @@ public class PersonFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.unique), unique);
+		Predicate p = cb.equal(root.get(PersonStatic.unique), unique);
 		if (StringUtils.isNotEmpty(excludeId)) {
-			p = cb.and(p, cb.notEqual(root.get(Person_.id), excludeId));
+			p = cb.and(p, cb.notEqual(root.get(PersonStatic.id), excludeId));
 		}
-		cq.select(root.get(Person_.id)).where(p);
+		cq.select(root.get(PersonStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return this.returnNotDuplicateId(list);
 	}
@@ -203,11 +203,11 @@ public class PersonFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.qq), qq);
+		Predicate p = cb.equal(root.get(PersonStatic.qq), qq);
 		if (StringUtils.isNotEmpty(excludeId)) {
-			p = cb.and(p, cb.notEqual(root.get(Person_.id), excludeId));
+			p = cb.and(p, cb.notEqual(root.get(PersonStatic.id), excludeId));
 		}
-		cq.select(root.get(Person_.id)).where(p);
+		cq.select(root.get(PersonStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return this.returnNotDuplicateId(list);
 	}
@@ -220,11 +220,11 @@ public class PersonFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.mail), mail);
+		Predicate p = cb.equal(root.get(PersonStatic.mail), mail);
 		if (StringUtils.isNotEmpty(excludeId)) {
-			p = cb.and(p, cb.notEqual(root.get(Person_.id), excludeId));
+			p = cb.and(p, cb.notEqual(root.get(PersonStatic.id), excludeId));
 		}
-		cq.select(root.get(Person_.id)).where(p);
+		cq.select(root.get(PersonStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return this.returnNotDuplicateId(list);
 	}
@@ -237,11 +237,11 @@ public class PersonFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.weixin), weixin);
+		Predicate p = cb.equal(root.get(PersonStatic.weixin), weixin);
 		if (StringUtils.isNotEmpty(excludeId)) {
-			p = cb.and(p, cb.notEqual(root.get(Person_.id), excludeId));
+			p = cb.and(p, cb.notEqual(root.get(PersonStatic.id), excludeId));
 		}
-		cq.select(root.get(Person_.id)).where(p);
+		cq.select(root.get(PersonStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return this.returnNotDuplicateId(list);
 	}

@@ -31,7 +31,7 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.Unit_;
 
@@ -185,7 +185,7 @@ class ActionListObject extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.equal(root.get(Identity_.unit), wo.getId());
+		Predicate p = cb.equal(root.get(IdentityStatic.unit), wo.getId());
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();
 	}
 

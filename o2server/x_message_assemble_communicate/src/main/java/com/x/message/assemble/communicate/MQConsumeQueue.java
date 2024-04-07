@@ -21,7 +21,7 @@ import com.x.message.assemble.communicate.mq.ActiveMQ;
 import com.x.message.assemble.communicate.mq.KafkaMQ;
 import com.x.message.assemble.communicate.mq.MQInterface;
 import com.x.message.core.entity.Message;
-import com.x.message.core.entity.Message_;
+import com.x.message.core.entity.MessageStatic;
 
 
 public class MQConsumeQueue extends AbstractQueue<Message> {
@@ -39,10 +39,10 @@ public class MQConsumeQueue extends AbstractQueue<Message> {
 				CriteriaQuery<Message> cq = cb.createQuery(Message.class);
 				Root<Message> root = cq.from(Message.class);
 
-				Order order = cb.desc(root.get(Message_.createTime));
-				Predicate p = cb.notEqual(root.get(Message_.consumed), true);
+				Order order = cb.desc(root.get(MessageStatic.createTime));
+				Predicate p = cb.notEqual(root.get(MessageStatic.consumed), true);
 				
-				p = cb.and(p, cb.equal(root.get(Message_.consumer), MessageConnector.CONSUME_MQ));
+				p = cb.and(p, cb.equal(root.get(MessageStatic.consumer), MessageConnector.CONSUME_MQ));
 				logger.info(p.toString());
 				List<Message> messages = em.createQuery(cq.select(root).where(p).orderBy(order)).setMaxResults(50).getResultList();
 				if(messages.size()>0) {

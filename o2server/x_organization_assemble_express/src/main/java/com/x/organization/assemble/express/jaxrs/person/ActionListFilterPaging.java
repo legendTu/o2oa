@@ -13,7 +13,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.StringTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Person;
-import com.x.organization.core.entity.Person_;
+import com.x.organization.core.entity.PersonStatic;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -45,17 +45,17 @@ class ActionListFilterPaging extends BaseAction {
 		Root<Person> root = cq.from(Person.class);
 		Predicate p = cb.conjunction();
 		if (StringUtils.isNotBlank(wi.getEmployee())) {
-			p = cb.and(p, cb.equal(root.get(Person_.employee), wi.getEmployee()));
+			p = cb.and(p, cb.equal(root.get(PersonStatic.employee), wi.getEmployee()));
 		}
 		if (StringUtils.isNotBlank(wi.getMobile())) {
-			p = cb.and(p, cb.equal(root.get(Person_.mobile), wi.getMobile()));
+			p = cb.and(p, cb.equal(root.get(PersonStatic.mobile), wi.getMobile()));
 		}
 		if (StringUtils.isNotBlank(wi.getUnique())) {
-			p = cb.and(p, cb.equal(root.get(Person_.unique), wi.getUnique()));
+			p = cb.and(p, cb.equal(root.get(PersonStatic.unique), wi.getUnique()));
 		}
 		if (StringUtils.isNoneBlank(wi.getName())) {
 			String key = StringTools.escapeSqlLikeKey(wi.getName());
-			p = cb.and(p, cb.like(root.get(Person_.name), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR));
+			p = cb.and(p, cb.like(root.get(PersonStatic.name), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR));
 		}
 
 		return p;

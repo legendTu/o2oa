@@ -19,7 +19,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.bam.Business;
 import com.x.processplatform.core.entity.content.Task;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.TaskCompleted_;
+import com.x.processplatform.core.entity.content.TaskCompletedStatic;
 import com.x.processplatform.core.entity.content.TaskStatic;
 import com.x.processplatform.core.entity.content.Work;
 import com.x.processplatform.core.entity.content.WorkCompleted;
@@ -93,21 +93,21 @@ class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.between(root.get(TaskCompleted_.startTime), dateRange.getStart(), dateRange.getEnd());
+		Predicate p = cb.between(root.get(TaskCompletedStatic.startTime), dateRange.getStart(), dateRange.getEnd());
 		if (!StringUtils.equals(applicationId, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.application), applicationId));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.application), applicationId));
 		}
 		if (!StringUtils.equals(processId, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.process), processId));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.process), processId));
 		}
 		if (!StringUtils.equals(activityId, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.activity), activityId));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.activity), activityId));
 		}
 		if (ListTools.isNotEmpty(units)) {
-			p = cb.and(p, root.get(TaskCompleted_.unit).in(units));
+			p = cb.and(p, root.get(TaskCompletedStatic.unit).in(units));
 		}
 		if (!StringUtils.equals(person, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.person), person));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.person), person));
 		}
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
@@ -119,24 +119,24 @@ class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.between(root.get(TaskCompleted_.completedTime), dateRange.getStart(), dateRange.getEnd());
+		Predicate p = cb.between(root.get(TaskCompletedStatic.completedTime), dateRange.getStart(), dateRange.getEnd());
 		if (!StringUtils.equals(applicationId, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.application), applicationId));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.application), applicationId));
 		}
 		if (!StringUtils.equals(processId, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.process), processId));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.process), processId));
 		}
 		if (!StringUtils.equals(activityId, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.activity), activityId));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.activity), activityId));
 		}
 		if (!StringUtils.equals(unit, StandardJaxrsAction.EMPTY_SYMBOL)) {
 			List<String> units = new ArrayList<>();
 			units.add(unit);
 			units.addAll(business.organization().unit().listWithUnitSubNested(unit));
-			p = cb.and(p, root.get(TaskCompleted_.unit).in(units));
+			p = cb.and(p, root.get(TaskCompletedStatic.unit).in(units));
 		}
 		if (!StringUtils.equals(person, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.person), person));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.person), person));
 		}
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
@@ -148,26 +148,26 @@ class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.between(root.get(TaskCompleted_.completedTime), dateRange.getStart(), dateRange.getEnd());
+		Predicate p = cb.between(root.get(TaskCompletedStatic.completedTime), dateRange.getStart(), dateRange.getEnd());
 		if (!StringUtils.equals(applicationId, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.application), applicationId));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.application), applicationId));
 		}
 		if (!StringUtils.equals(processId, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.process), processId));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.process), processId));
 		}
 		if (!StringUtils.equals(activityId, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.activity), activityId));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.activity), activityId));
 		}
 		if (!StringUtils.equals(unit, StandardJaxrsAction.EMPTY_SYMBOL)) {
 			List<String> units = new ArrayList<>();
 			units.add(unit);
 			units.addAll(business.organization().unit().listWithUnitSubNested(unit));
-			p = cb.and(p, root.get(TaskCompleted_.unit).in(units));
+			p = cb.and(p, root.get(TaskCompletedStatic.unit).in(units));
 		}
 		if (!StringUtils.equals(person, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.person), person));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.person), person));
 		}
-		cq.select(cb.sum(root.get(TaskCompleted_.duration))).where(p);
+		cq.select(cb.sum(root.get(TaskCompletedStatic.duration))).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
 
@@ -216,22 +216,22 @@ class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.between(root.get(TaskCompleted_.expireTime), dateRange.getStart(), dateRange.getEnd());
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.expired), true));
+		Predicate p = cb.between(root.get(TaskCompletedStatic.expireTime), dateRange.getStart(), dateRange.getEnd());
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.expired), true));
 		if (!StringUtils.equals(applicationId, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.application), applicationId));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.application), applicationId));
 		}
 		if (!StringUtils.equals(processId, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.process), processId));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.process), processId));
 		}
 		if (!StringUtils.equals(activityId, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.activity), activityId));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.activity), activityId));
 		}
 		if (ListTools.isNotEmpty(units)) {
-			p = cb.and(p, root.get(TaskCompleted_.unit).in(units));
+			p = cb.and(p, root.get(TaskCompletedStatic.unit).in(units));
 		}
 		if (!StringUtils.equals(person, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.person), person));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.person), person));
 		}
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
@@ -353,21 +353,21 @@ class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.between(root.get(TaskCompleted_.completedTime), dateRange.getStart(), dateRange.getEnd());
+		Predicate p = cb.between(root.get(TaskCompletedStatic.completedTime), dateRange.getStart(), dateRange.getEnd());
 		if (!StringUtils.equals(applicationId, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.application), applicationId));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.application), applicationId));
 		}
 		if (!StringUtils.equals(processId, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.process), processId));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.process), processId));
 		}
 		if (!StringUtils.equals(unit, StandardJaxrsAction.EMPTY_SYMBOL)) {
 			List<String> units = new ArrayList<>();
 			units.add(unit);
 			units.addAll(business.organization().unit().listWithUnitSubNested(unit));
-			p = cb.and(p, root.get(TaskCompleted_.creatorUnit).in(units));
+			p = cb.and(p, root.get(TaskCompletedStatic.creatorUnit).in(units));
 		}
 		if (!StringUtils.equals(person, StandardJaxrsAction.EMPTY_SYMBOL)) {
-			p = cb.and(p, cb.equal(root.get(TaskCompleted_.person), person));
+			p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.person), person));
 		}
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();

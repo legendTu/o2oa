@@ -17,7 +17,6 @@ import com.x.base.core.entity.annotation.CheckRemoveType;
 import com.x.base.core.project.Applications;
 import com.x.base.core.project.cache.CacheManager;
 import com.x.base.core.project.x_message_assemble_communicate;
-import com.x.base.core.project.cache.ApplicationCache;
 import com.x.base.core.project.config.Config;
 import com.x.base.core.project.connection.ActionResponse;
 import com.x.base.core.project.exception.ExceptionAccessDenied;
@@ -115,7 +114,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Identity> cq = cb.createQuery(Identity.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.equal(root.get(Identity_.person), person.getId());
+		Predicate p = cb.equal(root.get(IdentityStatic.person), person.getId());
 		List<Identity> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}
@@ -152,7 +151,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Person> cq = cb.createQuery(Person.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.isMember(person.getId(), root.get(Person_.controllerList));
+		Predicate p = cb.isMember(person.getId(), root.get(PersonStatic.controllerList));
 		List<Person> os = em.createQuery(cq.select(root).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 		for (Person o : os) {
 			o.getControllerList().remove(person.getId());
@@ -164,7 +163,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Person> cq = cb.createQuery(Person.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.superior), person.getId());
+		Predicate p = cb.equal(root.get(PersonStatic.superior), person.getId());
 		List<Person> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		for (Person o : os) {
 			o.setSuperior("");
@@ -213,7 +212,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Role> cq = cb.createQuery(Role.class);
 		Root<Role> root = cq.from(Role.class);
-		Predicate p = cb.isMember(person.getId(), root.get(Role_.personList));
+		Predicate p = cb.isMember(person.getId(), root.get(RoleStatic.personList));
 		List<Role> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		for (Role o : os) {
 			o.getPersonList().remove(person.getId());

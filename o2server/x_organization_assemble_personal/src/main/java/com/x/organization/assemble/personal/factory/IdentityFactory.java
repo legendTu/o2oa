@@ -17,7 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.x.organization.assemble.personal.AbstractFactory;
 import com.x.organization.assemble.personal.Business;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.PersistenceProperties;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
@@ -65,7 +65,7 @@ public class IdentityFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<Identity> cq = cb.createQuery(Identity.class);
 				Root<Identity> root = cq.from(Identity.class);
-				Predicate p = cb.equal(root.get(Identity_.name), name);
+				Predicate p = cb.equal(root.get(IdentityStatic.name), name);
 				List<Identity> os = em.createQuery(cq.select(root).where(p)).getResultList();
 				if (os.size() == 1) {
 					o = os.get(0);

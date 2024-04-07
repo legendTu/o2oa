@@ -23,7 +23,7 @@ public class OriginFileFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<OriginFile> cq = cb.createQuery(OriginFile.class);
 		Root<OriginFile> root = cq.from(OriginFile.class);
-		Predicate p = cb.equal(root.get(OriginFile_.fileMd5), fileMd5);
+		Predicate p = cb.equal(root.get(OriginFileStatic.fileMd5), fileMd5);
 		List<OriginFile> originFileList = em.createQuery(cq.where(p)).setMaxResults(1).getResultList();
 		if(originFileList!=null && !originFileList.isEmpty()){
 			return originFileList.get(0);

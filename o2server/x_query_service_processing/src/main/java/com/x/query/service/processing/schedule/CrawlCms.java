@@ -22,7 +22,7 @@ import com.x.base.core.project.utils.time.TimeStamp;
 import com.x.cms.core.entity.Document;
 import com.x.cms.core.entity.DocumentStatic;
 import com.x.query.core.entity.segment.Entry;
-import com.x.query.core.entity.segment.Entry_;
+import com.x.query.core.entity.segment.EntryStatic;
 import com.x.query.core.express.program.Arguments;
 import com.x.query.service.processing.Business;
 import com.x.query.service.processing.ThisApplication;
@@ -121,8 +121,8 @@ public class CrawlCms extends AbstractJob {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Entry> root = cq.from(Entry.class);
-		Predicate p = cb.equal(root.get(Entry_.type), Entry.TYPE_CMS);
-		cq.select(root.get(Entry_.reference)).where(p).orderBy(cb.asc(root.get(JpaObjectStatic.sequence)));
+		Predicate p = cb.equal(root.get(EntryStatic.type), Entry.TYPE_CMS);
+		cq.select(root.get(EntryStatic.reference)).where(p).orderBy(cb.asc(root.get(JpaObjectStatic.sequence)));
 		Integer count = Config.query().getCrawlCms().getCount() / 2;
 		return em.createQuery(cq).setMaxResults(count).getResultList();
 	}

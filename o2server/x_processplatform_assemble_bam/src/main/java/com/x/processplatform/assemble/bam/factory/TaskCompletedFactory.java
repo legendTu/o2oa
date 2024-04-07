@@ -12,7 +12,7 @@ import com.x.processplatform.assemble.bam.AbstractFactory;
 import com.x.processplatform.assemble.bam.Business;
 import com.x.processplatform.assemble.bam.stub.UnitStub;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.TaskCompleted_;
+import com.x.processplatform.core.entity.content.TaskCompletedStatic;
 
 public class TaskCompletedFactory extends AbstractFactory {
 
@@ -27,8 +27,8 @@ public class TaskCompletedFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.greaterThan(root.get(TaskCompleted_.completedTime), start);
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.unit), unitStub.getValue()));
+		Predicate p = cb.greaterThan(root.get(TaskCompletedStatic.completedTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.unit), unitStub.getValue()));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -40,9 +40,9 @@ public class TaskCompletedFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.greaterThan(root.get(TaskCompleted_.completedTime), start);
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.unit), unitStub.getValue()));
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.expired), true));
+		Predicate p = cb.greaterThan(root.get(TaskCompletedStatic.completedTime), start);
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.unit), unitStub.getValue()));
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.expired), true));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

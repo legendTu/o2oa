@@ -16,7 +16,7 @@ import com.x.mind.assemble.control.AbstractFactory;
 import com.x.mind.assemble.control.Business;
 import com.x.mind.entity.MindVersionContent;
 import com.x.mind.entity.MindVersionInfo;
-import com.x.mind.entity.MindVersionInfo_;
+import com.x.mind.entity.MindVersionInfoStatic;
 
 
 /**
@@ -56,7 +56,7 @@ public class MindVersionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<MindVersionInfo> cq = cb.createQuery(MindVersionInfo.class);
 		Root<MindVersionInfo> root = cq.from(MindVersionInfo.class);
-		Predicate p = root.get(MindVersionInfo_.id).in(ids);
+		Predicate p = root.get(MindVersionInfoStatic.id).in(ids);
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -84,8 +84,8 @@ public class MindVersionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<MindVersionInfo> root = cq.from(MindVersionInfo.class);
-		Predicate p = cb.equal( root.get(MindVersionInfo_.mindId) , mindId);
-		cq.select( root.get(MindVersionInfo_.id) );
+		Predicate p = cb.equal( root.get(MindVersionInfoStatic.mindId) , mindId);
+		cq.select( root.get(MindVersionInfoStatic.id) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -100,7 +100,7 @@ public class MindVersionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<MindVersionInfo> root = cq.from(MindVersionInfo.class);
-		Predicate p = cb.equal( root.get( MindVersionInfo_.mindId), mindId);
+		Predicate p = cb.equal( root.get( MindVersionInfoStatic.mindId), mindId);
 		cq.select( cb.count( root ) );
 		return em.createQuery(cq.where(p)).getSingleResult();
 	}
@@ -119,8 +119,8 @@ public class MindVersionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<MindVersionInfo> cq = cb.createQuery(MindVersionInfo.class);
 		Root<MindVersionInfo> root = cq.from(MindVersionInfo.class);
-		Predicate p = cb.equal( root.get(MindVersionInfo_.mindId) , mindId);
-		cq.orderBy( cb.asc( root.get( MindVersionInfo_.updateTime ) ) );
+		Predicate p = cb.equal( root.get(MindVersionInfoStatic.mindId) , mindId);
+		cq.orderBy( cb.asc( root.get( MindVersionInfoStatic.updateTime ) ) );
 		List<MindVersionInfo> versions = em.createQuery(cq.where(p)).setMaxResults(1).getResultList();
 		if(ListTools.isNotEmpty( versions )) {
 			 return versions.get(0);
@@ -136,8 +136,8 @@ public class MindVersionInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<MindVersionInfo> cq = cb.createQuery(MindVersionInfo.class);
 		Root<MindVersionInfo> root = cq.from(MindVersionInfo.class);
-		Predicate p = cb.equal( root.get(MindVersionInfo_.mindId) , mindId);
-		cq.orderBy( cb.desc( root.get( MindVersionInfo_.updateTime ) ) );
+		Predicate p = cb.equal( root.get(MindVersionInfoStatic.mindId) , mindId);
+		cq.orderBy( cb.desc( root.get( MindVersionInfoStatic.updateTime ) ) );
 		List<MindVersionInfo> versions = em.createQuery(cq.where(p)).setMaxResults(1).getResultList();
 		if(ListTools.isNotEmpty( versions )) {
 			 return versions.get(0);

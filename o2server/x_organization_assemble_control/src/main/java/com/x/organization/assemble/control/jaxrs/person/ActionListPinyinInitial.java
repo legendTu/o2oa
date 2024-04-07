@@ -27,7 +27,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Person;
-import com.x.organization.core.entity.Person_;
+import com.x.organization.core.entity.PersonStatic;
 
 class ActionListPinyinInitial extends BaseAction {
 
@@ -107,9 +107,9 @@ class ActionListPinyinInitial extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Person> cq = cb.createQuery(Person.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.like(root.get(Person_.pinyinInitial), str + "%", StringTools.SQL_ESCAPE_CHAR);
+		Predicate p = cb.like(root.get(PersonStatic.pinyinInitial), str + "%", StringTools.SQL_ESCAPE_CHAR);
 		if (ListTools.isNotEmpty(personIds)) {
-			p = cb.and(p, root.get(Person_.id).in(personIds));
+			p = cb.and(p, root.get(PersonStatic.id).in(personIds));
 		}else{
 			if(ListTools.isNotEmpty(wi.getGroupList(), wi.getRoleList())) {
 				return wos;

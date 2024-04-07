@@ -32,12 +32,12 @@ import com.x.organization.assemble.control.factory.UnitFactory;
 import com.x.organization.core.entity.Group;
 import com.x.organization.core.entity.Group_;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.PersonAttribute;
-import com.x.organization.core.entity.Person_;
+import com.x.organization.core.entity.PersonStatic;
 import com.x.organization.core.entity.Role;
-import com.x.organization.core.entity.Role_;
+import com.x.organization.core.entity.RoleStatic;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitAttribute;
 import com.x.organization.core.entity.UnitDuty;
@@ -402,7 +402,7 @@ public class Business {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Role> cq = cb.createQuery(Role.class);
 			Root<Role> root = cq.from(Role.class);
-			Predicate p = root.get(Role_.groupList).in(expendGroupIds);
+			Predicate p = root.get(RoleStatic.groupList).in(expendGroupIds);
 			List<Role> os = em.createQuery(cq.select(root).where(p)).getResultList();
 			for (Role o : os) {
 				roleIds.add(o.getId());
@@ -457,8 +457,8 @@ public class Business {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = root.get(Identity_.unit).in(expendUnitIds);
-		List<String> os = em.createQuery(cq.select(root.get(Identity_.id)).where(p)).getResultList();
+		Predicate p = root.get(IdentityStatic.unit).in(expendUnitIds);
+		List<String> os = em.createQuery(cq.select(root.get(IdentityStatic.id)).where(p)).getResultList();
 		os = ListTools.trim(os, true, true);
 		return os;
 	}
@@ -500,8 +500,8 @@ public class Business {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.equal(root.get(Identity_.unit), u.getId());
-		List<String> os = em.createQuery(cq.select(root.get(Identity_.person)).where(p)).getResultList();
+		Predicate p = cb.equal(root.get(IdentityStatic.unit), u.getId());
+		List<String> os = em.createQuery(cq.select(root.get(IdentityStatic.person)).where(p)).getResultList();
 		return this.person().pick(os);
 	}
 
@@ -544,7 +544,7 @@ public class Business {
 			Root<Person> root = cq.from(Person.class);
 			List<Unit> units = listTopUnitWithPerson(effectivePerson.getDistinguishedName());
 			List<String> ids = ListTools.extractField(units, JpaObject.id_FIELDNAME, String.class, true, true);
-			return cb.or(root.get(Person_.topUnitList).in(ids), cb.isEmpty(root.get(Person_.topUnitList)));
+			return cb.or(root.get(PersonStatic.topUnitList).in(ids), cb.isEmpty(root.get(PersonStatic.topUnitList)));
 		}
 	}
 }

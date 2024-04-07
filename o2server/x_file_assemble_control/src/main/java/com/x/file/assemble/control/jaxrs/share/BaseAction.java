@@ -9,7 +9,7 @@ import com.x.base.core.project.organization.Unit;
 import com.x.file.assemble.control.Business;
 import com.x.file.assemble.control.service.FileCommonService;
 import com.x.file.core.entity.personal.Share;
-import com.x.file.core.entity.personal.Share_;
+import com.x.file.core.entity.personal.ShareStatic;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -43,10 +43,10 @@ abstract class BaseAction extends StandardJaxrsAction {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Share> root = cq.from(Share.class);
-        Predicate p = cb.equal(root.get(Share_.person), effectivePerson.getDistinguishedName());
-        p = cb.and(p, cb.equal(root.get(Share_.fileId), name));
+        Predicate p = cb.equal(root.get(ShareStatic.person), effectivePerson.getDistinguishedName());
+        p = cb.and(p, cb.equal(root.get(ShareStatic.fileId), name));
         if (StringUtils.isNotEmpty(excludeId)) {
-            p = cb.and(p, cb.notEqual(root.get(Share_.id), excludeId));
+            p = cb.and(p, cb.notEqual(root.get(ShareStatic.id), excludeId));
         }
         cq.select(cb.count(root)).where(p);
         long count = em.createQuery(cq).getSingleResult();

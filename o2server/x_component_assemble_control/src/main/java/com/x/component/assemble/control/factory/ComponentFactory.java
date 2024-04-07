@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.component.assemble.control.AbstractFactory;
 import com.x.component.assemble.control.Business;
 import com.x.component.core.entity.Component;
-import com.x.component.core.entity.Component_;
+import com.x.component.core.entity.ComponentStatic;
 
 public class ComponentFactory extends AbstractFactory {
 
@@ -24,7 +24,7 @@ public class ComponentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Component> root = cq.from(Component.class);
-		cq.select(root.get(Component_.id));
+		cq.select(root.get(ComponentStatic.id));
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -33,8 +33,8 @@ public class ComponentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Component> root = cq.from(Component.class);
-		Predicate p = cb.equal(root.get(Component_.visible), Boolean.TRUE);
-		cq.where(p).select(root.get(Component_.id));
+		Predicate p = cb.equal(root.get(ComponentStatic.visible), Boolean.TRUE);
+		cq.where(p).select(root.get(ComponentStatic.id));
 		return em.createQuery(cq).getResultList();
 	}
 

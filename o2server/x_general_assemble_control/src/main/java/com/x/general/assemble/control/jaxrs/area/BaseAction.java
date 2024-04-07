@@ -12,7 +12,7 @@ import com.x.base.core.project.cache.ApplicationCache;
 import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.general.assemble.control.Business;
 import com.x.general.core.entity.area.District;
-import com.x.general.core.entity.area.District_;
+import com.x.general.core.entity.area.DistrictStatic;
 
 import net.sf.ehcache.Ehcache;
 
@@ -34,9 +34,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<District> cq = cb.createQuery(District.class);
 		Root<District> root = cq.from(District.class);
-		Predicate p = cb.equal(root.get(District_.name), name);
-		p = cb.and(p, cb.equal(root.get(District_.level), District.LEVEL_CITY));
-		p = cb.and(p, cb.equal(root.get(District_.province), province.getId()));
+		Predicate p = cb.equal(root.get(DistrictStatic.name), name);
+		p = cb.and(p, cb.equal(root.get(DistrictStatic.level), District.LEVEL_CITY));
+		p = cb.and(p, cb.equal(root.get(DistrictStatic.province), province.getId()));
 		cq.select(root).where(p);
 		List<District> os = em.createQuery(cq).getResultList();
 		if (os.size() == 1) {
@@ -50,9 +50,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<District> cq = cb.createQuery(District.class);
 		Root<District> root = cq.from(District.class);
-		Predicate p = cb.equal(root.get(District_.name), name);
-		p = cb.and(p, cb.equal(root.get(District_.level), District.LEVEL_DISTRICT));
-		p = cb.and(p, cb.equal(root.get(District_.city), city.getId()));
+		Predicate p = cb.equal(root.get(DistrictStatic.name), name);
+		p = cb.and(p, cb.equal(root.get(DistrictStatic.level), District.LEVEL_DISTRICT));
+		p = cb.and(p, cb.equal(root.get(DistrictStatic.city), city.getId()));
 		cq.select(root).where(p);
 		List<District> os = em.createQuery(cq).getResultList();
 		if (os.size() == 1) {

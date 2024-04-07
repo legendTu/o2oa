@@ -24,7 +24,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.Unit;
 
@@ -77,8 +77,8 @@ class ActionListWithPersonObject extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<String> cq = cb.createQuery(String.class);
 			Root<Identity> root = cq.from(Identity.class);
-			Predicate p = root.get(Identity_.person).in(ids);
-			List<String> unitIds = em.createQuery(cq.select(root.get(Identity_.unit)).where(p))
+			Predicate p = root.get(IdentityStatic.person).in(ids);
+			List<String> unitIds = em.createQuery(cq.select(root.get(IdentityStatic.unit)).where(p))
 					.getResultList().stream().distinct().collect(Collectors.toList());
 			List<Unit> units = business.unit().pick(unitIds);
 			units = business.unit().sort(units);

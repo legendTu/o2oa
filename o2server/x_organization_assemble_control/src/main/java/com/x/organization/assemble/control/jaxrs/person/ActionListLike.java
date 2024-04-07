@@ -26,7 +26,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Person;
-import com.x.organization.core.entity.Person_;
+import com.x.organization.core.entity.PersonStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 
@@ -99,21 +99,21 @@ class ActionListLike extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.like(cb.lower(root.get(Person_.name)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR);
-		p = cb.or(p, cb.like(cb.lower(root.get(Person_.unique)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR));
-		p = cb.or(p, cb.like(cb.lower(root.get(Person_.pinyin)), str + "%", StringTools.SQL_ESCAPE_CHAR));
-		p = cb.or(p, cb.like(cb.lower(root.get(Person_.pinyinInitial)), str + "%", StringTools.SQL_ESCAPE_CHAR));
-		p = cb.or(p, cb.like(cb.lower(root.get(Person_.mobile)), str + "%", StringTools.SQL_ESCAPE_CHAR));
-		p = cb.or(p, cb.like(cb.lower(root.get(Person_.distinguishedName)), str + "%", StringTools.SQL_ESCAPE_CHAR));
+		Predicate p = cb.like(cb.lower(root.get(PersonStatic.name)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR);
+		p = cb.or(p, cb.like(cb.lower(root.get(PersonStatic.unique)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR));
+		p = cb.or(p, cb.like(cb.lower(root.get(PersonStatic.pinyin)), str + "%", StringTools.SQL_ESCAPE_CHAR));
+		p = cb.or(p, cb.like(cb.lower(root.get(PersonStatic.pinyinInitial)), str + "%", StringTools.SQL_ESCAPE_CHAR));
+		p = cb.or(p, cb.like(cb.lower(root.get(PersonStatic.mobile)), str + "%", StringTools.SQL_ESCAPE_CHAR));
+		p = cb.or(p, cb.like(cb.lower(root.get(PersonStatic.distinguishedName)), str + "%", StringTools.SQL_ESCAPE_CHAR));
 		if (ListTools.isNotEmpty(personIds)) {
-			p = cb.and(p, root.get(Person_.id).in(personIds));
+			p = cb.and(p, root.get(PersonStatic.id).in(personIds));
 		} else {
 			if (ListTools.isNotEmpty(wi.getGroupList(), wi.getRoleList())) {
 				return wos;
 			}
 		}
 		p = cb.and(p, business.personPredicateWithTopUnit(effectivePesron));
-		List<String> ids = em.createQuery(cq.select(root.get(Person_.id)).where(p)).getResultList().stream().distinct()
+		List<String> ids = em.createQuery(cq.select(root.get(PersonStatic.id)).where(p)).getResultList().stream().distinct()
 				.collect(Collectors.toList());
 		List<Person> os = business.entityManagerContainer().list(Person.class, ids);
 		wos = Wo.copier.copy(os);

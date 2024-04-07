@@ -28,7 +28,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Person;
-import com.x.organization.core.entity.Person_;
+import com.x.organization.core.entity.PersonStatic;
 
 class ActionListLikePinyin extends BaseAction {
 
@@ -99,17 +99,17 @@ class ActionListLikePinyin extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.like(root.get(Person_.pinyin), str + "%");
-		p = cb.or(p, cb.like(root.get(Person_.pinyinInitial), str + "%"));
+		Predicate p = cb.like(root.get(PersonStatic.pinyin), str + "%");
+		p = cb.or(p, cb.like(root.get(PersonStatic.pinyinInitial), str + "%"));
 		if (ListTools.isNotEmpty(personIds)) {
-			p = cb.and(p, root.get(Person_.id).in(personIds));
+			p = cb.and(p, root.get(PersonStatic.id).in(personIds));
 		} else {
 			if (ListTools.isNotEmpty(wi.getGroupList(), wi.getRoleList())) {
 				return wos;
 			}
 		}
 		p = cb.and(p, business.personPredicateWithTopUnit(effectivePerson));
-		List<String> ids = em.createQuery(cq.select(root.get(Person_.id)).where(p)).getResultList().stream().distinct()
+		List<String> ids = em.createQuery(cq.select(root.get(PersonStatic.id)).where(p)).getResultList().stream().distinct()
 				.collect(Collectors.toList());
 		List<Person> os = business.entityManagerContainer().list(Person.class, ids);
 		wos = Wo.copier.copy(os);

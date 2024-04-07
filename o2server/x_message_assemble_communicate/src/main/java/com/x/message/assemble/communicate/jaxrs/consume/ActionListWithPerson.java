@@ -21,10 +21,9 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
-import com.x.base.core.project.message.WsMessage;
 import com.x.message.assemble.communicate.Business;
 import com.x.message.core.entity.Message;
-import com.x.message.core.entity.Message_;
+import com.x.message.core.entity.MessageStatic;
 
 class ActionListWithPerson extends BaseAction {
 
@@ -50,10 +49,10 @@ class ActionListWithPerson extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Message> cq = cb.createQuery(Message.class);
 		Root<Message> root = cq.from(Message.class);
-		Predicate p = cb.equal(root.get(Message_.consumer), consume);
-		p = cb.and(p, cb.equal(root.get(Message_.person), name));
-		p = cb.and( p, cb.isFalse( root.get(Message_.consumed) ));
-		List<Message> os = em.createQuery(cq.select(root).where(p).orderBy(cb.asc(root.get(Message_.createTime))))
+		Predicate p = cb.equal(root.get(MessageStatic.consumer), consume);
+		p = cb.and(p, cb.equal(root.get(MessageStatic.person), name));
+		p = cb.and( p, cb.isFalse( root.get(MessageStatic.consumed) ));
+		List<Message> os = em.createQuery(cq.select(root).where(p).orderBy(cb.asc(root.get(MessageStatic.createTime))))
 				.setMaxResults(count).getResultList();
 		return Wo.copier.copy(os);
 	}

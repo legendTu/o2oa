@@ -30,7 +30,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.assemble.control.message.OrgMessageFactory;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.Unit;
 
@@ -138,8 +138,8 @@ class ActionCreate extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.equal(root.get(Identity_.unit), unit.getId());
-		p = cb.and(p, cb.equal(root.get(Identity_.person), person.getId()));
+		Predicate p = cb.equal(root.get(IdentityStatic.unit), unit.getId());
+		p = cb.and(p, cb.equal(root.get(IdentityStatic.person), person.getId()));
 		Long count = em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();
 		if (count > 0) {
 			return true;

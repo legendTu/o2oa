@@ -19,7 +19,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Read;
-import com.x.processplatform.core.entity.content.Read_;
+import com.x.processplatform.core.entity.content.ReadStatic;
 
 class V2ListCreatePaging extends V2Base {
 
@@ -33,7 +33,7 @@ class V2ListCreatePaging extends V2Base {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 			Root<Read> root = cq.from(Read.class);
-			Predicate p = cb.equal(root.get(Read_.creatorPerson), effectivePerson.getDistinguishedName());
+			Predicate p = cb.equal(root.get(ReadStatic.creatorPerson), effectivePerson.getDistinguishedName());
 			p = cb.and(p, this.toFilterPredicate(effectivePerson, business, wi));
 			List<Wo> wos = emc.fetchDescPaging(Read.class, Wo.copier, p, page, size, Read.sequence_FIELDNAME);
 			result.setData(wos);

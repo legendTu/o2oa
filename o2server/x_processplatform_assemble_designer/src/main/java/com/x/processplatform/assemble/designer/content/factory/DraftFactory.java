@@ -3,7 +3,7 @@ package com.x.processplatform.assemble.designer.content.factory;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.content.Draft;
-import com.x.processplatform.core.entity.content.Draft_;
+import com.x.processplatform.core.entity.content.DraftStatic;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -23,8 +23,8 @@ public class DraftFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Draft> root = cq.from(Draft.class);
-		Predicate p = cb.equal(root.get(Draft_.application), id);
-		cq.select(root.get(Draft_.id)).where(p);
+		Predicate p = cb.equal(root.get(DraftStatic.application), id);
+		cq.select(root.get(DraftStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -33,8 +33,8 @@ public class DraftFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Draft> root = cq.from(Draft.class);
-		Predicate p = cb.equal(root.get(Draft_.process), id);
-		cq.select(root.get(Draft_.id)).where(p);
+		Predicate p = cb.equal(root.get(DraftStatic.process), id);
+		cq.select(root.get(DraftStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

@@ -23,7 +23,7 @@ import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Form;
 import com.x.processplatform.core.entity.element.FormField;
-import com.x.processplatform.core.entity.element.FormField_;
+import com.x.processplatform.core.entity.element.FormFieldStatic;
 import com.x.processplatform.core.entity.element.Form_;
 
 class ActionFormOrphan extends BaseAction {
@@ -57,8 +57,8 @@ class ActionFormOrphan extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<FormField> root = cq.from(FormField.class);
-		Predicate p = cb.not(root.get(FormField_.form).in(formIds));
-		cq.select(root.get(FormField_.id)).where(p);
+		Predicate p = cb.not(root.get(FormFieldStatic.form).in(formIds));
+		cq.select(root.get(FormFieldStatic.id)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 

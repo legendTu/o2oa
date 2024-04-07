@@ -28,7 +28,7 @@ import com.x.base.core.project.schedule.AbstractJob;
 import com.x.base.core.project.tools.DateTools;
 import com.x.base.core.project.utils.time.TimeStamp;
 import com.x.processplatform.core.entity.content.Read;
-import com.x.processplatform.core.entity.content.Read_;
+import com.x.processplatform.core.entity.content.ReadStatic;
 import com.x.processplatform.core.entity.content.Task;
 import com.x.processplatform.core.entity.content.TaskStatic;
 import com.x.processplatform.core.entity.content.Work;
@@ -181,11 +181,11 @@ public class LogLongDetained extends AbstractJob {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<Read> root = cq.from(Read.class);
-		Path<String> id_path = root.get(Read_.id);
-		Path<String> job_path = root.get(Read_.job);
-		Path<String> sequence_path = root.get(Read_.sequence);
-		Path<String> title_path = root.get(Read_.title);
-		Path<Date> startTime_path = root.get(Read_.startTime);
+		Path<String> id_path = root.get(ReadStatic.id);
+		Path<String> job_path = root.get(ReadStatic.job);
+		Path<String> sequence_path = root.get(ReadStatic.sequence);
+		Path<String> title_path = root.get(ReadStatic.title);
+		Path<Date> startTime_path = root.get(ReadStatic.startTime);
 		Predicate p = cb.lessThan(startTime_path, threshold);
 		if (StringUtils.isNotEmpty(sequence)) {
 			p = cb.and(p, cb.greaterThan(sequence_path, sequence));

@@ -23,7 +23,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.utils.time.TimeStamp;
 import com.x.general.assemble.control.ThisApplication;
 import com.x.general.core.entity.GeneralFile;
-import com.x.general.core.entity.GeneralFile_;
+import com.x.general.core.entity.GeneralFileStatic;
 
 public class Clean extends AbstractJob {
 
@@ -71,7 +71,7 @@ public class Clean extends AbstractJob {
 		CriteriaQuery<GeneralFile> cq = cb.createQuery(GeneralFile.class);
 		Root<GeneralFile> root = cq.from(GeneralFile.class);
 		Date limit = DateTools.floorDate(new Date(), 0);
-		Predicate p = cb.lessThan(root.get(GeneralFile_.createTime), limit);
+		Predicate p = cb.lessThan(root.get(GeneralFileStatic.createTime), limit);
 		return em.createQuery(cq.select(root).where(p)).setMaxResults(100).getResultList();
 	}
 

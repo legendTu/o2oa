@@ -25,7 +25,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Read;
-import com.x.processplatform.core.entity.content.Read_;
+import com.x.processplatform.core.entity.content.ReadStatic;
 
 class ActionListMyFilterPaging extends BaseAction {
 
@@ -54,45 +54,45 @@ class ActionListMyFilterPaging extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Read> cq = cb.createQuery(Read.class);
 		Root<Read> root = cq.from(Read.class);
-		Predicate p = cb.equal(root.get(Read_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(ReadStatic.person), effectivePerson.getDistinguishedName());
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(Read_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(ReadStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
 			if(BooleanUtils.isFalse(wi.getRelateEditionProcess())) {
-				p = cb.and(p, root.get(Read_.process).in(wi.getProcessList()));
+				p = cb.and(p, root.get(ReadStatic.process).in(wi.getProcessList()));
 			}else{
-				p = cb.and(p, root.get(Read_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+				p = cb.and(p, root.get(ReadStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 			}
 		}
 		if(DateTools.isDateTimeOrDate(wi.getStartTime())){
-			p = cb.and(p, cb.greaterThan(root.get(Read_.startTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(ReadStatic.startTime), DateTools.parse(wi.getStartTime())));
 		}
 		if(DateTools.isDateTimeOrDate(wi.getEndTime())){
-			p = cb.and(p, cb.lessThan(root.get(Read_.startTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(ReadStatic.startTime), DateTools.parse(wi.getEndTime())));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(Read_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(ReadStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(Read_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(ReadStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(Read_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(ReadStatic.activityName).in(wi.getActivityNameList()));
 		}
 		if (StringUtils.isNotEmpty(wi.getKey())) {
 			String key = StringUtils.trim(StringUtils.replace(wi.getKey(), "\u3000", " "));
 			if (StringUtils.isNotEmpty(key)) {
 				key = StringUtils.replaceEach(key, new String[] { "?", "%" }, new String[] { "", "" });
 				p = cb.and(p,
-						cb.or(cb.like(root.get(Read_.title), "%" + key + "%"),
-								cb.like(root.get(Read_.opinion), "%" + key + "%"),
-								cb.like(root.get(Read_.serial), "%" + key + "%"),
-								cb.like(root.get(Read_.creatorPerson), "%" + key + "%"),
-								cb.like(root.get(Read_.creatorUnit), "%" + key + "%")));
+						cb.or(cb.like(root.get(ReadStatic.title), "%" + key + "%"),
+								cb.like(root.get(ReadStatic.opinion), "%" + key + "%"),
+								cb.like(root.get(ReadStatic.serial), "%" + key + "%"),
+								cb.like(root.get(ReadStatic.creatorPerson), "%" + key + "%"),
+								cb.like(root.get(ReadStatic.creatorUnit), "%" + key + "%")));
 			}
 		}
-		cq.select(root).where(p).orderBy(cb.desc(root.get(Read_.startTime)));
+		cq.select(root).where(p).orderBy(cb.desc(root.get(ReadStatic.startTime)));
 		return em.createQuery(cq).setFirstResult((adjustPage - 1) * adjustPageSize).setMaxResults(adjustPageSize)
 				.getResultList();
 	}
@@ -102,42 +102,42 @@ class ActionListMyFilterPaging extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Read> root = cq.from(Read.class);
-		Predicate p = cb.equal(root.get(Read_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(ReadStatic.person), effectivePerson.getDistinguishedName());
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(Read_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(ReadStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
 			if(BooleanUtils.isFalse(wi.getRelateEditionProcess())) {
-				p = cb.and(p, root.get(Read_.process).in(wi.getProcessList()));
+				p = cb.and(p, root.get(ReadStatic.process).in(wi.getProcessList()));
 			}else{
-				p = cb.and(p, root.get(Read_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+				p = cb.and(p, root.get(ReadStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 			}
 		}
 		if(DateTools.isDateTimeOrDate(wi.getStartTime())){
-			p = cb.and(p, cb.greaterThan(root.get(Read_.startTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(ReadStatic.startTime), DateTools.parse(wi.getStartTime())));
 		}
 		if(DateTools.isDateTimeOrDate(wi.getEndTime())){
-			p = cb.and(p, cb.lessThan(root.get(Read_.startTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(ReadStatic.startTime), DateTools.parse(wi.getEndTime())));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(Read_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(ReadStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(Read_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(ReadStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(Read_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(ReadStatic.activityName).in(wi.getActivityNameList()));
 		}
 		if (StringUtils.isNotEmpty(wi.getKey())) {
 			String key = StringUtils.trim(StringUtils.replace(wi.getKey(), "\u3000", " "));
 			if (StringUtils.isNotEmpty(key)) {
 				key = StringUtils.replaceEach(key, new String[] { "?", "%" }, new String[] { "", "" });
 				p = cb.and(p,
-						cb.or(cb.like(root.get(Read_.title), "%" + key + "%"),
-								cb.like(root.get(Read_.opinion), "%" + key + "%"),
-								cb.like(root.get(Read_.serial), "%" + key + "%"),
-								cb.like(root.get(Read_.creatorPerson), "%" + key + "%"),
-								cb.like(root.get(Read_.creatorUnit), "%" + key + "%")));
+						cb.or(cb.like(root.get(ReadStatic.title), "%" + key + "%"),
+								cb.like(root.get(ReadStatic.opinion), "%" + key + "%"),
+								cb.like(root.get(ReadStatic.serial), "%" + key + "%"),
+								cb.like(root.get(ReadStatic.creatorPerson), "%" + key + "%"),
+								cb.like(root.get(ReadStatic.creatorUnit), "%" + key + "%")));
 			}
 		}
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();

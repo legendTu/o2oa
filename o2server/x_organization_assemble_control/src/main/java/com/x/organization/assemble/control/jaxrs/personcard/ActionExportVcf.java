@@ -12,23 +12,17 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 
-import com.google.gson.JsonElement;
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
-import com.x.base.core.project.annotation.FieldDescribe;
 import com.x.base.core.project.exception.ExceptionEntityNotExist;
 import com.x.base.core.project.exception.ExceptionPersonNotExist;
-import com.x.base.core.project.gson.GsonPropertyObject;
 import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.jaxrs.WoFile;
-import com.x.base.core.project.jaxrs.WoId;
 import com.x.base.core.project.tools.DateTools;
 import com.x.organization.assemble.control.Business;
-import com.x.organization.assemble.control.jaxrs.personcard.ActionExportPersonalVcf.Wo;
-import com.x.organization.assemble.control.staticconfig.FollowConfig;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitDuty;
@@ -159,7 +153,7 @@ class ActionExportVcf extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Identity> cq = cb.createQuery(Identity.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.equal(root.get(Identity_.person), flag);
+		Predicate p = cb.equal(root.get(IdentityStatic.person), flag);
 		return em.createQuery(cq.select(root).where(p)).getResultList();
 	}
 	public List<UnitDuty> referenceUnitduty(Business business,String flag) throws Exception {

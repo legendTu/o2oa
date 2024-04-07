@@ -27,6 +27,7 @@ public class ReviewStatic extends SliceJpaObjectStatic {
     public static volatile SingularAttribute<Review, String> permissionObjType;
     public static volatile SingularAttribute<Review, Date> publishTime;
     public static volatile SingularAttribute<Review, String> title;
+    public static volatile String job;
 
     public ReviewStatic() {
     }

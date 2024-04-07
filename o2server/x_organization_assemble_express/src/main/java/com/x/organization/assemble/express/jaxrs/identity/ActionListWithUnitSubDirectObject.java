@@ -22,7 +22,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Unit;
 
 class ActionListWithUnitSubDirectObject extends BaseAction {
@@ -76,8 +76,8 @@ class ActionListWithUnitSubDirectObject extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = root.get(Identity_.unit).in(unitIds);
-		List<String> identityIds = em.createQuery(cq.select(root.get(Identity_.id)).where(p))
+		Predicate p = root.get(IdentityStatic.unit).in(unitIds);
+		List<String> identityIds = em.createQuery(cq.select(root.get(IdentityStatic.id)).where(p))
 				.getResultList().stream().distinct().collect(Collectors.toList());
 		List<Identity> list = business.identity().pick(identityIds);
 		for (Identity o : list) {

@@ -36,11 +36,11 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.script.ScriptFactory;
 import com.x.base.core.project.tools.ListTools;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.PersonAttribute;
 import com.x.organization.core.entity.PersonAttribute_;
-import com.x.organization.core.entity.Person_;
+import com.x.organization.core.entity.PersonStatic;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitAttribute;
 import com.x.organization.core.entity.UnitDuty;
@@ -382,8 +382,8 @@ public class SyncOrganization {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Identity> cq = cb.createQuery(Identity.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.equal(root.get(Identity_.person), person.getId());
-		p = cb.and(p, cb.equal(root.get(Identity_.unit), unit.getId()));
+		Predicate p = cb.equal(root.get(IdentityStatic.person), person.getId());
+		p = cb.and(p, cb.equal(root.get(IdentityStatic.unit), unit.getId()));
 		List<Identity> os = em.createQuery(cq.select(root).where(p)).setMaxResults(1).getResultList();
 		Identity identity = null;
 		if (os.size() == 0) {
@@ -472,7 +472,7 @@ public class SyncOrganization {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Identity> cq = cb.createQuery(Identity.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.equal(root.get(Identity_.unit), unit);
+		Predicate p = cb.equal(root.get(IdentityStatic.unit), unit);
 		return em.createQuery(cq.select(root).where(p)).getResultList();
 	}
 
@@ -531,8 +531,8 @@ public class SyncOrganization {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Person> cq = cb.createQuery(Person.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.notEqual(root.get(Person_.zhengwuDingdingId), "");
-		p = cb.and(p, cb.isNotNull(root.get(Person_.zhengwuDingdingId)));
+		Predicate p = cb.notEqual(root.get(PersonStatic.zhengwuDingdingId), "");
+		p = cb.and(p, cb.isNotNull(root.get(PersonStatic.zhengwuDingdingId)));
 		List<Person> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}

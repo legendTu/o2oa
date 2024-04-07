@@ -1,6 +1,5 @@
 package com.x.organization.assemble.personal.jaxrs.person;
 
-import java.io.File;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,7 +11,6 @@ import javax.persistence.criteria.Root;
 import com.x.base.core.project.exception.ExceptionPersonNotExist;
 import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
-import com.x.base.core.project.tools.LanguageTools;
 import org.apache.commons.collections4.set.ListOrderedSet;
 import org.apache.commons.lang3.StringUtils;
 
@@ -30,12 +28,12 @@ import com.x.organization.assemble.personal.Business;
 import com.x.organization.core.entity.Group;
 import com.x.organization.core.entity.Group_;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.PersonAttribute;
 import com.x.organization.core.entity.PersonAttribute_;
 import com.x.organization.core.entity.Role;
-import com.x.organization.core.entity.Role_;
+import com.x.organization.core.entity.RoleStatic;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitDuty;
 import com.x.organization.core.entity.UnitDuty_;
@@ -97,7 +95,7 @@ class ActionGet extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Identity> cq = cb.createQuery(Identity.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.equal(root.get(Identity_.person), wo.getId());
+		Predicate p = cb.equal(root.get(IdentityStatic.person), wo.getId());
 		List<Identity> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		List<WoIdentity> wos = WoIdentity.copier.copy(os);
 		wos = business.identity().sort(wos);
@@ -113,7 +111,7 @@ class ActionGet extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Role> cq = cb.createQuery(Role.class);
 		Root<Role> root = cq.from(Role.class);
-		Predicate p = cb.isMember(wo.getId(), root.get(Role_.personList));
+		Predicate p = cb.isMember(wo.getId(), root.get(RoleStatic.personList));
 		List<Role> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		List<WoRole> wos = WoRole.copier.copy(os);
 		wos = business.role().sort(wos);

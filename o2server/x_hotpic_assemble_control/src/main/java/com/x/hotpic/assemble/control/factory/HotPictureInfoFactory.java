@@ -13,7 +13,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.hotpic.assemble.control.AbstractFactory;
 import com.x.hotpic.assemble.control.Business;
 import com.x.hotpic.entity.HotPictureInfo;
-import com.x.hotpic.entity.HotPictureInfo_;
+import com.x.hotpic.entity.HotPictureInfoStatic;
 
 
 /**
@@ -43,8 +43,8 @@ public class HotPictureInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<HotPictureInfo> cq = cb.createQuery(HotPictureInfo.class);
 		Root<HotPictureInfo> root = cq.from(HotPictureInfo.class);
-		Predicate p = root.get(HotPictureInfo_.id).in(ids);
-		cq.orderBy( cb.desc( root.get( HotPictureInfo_.updateTime ) ) );
+		Predicate p = root.get(HotPictureInfoStatic.id).in(ids);
+		cq.orderBy( cb.desc( root.get( HotPictureInfoStatic.updateTime ) ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -55,7 +55,7 @@ public class HotPictureInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<HotPictureInfo> cq = cb.createQuery(HotPictureInfo.class);
 		Root<HotPictureInfo> root = cq.from(HotPictureInfo.class);
-		cq.orderBy( cb.desc( root.get( HotPictureInfo_.updateTime ) ) );
+		cq.orderBy( cb.desc( root.get( HotPictureInfoStatic.updateTime ) ) );
 		return em.createQuery( cq ).setMaxResults( 100 ).getResultList();
 	}
 
@@ -67,9 +67,9 @@ public class HotPictureInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<HotPictureInfo> root = cq.from(HotPictureInfo.class);
-		Predicate p = cb.equal( root.get(HotPictureInfo_.application), application );
-		cq.orderBy( cb.desc( root.get( HotPictureInfo_.updateTime ) ) );
-		cq.select( root.get(HotPictureInfo_.id ) );
+		Predicate p = cb.equal( root.get(HotPictureInfoStatic.application), application );
+		cq.orderBy( cb.desc( root.get( HotPictureInfoStatic.updateTime ) ) );
+		cq.select( root.get(HotPictureInfoStatic.id ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -78,15 +78,15 @@ public class HotPictureInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<HotPictureInfo> root = cq.from(HotPictureInfo.class);
-		Predicate p = cb.isNotNull( root.get(HotPictureInfo_.id ) );
+		Predicate p = cb.isNotNull( root.get(HotPictureInfoStatic.id ) );
 		if( application != null && !application.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( HotPictureInfo_.application ), application));
+			p = cb.and( p, cb.equal( root.get( HotPictureInfoStatic.application ), application));
 		}
 		if( infoId != null && !infoId.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( HotPictureInfo_.infoId ), infoId));
+			p = cb.and( p, cb.equal( root.get( HotPictureInfoStatic.infoId ), infoId));
 		}
 		if( title != null && !title.isEmpty() ){
-			p = cb.and( p, cb.like( root.get( HotPictureInfo_.title ), "%" + title + "%" ));
+			p = cb.and( p, cb.like( root.get( HotPictureInfoStatic.title ), "%" + title + "%" ));
 		}
 		cq.select( cb.count( root ) );
 		return em.createQuery(cq.where(p)).getSingleResult();
@@ -97,17 +97,17 @@ public class HotPictureInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<HotPictureInfo> cq = cb.createQuery(HotPictureInfo.class);
 		Root<HotPictureInfo> root = cq.from(HotPictureInfo.class);
-		Predicate p = cb.isNotNull( root.get(HotPictureInfo_.id ) );
+		Predicate p = cb.isNotNull( root.get(HotPictureInfoStatic.id ) );
 		if( application != null && !application.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( HotPictureInfo_.application ), application));
+			p = cb.and( p, cb.equal( root.get( HotPictureInfoStatic.application ), application));
 		}
 		if( infoId != null && !infoId.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( HotPictureInfo_.infoId ), infoId));
+			p = cb.and( p, cb.equal( root.get( HotPictureInfoStatic.infoId ), infoId));
 		}
 		if( title != null && !title.isEmpty() ){
-			p = cb.and( p, cb.like( root.get( HotPictureInfo_.title ), "%" + title + "%" ));
+			p = cb.and( p, cb.like( root.get( HotPictureInfoStatic.title ), "%" + title + "%" ));
 		}
-		cq.orderBy( cb.desc( root.get( HotPictureInfo_.sequence ) ) );
+		cq.orderBy( cb.desc( root.get( HotPictureInfoStatic.sequence ) ) );
 		return em.createQuery(cq.where(p)).setMaxResults(selectTotal).getResultList();
 	}
 
@@ -119,9 +119,9 @@ public class HotPictureInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<HotPictureInfo> cq = cb.createQuery(HotPictureInfo.class);
 		Root<HotPictureInfo> root = cq.from(HotPictureInfo.class);
-		Predicate p = cb.equal( root.get(HotPictureInfo_.application), application );
+		Predicate p = cb.equal( root.get(HotPictureInfoStatic.application), application );
 		if( infoId != null && !infoId.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( HotPictureInfo_.infoId ), infoId));
+			p = cb.and( p, cb.equal( root.get( HotPictureInfoStatic.infoId ), infoId));
 		}
 		return em.createQuery(cq.where(p)).getResultList();
 	}
@@ -134,7 +134,7 @@ public class HotPictureInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<HotPictureInfo> cq = cb.createQuery(HotPictureInfo.class);
 		Root<HotPictureInfo> root = cq.from(HotPictureInfo.class);
-		Predicate p = cb.equal( root.get(HotPictureInfo_.infoId), infoId );
+		Predicate p = cb.equal( root.get(HotPictureInfoStatic.infoId), infoId );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 }

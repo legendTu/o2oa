@@ -16,7 +16,6 @@ import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
 import com.x.base.core.entity.JpaObject;
 import com.x.base.core.project.annotation.FieldDescribe;
-import com.x.base.core.project.annotation.FieldTypeDescribe;
 import com.x.base.core.project.bean.WrapCopier;
 import com.x.base.core.project.bean.WrapCopierFactory;
 import com.x.base.core.project.gson.GsonPropertyObject;
@@ -26,7 +25,7 @@ import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.message.assemble.communicate.Business;
 import com.x.message.core.entity.Org;
-import com.x.message.core.entity.Org_;
+import com.x.message.core.entity.OrgStatic;
 
 public class ActionListWithCriteria extends BaseAction {
 	private static Logger logger = LoggerFactory.getLogger(ActionListWithCriteria.class);
@@ -76,25 +75,25 @@ public class ActionListWithCriteria extends BaseAction {
 		
 		Root<Org> root = cq.from(Org.class);
 		
-		Predicate p = cb.equal(root.get(Org_.consumed), consume);
+		Predicate p = cb.equal(root.get(OrgStatic.consumed), consume);
 		
 		if(!StringUtils.isEmpty(receiveSystem.trim())) {
-			p = cb.and(p, cb.equal(root.get(Org_.receiveSystem), receiveSystem));
+			p = cb.and(p, cb.equal(root.get(OrgStatic.receiveSystem), receiveSystem));
 		}
 		if(!StringUtils.isEmpty(consumedModule.trim())) {
-	    	p = cb.and(p, cb.like(root.get(Org_.consumedModule),"%," + consumedModule+",%"));
+	    	p = cb.and(p, cb.like(root.get(OrgStatic.consumedModule),"%," + consumedModule+",%"));
 		}
 		
 		if(!StringUtils.isEmpty(operType.trim())) {
-			p= cb.and(p,cb.equal(root.get(Org_.operType),operType));
+			p= cb.and(p,cb.equal(root.get(OrgStatic.operType),operType));
 		}
 		
 		if(!StringUtils.isEmpty(orgType.trim())) {
-	       p = cb.and(p, cb.equal(root.get(Org_.orgType), orgType));
+	       p = cb.and(p, cb.equal(root.get(OrgStatic.orgType), orgType));
 		}
 		
 		//p = cb.and( p, cb.isFalse( root.get(Message_.consumed) ));
-		List<Org> orgs = em.createQuery(cq.select(root).where(p).orderBy(cb.asc(root.get(Org_.createTime))))
+		List<Org> orgs = em.createQuery(cq.select(root).where(p).orderBy(cb.asc(root.get(OrgStatic.createTime))))
 				.setMaxResults(count).getResultList();
 		return Wo.copier.copy(orgs);
 	}

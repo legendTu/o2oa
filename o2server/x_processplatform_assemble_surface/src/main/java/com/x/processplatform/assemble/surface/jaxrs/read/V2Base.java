@@ -26,7 +26,7 @@ import com.x.base.core.project.tools.StringTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Read;
 import com.x.processplatform.core.entity.content.ReadCompleted;
-import com.x.processplatform.core.entity.content.Read_;
+import com.x.processplatform.core.entity.content.ReadStatic;
 import com.x.processplatform.core.entity.content.Review;
 import com.x.processplatform.core.entity.content.Task;
 import com.x.processplatform.core.entity.content.TaskCompleted;
@@ -391,48 +391,48 @@ abstract class V2Base extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<Read> root = cq.from(Read.class);
-		Predicate p = cb.equal(root.get(Read_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(ReadStatic.person), effectivePerson.getDistinguishedName());
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(Read_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(ReadStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
 			if(BooleanUtils.isFalse(wi.getRelateEditionProcess())) {
-				p = cb.and(p, root.get(Read_.process).in(wi.getProcessList()));
+				p = cb.and(p, root.get(ReadStatic.process).in(wi.getProcessList()));
 			}else{
-				p = cb.and(p, root.get(Read_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+				p = cb.and(p, root.get(ReadStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 			}
 		}
 		if (DateTools.isDateTimeOrDate(wi.getStartTime())) {
-			p = cb.and(p, cb.greaterThan(root.get(Read_.startTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(ReadStatic.startTime), DateTools.parse(wi.getStartTime())));
 		}
 		if (DateTools.isDateTimeOrDate(wi.getEndTime())) {
-			p = cb.and(p, cb.lessThan(root.get(Read_.startTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(ReadStatic.startTime), DateTools.parse(wi.getEndTime())));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorPersonList())) {
 			List<String> person_ids = business.organization().person().list(wi.getCreatorPersonList());
-			p = cb.and(p, root.get(Read_.creatorPerson).in(person_ids));
+			p = cb.and(p, root.get(ReadStatic.creatorPerson).in(person_ids));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
 			List<String> unit_ids = business.organization().unit().list(wi.getCreatorUnitList());
-			p = cb.and(p, root.get(Read_.creatorUnit).in(unit_ids));
+			p = cb.and(p, root.get(ReadStatic.creatorUnit).in(unit_ids));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(Read_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(ReadStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		boolean completed = BooleanUtils.isTrue(wi.getCompleted());
 		boolean notCompleted = BooleanUtils.isTrue(wi.getNotCompleted());
 		if (completed != notCompleted) {
 			if (completed) {
-				p = cb.and(p, cb.equal(root.get(Read_.completed), true));
+				p = cb.and(p, cb.equal(root.get(ReadStatic.completed), true));
 			} else {
-				p = cb.and(p, cb.or(cb.isNull(root.get(Read_.completed)), cb.equal(root.get(Read_.completed), false)));
+				p = cb.and(p, cb.or(cb.isNull(root.get(ReadStatic.completed)), cb.equal(root.get(ReadStatic.completed), false)));
 			}
 		}
 		String key = StringTools.escapeSqlLikeKey(wi.getKey());
 		if (StringUtils.isNotEmpty(key)) {
 			key = "%" + key + "%";
-			p = cb.and(p, cb.or(cb.like(root.get(Read_.title), key), cb.like(root.get(Read_.serial), key),
-					cb.like(root.get(Read_.creatorPerson), key), cb.like(root.get(Read_.creatorUnit), key)));
+			p = cb.and(p, cb.or(cb.like(root.get(ReadStatic.title), key), cb.like(root.get(ReadStatic.serial), key),
+					cb.like(root.get(ReadStatic.creatorPerson), key), cb.like(root.get(ReadStatic.creatorUnit), key)));
 		}
 		return p;
 	}

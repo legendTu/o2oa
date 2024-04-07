@@ -18,7 +18,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.mind.assemble.control.AbstractFactory;
 import com.x.mind.assemble.control.Business;
 import com.x.mind.entity.MindRecycleInfo;
-import com.x.mind.entity.MindRecycleInfo_;
+import com.x.mind.entity.MindRecycleInfoStatic;
 
 
 /**
@@ -58,8 +58,8 @@ public class MindRecycleInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<MindRecycleInfo> cq = cb.createQuery(MindRecycleInfo.class);
 		Root<MindRecycleInfo> root = cq.from(MindRecycleInfo.class);
-		Predicate p = root.get(MindRecycleInfo_.id).in(ids);
-		cq.orderBy( cb.desc( root.get( MindRecycleInfo_.updateTime ) ) );
+		Predicate p = root.get(MindRecycleInfoStatic.id).in(ids);
+		cq.orderBy( cb.desc( root.get( MindRecycleInfoStatic.updateTime ) ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -73,8 +73,8 @@ public class MindRecycleInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<MindRecycleInfo> root = cq.from(MindRecycleInfo.class);
-		cq.orderBy( cb.desc( root.get( MindRecycleInfo_.updateTime ) ) );
-		cq.select( root.get(MindRecycleInfo_.id ) );
+		cq.orderBy( cb.desc( root.get( MindRecycleInfoStatic.updateTime ) ) );
+		cq.select( root.get(MindRecycleInfoStatic.id ) );
 		return em.createQuery( cq ).setMaxResults( 10000 ).getResultList();
 	}
 
@@ -93,21 +93,21 @@ public class MindRecycleInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<MindRecycleInfo> root = cq.from(MindRecycleInfo.class);
-		Predicate p = cb.isNotNull( root.get(MindRecycleInfo_.id ) );
+		Predicate p = cb.isNotNull( root.get(MindRecycleInfoStatic.id ) );
 		if( folderId != null && !folderId.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindRecycleInfo_.id), folderId));
+			p = cb.and( p, cb.equal( root.get( MindRecycleInfoStatic.id), folderId));
 		}
 		if( person != null && !person.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindRecycleInfo_.creator), person));
+			p = cb.and( p, cb.equal( root.get( MindRecycleInfoStatic.creator), person));
 		}
 		if( unit != null && !unit.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindRecycleInfo_.creatorUnit), unit));
+			p = cb.and( p, cb.equal( root.get( MindRecycleInfoStatic.creatorUnit), unit));
 		}
 		if( hasShared != null ){
-			p = cb.and( p, cb.equal( root.get( MindRecycleInfo_.shared), hasShared));
+			p = cb.and( p, cb.equal( root.get( MindRecycleInfoStatic.shared), hasShared));
 		}
 		if( name != null && !name.isEmpty() ){
-			p = cb.and( p, cb.like( root.get( MindRecycleInfo_.name ), "%" + name + "%" ));
+			p = cb.and( p, cb.like( root.get( MindRecycleInfoStatic.name ), "%" + name + "%" ));
 		}
 		cq.select( cb.count( root ) );
 		return em.createQuery(cq.where(p)).getSingleResult();
@@ -128,24 +128,24 @@ public class MindRecycleInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<MindRecycleInfo> root = cq.from(MindRecycleInfo.class);
-		Predicate p = cb.isNotNull( root.get(MindRecycleInfo_.id ) );
+		Predicate p = cb.isNotNull( root.get(MindRecycleInfoStatic.id ) );
 		if( folderId != null && !folderId.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindRecycleInfo_.id), folderId));
+			p = cb.and( p, cb.equal( root.get( MindRecycleInfoStatic.id), folderId));
 		}
 		if( person != null && !person.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindRecycleInfo_.creator), person));
+			p = cb.and( p, cb.equal( root.get( MindRecycleInfoStatic.creator), person));
 		}
 		if( unit != null && !unit.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindRecycleInfo_.creatorUnit), unit));
+			p = cb.and( p, cb.equal( root.get( MindRecycleInfoStatic.creatorUnit), unit));
 		}
 		if( hasShared != null ){
-			p = cb.and( p, cb.equal( root.get( MindRecycleInfo_.shared), hasShared));
+			p = cb.and( p, cb.equal( root.get( MindRecycleInfoStatic.shared), hasShared));
 		}
 		if( name != null && !name.isEmpty() ){
-			p = cb.and( p, cb.like( root.get( MindRecycleInfo_.name ), "%" + name + "%" ));
+			p = cb.and( p, cb.like( root.get( MindRecycleInfoStatic.name ), "%" + name + "%" ));
 		}
-		cq.orderBy( cb.asc( root.get( MindRecycleInfo_.updateTime ) ) );
-		cq.select( root.get(MindRecycleInfo_.id ) );
+		cq.orderBy( cb.asc( root.get( MindRecycleInfoStatic.updateTime ) ) );
+		cq.select( root.get(MindRecycleInfoStatic.id ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -174,108 +174,108 @@ public class MindRecycleInfoFactory extends AbstractFactory {
 		CriteriaQuery<MindRecycleInfo> cq = cb.createQuery( MindRecycleInfo.class );
 		Root<MindRecycleInfo> root = cq.from( MindRecycleInfo.class );
 		
-		Predicate p = root.get( MindRecycleInfo_.id ).isNotNull();
+		Predicate p = root.get( MindRecycleInfoStatic.id ).isNotNull();
 		if( ListTools.isNotEmpty( inMindIds )) {
-			p = root.get( MindRecycleInfo_.id ).in( inMindIds );
+			p = root.get( MindRecycleInfoStatic.id ).in( inMindIds );
 		}
 
 		if( sequenceFieldValue != null ){
 			if( "folderId".equals( orderField  )){//文件夹
-				p = cb.and( p, cb.isNotNull( root.get( MindRecycleInfo_.folder_sequence ) ));
+				p = cb.and( p, cb.isNotNull( root.get( MindRecycleInfoStatic.folder_sequence ) ));
 				if( "DESC".equalsIgnoreCase( orderType )){
-					p = cb.and( p, cb.lessThan( root.get( MindRecycleInfo_.folder_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.lessThan( root.get( MindRecycleInfoStatic.folder_sequence ), sequenceFieldValue.toString() ));
 				}else{
-					p = cb.and( p, cb.greaterThan( root.get( MindRecycleInfo_.folder_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.greaterThan( root.get( MindRecycleInfoStatic.folder_sequence ), sequenceFieldValue.toString() ));
 				}
 			}else if( "shared".equals( orderField  )){//是否已分享
-				p = cb.and( p, cb.isNotNull( root.get( MindRecycleInfo_.shared_sequence ) ));
+				p = cb.and( p, cb.isNotNull( root.get( MindRecycleInfoStatic.shared_sequence ) ));
 				if( "DESC".equalsIgnoreCase( orderType )){
-					p = cb.and( p, cb.lessThan( root.get( MindRecycleInfo_.shared_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.lessThan( root.get( MindRecycleInfoStatic.shared_sequence ), sequenceFieldValue.toString() ));
 				}else{
-					p = cb.and( p, cb.greaterThan( root.get( MindRecycleInfo_.shared_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.greaterThan( root.get( MindRecycleInfoStatic.shared_sequence ), sequenceFieldValue.toString() ));
 				}
 			}else if( "createTime".equals( orderField  )){//创建时间
-				p = cb.and( p, cb.isNotNull( root.get( MindRecycleInfo_.createTime ) ));
+				p = cb.and( p, cb.isNotNull( root.get( MindRecycleInfoStatic.createTime ) ));
 				if( "DESC".equalsIgnoreCase( orderType )){
-					p = cb.and( p, cb.lessThan( root.get( MindRecycleInfo_.createTime ), (Date)sequenceFieldValue ));
+					p = cb.and( p, cb.lessThan( root.get( MindRecycleInfoStatic.createTime ), (Date)sequenceFieldValue ));
 				}else{
-					p = cb.and( p, cb.greaterThan( root.get( MindRecycleInfo_.createTime ), (Date)sequenceFieldValue ));
+					p = cb.and( p, cb.greaterThan( root.get( MindRecycleInfoStatic.createTime ), (Date)sequenceFieldValue ));
 				}
 			}else if( "creatorUnit".equals( orderField  )){//创建者所属组织
-				p = cb.and( p, cb.isNotNull( root.get( MindRecycleInfo_.creatorUnit_sequence ) ));
+				p = cb.and( p, cb.isNotNull( root.get( MindRecycleInfoStatic.creatorUnit_sequence ) ));
 				if( "DESC".equalsIgnoreCase( orderType )){
-					p = cb.and( p, cb.lessThan( root.get( MindRecycleInfo_.creatorUnit_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.lessThan( root.get( MindRecycleInfoStatic.creatorUnit_sequence ), sequenceFieldValue.toString() ));
 				}else{
-					p = cb.and( p, cb.greaterThan( root.get( MindRecycleInfo_.creatorUnit_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.greaterThan( root.get( MindRecycleInfoStatic.creatorUnit_sequence ), sequenceFieldValue.toString() ));
 				}
 			}else if( "creator".equals( orderField  )){//创建者
-				p = cb.and( p, cb.isNotNull( root.get( MindRecycleInfo_.creator_sequence ) ));
+				p = cb.and( p, cb.isNotNull( root.get( MindRecycleInfoStatic.creator_sequence ) ));
 				if( "DESC".equalsIgnoreCase( orderType )){
-					p = cb.and( p, cb.lessThan( root.get( MindRecycleInfo_.creator_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.lessThan( root.get( MindRecycleInfoStatic.creator_sequence ), sequenceFieldValue.toString() ));
 				}else{
-					p = cb.and( p, cb.greaterThan( root.get( MindRecycleInfo_.creator_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.greaterThan( root.get( MindRecycleInfoStatic.creator_sequence ), sequenceFieldValue.toString() ));
 				}
 			}else if(  JpaObject.sequence_FIELDNAME.equals( orderField  )){//sequence
-				p = cb.and( p, cb.isNotNull( root.get( MindRecycleInfo_.sequence ) ));
+				p = cb.and( p, cb.isNotNull( root.get( MindRecycleInfoStatic.sequence ) ));
 				if( "DESC".equalsIgnoreCase( orderType )){
-					p = cb.and( p, cb.lessThan( root.get( MindRecycleInfo_.sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.lessThan( root.get( MindRecycleInfoStatic.sequence ), sequenceFieldValue.toString() ));
 				}else{
-					p = cb.and( p, cb.greaterThan( root.get( MindRecycleInfo_.sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.greaterThan( root.get( MindRecycleInfoStatic.sequence ), sequenceFieldValue.toString() ));
 				}
 			}
 		}
 		
 		if(  StringUtils.isNotEmpty(folderId) ){
-			p = cb.and( p, cb.equal( root.get( MindRecycleInfo_.folderId), folderId));
+			p = cb.and( p, cb.equal( root.get( MindRecycleInfoStatic.folderId), folderId));
 		}
 		if(  shared != null ){
-			p = cb.and( p, cb.equal( root.get( MindRecycleInfo_.shared), shared));
+			p = cb.and( p, cb.equal( root.get( MindRecycleInfoStatic.shared), shared));
 		}
 		if(  StringUtils.isNotEmpty(creatorUnit) ){
-			p = cb.and( p, cb.equal( root.get( MindRecycleInfo_.creatorUnit), creatorUnit));
+			p = cb.and( p, cb.equal( root.get( MindRecycleInfoStatic.creatorUnit), creatorUnit));
 		}
 		if(  StringUtils.isNotEmpty(creator) ){
-			p = cb.and( p, cb.equal( root.get( MindRecycleInfo_.creator), creator));
+			p = cb.and( p, cb.equal( root.get( MindRecycleInfoStatic.creator), creator));
 		}
 		if(  StringUtils.isNotEmpty(key) ){
-			p = cb.and( p, cb.like( root.get( MindRecycleInfo_.name), "%"+key+"%"));
+			p = cb.and( p, cb.like( root.get( MindRecycleInfoStatic.name), "%"+key+"%"));
 		}
 		
 		if( "folderId".equals( orderField  )){//文件夹
 			if( "DESC".equalsIgnoreCase( orderType )){
-				cq.orderBy( cb.desc( root.get( MindRecycleInfo_.folder_sequence ) ));
+				cq.orderBy( cb.desc( root.get( MindRecycleInfoStatic.folder_sequence ) ));
 			}else{
-				cq.orderBy( cb.asc( root.get( MindRecycleInfo_.folder_sequence ) ) );
+				cq.orderBy( cb.asc( root.get( MindRecycleInfoStatic.folder_sequence ) ) );
 			}
 		}else if( "shared".equals( orderField  )){//是否已经分享
 			if( "DESC".equalsIgnoreCase( orderType )){
-				cq.orderBy( cb.desc( root.get( MindRecycleInfo_.shared_sequence ) ));
+				cq.orderBy( cb.desc( root.get( MindRecycleInfoStatic.shared_sequence ) ));
 			}else{
-				cq.orderBy( cb.asc( root.get( MindRecycleInfo_.shared_sequence ) ));
+				cq.orderBy( cb.asc( root.get( MindRecycleInfoStatic.shared_sequence ) ));
 			}
 		}else if( "createTime".equals( orderField  )){//创建时间
 			if( "DESC".equalsIgnoreCase( orderType )){
-				cq.orderBy( cb.desc( root.get( MindRecycleInfo_.createTime ) ));
+				cq.orderBy( cb.desc( root.get( MindRecycleInfoStatic.createTime ) ));
 			}else{
-				cq.orderBy( cb.asc( root.get( MindRecycleInfo_.createTime ) ));
+				cq.orderBy( cb.asc( root.get( MindRecycleInfoStatic.createTime ) ));
 			}
 		}else if( "creatorUnit".equals( orderField  )){//创建者所属组织
 			if( "DESC".equalsIgnoreCase( orderType )){
-				cq.orderBy( cb.desc( root.get( MindRecycleInfo_.creatorUnit_sequence ) ));
+				cq.orderBy( cb.desc( root.get( MindRecycleInfoStatic.creatorUnit_sequence ) ));
 			}else{
-				cq.orderBy( cb.asc( root.get( MindRecycleInfo_.creatorUnit_sequence ) ));
+				cq.orderBy( cb.asc( root.get( MindRecycleInfoStatic.creatorUnit_sequence ) ));
 			}
 		}else if( "creator".equals( orderField  )){//创建者
 			if( "DESC".equalsIgnoreCase( orderType )){
-				cq.orderBy( cb.desc( root.get( MindRecycleInfo_.creator_sequence ) ));
+				cq.orderBy( cb.desc( root.get( MindRecycleInfoStatic.creator_sequence ) ));
 			}else{
-				cq.orderBy( cb.asc( root.get( MindRecycleInfo_.creator_sequence ) ));
+				cq.orderBy( cb.asc( root.get( MindRecycleInfoStatic.creator_sequence ) ));
 			}
 		}else if(  JpaObject.sequence_FIELDNAME.equals( orderField  )){//sequence
 			if( "DESC".equalsIgnoreCase( orderType )){
-				cq.orderBy( cb.desc( root.get( MindRecycleInfo_.sequence ) ) );
+				cq.orderBy( cb.desc( root.get( MindRecycleInfoStatic.sequence ) ) );
 			}else{
-				cq.orderBy( cb.asc( root.get( MindRecycleInfo_.sequence ) ) );
+				cq.orderBy( cb.asc( root.get( MindRecycleInfoStatic.sequence ) ) );
 			}
 		}
 

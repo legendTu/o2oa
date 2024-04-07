@@ -9,7 +9,7 @@ import com.x.file.assemble.control.Business;
 import com.x.file.core.entity.open.FileConfig;
 import com.x.file.core.entity.open.FileConfigProperties;
 import com.x.file.core.entity.personal.Attachment2;
-import com.x.file.core.entity.personal.Attachment2_;
+import com.x.file.core.entity.personal.Attachment2Static;
 import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -30,9 +30,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Attachment2> root = cq.from(Attachment2.class);
-		Predicate p = cb.equal(root.get(Attachment2_.name), fileName);
-		p = cb.and(p, cb.equal(root.get(Attachment2_.person), person));
-		p = cb.and(p, cb.equal(root.get(Attachment2_.folder), folderId));
+		Predicate p = cb.equal(root.get(Attachment2Static.name), fileName);
+		p = cb.and(p, cb.equal(root.get(Attachment2Static.person), person));
+		p = cb.and(p, cb.equal(root.get(Attachment2Static.folder), folderId));
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult() > 0;
 	}
 
@@ -86,9 +86,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Attachment2> root = cq.from(Attachment2.class);
-		Predicate p = root.get(Attachment2_.name).in(list);
-		p = cb.and(p, cb.equal(root.get(Attachment2_.folder), folderId));
-		cq.select(root.get(Attachment2_.name)).where(p);
+		Predicate p = root.get(Attachment2Static.name).in(list);
+		p = cb.and(p, cb.equal(root.get(Attachment2Static.folder), folderId));
+		cq.select(root.get(Attachment2Static.name)).where(p);
 		List<String> os = em.createQuery(cq).getResultList();
 		list = ListUtils.subtract(list, os);
 		return list.get(0);

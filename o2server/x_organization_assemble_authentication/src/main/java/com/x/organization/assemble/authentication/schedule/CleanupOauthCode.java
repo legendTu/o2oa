@@ -18,7 +18,7 @@ import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.schedule.AbstractJob;
 import com.x.organization.core.entity.OauthCode;
-import com.x.organization.core.entity.OauthCode_;
+import com.x.organization.core.entity.OauthCodeStatic;
 
 public class CleanupOauthCode extends AbstractJob {
 
@@ -41,8 +41,8 @@ public class CleanupOauthCode extends AbstractJob {
 		Root<OauthCode> root = cq.from(OauthCode.class);
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MINUTE, -15);
-		Predicate p = cb.not(cb.greaterThan(root.get(OauthCode_.createTime), cal.getTime()));
-		cq.select(root.get(OauthCode_.id)).where(p);
+		Predicate p = cb.not(cb.greaterThan(root.get(OauthCodeStatic.createTime), cal.getTime()));
+		cq.select(root.get(OauthCodeStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		for (int i = 0; i < list.size(); i++) {
 			if (i % 100 == 0) {

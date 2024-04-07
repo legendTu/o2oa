@@ -9,7 +9,7 @@ import javax.persistence.criteria.Root;
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.organization.core.entity.Person;
-import com.x.organization.core.entity.Person_;
+import com.x.organization.core.entity.PersonStatic;
 
 abstract class BaseAction extends StandardJaxrsAction {
 	Boolean credentialExisted(EntityManagerContainer emc, String credential) throws Exception {
@@ -17,10 +17,10 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.name), credential);
-		p = cb.or(p, cb.equal(root.get(Person_.mobile), credential));
-		p = cb.or(p, cb.equal(root.get(Person_.id), credential));
-		cq.select(cb.count(root.get(Person_.id))).where(p);
+		Predicate p = cb.equal(root.get(PersonStatic.name), credential);
+		p = cb.or(p, cb.equal(root.get(PersonStatic.mobile), credential));
+		p = cb.or(p, cb.equal(root.get(PersonStatic.id), credential));
+		cq.select(cb.count(root.get(PersonStatic.id))).where(p);
 		if (em.createQuery(cq).getSingleResult() == 1) {
 			return true;
 		} else {

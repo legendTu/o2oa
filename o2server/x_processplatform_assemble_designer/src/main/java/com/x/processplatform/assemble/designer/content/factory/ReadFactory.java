@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.content.Read;
-import com.x.processplatform.core.entity.content.Read_;
+import com.x.processplatform.core.entity.content.ReadStatic;
 
 public class ReadFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class ReadFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Read> root = cq.from(Read.class);
-		Predicate p = cb.equal(root.get(Read_.application), id);
-		cq.select(root.get(Read_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReadStatic.application), id);
+		cq.select(root.get(ReadStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,8 +34,8 @@ public class ReadFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Read> root = cq.from(Read.class);
-		Predicate p = cb.equal(root.get(Read_.process), id);
-		cq.select(root.get(Read_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReadStatic.process), id);
+		cq.select(root.get(ReadStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

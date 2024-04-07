@@ -19,7 +19,7 @@ import com.x.organization.assemble.control.AbstractFactory;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.PersistenceProperties;
 import com.x.organization.core.entity.Role;
-import com.x.organization.core.entity.Role_;
+import com.x.organization.core.entity.RoleStatic;
 import com.x.base.core.project.cache.Cache.CacheCategory;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
@@ -67,7 +67,7 @@ public class RoleFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<Role> cq = cb.createQuery(Role.class);
 				Root<Role> root = cq.from(Role.class);
-				Predicate p = cb.equal(root.get(Role_.name), name);
+				Predicate p = cb.equal(root.get(RoleStatic.name), name);
 				List<Role> os = em.createQuery(cq.select(root).where(p)).getResultList();
 				if (os.size() == 1) {
 					o = os.get(0);

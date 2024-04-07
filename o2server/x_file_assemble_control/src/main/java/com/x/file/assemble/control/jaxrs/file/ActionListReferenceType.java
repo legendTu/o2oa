@@ -10,17 +10,15 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import com.google.gson.GsonBuilder;
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
 import com.x.base.core.project.annotation.FieldDescribe;
 import com.x.base.core.project.gson.GsonPropertyObject;
-import com.x.base.core.project.gson.XGsonBuilder;
 import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.file.assemble.control.Business;
 import com.x.file.core.entity.open.File;
-import com.x.file.core.entity.open.File_;
+import com.x.file.core.entity.open.FileStatic;
 import com.x.file.core.entity.open.ReferenceType;
 
 class ActionListReferenceType extends BaseAction {
@@ -47,8 +45,8 @@ class ActionListReferenceType extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<ReferenceType> cq = cb.createQuery(ReferenceType.class);
 		Root<File> root = cq.from(File.class);
-		Predicate p = cb.equal(root.get(File_.person), effectivePerson.getDistinguishedName());
-		cq.select(root.get(File_.referenceType)).where(p);
+		Predicate p = cb.equal(root.get(FileStatic.person), effectivePerson.getDistinguishedName());
+		cq.select(root.get(FileStatic.referenceType)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 
@@ -58,8 +56,8 @@ class ActionListReferenceType extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<File> root = cq.from(File.class);
-		Predicate p = cb.equal(root.get(File_.person), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(File_.referenceType), referenceType));
+		Predicate p = cb.equal(root.get(FileStatic.person), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(FileStatic.referenceType), referenceType));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

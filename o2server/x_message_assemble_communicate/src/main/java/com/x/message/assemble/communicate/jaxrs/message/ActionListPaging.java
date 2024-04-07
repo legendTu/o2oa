@@ -13,7 +13,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.DateTools;
 import com.x.message.assemble.communicate.Business;
 import com.x.message.core.entity.Message;
-import com.x.message.core.entity.Message_;
+import com.x.message.core.entity.MessageStatic;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -49,22 +49,22 @@ class ActionListPaging extends BaseAction {
 		Predicate p = cb.conjunction();
 
 		if(StringUtils.isNotEmpty(wi.getPerson())){
-			p = cb.and(p, cb.equal(root.get(Message_.person), wi.getPerson()));
+			p = cb.and(p, cb.equal(root.get(MessageStatic.person), wi.getPerson()));
 		}
 
 		if(StringUtils.isNotEmpty(wi.getType())){
-			p = cb.and(p, cb.equal(root.get(Message_.type), wi.getType()));
+			p = cb.and(p, cb.equal(root.get(MessageStatic.type), wi.getType()));
 		}
 
 		if(StringUtils.isNotEmpty(wi.getConsume())){
-			p = cb.and(p, cb.equal(root.get(Message_.consumer), wi.getConsume()));
+			p = cb.and(p, cb.equal(root.get(MessageStatic.consumer), wi.getConsume()));
 		}
 
 		if (DateTools.isDateTimeOrDate(wi.getStartTime())) {
-			p = cb.and(p, cb.greaterThan(root.get(Message_.createTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(MessageStatic.createTime), DateTools.parse(wi.getStartTime())));
 		}
 		if (DateTools.isDateTimeOrDate(wi.getEndTime())) {
-			p = cb.and(p, cb.lessThan(root.get(Message_.createTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(MessageStatic.createTime), DateTools.parse(wi.getEndTime())));
 		}
 		return p;
 	}

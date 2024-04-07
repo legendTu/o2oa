@@ -15,10 +15,9 @@ import com.x.base.core.project.bean.WrapCopier;
 import com.x.base.core.project.bean.WrapCopierFactory;
 import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
-import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.TaskCompleted_;
+import com.x.processplatform.core.entity.content.TaskCompletedStatic;
 
 class ActionListMyPaging extends BaseAction {
 
@@ -51,10 +50,10 @@ class ActionListMyPaging extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<TaskCompleted> cq = cb.createQuery(TaskCompleted.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.equal(root.get(TaskCompleted_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(TaskCompletedStatic.person), effectivePerson.getDistinguishedName());
 		p = cb.and(p,
-				cb.or(cb.isNull(root.get(TaskCompleted_.latest)), cb.equal(root.get(TaskCompleted_.latest), true)));
-		cq.select(root).where(p).orderBy(cb.desc(root.get(TaskCompleted_.completedTime)));
+				cb.or(cb.isNull(root.get(TaskCompletedStatic.latest)), cb.equal(root.get(TaskCompletedStatic.latest), true)));
+		cq.select(root).where(p).orderBy(cb.desc(root.get(TaskCompletedStatic.completedTime)));
 		return em.createQuery(cq).setFirstResult((adjustPage - 1) * adjustPageSize).setMaxResults(adjustPageSize)
 				.getResultList();
 	}
@@ -64,9 +63,9 @@ class ActionListMyPaging extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.equal(root.get(TaskCompleted_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(TaskCompletedStatic.person), effectivePerson.getDistinguishedName());
 		p = cb.and(p,
-				cb.or(cb.isNull(root.get(TaskCompleted_.latest)), cb.equal(root.get(TaskCompleted_.latest), true)));
+				cb.or(cb.isNull(root.get(TaskCompletedStatic.latest)), cb.equal(root.get(TaskCompletedStatic.latest), true)));
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();
 	}
 

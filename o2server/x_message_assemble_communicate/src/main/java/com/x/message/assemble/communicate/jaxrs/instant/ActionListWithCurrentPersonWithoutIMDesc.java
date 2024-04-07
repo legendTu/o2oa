@@ -12,7 +12,7 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.message.MessageConnector;
 import com.x.message.assemble.communicate.Business;
 import com.x.message.core.entity.Instant;
-import com.x.message.core.entity.Instant_;
+import com.x.message.core.entity.InstantStatic;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.persistence.EntityManager;
@@ -41,10 +41,10 @@ class ActionListWithCurrentPersonWithoutIMDesc extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Instant> cq = cb.createQuery(Instant.class);
 		Root<Instant> root = cq.from(Instant.class);
-		Predicate p = cb.equal(root.get(Instant_.person), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.notEqual(root.get(Instant_.type), MessageConnector.TYPE_IM_CREATE));
-		p = cb.and(p, cb.isNotEmpty(root.get(Instant_.consumerList)));
-		List<Instant> os = em.createQuery(cq.select(root).where(p).orderBy(cb.desc(root.get(Instant_.createTime))))
+		Predicate p = cb.equal(root.get(InstantStatic.person), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.notEqual(root.get(InstantStatic.type), MessageConnector.TYPE_IM_CREATE));
+		p = cb.and(p, cb.isNotEmpty(root.get(InstantStatic.consumerList)));
+		List<Instant> os = em.createQuery(cq.select(root).where(p).orderBy(cb.desc(root.get(InstantStatic.createTime))))
 				.setMaxResults(count).getResultList();
 		return Wo.copier.copy(os);
 	}

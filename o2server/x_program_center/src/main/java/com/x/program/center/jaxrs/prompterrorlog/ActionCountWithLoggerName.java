@@ -18,7 +18,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.program.center.Business;
 import com.x.program.center.core.entity.PromptErrorLog;
-import com.x.program.center.core.entity.PromptErrorLog_;
+import com.x.program.center.core.entity.PromptErrorLogStatic;
 
 class ActionCountWithLoggerName extends BaseAction {
 
@@ -46,7 +46,7 @@ class ActionCountWithLoggerName extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<PromptErrorLog> root = cq.from(PromptErrorLog.class);
-		cq.select(root.get(PromptErrorLog_.loggerName));
+		cq.select(root.get(PromptErrorLogStatic.loggerName));
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 
@@ -55,7 +55,7 @@ class ActionCountWithLoggerName extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<PromptErrorLog> root = cq.from(PromptErrorLog.class);
-		Predicate p = cb.equal(root.get(PromptErrorLog_.loggerName), loggerName);
+		Predicate p = cb.equal(root.get(PromptErrorLogStatic.loggerName), loggerName);
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

@@ -26,7 +26,7 @@ import com.x.organization.core.entity.Group;
 import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.Role;
-import com.x.organization.core.entity.Role_;
+import com.x.organization.core.entity.RoleStatic;
 
 class ActionListWithPerson extends BaseAction {
 
@@ -88,9 +88,9 @@ class ActionListWithPerson extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Role> root = cq.from(Role.class);
-		Predicate p = root.get(Role_.personList).in(personIds);
-		p = cb.or(p, root.get(Role_.groupList).in(groupIds));
-		List<String> roleIds = em.createQuery(cq.select(root.get(Role_.id)).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
+		Predicate p = root.get(RoleStatic.personList).in(personIds);
+		p = cb.or(p, root.get(RoleStatic.groupList).in(groupIds));
+		List<String> roleIds = em.createQuery(cq.select(root.get(RoleStatic.id)).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 		Wo wo = new Wo();
 		wo.getRoleList().addAll(business.role().listRoleDistinguishedNameSorted(roleIds));
 		return wo;

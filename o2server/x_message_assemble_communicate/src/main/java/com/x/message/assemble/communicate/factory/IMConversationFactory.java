@@ -28,8 +28,8 @@ public class IMConversationFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<IMConversation> root = cq.from(IMConversation.class);
-		Predicate p = cb.isMember(person, root.get(IMConversation_.personList));
-		cq.select(root.get(IMConversation_.id)).where(p);
+		Predicate p = cb.isMember(person, root.get(IMConversationStatic.personList));
+		cq.select(root.get(IMConversationStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -46,8 +46,8 @@ public class IMConversationFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<IMConversationExt> cq = cb.createQuery(IMConversationExt.class);
 		Root<IMConversationExt> root = cq.from(IMConversationExt.class);
-		Predicate p = cb.equal(root.get(IMConversationExt_.person), person);
-		p = cb.and(p, cb.equal(root.get(IMConversationExt_.conversationId), conversationId));
+		Predicate p = cb.equal(root.get(IMConversationExtStatic.person), person);
+		p = cb.and(p, cb.equal(root.get(IMConversationExtStatic.conversationId), conversationId));
 		cq.select(root).where(p);
 		List<IMConversationExt> list = em.createQuery(cq).getResultList();
 		if (list != null && !list.isEmpty()) {
@@ -67,10 +67,10 @@ public class IMConversationFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<IMMsg> root = cq.from(IMMsg.class);
-		Predicate p = cb.equal(root.get(IMMsg_.conversationId), ext.getConversationId());
-		p = cb.and(p, cb.notEqual(root.get(IMMsg_.createPerson), ext.getPerson()));
+		Predicate p = cb.equal(root.get(IMMsgStatic.conversationId), ext.getConversationId());
+		p = cb.and(p, cb.notEqual(root.get(IMMsgStatic.createPerson), ext.getPerson()));
 		if (ext.getLastReadTime() != null) {
-			p = cb.and(p, cb.greaterThan(root.get(IMMsg_.createTime), ext.getLastReadTime()));
+			p = cb.and(p, cb.greaterThan(root.get(IMMsgStatic.createTime), ext.getLastReadTime()));
 		}
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
@@ -87,8 +87,8 @@ public class IMConversationFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<IMMsg> cq = cb.createQuery(IMMsg.class);
 		Root<IMMsg> root = cq.from(IMMsg.class);
-		Predicate p = cb.equal(root.get(IMMsg_.conversationId), conversationId);
-		List<IMMsg> list =  em.createQuery(cq.select(root).where(p).orderBy(cb.desc(root.get(IMMsg_.createTime)))).getResultList();
+		Predicate p = cb.equal(root.get(IMMsgStatic.conversationId), conversationId);
+		List<IMMsg> list =  em.createQuery(cq.select(root).where(p).orderBy(cb.desc(root.get(IMMsgStatic.createTime)))).getResultList();
 		if (list != null && !list.isEmpty()) {
 			return list.get(0);
 		}else {
@@ -110,8 +110,8 @@ public class IMConversationFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<IMMsg> cq = cb.createQuery(IMMsg.class);
 		Root<IMMsg> root = cq.from(IMMsg.class);
-		Predicate p = cb.equal(root.get(IMMsg_.conversationId), conversationId);
-		cq.select(root).where(p).orderBy(cb.desc(root.get(IMMsg_.createTime)));
+		Predicate p = cb.equal(root.get(IMMsgStatic.conversationId), conversationId);
+		cq.select(root).where(p).orderBy(cb.desc(root.get(IMMsgStatic.createTime)));
 		return em.createQuery(cq).setFirstResult((adjustPage - 1) * adjustPageSize).setMaxResults(adjustPageSize)
 				.getResultList();
 	}
@@ -128,7 +128,7 @@ public class IMConversationFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<IMMsg> root = cq.from(IMMsg.class);
-		Predicate p = cb.equal(root.get(IMMsg_.conversationId), conversationId);
+		Predicate p = cb.equal(root.get(IMMsgStatic.conversationId), conversationId);
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();
 	}
 }

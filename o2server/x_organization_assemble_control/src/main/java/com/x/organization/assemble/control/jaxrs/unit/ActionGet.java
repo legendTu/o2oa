@@ -3,7 +3,6 @@ package com.x.organization.assemble.control.jaxrs.unit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -25,7 +24,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitAttribute;
@@ -216,7 +215,7 @@ class ActionGet extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Identity> cq = cb.createQuery(Identity.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.equal(root.get(Identity_.unit), wo.getId());
+		Predicate p = cb.equal(root.get(IdentityStatic.unit), wo.getId());
 		List<Identity> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		List<WoIdentity> wos = WoIdentity.copier.copy(os);
 		for (WoIdentity woIdentity : wos) {
@@ -303,7 +302,7 @@ class ActionGet extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.equal(root.get(Identity_.unit), wo.getId());
+		Predicate p = cb.equal(root.get(IdentityStatic.unit), wo.getId());
 		Long count = em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();
 		return count;
 	}

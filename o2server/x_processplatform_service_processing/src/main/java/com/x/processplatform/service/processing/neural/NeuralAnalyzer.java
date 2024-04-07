@@ -24,9 +24,9 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.core.entity.content.Data;
 import com.x.processplatform.core.entity.content.Task;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.TaskCompleted_;
+import com.x.processplatform.core.entity.content.TaskCompletedStatic;
 import com.x.processplatform.core.entity.element.FormField;
-import com.x.processplatform.core.entity.element.FormField_;
+import com.x.processplatform.core.entity.element.FormFieldStatic;
 import com.x.processplatform.core.entity.element.Process;
 import com.x.processplatform.core.entity.element.Route;
 import com.x.processplatform.service.processing.Business;
@@ -142,9 +142,9 @@ public class NeuralAnalyzer {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<FormField> root = cq.from(FormField.class);
-		Predicate p = root.get(FormField_.form).in(formIds);
-		p = cb.and(p, cb.equal(root.get(FormField_.dataType), "number"));
-		cq.select(root.get(FormField_.name)).where(p);
+		Predicate p = root.get(FormFieldStatic.form).in(formIds);
+		p = cb.and(p, cb.equal(root.get(FormFieldStatic.dataType), "number"));
+		cq.select(root.get(FormFieldStatic.name)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 
@@ -153,8 +153,8 @@ public class NeuralAnalyzer {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<TaskCompleted> cq = cb.createQuery(TaskCompleted.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.equal(root.get(TaskCompleted_.activity), activity);
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.person), person));
+		Predicate p = cb.equal(root.get(TaskCompletedStatic.activity), activity);
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.person), person));
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}

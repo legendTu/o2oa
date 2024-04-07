@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root;
 import com.x.file.assemble.control.AbstractFactory;
 import com.x.file.assemble.control.Business;
 import com.x.file.core.entity.personal.Attachment;
-import com.x.file.core.entity.personal.Attachment_;
+import com.x.file.core.entity.personal.AttachmentStatic;
 
 public class AttachmentFactory extends AbstractFactory {
 
@@ -25,9 +25,9 @@ public class AttachmentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Attachment> root = cq.from(Attachment.class);
-		Predicate p = cb.equal(root.get(Attachment_.person), person);
-		p = cb.and(p, cb.or(cb.isNull(root.get(Attachment_.folder)), cb.equal(root.get(Attachment_.folder), "")));
-		cq.select(root.get(Attachment_.id)).where(p);
+		Predicate p = cb.equal(root.get(AttachmentStatic.person), person);
+		p = cb.and(p, cb.or(cb.isNull(root.get(AttachmentStatic.folder)), cb.equal(root.get(AttachmentStatic.folder), "")));
+		cq.select(root.get(AttachmentStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -36,8 +36,8 @@ public class AttachmentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Attachment> root = cq.from(Attachment.class);
-		Predicate p = cb.equal(root.get(Attachment_.folder), folder);
-		cq.select(root.get(Attachment_.id)).where(p);
+		Predicate p = cb.equal(root.get(AttachmentStatic.folder), folder);
+		cq.select(root.get(AttachmentStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -46,8 +46,8 @@ public class AttachmentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Attachment> root = cq.from(Attachment.class);
-		Predicate p = cb.isMember(person, root.get(Attachment_.shareList));
-		cq.select(root.get(Attachment_.person)).where(p);
+		Predicate p = cb.isMember(person, root.get(AttachmentStatic.shareList));
+		cq.select(root.get(AttachmentStatic.person)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 
@@ -56,8 +56,8 @@ public class AttachmentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Attachment> root = cq.from(Attachment.class);
-		Predicate p = cb.isMember(person, root.get(Attachment_.editorList));
-		cq.select(root.get(Attachment_.person)).where(p);
+		Predicate p = cb.isMember(person, root.get(AttachmentStatic.editorList));
+		cq.select(root.get(AttachmentStatic.person)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 
@@ -66,8 +66,8 @@ public class AttachmentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Attachment> root = cq.from(Attachment.class);
-		Predicate p = cb.isMember(person, root.get(Attachment_.shareList));
-		p = cb.and(p, cb.equal(root.get(Attachment_.person), owner));
+		Predicate p = cb.isMember(person, root.get(AttachmentStatic.shareList));
+		p = cb.and(p, cb.equal(root.get(AttachmentStatic.person), owner));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -77,8 +77,8 @@ public class AttachmentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Attachment> root = cq.from(Attachment.class);
-		Predicate p = cb.isMember(person, root.get(Attachment_.editorList));
-		p = cb.and(p, cb.equal(root.get(Attachment_.person), owner));
+		Predicate p = cb.isMember(person, root.get(AttachmentStatic.editorList));
+		p = cb.and(p, cb.equal(root.get(AttachmentStatic.person), owner));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -88,9 +88,9 @@ public class AttachmentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Attachment> root = cq.from(Attachment.class);
-		Predicate p = cb.isMember(person, root.get(Attachment_.shareList));
-		p = cb.and(p, cb.equal(root.get(Attachment_.person), owner));
-		cq.select(root.get(Attachment_.id)).where(p);
+		Predicate p = cb.isMember(person, root.get(AttachmentStatic.shareList));
+		p = cb.and(p, cb.equal(root.get(AttachmentStatic.person), owner));
+		cq.select(root.get(AttachmentStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -99,9 +99,9 @@ public class AttachmentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Attachment> root = cq.from(Attachment.class);
-		Predicate p = cb.isMember(person, root.get(Attachment_.editorList));
-		p = cb.and(p, cb.equal(root.get(Attachment_.person), owner));
-		cq.select(root.get(Attachment_.id)).where(p);
+		Predicate p = cb.isMember(person, root.get(AttachmentStatic.editorList));
+		p = cb.and(p, cb.equal(root.get(AttachmentStatic.person), owner));
+		cq.select(root.get(AttachmentStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

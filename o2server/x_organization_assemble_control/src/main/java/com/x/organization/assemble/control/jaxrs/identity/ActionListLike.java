@@ -28,7 +28,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.UnitDuty;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
@@ -118,11 +118,11 @@ class ActionListLike extends BaseAction {
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Identity> root = cq.from(Identity.class);
 		Predicate p = cb.conjunction();
-		p = cb.and(p, cb.or(cb.like(cb.lower(root.get(Identity_.name)), str + "%", StringTools.SQL_ESCAPE_CHAR),
-				cb.like(cb.lower(root.get(Identity_.unique)), str + "%", StringTools.SQL_ESCAPE_CHAR),
-				cb.like(cb.lower(root.get(Identity_.pinyin)), str + "%", StringTools.SQL_ESCAPE_CHAR),
-				cb.like(cb.lower(root.get(Identity_.pinyinInitial)), str + "%", StringTools.SQL_ESCAPE_CHAR),
-				cb.like(cb.lower(root.get(Identity_.distinguishedName)), str + "%", StringTools.SQL_ESCAPE_CHAR)));
+		p = cb.and(p, cb.or(cb.like(cb.lower(root.get(IdentityStatic.name)), str + "%", StringTools.SQL_ESCAPE_CHAR),
+				cb.like(cb.lower(root.get(IdentityStatic.unique)), str + "%", StringTools.SQL_ESCAPE_CHAR),
+				cb.like(cb.lower(root.get(IdentityStatic.pinyin)), str + "%", StringTools.SQL_ESCAPE_CHAR),
+				cb.like(cb.lower(root.get(IdentityStatic.pinyinInitial)), str + "%", StringTools.SQL_ESCAPE_CHAR),
+				cb.like(cb.lower(root.get(IdentityStatic.distinguishedName)), str + "%", StringTools.SQL_ESCAPE_CHAR)));
 		ListOrderedSet<String> set = new ListOrderedSet<>();
 		if (ListTools.isNotEmpty(wi.getUnitDutyList())) {
 			List<UnitDuty> unitDuties = business.unitDuty().pick(wi.getUnitDutyList());
@@ -136,7 +136,7 @@ class ActionListLike extends BaseAction {
 		if (ListTools.isNotEmpty(wi.getUnitList())) {
 			List<String> units = business.expendUnitToUnit(wi.getUnitList());
 			if (!units.isEmpty()) {
-				p = cb.and(p, root.get(Identity_.unit).in(units));
+				p = cb.and(p, root.get(IdentityStatic.unit).in(units));
 			}
 		}
 		if (ListTools.isNotEmpty(wi.getGroupList())) {
@@ -144,9 +144,9 @@ class ActionListLike extends BaseAction {
 			set.addAll(identityIds);
 		}
 		if (!set.isEmpty()) {
-			p = cb.and(p, root.get(Identity_.id).in(set.asList()));
+			p = cb.and(p, root.get(IdentityStatic.id).in(set.asList()));
 		}
-		List<String> ids = em.createQuery(cq.select(root.get(Identity_.id)).where(p)).getResultList().stream()
+		List<String> ids = em.createQuery(cq.select(root.get(IdentityStatic.id)).where(p)).getResultList().stream()
 				.distinct().collect(Collectors.toList());
 		List<Identity> os = business.entityManagerContainer().list(Identity.class, ids);
 		wos = Wo.copier.copy(os);

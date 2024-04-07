@@ -22,7 +22,7 @@ import com.x.organization.assemble.control.message.OrgMessageFactory;
 import com.x.organization.core.entity.Group;
 import com.x.organization.core.entity.Group_;
 import com.x.organization.core.entity.Role;
-import com.x.organization.core.entity.Role_;
+import com.x.organization.core.entity.RoleStatic;
 
 class ActionDelete extends BaseAction {
 	private static Logger logger = LoggerFactory.getLogger(ActionDelete.class);
@@ -78,7 +78,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Role> cq = cb.createQuery(Role.class);
 		Root<Role> root = cq.from(Role.class);
-		Predicate p = cb.isMember(group.getId(), root.get(Role_.groupList));
+		Predicate p = cb.isMember(group.getId(), root.get(RoleStatic.groupList));
 		List<Role> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		for (Role o : os) {
 			o.getGroupList().remove(group.getId());

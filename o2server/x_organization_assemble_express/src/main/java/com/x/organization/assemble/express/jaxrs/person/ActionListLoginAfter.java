@@ -22,7 +22,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Person;
-import com.x.organization.core.entity.Person_;
+import com.x.organization.core.entity.PersonStatic;
 
 class ActionListLoginAfter extends BaseAction {
 
@@ -70,8 +70,8 @@ class ActionListLoginAfter extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Person> cq = cb.createQuery(Person.class);
 			Root<Person> root = cq.from(Person.class);
-			cq.orderBy(cb.desc(root.get(Person_.lastLoginTime)))
-					.where(cb.greaterThan(root.get(Person_.lastLoginTime), wi.getDate()));
+			cq.orderBy(cb.desc(root.get(PersonStatic.lastLoginTime)))
+					.where(cb.greaterThan(root.get(PersonStatic.lastLoginTime), wi.getDate()));
 			List<Person> os = new ArrayList<>();
 			os = em.createQuery(cq.select(root)).getResultList();
 			List<String> list = ListTools.extractProperty(os, "distinguishedName", String.class, true, true);

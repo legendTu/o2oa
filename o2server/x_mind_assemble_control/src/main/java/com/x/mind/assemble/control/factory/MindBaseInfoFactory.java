@@ -19,7 +19,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.mind.assemble.control.AbstractFactory;
 import com.x.mind.assemble.control.Business;
 import com.x.mind.entity.MindBaseInfo;
-import com.x.mind.entity.MindBaseInfo_;
+import com.x.mind.entity.MindBaseInfoStatic;
 
 
 /**
@@ -59,8 +59,8 @@ public class MindBaseInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<MindBaseInfo> cq = cb.createQuery(MindBaseInfo.class);
 		Root<MindBaseInfo> root = cq.from(MindBaseInfo.class);
-		Predicate p = root.get(MindBaseInfo_.id).in(ids);
-		cq.orderBy( cb.desc( root.get( MindBaseInfo_.updateTime ) ) );
+		Predicate p = root.get(MindBaseInfoStatic.id).in(ids);
+		cq.orderBy( cb.desc( root.get( MindBaseInfoStatic.updateTime ) ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -74,8 +74,8 @@ public class MindBaseInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<MindBaseInfo> root = cq.from(MindBaseInfo.class);
-		cq.orderBy( cb.desc( root.get( MindBaseInfo_.updateTime ) ) );
-		cq.select( root.get(MindBaseInfo_.id ) );
+		cq.orderBy( cb.desc( root.get( MindBaseInfoStatic.updateTime ) ) );
+		cq.select( root.get(MindBaseInfoStatic.id ) );
 		return em.createQuery( cq ).setMaxResults( 10000 ).getResultList();
 	}
 
@@ -94,21 +94,21 @@ public class MindBaseInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<MindBaseInfo> root = cq.from(MindBaseInfo.class);
-		Predicate p = cb.isNotNull( root.get(MindBaseInfo_.id ) );
+		Predicate p = cb.isNotNull( root.get(MindBaseInfoStatic.id ) );
 		if( folderId != null && !folderId.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindBaseInfo_.id), folderId));
+			p = cb.and( p, cb.equal( root.get( MindBaseInfoStatic.id), folderId));
 		}
 		if( person != null && !person.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindBaseInfo_.creator), person));
+			p = cb.and( p, cb.equal( root.get( MindBaseInfoStatic.creator), person));
 		}
 		if( unit != null && !unit.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindBaseInfo_.creatorUnit), unit));
+			p = cb.and( p, cb.equal( root.get( MindBaseInfoStatic.creatorUnit), unit));
 		}
 		if( hasShared != null ){
-			p = cb.and( p, cb.equal( root.get( MindBaseInfo_.shared), hasShared));
+			p = cb.and( p, cb.equal( root.get( MindBaseInfoStatic.shared), hasShared));
 		}
 		if( name != null && !name.isEmpty() ){
-			p = cb.and( p, cb.like( root.get( MindBaseInfo_.name ), "%" + name + "%" ));
+			p = cb.and( p, cb.like( root.get( MindBaseInfoStatic.name ), "%" + name + "%" ));
 		}
 		cq.select( cb.count( root ) );
 		return em.createQuery(cq.where(p)).getSingleResult();
@@ -129,24 +129,24 @@ public class MindBaseInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<MindBaseInfo> root = cq.from(MindBaseInfo.class);
-		Predicate p = cb.isNotNull( root.get(MindBaseInfo_.id ) );
+		Predicate p = cb.isNotNull( root.get(MindBaseInfoStatic.id ) );
 		if( folderId != null && !folderId.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindBaseInfo_.id), folderId));
+			p = cb.and( p, cb.equal( root.get( MindBaseInfoStatic.id), folderId));
 		}
 		if( person != null && !person.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindBaseInfo_.creator), person));
+			p = cb.and( p, cb.equal( root.get( MindBaseInfoStatic.creator), person));
 		}
 		if( unit != null && !unit.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindBaseInfo_.creatorUnit), unit));
+			p = cb.and( p, cb.equal( root.get( MindBaseInfoStatic.creatorUnit), unit));
 		}
 		if( hasShared != null ){
-			p = cb.and( p, cb.equal( root.get( MindBaseInfo_.shared), hasShared));
+			p = cb.and( p, cb.equal( root.get( MindBaseInfoStatic.shared), hasShared));
 		}
 		if( name != null && !name.isEmpty() ){
-			p = cb.and( p, cb.like( root.get( MindBaseInfo_.name ), "%" + name + "%" ));
+			p = cb.and( p, cb.like( root.get( MindBaseInfoStatic.name ), "%" + name + "%" ));
 		}
-		cq.orderBy( cb.asc( root.get( MindBaseInfo_.updateTime ) ) );
-		cq.select( root.get(MindBaseInfo_.id ) );
+		cq.orderBy( cb.asc( root.get( MindBaseInfoStatic.updateTime ) ) );
+		cq.select( root.get(MindBaseInfoStatic.id ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -181,27 +181,27 @@ public class MindBaseInfoFactory extends AbstractFactory {
 		Predicate p_permission = null;
 		
 		if( ListTools.isNotEmpty( sharePersons )) {
-			p_permission = root.get( MindBaseInfo_.sharePersonList ).in( sharePersons );
+			p_permission = root.get( MindBaseInfoStatic.sharePersonList ).in( sharePersons );
 		}
 		
 		if( ListTools.isNotEmpty( shareUnits )) {
 			if( p_permission == null ) {
-				p_permission = root.get( MindBaseInfo_.shareUnitList).in( shareUnits );
+				p_permission = root.get( MindBaseInfoStatic.shareUnitList).in( shareUnits );
 			}else {
-				p_permission = cb.or( p_permission, root.get( MindBaseInfo_.shareUnitList).in( shareUnits ));
+				p_permission = cb.or( p_permission, root.get( MindBaseInfoStatic.shareUnitList).in( shareUnits ));
 			}			
 		}
 		
 		if( ListTools.isNotEmpty( shareGroups )) {
 			if( p_permission == null ) {
-				p_permission = root.get( MindBaseInfo_.shareGroupList).in( shareGroups );
+				p_permission = root.get( MindBaseInfoStatic.shareGroupList).in( shareGroups );
 			}else {
-				p_permission = cb.or( p_permission, root.get( MindBaseInfo_.shareGroupList ).in( shareGroups ));
+				p_permission = cb.or( p_permission, root.get( MindBaseInfoStatic.shareGroupList ).in( shareGroups ));
 			}
 		}
-		Predicate p = root.get( MindBaseInfo_.id ).isNotNull();
+		Predicate p = root.get( MindBaseInfoStatic.id ).isNotNull();
 		if( ListTools.isNotEmpty( inMindIds )) {
-			p = root.get( MindBaseInfo_.id ).in( inMindIds );
+			p = root.get( MindBaseInfoStatic.id ).in( inMindIds );
 		}
 		//加上权限控制
 		if( p_permission != null ) {
@@ -209,114 +209,114 @@ public class MindBaseInfoFactory extends AbstractFactory {
 		}
 		if( sequenceFieldValue != null ){
 			if( "folderId".equals( orderField  )){//文件夹
-				p = cb.and( p, cb.isNotNull( root.get( MindBaseInfo_.folder_sequence ) ));
+				p = cb.and( p, cb.isNotNull( root.get( MindBaseInfoStatic.folder_sequence ) ));
 				if( "DESC".equalsIgnoreCase( orderType )){
-					p = cb.and( p, cb.lessThan( root.get( MindBaseInfo_.folder_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.lessThan( root.get( MindBaseInfoStatic.folder_sequence ), sequenceFieldValue.toString() ));
 				}else{
-					p = cb.and( p, cb.greaterThan( root.get( MindBaseInfo_.folder_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.greaterThan( root.get( MindBaseInfoStatic.folder_sequence ), sequenceFieldValue.toString() ));
 				}
 			}else if( "shared".equals( orderField  )){//是否已分享
-				p = cb.and( p, cb.isNotNull( root.get( MindBaseInfo_.shared_sequence ) ));
+				p = cb.and( p, cb.isNotNull( root.get( MindBaseInfoStatic.shared_sequence ) ));
 				if( "DESC".equalsIgnoreCase( orderType )){
-					p = cb.and( p, cb.lessThan( root.get( MindBaseInfo_.shared_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.lessThan( root.get( MindBaseInfoStatic.shared_sequence ), sequenceFieldValue.toString() ));
 				}else{
-					p = cb.and( p, cb.greaterThan( root.get( MindBaseInfo_.shared_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.greaterThan( root.get( MindBaseInfoStatic.shared_sequence ), sequenceFieldValue.toString() ));
 				}
 			}else if( "createTime".equals( orderField  )){//创建时间
-				p = cb.and( p, cb.isNotNull( root.get( MindBaseInfo_.createTime ) ));
+				p = cb.and( p, cb.isNotNull( root.get( MindBaseInfoStatic.createTime ) ));
 				if( "DESC".equalsIgnoreCase( orderType )){
-					p = cb.and( p, cb.lessThan( root.get( MindBaseInfo_.createTime ), (Date)sequenceFieldValue ));
+					p = cb.and( p, cb.lessThan( root.get( MindBaseInfoStatic.createTime ), (Date)sequenceFieldValue ));
 				}else{
-					p = cb.and( p, cb.greaterThan( root.get( MindBaseInfo_.createTime ), (Date)sequenceFieldValue ));
+					p = cb.and( p, cb.greaterThan( root.get( MindBaseInfoStatic.createTime ), (Date)sequenceFieldValue ));
 				}
 			}else if( "updateTime".equals( orderField  )){//创建时间
-				p = cb.and( p, cb.isNotNull( root.get( MindBaseInfo_.updateTime ) ));
+				p = cb.and( p, cb.isNotNull( root.get( MindBaseInfoStatic.updateTime ) ));
 				if( "DESC".equalsIgnoreCase( orderType )){
-					p = cb.and( p, cb.lessThan( root.get( MindBaseInfo_.updateTime ), (Date)sequenceFieldValue ));
+					p = cb.and( p, cb.lessThan( root.get( MindBaseInfoStatic.updateTime ), (Date)sequenceFieldValue ));
 				}else{
-					p = cb.and( p, cb.greaterThan( root.get( MindBaseInfo_.updateTime ), (Date)sequenceFieldValue ));
+					p = cb.and( p, cb.greaterThan( root.get( MindBaseInfoStatic.updateTime ), (Date)sequenceFieldValue ));
 				}
 			}else if( "creatorUnit".equals( orderField  )){//创建者所属组织
-				p = cb.and( p, cb.isNotNull( root.get( MindBaseInfo_.creatorUnit_sequence ) ));
+				p = cb.and( p, cb.isNotNull( root.get( MindBaseInfoStatic.creatorUnit_sequence ) ));
 				if( "DESC".equalsIgnoreCase( orderType )){
-					p = cb.and( p, cb.lessThan( root.get( MindBaseInfo_.creatorUnit_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.lessThan( root.get( MindBaseInfoStatic.creatorUnit_sequence ), sequenceFieldValue.toString() ));
 				}else{
-					p = cb.and( p, cb.greaterThan( root.get( MindBaseInfo_.creatorUnit_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.greaterThan( root.get( MindBaseInfoStatic.creatorUnit_sequence ), sequenceFieldValue.toString() ));
 				}
 			}else if( "creator".equals( orderField  )){//创建者
-				p = cb.and( p, cb.isNotNull( root.get( MindBaseInfo_.creator_sequence ) ));
+				p = cb.and( p, cb.isNotNull( root.get( MindBaseInfoStatic.creator_sequence ) ));
 				if( "DESC".equalsIgnoreCase( orderType )){
-					p = cb.and( p, cb.lessThan( root.get( MindBaseInfo_.creator_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.lessThan( root.get( MindBaseInfoStatic.creator_sequence ), sequenceFieldValue.toString() ));
 				}else{
-					p = cb.and( p, cb.greaterThan( root.get( MindBaseInfo_.creator_sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.greaterThan( root.get( MindBaseInfoStatic.creator_sequence ), sequenceFieldValue.toString() ));
 				}
 			}else if(  JpaObject.sequence_FIELDNAME.equals( orderField  )){//sequence
-				p = cb.and( p, cb.isNotNull( root.get( MindBaseInfo_.sequence ) ));
+				p = cb.and( p, cb.isNotNull( root.get( MindBaseInfoStatic.sequence ) ));
 				if( "DESC".equalsIgnoreCase( orderType )){
-					p = cb.and( p, cb.lessThan( root.get( MindBaseInfo_.sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.lessThan( root.get( MindBaseInfoStatic.sequence ), sequenceFieldValue.toString() ));
 				}else{
-					p = cb.and( p, cb.greaterThan( root.get( MindBaseInfo_.sequence ), sequenceFieldValue.toString() ));
+					p = cb.and( p, cb.greaterThan( root.get( MindBaseInfoStatic.sequence ), sequenceFieldValue.toString() ));
 				}
 			}
 		}
 		
 		if(  StringUtils.isNotEmpty(folderId) ){
-			p = cb.and( p, cb.equal( root.get( MindBaseInfo_.folderId), folderId));
+			p = cb.and( p, cb.equal( root.get( MindBaseInfoStatic.folderId), folderId));
 		}
 		if(  shared != null ){
-			p = cb.and( p, cb.equal( root.get( MindBaseInfo_.shared), shared));
+			p = cb.and( p, cb.equal( root.get( MindBaseInfoStatic.shared), shared));
 		}
 		if(  StringUtils.isNotEmpty(creatorUnit) ){
-			p = cb.and( p, cb.equal( root.get( MindBaseInfo_.creatorUnit), creatorUnit));
+			p = cb.and( p, cb.equal( root.get( MindBaseInfoStatic.creatorUnit), creatorUnit));
 		}
 		if(  StringUtils.isNotEmpty(creator) ){
-			p = cb.and( p, cb.equal( root.get( MindBaseInfo_.creator), creator));
+			p = cb.and( p, cb.equal( root.get( MindBaseInfoStatic.creator), creator));
 		}
 		if(  StringUtils.isNotEmpty( key ) ){
-			p = cb.and( p, cb.like( root.get( MindBaseInfo_.name), "%"+key+"%"));
+			p = cb.and( p, cb.like( root.get( MindBaseInfoStatic.name), "%"+key+"%"));
 		}
 		
 		if( "folderId".equals( orderField  )){//文件夹
 			if( "DESC".equalsIgnoreCase( orderType )){
-				cq.orderBy( cb.desc( root.get( MindBaseInfo_.folder_sequence ) ));
+				cq.orderBy( cb.desc( root.get( MindBaseInfoStatic.folder_sequence ) ));
 			}else{
-				cq.orderBy( cb.asc( root.get( MindBaseInfo_.folder_sequence ) ) );
+				cq.orderBy( cb.asc( root.get( MindBaseInfoStatic.folder_sequence ) ) );
 			}
 		}else if( "shared".equals( orderField  )){//是否已经分享
 			if( "DESC".equalsIgnoreCase( orderType )){
-				cq.orderBy( cb.desc( root.get( MindBaseInfo_.shared_sequence ) ));
+				cq.orderBy( cb.desc( root.get( MindBaseInfoStatic.shared_sequence ) ));
 			}else{
-				cq.orderBy( cb.asc( root.get( MindBaseInfo_.shared_sequence ) ));
+				cq.orderBy( cb.asc( root.get( MindBaseInfoStatic.shared_sequence ) ));
 			}
 		}else if( "createTime".equals( orderField  )){//创建时间
 			if( "DESC".equalsIgnoreCase( orderType )){
-				cq.orderBy( cb.desc( root.get( MindBaseInfo_.createTime ) ));
+				cq.orderBy( cb.desc( root.get( MindBaseInfoStatic.createTime ) ));
 			}else{
-				cq.orderBy( cb.asc( root.get( MindBaseInfo_.createTime ) ));
+				cq.orderBy( cb.asc( root.get( MindBaseInfoStatic.createTime ) ));
 			}
 		}else if( "updateTime".equals( orderField  )){//创建时间
 			if( "DESC".equalsIgnoreCase( orderType )){
-				cq.orderBy( cb.desc( root.get( MindBaseInfo_.updateTime ) ));
+				cq.orderBy( cb.desc( root.get( MindBaseInfoStatic.updateTime ) ));
 			}else{
-				cq.orderBy( cb.asc( root.get( MindBaseInfo_.updateTime ) ));
+				cq.orderBy( cb.asc( root.get( MindBaseInfoStatic.updateTime ) ));
 			}
 		}else if( "creatorUnit".equals( orderField  )){//创建者所属组织
 			if( "DESC".equalsIgnoreCase( orderType )){
-				cq.orderBy( cb.desc( root.get( MindBaseInfo_.creatorUnit_sequence ) ));
+				cq.orderBy( cb.desc( root.get( MindBaseInfoStatic.creatorUnit_sequence ) ));
 			}else{
-				cq.orderBy( cb.asc( root.get( MindBaseInfo_.creatorUnit_sequence ) ));
+				cq.orderBy( cb.asc( root.get( MindBaseInfoStatic.creatorUnit_sequence ) ));
 			}
 		}else if( "creator".equals( orderField  )){//创建者
 			if( "DESC".equalsIgnoreCase( orderType )){
-				cq.orderBy( cb.desc( root.get( MindBaseInfo_.creator_sequence ) ));
+				cq.orderBy( cb.desc( root.get( MindBaseInfoStatic.creator_sequence ) ));
 			}else{
-				cq.orderBy( cb.asc( root.get( MindBaseInfo_.creator_sequence ) ));
+				cq.orderBy( cb.asc( root.get( MindBaseInfoStatic.creator_sequence ) ));
 			}
 		}else if(  JpaObject.sequence_FIELDNAME.equals( orderField  )){//sequence
 			if( "DESC".equalsIgnoreCase( orderType )){
-				cq.orderBy( cb.desc( root.get( MindBaseInfo_.sequence ) ) );
+				cq.orderBy( cb.desc( root.get( MindBaseInfoStatic.sequence ) ) );
 			}else{
-				cq.orderBy( cb.asc( root.get( MindBaseInfo_.sequence ) ) );
+				cq.orderBy( cb.asc( root.get( MindBaseInfoStatic.sequence ) ) );
 			}
 		}
 		return em.createQuery(cq.where(p)).setMaxResults( count ).getResultList().stream().distinct().collect(Collectors.toList());
@@ -333,7 +333,7 @@ public class MindBaseInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<MindBaseInfo> root = cq.from(MindBaseInfo.class);
-		Predicate p = cb.equal(root.get( MindBaseInfo_.folderId ), folderId );
+		Predicate p = cb.equal(root.get( MindBaseInfoStatic.folderId ), folderId );
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

@@ -4,7 +4,7 @@ import com.x.file.assemble.control.AbstractFactory;
 import com.x.file.assemble.control.Business;
 import com.x.file.core.entity.open.FileStatus;
 import com.x.file.core.entity.personal.Attachment2;
-import com.x.file.core.entity.personal.Attachment2_;
+import com.x.file.core.entity.personal.Attachment2Static;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -25,10 +25,10 @@ public class Attachment2Factory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Attachment2> root = cq.from(Attachment2.class);
-		Predicate p = cb.equal(root.get(Attachment2_.person), person);
-		p = cb.and(p, cb.equal(root.get(Attachment2_.status), FileStatus.VALID.getName()));
-		p = cb.and(p, cb.equal(root.get(Attachment2_.folder), Business.TOP_FOLD));
-		cq.select(root.get(Attachment2_.id)).where(p);
+		Predicate p = cb.equal(root.get(Attachment2Static.person), person);
+		p = cb.and(p, cb.equal(root.get(Attachment2Static.status), FileStatus.VALID.getName()));
+		p = cb.and(p, cb.equal(root.get(Attachment2Static.folder), Business.TOP_FOLD));
+		cq.select(root.get(Attachment2Static.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -37,11 +37,11 @@ public class Attachment2Factory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Attachment2> root = cq.from(Attachment2.class);
-		Predicate p = cb.equal(root.get(Attachment2_.folder), folder);
+		Predicate p = cb.equal(root.get(Attachment2Static.folder), folder);
 		if (StringUtils.isNotEmpty(status)) {
-			p = cb.and(p, cb.equal(root.get(Attachment2_.status), status));
+			p = cb.and(p, cb.equal(root.get(Attachment2Static.status), status));
 		}
-		cq.select(root.get(Attachment2_.id)).where(p);
+		cq.select(root.get(Attachment2Static.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -50,10 +50,10 @@ public class Attachment2Factory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Attachment2> root = cq.from(Attachment2.class);
-		Predicate p = cb.equal(root.get(Attachment2_.person), person);
-		p = cb.and(p, cb.equal(root.get(Attachment2_.status), FileStatus.VALID.getName()));
-		p = cb.and(p, cb.like(root.get(Attachment2_.name), "%" + name + "%"));
-		cq.select(root.get(Attachment2_.id)).where(p);
+		Predicate p = cb.equal(root.get(Attachment2Static.person), person);
+		p = cb.and(p, cb.equal(root.get(Attachment2Static.status), FileStatus.VALID.getName()));
+		p = cb.and(p, cb.like(root.get(Attachment2Static.name), "%" + name + "%"));
+		cq.select(root.get(Attachment2Static.id)).where(p);
 		return em.createQuery(cq).setMaxResults(100).getResultList();
 	}
 
@@ -62,9 +62,9 @@ public class Attachment2Factory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Attachment2> root = cq.from(Attachment2.class);
-		Predicate p = cb.equal(root.get(Attachment2_.person), person);
-		p = cb.and(p, cb.equal(root.get(Attachment2_.status), FileStatus.VALID.getName()));
-		cq.select(cb.sum(root.get(Attachment2_.length))).where(p);
+		Predicate p = cb.equal(root.get(Attachment2Static.person), person);
+		p = cb.and(p, cb.equal(root.get(Attachment2Static.status), FileStatus.VALID.getName()));
+		cq.select(cb.sum(root.get(Attachment2Static.length))).where(p);
 		Long sum = em.createQuery(cq).getSingleResult();
 		return sum == null ? 0 : sum;
 	}
@@ -74,9 +74,9 @@ public class Attachment2Factory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Attachment2> cq = cb.createQuery(Attachment2.class);
 		Root<Attachment2> root = cq.from(Attachment2.class);
-		Predicate p = cb.equal(root.get(Attachment2_.folder), folder);
+		Predicate p = cb.equal(root.get(Attachment2Static.folder), folder);
 		if (StringUtils.isNotEmpty(status)) {
-			p = cb.and(p, cb.equal(root.get(Attachment2_.status), status));
+			p = cb.and(p, cb.equal(root.get(Attachment2Static.status), status));
 		}
 		return em.createQuery(cq.where(p)).getResultList();
 	}

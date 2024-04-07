@@ -20,7 +20,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.SortTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.TaskCompleted_;
+import com.x.processplatform.core.entity.content.TaskCompletedStatic;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Process;
 
@@ -51,11 +51,11 @@ class ActionListCountWithProcess extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.equal(root.get(TaskCompleted_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(TaskCompletedStatic.person), effectivePerson.getDistinguishedName());
 		p = cb.and(p,
-				cb.or(cb.equal(root.get(TaskCompleted_.latest), true), cb.isNull(root.get(TaskCompleted_.latest))));
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.application), application.getId()));
-		cq.select(root.get(TaskCompleted_.process)).where(p);
+				cb.or(cb.equal(root.get(TaskCompletedStatic.latest), true), cb.isNull(root.get(TaskCompletedStatic.latest))));
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.application), application.getId()));
+		cq.select(root.get(TaskCompletedStatic.process)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		for (String str : os) {
 			NameValueCountPair o = new NameValueCountPair();
@@ -78,8 +78,8 @@ class ActionListCountWithProcess extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.equal(root.get(TaskCompleted_.person), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(TaskCompleted_.process), id));
+		Predicate p = cb.equal(root.get(TaskCompletedStatic.person), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(TaskCompletedStatic.process), id));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

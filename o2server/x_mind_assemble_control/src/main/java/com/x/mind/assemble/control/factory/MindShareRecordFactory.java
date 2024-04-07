@@ -14,7 +14,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.mind.assemble.control.AbstractFactory;
 import com.x.mind.assemble.control.Business;
 import com.x.mind.entity.MindShareRecord;
-import com.x.mind.entity.MindShareRecord_;
+import com.x.mind.entity.MindShareRecordStatic;
 
 
 /**
@@ -38,9 +38,9 @@ public class MindShareRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<MindShareRecord> root = cq.from(MindShareRecord.class);
-		Predicate p = cb.equal(  root.get(MindShareRecord_.fileId), mindId);
-		p = cb.and( p,  cb.equal(  root.get(MindShareRecord_.fileType), "MIND"));
-		cq.select( root.get(MindShareRecord_.id) );
+		Predicate p = cb.equal(  root.get(MindShareRecordStatic.fileId), mindId);
+		p = cb.and( p,  cb.equal(  root.get(MindShareRecordStatic.fileType), "MIND"));
+		cq.select( root.get(MindShareRecordStatic.id) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -52,7 +52,7 @@ public class MindShareRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<MindShareRecord> cq = cb.createQuery(MindShareRecord.class);
 		Root<MindShareRecord> root = cq.from(MindShareRecord.class);
-		Predicate p =  root.get(MindShareRecord_.id).in( ids );
+		Predicate p =  root.get(MindShareRecordStatic.id).in( ids );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -64,10 +64,10 @@ public class MindShareRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<MindShareRecord> root = cq.from(MindShareRecord.class);
-		Predicate p =  cb.equal( root.get(MindShareRecord_.fileId), ｍindShareRecord.getFileId() );
-		p = cb.and( p , cb.equal( root.get(MindShareRecord_.target), ｍindShareRecord.getTarget()));
-		p = cb.and( p , cb.equal( root.get(MindShareRecord_.targetType), ｍindShareRecord.getTargetType()));
-		cq.select( root.get(MindShareRecord_.id) );
+		Predicate p =  cb.equal( root.get(MindShareRecordStatic.fileId), ｍindShareRecord.getFileId() );
+		p = cb.and( p , cb.equal( root.get(MindShareRecordStatic.target), ｍindShareRecord.getTarget()));
+		p = cb.and( p , cb.equal( root.get(MindShareRecordStatic.targetType), ｍindShareRecord.getTargetType()));
+		cq.select( root.get(MindShareRecordStatic.id) );
 		List<String> ids = em.createQuery(cq.where(p)).getResultList();		
 		return ListTools.isNotEmpty(ids);
 	}
@@ -80,17 +80,17 @@ public class MindShareRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<MindShareRecord> root = cq.from(MindShareRecord.class);
-		Predicate p =  root.get(MindShareRecord_.id).isNotNull();
+		Predicate p =  root.get(MindShareRecordStatic.id).isNotNull();
 		if(StringUtils.isNotEmpty(source)) {
-			p = cb.and( p , cb.equal( root.get(MindShareRecord_.source), source));
+			p = cb.and( p , cb.equal( root.get(MindShareRecordStatic.source), source));
 		}
 		if( ListTools.isNotEmpty( targetList )) {
-			p = cb.and( p , root.get(MindShareRecord_.target).in( targetList ));
+			p = cb.and( p , root.get(MindShareRecordStatic.target).in( targetList ));
 		}
 		if(ListTools.isNotEmpty( inMindIds )) {
-			p = cb.and( p , root.get(MindShareRecord_.fileId).in( inMindIds ));
+			p = cb.and( p , root.get(MindShareRecordStatic.fileId).in( inMindIds ));
 		}
-		cq.select( root.get(MindShareRecord_.id) );
+		cq.select( root.get(MindShareRecordStatic.id) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -102,17 +102,17 @@ public class MindShareRecordFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<MindShareRecord> root = cq.from(MindShareRecord.class);
-		Predicate p =  root.get(MindShareRecord_.id).isNotNull();
+		Predicate p =  root.get(MindShareRecordStatic.id).isNotNull();
 		if(StringUtils.isNotEmpty(source)) {
-			p = cb.and( p , cb.equal( root.get(MindShareRecord_.source), source));
+			p = cb.and( p , cb.equal( root.get(MindShareRecordStatic.source), source));
 		}
 		if( ListTools.isNotEmpty( targetList )) {
-			p = cb.and( p , root.get(MindShareRecord_.target).in( targetList ));
+			p = cb.and( p , root.get(MindShareRecordStatic.target).in( targetList ));
 		}
 		if(ListTools.isNotEmpty( inMindIds )) {
-			p = cb.and( p , root.get(MindShareRecord_.fileId).in( inMindIds ));
+			p = cb.and( p , root.get(MindShareRecordStatic.fileId).in( inMindIds ));
 		}
-		cq.select( root.get(MindShareRecord_.fileId) );
+		cq.select( root.get(MindShareRecordStatic.fileId) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 

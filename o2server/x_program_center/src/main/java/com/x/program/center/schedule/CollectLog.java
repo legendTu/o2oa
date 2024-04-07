@@ -26,11 +26,11 @@ import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.program.center.Business;
 import com.x.program.center.core.entity.PromptErrorLog;
-import com.x.program.center.core.entity.PromptErrorLog_;
+import com.x.program.center.core.entity.PromptErrorLogStatic;
 import com.x.program.center.core.entity.UnexpectedErrorLog;
-import com.x.program.center.core.entity.UnexpectedErrorLog_;
+import com.x.program.center.core.entity.UnexpectedErrorLogStatic;
 import com.x.program.center.core.entity.WarnLog;
-import com.x.program.center.core.entity.WarnLog_;
+import com.x.program.center.core.entity.WarnLogStatic;
 
 public class CollectLog extends BaseAction {
 
@@ -172,8 +172,8 @@ public class CollectLog extends BaseAction {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, -1);
 		Predicate p = cb.greaterThan(root.get(JpaObjectStatic.createTime), cal.getTime());
-		p = cb.and(p, cb.or(cb.notEqual(root.get(PromptErrorLog_.collected), true),
-				cb.isNull(root.get(PromptErrorLog_.collected))));
+		p = cb.and(p, cb.or(cb.notEqual(root.get(PromptErrorLogStatic.collected), true),
+				cb.isNull(root.get(PromptErrorLogStatic.collected))));
 		cq.select(root).where(p).orderBy(cb.desc(root.get(JpaObjectStatic.createTime)));
 		List<PromptErrorLog> list = em.createQuery(cq).setMaxResults(20).getResultList();
 		if (!list.isEmpty()) {
@@ -194,8 +194,8 @@ public class CollectLog extends BaseAction {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, -1);
 		Predicate p = cb.greaterThan(root.get(JpaObjectStatic.createTime), cal.getTime());
-		p = cb.and(p, cb.or(cb.notEqual(root.get(UnexpectedErrorLog_.collected), true),
-				cb.isNull(root.get(UnexpectedErrorLog_.collected))));
+		p = cb.and(p, cb.or(cb.notEqual(root.get(UnexpectedErrorLogStatic.collected), true),
+				cb.isNull(root.get(UnexpectedErrorLogStatic.collected))));
 		cq.select(root).where(p).orderBy(cb.desc(root.get(JpaObjectStatic.createTime)));
 		List<UnexpectedErrorLog> list = em.createQuery(cq).setMaxResults(20).getResultList();
 		if (!list.isEmpty()) {
@@ -216,7 +216,7 @@ public class CollectLog extends BaseAction {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, -1);
 		Predicate p = cb.greaterThan(root.get(JpaObjectStatic.createTime), cal.getTime());
-		p = cb.and(p, cb.or(cb.notEqual(root.get(WarnLog_.collected), true), cb.isNull(root.get(WarnLog_.collected))));
+		p = cb.and(p, cb.or(cb.notEqual(root.get(WarnLogStatic.collected), true), cb.isNull(root.get(WarnLogStatic.collected))));
 		cq.select(root).where(p).orderBy(cb.desc(root.get(JpaObjectStatic.createTime)));
 		List<WarnLog> list = em.createQuery(cq).setMaxResults(20).getResultList();
 		if (!list.isEmpty()) {

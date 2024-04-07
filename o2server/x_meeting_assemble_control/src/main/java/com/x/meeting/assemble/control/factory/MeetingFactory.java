@@ -13,7 +13,7 @@ import com.x.meeting.assemble.control.AbstractFactory;
 import com.x.meeting.assemble.control.Business;
 import com.x.meeting.core.entity.ConfirmStatus;
 import com.x.meeting.core.entity.Meeting;
-import com.x.meeting.core.entity.Meeting_;
+import com.x.meeting.core.entity.MeetingStatic;
 
 public class MeetingFactory extends AbstractFactory {
 
@@ -26,8 +26,8 @@ public class MeetingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.equal(root.get(Meeting_.room), roomId);
-		cq.select(root.get(Meeting_.id)).where(p);
+		Predicate p = cb.equal(root.get(MeetingStatic.room), roomId);
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -36,10 +36,10 @@ public class MeetingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.equal(root.get(Meeting_.applicant), person);
-		p = cb.and(p, cb.notEqual(root.get(Meeting_.manualCompleted), true));
-		p = cb.and(p, cb.greaterThan(root.get(Meeting_.startTime), new Date()));
-		cq.select(root.get(Meeting_.id)).where(p);
+		Predicate p = cb.equal(root.get(MeetingStatic.applicant), person);
+		p = cb.and(p, cb.notEqual(root.get(MeetingStatic.manualCompleted), true));
+		p = cb.and(p, cb.greaterThan(root.get(MeetingStatic.startTime), new Date()));
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -49,11 +49,11 @@ public class MeetingFactory extends AbstractFactory {
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Meeting> root = cq.from(Meeting.class);
 		Date date = new Date();
-		Predicate p = cb.equal(root.get(Meeting_.applicant), person);
-		p = cb.and(p, cb.notEqual(root.get(Meeting_.manualCompleted), true));
-		p = cb.and(p, cb.lessThanOrEqualTo(root.get(Meeting_.startTime), date));
-		p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Meeting_.completedTime), date));
-		cq.select(root.get(Meeting_.id)).where(p);
+		Predicate p = cb.equal(root.get(MeetingStatic.applicant), person);
+		p = cb.and(p, cb.notEqual(root.get(MeetingStatic.manualCompleted), true));
+		p = cb.and(p, cb.lessThanOrEqualTo(root.get(MeetingStatic.startTime), date));
+		p = cb.and(p, cb.greaterThanOrEqualTo(root.get(MeetingStatic.completedTime), date));
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -62,10 +62,10 @@ public class MeetingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.equal(root.get(Meeting_.applicant), person);
-		p = cb.and(p, cb.or(cb.lessThan(root.get(Meeting_.completedTime), new Date()),
-				cb.equal(root.get(Meeting_.manualCompleted), true)));
-		cq.select(root.get(Meeting_.id)).where(p);
+		Predicate p = cb.equal(root.get(MeetingStatic.applicant), person);
+		p = cb.and(p, cb.or(cb.lessThan(root.get(MeetingStatic.completedTime), new Date()),
+				cb.equal(root.get(MeetingStatic.manualCompleted), true)));
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -74,10 +74,10 @@ public class MeetingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.isMember(person, root.get(Meeting_.invitePersonList));
-		p = cb.and(p, cb.notEqual(root.get(Meeting_.manualCompleted), true));
-		p = cb.and(p, cb.greaterThan(root.get(Meeting_.startTime), new Date()));
-		cq.select(root.get(Meeting_.id)).where(p);
+		Predicate p = cb.isMember(person, root.get(MeetingStatic.invitePersonList));
+		p = cb.and(p, cb.notEqual(root.get(MeetingStatic.manualCompleted), true));
+		p = cb.and(p, cb.greaterThan(root.get(MeetingStatic.startTime), new Date()));
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -87,11 +87,11 @@ public class MeetingFactory extends AbstractFactory {
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Meeting> root = cq.from(Meeting.class);
 		Date date = new Date();
-		Predicate p = cb.isMember(person, root.get(Meeting_.invitePersonList));
-		p = cb.and(p, cb.notEqual(root.get(Meeting_.manualCompleted), true));
-		p = cb.and(p, cb.lessThanOrEqualTo(root.get(Meeting_.startTime), date));
-		p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Meeting_.completedTime), date));
-		cq.select(root.get(Meeting_.id)).where(p);
+		Predicate p = cb.isMember(person, root.get(MeetingStatic.invitePersonList));
+		p = cb.and(p, cb.notEqual(root.get(MeetingStatic.manualCompleted), true));
+		p = cb.and(p, cb.lessThanOrEqualTo(root.get(MeetingStatic.startTime), date));
+		p = cb.and(p, cb.greaterThanOrEqualTo(root.get(MeetingStatic.completedTime), date));
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -100,10 +100,10 @@ public class MeetingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.isMember(person, root.get(Meeting_.invitePersonList));
-		p = cb.and(p, cb.or(cb.lessThan(root.get(Meeting_.completedTime), new Date()),
-				cb.equal(root.get(Meeting_.manualCompleted), true)));
-		cq.select(root.get(Meeting_.id)).where(p);
+		Predicate p = cb.isMember(person, root.get(MeetingStatic.invitePersonList));
+		p = cb.and(p, cb.or(cb.lessThan(root.get(MeetingStatic.completedTime), new Date()),
+				cb.equal(root.get(MeetingStatic.manualCompleted), true)));
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -112,10 +112,10 @@ public class MeetingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.isMember(person, root.get(Meeting_.invitePersonList));
-		p = cb.and(p, cb.isMember(person, root.get(Meeting_.rejectPersonList)));
-		p = cb.and(p, cb.lessThan(root.get(Meeting_.completedTime), new Date()));
-		cq.select(root.get(Meeting_.id)).where(p);
+		Predicate p = cb.isMember(person, root.get(MeetingStatic.invitePersonList));
+		p = cb.and(p, cb.isMember(person, root.get(MeetingStatic.rejectPersonList)));
+		p = cb.and(p, cb.lessThan(root.get(MeetingStatic.completedTime), new Date()));
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -124,12 +124,12 @@ public class MeetingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.greaterThanOrEqualTo(root.get(Meeting_.completedTime), new Date());
-		p = cb.and(p, cb.notEqual(root.get(Meeting_.manualCompleted), true));
-		p = cb.and(p, cb.isMember(person, root.get(Meeting_.invitePersonList)));
-		p = cb.and(p, cb.isNotMember(person, root.get(Meeting_.acceptPersonList)));
-		p = cb.and(p, cb.isNotMember(person, root.get(Meeting_.rejectPersonList)));
-		cq.select(root.get(Meeting_.id)).where(p);
+		Predicate p = cb.greaterThanOrEqualTo(root.get(MeetingStatic.completedTime), new Date());
+		p = cb.and(p, cb.notEqual(root.get(MeetingStatic.manualCompleted), true));
+		p = cb.and(p, cb.isMember(person, root.get(MeetingStatic.invitePersonList)));
+		p = cb.and(p, cb.isNotMember(person, root.get(MeetingStatic.acceptPersonList)));
+		p = cb.and(p, cb.isNotMember(person, root.get(MeetingStatic.rejectPersonList)));
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -138,9 +138,9 @@ public class MeetingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.greaterThanOrEqualTo(root.get(Meeting_.completedTime), new Date());
-		p = cb.and(p, cb.equal(root.get(Meeting_.confirmStatus), ConfirmStatus.wait));
-		cq.select(root.get(Meeting_.id)).where(p);
+		Predicate p = cb.greaterThanOrEqualTo(root.get(MeetingStatic.completedTime), new Date());
+		p = cb.and(p, cb.equal(root.get(MeetingStatic.confirmStatus), ConfirmStatus.wait));
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -149,12 +149,12 @@ public class MeetingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.greaterThanOrEqualTo(root.get(Meeting_.completedTime), new Date());
-		p = cb.and(p, cb.equal(root.get(Meeting_.confirmStatus), ConfirmStatus.wait));
+		Predicate p = cb.greaterThanOrEqualTo(root.get(MeetingStatic.completedTime), new Date());
+		p = cb.and(p, cb.equal(root.get(MeetingStatic.confirmStatus), ConfirmStatus.wait));
 		p = cb.and(p,
-				cb.or(cb.equal(root.get(Meeting_.applicant), person), cb.equal(root.get(Meeting_.auditor), person),
-						cb.isMember(person, root.get(Meeting_.invitePersonList))));
-		cq.select(root.get(Meeting_.id)).where(p);
+				cb.or(cb.equal(root.get(MeetingStatic.applicant), person), cb.equal(root.get(MeetingStatic.auditor), person),
+						cb.isMember(person, root.get(MeetingStatic.invitePersonList))));
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -165,9 +165,9 @@ public class MeetingFactory extends AbstractFactory {
 		Root<Meeting> root = cq.from(Meeting.class);
 		//Predicate p = cb.greaterThanOrEqualTo(root.get(Meeting_.startTime), start);
 		//p = cb.and(p, cb.lessThanOrEqualTo(root.get(Meeting_.startTime), end));
-		Predicate p = cb.greaterThanOrEqualTo(root.get(Meeting_.completedTime), start);
-		p = cb.and(p, cb.lessThanOrEqualTo(root.get(Meeting_.completedTime), end));
-		cq.select(root.get(Meeting_.id)).where(p);
+		Predicate p = cb.greaterThanOrEqualTo(root.get(MeetingStatic.completedTime), start);
+		p = cb.and(p, cb.lessThanOrEqualTo(root.get(MeetingStatic.completedTime), end));
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 	
@@ -178,11 +178,11 @@ public class MeetingFactory extends AbstractFactory {
 		Root<Meeting> root = cq.from(Meeting.class);
 		//Predicate p = cb.greaterThanOrEqualTo(root.get(Meeting_.startTime), start);
 		//p = cb.and(p, cb.lessThanOrEqualTo(root.get(Meeting_.startTime), end));
-		Predicate p = cb.greaterThanOrEqualTo(root.get(Meeting_.completedTime), start);
-		p = cb.and(p, cb.lessThanOrEqualTo(root.get(Meeting_.completedTime), end));
-		p = cb.and(p, cb.equal(root.get(Meeting_.room), roomId));
+		Predicate p = cb.greaterThanOrEqualTo(root.get(MeetingStatic.completedTime), start);
+		p = cb.and(p, cb.lessThanOrEqualTo(root.get(MeetingStatic.completedTime), end));
+		p = cb.and(p, cb.equal(root.get(MeetingStatic.room), roomId));
 		
-		cq.select(root.get(Meeting_.id)).where(p);
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -193,13 +193,13 @@ public class MeetingFactory extends AbstractFactory {
 		Root<Meeting> root = cq.from(Meeting.class);
 		//Predicate p = cb.greaterThanOrEqualTo(root.get(Meeting_.startTime), start);
 		//p = cb.and(p, cb.lessThanOrEqualTo(root.get(Meeting_.startTime), end));
-		Predicate p = cb.greaterThanOrEqualTo(root.get(Meeting_.completedTime), start);
-		p = cb.and(p, cb.lessThanOrEqualTo(root.get(Meeting_.completedTime), end));
+		Predicate p = cb.greaterThanOrEqualTo(root.get(MeetingStatic.completedTime), start);
+		p = cb.and(p, cb.lessThanOrEqualTo(root.get(MeetingStatic.completedTime), end));
 		p = cb.and(p,
-				cb.or(cb.equal(root.get(Meeting_.applicant), person), cb.equal(root.get(Meeting_.auditor), person),
-						cb.isMember(person, root.get(Meeting_.invitePersonList))));
-		p = cb.and(p, cb.equal(root.get(Meeting_.manualCompleted), false));
-		cq.select(root.get(Meeting_.id)).where(p);
+				cb.or(cb.equal(root.get(MeetingStatic.applicant), person), cb.equal(root.get(MeetingStatic.auditor), person),
+						cb.isMember(person, root.get(MeetingStatic.invitePersonList))));
+		p = cb.and(p, cb.equal(root.get(MeetingStatic.manualCompleted), false));
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -209,13 +209,13 @@ public class MeetingFactory extends AbstractFactory {
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Meeting> root = cq.from(Meeting.class);
 		//Predicate p = cb.greaterThanOrEqualTo(root.get(Meeting_.startTime), new Date());
-		Predicate p = cb.greaterThanOrEqualTo(root.get(Meeting_.completedTime), new Date());
-		p = cb.and(p, cb.equal(root.get(Meeting_.room), roomId));
-		p = cb.and(p, cb.equal(root.get(Meeting_.manualCompleted), false));
+		Predicate p = cb.greaterThanOrEqualTo(root.get(MeetingStatic.completedTime), new Date());
+		p = cb.and(p, cb.equal(root.get(MeetingStatic.room), roomId));
+		p = cb.and(p, cb.equal(root.get(MeetingStatic.manualCompleted), false));
 		if (allowOnly) {
-			p = cb.and(p, cb.equal(root.get(Meeting_.confirmStatus), ConfirmStatus.allow));
+			p = cb.and(p, cb.equal(root.get(MeetingStatic.confirmStatus), ConfirmStatus.allow));
 		}
-		cq.select(root.get(Meeting_.id)).where(p);
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -228,8 +228,8 @@ public class MeetingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.like(root.get(Meeting_.pinyinInitial), str + "%", '\\');
-		cq.select(root.get(Meeting_.id)).where(p);
+		Predicate p = cb.like(root.get(MeetingStatic.pinyinInitial), str + "%", '\\');
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -242,10 +242,10 @@ public class MeetingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.like(root.get(Meeting_.subject), "%" + str + "%", '\\');
-		p = cb.or(p, cb.like(root.get(Meeting_.pinyin), str + "%", '\\'));
-		p = cb.or(p, cb.like(root.get(Meeting_.pinyinInitial), str + "%", '\\'));
-		cq.select(root.get(Meeting_.id)).where(p);
+		Predicate p = cb.like(root.get(MeetingStatic.subject), "%" + str + "%", '\\');
+		p = cb.or(p, cb.like(root.get(MeetingStatic.pinyin), str + "%", '\\'));
+		p = cb.or(p, cb.like(root.get(MeetingStatic.pinyinInitial), str + "%", '\\'));
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).setMaxResults(200).getResultList();
 	}
 
@@ -258,9 +258,9 @@ public class MeetingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.like(root.get(Meeting_.pinyin), str + "%");
-		p = cb.or(p, cb.like(root.get(Meeting_.pinyinInitial), str + "%"));
-		cq.select(root.get(Meeting_.id)).where(p);
+		Predicate p = cb.like(root.get(MeetingStatic.pinyin), str + "%");
+		p = cb.or(p, cb.like(root.get(MeetingStatic.pinyinInitial), str + "%"));
+		cq.select(root.get(MeetingStatic.id)).where(p);
 		return em.createQuery(cq).setMaxResults(200).getResultList();
 	}
 

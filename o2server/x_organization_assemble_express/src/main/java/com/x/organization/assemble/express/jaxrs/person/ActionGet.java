@@ -78,7 +78,7 @@ class ActionGet extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Identity> cq = cb.createQuery(Identity.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.equal(root.get(Identity_.person), wo.getId());
+		Predicate p = cb.equal(root.get(IdentityStatic.person), wo.getId());
 		List<Identity> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		List<WoIdentity> wos = WoIdentity.copier.copy(os);
 		wos = business.identity().sort(wos);
@@ -94,7 +94,7 @@ class ActionGet extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Role> cq = cb.createQuery(Role.class);
 		Root<Role> root = cq.from(Role.class);
-		Predicate p = cb.isMember(wo.getId(), root.get(Role_.personList));
+		Predicate p = cb.isMember(wo.getId(), root.get(RoleStatic.personList));
 		List<Role> os = em.createQuery(cq.select(root).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 		List<WoRole> wos = WoRole.copier.copy(os);
 		wos = business.role().sort(wos);

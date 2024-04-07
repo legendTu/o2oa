@@ -31,7 +31,7 @@ import com.x.meeting.assemble.control.WrapTools;
 import com.x.meeting.assemble.control.wrapout.WrapOutMeeting;
 import com.x.meeting.core.entity.ConfirmStatus;
 import com.x.meeting.core.entity.Meeting;
-import com.x.meeting.core.entity.Meeting_;
+import com.x.meeting.core.entity.MeetingStatic;
 
 class ActionPaging extends BaseAction {
 	Logger logger = LoggerFactory.getLogger(ActionPaging.class);
@@ -50,71 +50,71 @@ class ActionPaging extends BaseAction {
 			CriteriaQuery<String> cq = cb.createQuery(String.class);
 			Root<Meeting> root = cq.from(Meeting.class);
 			
-			Predicate p = cb.equal(root.get(Meeting_.applicant), effectivePerson.getDistinguishedName());
+			Predicate p = cb.equal(root.get(MeetingStatic.applicant), effectivePerson.getDistinguishedName());
 			//p = cb.or(p, cb.isMember(effectivePerson.getDistinguishedName(),root.get(Meeting_.invitePersonList)));
-			Expression<List<String>> expression = root.get(Meeting_.invitePersonList);
+			Expression<List<String>> expression = root.get(MeetingStatic.invitePersonList);
 			p = cb.or(p, expression.in(effectivePerson.getDistinguishedName()));
 			
 			if(!StringUtils.isBlank(wi.getSubject())) {
-				p = cb.and(p, cb.like(root.get(Meeting_.subject), "%" + wi.getSubject() + "%"));
+				p = cb.and(p, cb.like(root.get(MeetingStatic.subject), "%" + wi.getSubject() + "%"));
 			}
 			
 			if(!StringUtils.isBlank(wi.getRoom())) {
-				p = cb.and(p, cb.equal(root.get(Meeting_.room), wi.getRoom()));
+				p = cb.and(p, cb.equal(root.get(MeetingStatic.room), wi.getRoom()));
 			}
 		   
 			if(!StringUtils.isBlank(wi.getMeetingStatus())) {
 				String meetingStatus = wi.getMeetingStatus();
 				
 				if(meetingStatus.equalsIgnoreCase("completed")) {
-					p = cb.and(p, cb.or(cb.lessThan(root.get(Meeting_.completedTime), new Date()),
-							cb.equal(root.get(Meeting_.manualCompleted), true)));
+					p = cb.and(p, cb.or(cb.lessThan(root.get(MeetingStatic.completedTime), new Date()),
+							cb.equal(root.get(MeetingStatic.manualCompleted), true)));
 				}
 				
 	            if(meetingStatus.equalsIgnoreCase("processing")) {
 	            	Date date = new Date();
-	            	p = cb.and(p, cb.notEqual(root.get(Meeting_.manualCompleted), true));
-	        		p = cb.and(p, cb.lessThanOrEqualTo(root.get(Meeting_.startTime), date));
-	        		p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Meeting_.completedTime), date));
+	            	p = cb.and(p, cb.notEqual(root.get(MeetingStatic.manualCompleted), true));
+	        		p = cb.and(p, cb.lessThanOrEqualTo(root.get(MeetingStatic.startTime), date));
+	        		p = cb.and(p, cb.greaterThanOrEqualTo(root.get(MeetingStatic.completedTime), date));
 				}
 	
                  if(meetingStatus.equalsIgnoreCase("wait")) {
-                	 p = cb.and(p, cb.notEqual(root.get(Meeting_.manualCompleted), true));
-             		 p = cb.and(p, cb.greaterThan(root.get(Meeting_.startTime), new Date()));
+                	 p = cb.and(p, cb.notEqual(root.get(MeetingStatic.manualCompleted), true));
+             		 p = cb.and(p, cb.greaterThan(root.get(MeetingStatic.startTime), new Date()));
 				 }
 				
 			}else {
 				if(wi.getStartTime() != null) {
-				   p = cb.and(p, cb.greaterThanOrEqualTo(root.get(Meeting_.startTime), wi.getStartTime()));
+				   p = cb.and(p, cb.greaterThanOrEqualTo(root.get(MeetingStatic.startTime), wi.getStartTime()));
 				}
 				
 				if(wi.getCompletedTime()!= null) {
-				   p = cb.and(p, cb.lessThanOrEqualTo(root.get(Meeting_.completedTime), wi.getCompletedTime()));
+				   p = cb.and(p, cb.lessThanOrEqualTo(root.get(MeetingStatic.completedTime), wi.getCompletedTime()));
 				}
 			}
 			
 			if(!StringUtils.isBlank(wi.getConfirmStatus())) {
-		    	p = cb.and(p, cb.equal(root.get(Meeting_.confirmStatus), ConfirmStatus.valueOf(wi.getConfirmStatus().trim())));
+		    	p = cb.and(p, cb.equal(root.get(MeetingStatic.confirmStatus), ConfirmStatus.valueOf(wi.getConfirmStatus().trim())));
 			}
 			
 			if(!StringUtils.isBlank(wi.getApplicant())) {
-				p = cb.and(p, cb.equal(root.get(Meeting_.applicant), wi.getApplicant()));
+				p = cb.and(p, cb.equal(root.get(MeetingStatic.applicant), wi.getApplicant()));
 			 }
 			
 			if(!StringUtils.isBlank(wi.getInvitePersonList())) {
-				p = cb.and(p, cb.isMember( wi.getInvitePersonList().trim(),root.get(Meeting_.invitePersonList)));
+				p = cb.and(p, cb.isMember( wi.getInvitePersonList().trim(),root.get(MeetingStatic.invitePersonList)));
 			 }
 			
 			if(!StringUtils.isBlank(wi.getAcceptPersonList())) {
-				p = cb.and(p, cb.isMember( wi.getAcceptPersonList().trim(),root.get(Meeting_.acceptPersonList)));
+				p = cb.and(p, cb.isMember( wi.getAcceptPersonList().trim(),root.get(MeetingStatic.acceptPersonList)));
 			 }
 			
 			if(!StringUtils.isBlank(wi.getCheckinPersonList())) {
-				p = cb.and(p, cb.isMember( wi.getCheckinPersonList().trim(),root.get(Meeting_.checkinPersonList)));
+				p = cb.and(p, cb.isMember( wi.getCheckinPersonList().trim(),root.get(MeetingStatic.checkinPersonList)));
 			 }
 			
 			if(wi.getManualCompleted() != null) {
-				p = cb.and(p, cb.equal(root.get(Meeting_.manualCompleted), wi.getManualCompleted()));
+				p = cb.and(p, cb.equal(root.get(MeetingStatic.manualCompleted), wi.getManualCompleted()));
 			}
 			
 	        Order order;
@@ -131,7 +131,7 @@ class ActionPaging extends BaseAction {
 	        	   order =  cb.desc(root.get("startTime"));
 	        }
 	        
-			cq.select(root.get(Meeting_.id)).where(p).orderBy(order);
+			cq.select(root.get(MeetingStatic.id)).where(p).orderBy(order);
 			cq.distinct(true);
 			
 			 TypedQuery<String> typedQuery = em.createQuery(cq);
@@ -142,13 +142,13 @@ class ActionPaging extends BaseAction {
 			 ids =  typedQuery.getResultList();
 			 //logger.info("pagingtypedQuery="+  typedQuery.toString()); 
 			 
-			 TypedQuery<String> tqCount = em.createQuery( cq.select(root.get(Meeting_.id)).where(p).distinct(true));
+			 TypedQuery<String> tqCount = em.createQuery( cq.select(root.get(MeetingStatic.id)).where(p).distinct(true));
 			 List<String> allid = tqCount.getResultList();
 			 Long  tpsize =  (long) allid.size();
 			 //logger.info("ids count="+  tpsize); 
 			 
 			 CriteriaQuery<Meeting> cqMeeting = cb.createQuery(Meeting.class);		
-			 Predicate pMeeting = cb.isMember(root.get(Meeting_.id), cb.literal(ids));
+			 Predicate pMeeting = cb.isMember(root.get(MeetingStatic.id), cb.literal(ids));
 			 Root<Meeting> rootMeeting = cqMeeting.from(Meeting.class);
 			 cqMeeting.select(rootMeeting).where(pMeeting).orderBy(order);
 		     List<Meeting> os = em.createQuery(cqMeeting).getResultList();

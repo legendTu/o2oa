@@ -24,9 +24,8 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
 import com.x.organization.core.entity.Person;
-import com.x.organization.core.entity.Person_;
+import com.x.organization.core.entity.PersonStatic;
 import com.x.organization.core.entity.Unit;
 
 class ActionListWithUnitSubDirectLikeObject extends BaseAction {
@@ -93,21 +92,21 @@ class ActionListWithUnitSubDirectLikeObject extends BaseAction {
 		Predicate p = cb.conjunction();
 		if(StringUtils.isNotBlank(wi.getKey())) {
 			String str = StringUtils.lowerCase(StringTools.escapeSqlLikeKey(wi.getKey()));
-			p = cb.like(cb.lower(root.get(Person_.name)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR);
-			p = cb.or(p, cb.like(cb.lower(root.get(Person_.unique)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR));
-			p = cb.or(p, cb.like(cb.lower(root.get(Person_.pinyin)), str + "%", StringTools.SQL_ESCAPE_CHAR));
-			p = cb.or(p, cb.like(cb.lower(root.get(Person_.pinyinInitial)), str + "%", StringTools.SQL_ESCAPE_CHAR));
-			p = cb.or(p, cb.like(cb.lower(root.get(Person_.mobile)), str + "%", StringTools.SQL_ESCAPE_CHAR));
-			p = cb.or(p, cb.like(cb.lower(root.get(Person_.distinguishedName)), str + "%", StringTools.SQL_ESCAPE_CHAR));
+			p = cb.like(cb.lower(root.get(PersonStatic.name)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR);
+			p = cb.or(p, cb.like(cb.lower(root.get(PersonStatic.unique)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR));
+			p = cb.or(p, cb.like(cb.lower(root.get(PersonStatic.pinyin)), str + "%", StringTools.SQL_ESCAPE_CHAR));
+			p = cb.or(p, cb.like(cb.lower(root.get(PersonStatic.pinyinInitial)), str + "%", StringTools.SQL_ESCAPE_CHAR));
+			p = cb.or(p, cb.like(cb.lower(root.get(PersonStatic.mobile)), str + "%", StringTools.SQL_ESCAPE_CHAR));
+			p = cb.or(p, cb.like(cb.lower(root.get(PersonStatic.distinguishedName)), str + "%", StringTools.SQL_ESCAPE_CHAR));
 		}
 		Map<String,Integer> map = new HashMap<>();
 		if(ListTools.isNotEmpty(identityList)) {
 			for(Identity identity : identityList){
 				map.put(identity.getPerson(), identity.getOrderNumber());
 			}
-			p = cb.and(p, cb.isMember(root.get(Person_.id), cb.literal(map.keySet())));
+			p = cb.and(p, cb.isMember(root.get(PersonStatic.id), cb.literal(map.keySet())));
 		}
-		List<String> list = em.createQuery(cq.select(root.get(Person_.id)).where(p))
+		List<String> list = em.createQuery(cq.select(root.get(PersonStatic.id)).where(p))
 				.getResultList().stream().distinct().collect(Collectors.toList());
 		for (Person o : business.person().pick(list)) {
 			if(!map.isEmpty()){

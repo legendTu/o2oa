@@ -19,7 +19,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.SortTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Read;
-import com.x.processplatform.core.entity.content.Read_;
+import com.x.processplatform.core.entity.content.ReadStatic;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Process;
 
@@ -39,9 +39,9 @@ class ActionListCountWithProcess extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<String> cq = cb.createQuery(String.class);
 			Root<Read> root = cq.from(Read.class);
-			Predicate p = cb.equal(root.get(Read_.person), effectivePerson.getDistinguishedName());
-			p = cb.and(p, cb.equal(root.get(Read_.application), application.getId()));
-			cq.select(root.get(Read_.process)).where(p);
+			Predicate p = cb.equal(root.get(ReadStatic.person), effectivePerson.getDistinguishedName());
+			p = cb.and(p, cb.equal(root.get(ReadStatic.application), application.getId()));
+			cq.select(root.get(ReadStatic.process)).where(p);
 			List<String> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 			for (String str : list) {
 				NameValueCountPair o = this.concreteNameValueCountPair(business, effectivePerson, str);
@@ -72,9 +72,9 @@ class ActionListCountWithProcess extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<String> cq = cb.createQuery(String.class);
 			Root<Read> root = cq.from(Read.class);
-			Predicate p = cb.equal(root.get(Read_.person), effectivePerson.getDistinguishedName());
-			p = cb.and(p, cb.equal(root.get(Read_.process), processId));
-			cq.select(root.get(Read_.processName)).where(p);
+			Predicate p = cb.equal(root.get(ReadStatic.person), effectivePerson.getDistinguishedName());
+			p = cb.and(p, cb.equal(root.get(ReadStatic.process), processId));
+			cq.select(root.get(ReadStatic.processName)).where(p);
 			List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 			if (!list.isEmpty()) {
 				return list.get(0);
@@ -89,8 +89,8 @@ class ActionListCountWithProcess extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Read> root = cq.from(Read.class);
-		Predicate p = cb.equal(root.get(Read_.person), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(Read_.process), processId));
+		Predicate p = cb.equal(root.get(ReadStatic.person), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(ReadStatic.process), processId));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

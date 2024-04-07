@@ -35,8 +35,8 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<DingdingQywxSyncRecord> query = cb.createQuery(DingdingQywxSyncRecord.class);
         Root<DingdingQywxSyncRecord> root = query.from(DingdingQywxSyncRecord.class);
-        Predicate p = cb.equal(root.get(DingdingQywxSyncRecord_.type), type);
-        query.select(root).where(p).orderBy(cb.desc(root.get(DingdingQywxSyncRecord_.startTime)));
+        Predicate p = cb.equal(root.get(DingdingQywxSyncRecordStatic.type), type);
+        query.select(root).where(p).orderBy(cb.desc(root.get(DingdingQywxSyncRecordStatic.startTime)));
         return em.createQuery(query).getResultList();
     }
 
@@ -53,8 +53,8 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<DingdingQywxSyncRecord> query = cb.createQuery(DingdingQywxSyncRecord.class);
         Root<DingdingQywxSyncRecord> root = query.from(DingdingQywxSyncRecord.class);
-        Predicate p = cb.equal(root.get(DingdingQywxSyncRecord_.type), DingdingQywxSyncRecord.syncType_dingding);
-        Predicate p1 = cb.or(cb.between(root.get(DingdingQywxSyncRecord_.dateFrom), fromTime, toTime), cb.between(root.get(DingdingQywxSyncRecord_.dateTo), fromTime, toTime));
+        Predicate p = cb.equal(root.get(DingdingQywxSyncRecordStatic.type), DingdingQywxSyncRecord.syncType_dingding);
+        Predicate p1 = cb.or(cb.between(root.get(DingdingQywxSyncRecordStatic.dateFrom), fromTime, toTime), cb.between(root.get(DingdingQywxSyncRecordStatic.dateTo), fromTime, toTime));
         p = cb.and(p, p1);
         query.select(root).where(p);
         return em.createQuery(query).getResultList();
@@ -142,9 +142,9 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<StatisticDingdingPersonForMonth> query = cb.createQuery(StatisticDingdingPersonForMonth.class);
         Root<StatisticDingdingPersonForMonth> root = query.from(StatisticDingdingPersonForMonth.class);
-        Predicate p = cb.equal(root.get(StatisticDingdingPersonForMonth_.o2User), person);
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingPersonForMonth_.statisticYear), year));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingPersonForMonth_.statisticMonth), month));
+        Predicate p = cb.equal(root.get(StatisticDingdingPersonForMonthStatic.o2User), person);
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingPersonForMonthStatic.statisticYear), year));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingPersonForMonthStatic.statisticMonth), month));
 
         query.select(root).where(p);
         return em.createQuery(query).getResultList();
@@ -163,9 +163,9 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<StatisticDingdingPersonForMonth> query = cb.createQuery(StatisticDingdingPersonForMonth.class);
         Root<StatisticDingdingPersonForMonth> root = query.from(StatisticDingdingPersonForMonth.class);
-        Predicate p = cb.equal(root.get(StatisticDingdingPersonForMonth_.o2Unit), unit);
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingPersonForMonth_.statisticYear), year));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingPersonForMonth_.statisticMonth), month));
+        Predicate p = cb.equal(root.get(StatisticDingdingPersonForMonthStatic.o2Unit), unit);
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingPersonForMonthStatic.statisticYear), year));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingPersonForMonthStatic.statisticMonth), month));
 
         query.select(root).where(p);
         return em.createQuery(query).getResultList();
@@ -185,9 +185,9 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<StatisticDingdingUnitForMonth> query = cb.createQuery(StatisticDingdingUnitForMonth.class);
         Root<StatisticDingdingUnitForMonth> root = query.from(StatisticDingdingUnitForMonth.class);
-        Predicate p = cb.equal(root.get(StatisticDingdingUnitForMonth_.o2Unit), unit);
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForMonth_.statisticYear), year));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForMonth_.statisticMonth), month));
+        Predicate p = cb.equal(root.get(StatisticDingdingUnitForMonthStatic.o2Unit), unit);
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForMonthStatic.statisticYear), year));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForMonthStatic.statisticMonth), month));
 
         query.select(root).where(p);
         return em.createQuery(query).getResultList();
@@ -247,10 +247,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<String> query = cb.createQuery(String.class);
         Root<StatisticDingdingPersonForMonth> root = query.from(StatisticDingdingPersonForMonth.class);
-        Predicate p = cb.equal(root.get(StatisticDingdingPersonForMonth_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingPersonForMonth_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingPersonForMonth_.o2User), person));
-        query.select(root.get(StatisticDingdingPersonForMonth_.id)).where(p);
+        Predicate p = cb.equal(root.get(StatisticDingdingPersonForMonthStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingPersonForMonthStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingPersonForMonthStatic.o2User), person));
+        query.select(root.get(StatisticDingdingPersonForMonthStatic.id)).where(p);
         return em.createQuery(query).getResultList();
     }
 
@@ -333,10 +333,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<String> query = cb.createQuery(String.class);
         Root<StatisticDingdingUnitForMonth> root = query.from(StatisticDingdingUnitForMonth.class);
-        Predicate p = cb.equal(root.get(StatisticDingdingUnitForMonth_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForMonth_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForMonth_.o2Unit), unit));
-        query.select(root.get(StatisticDingdingUnitForMonth_.id)).where(p);
+        Predicate p = cb.equal(root.get(StatisticDingdingUnitForMonthStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForMonthStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForMonthStatic.o2Unit), unit));
+        query.select(root.get(StatisticDingdingUnitForMonthStatic.id)).where(p);
         return em.createQuery(query).getResultList();
     }
 
@@ -345,11 +345,11 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<String> query = cb.createQuery(String.class);
         Root<StatisticDingdingUnitForDay> root = query.from(StatisticDingdingUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.statisticDate), day));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.o2Unit), unit));
-        query.select(root.get(StatisticDingdingUnitForDay_.id)).where(p);
+        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticDate), day));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.o2Unit), unit));
+        query.select(root.get(StatisticDingdingUnitForDayStatic.id)).where(p);
         return em.createQuery(query).getResultList();
     }
 
@@ -360,10 +360,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticDingdingUnitForDay> root = query.from(StatisticDingdingUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticDingdingUnitForDay_.workDayCount))).where(p);
+        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticDingdingUnitForDayStatic.workDayCount))).where(p);
         return em.createQuery(query).getSingleResult();
     }
 
@@ -372,10 +372,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticDingdingUnitForDay> root = query.from(StatisticDingdingUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticDingdingUnitForDay_.onDutyTimes))).where(p);
+        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticDingdingUnitForDayStatic.onDutyTimes))).where(p);
         return em.createQuery(query).getSingleResult();
     }
     public Long sumOffDutyUnitForDayWithMonth(String year, String month, String unit) throws Exception {
@@ -383,10 +383,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticDingdingUnitForDay> root = query.from(StatisticDingdingUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticDingdingUnitForDay_.offDutyTimes))).where(p);
+        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticDingdingUnitForDayStatic.offDutyTimes))).where(p);
         return em.createQuery(query).getSingleResult();
     }
 
@@ -395,10 +395,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticDingdingUnitForDay> root = query.from(StatisticDingdingUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticDingdingUnitForDay_.resultNormal))).where(p);
+        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticDingdingUnitForDayStatic.resultNormal))).where(p);
         return em.createQuery(query).getSingleResult();
     }
     public Long sumLateTimesUnitForDayWithMonth(String year, String month, String unit) throws Exception {
@@ -406,10 +406,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticDingdingUnitForDay> root = query.from(StatisticDingdingUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticDingdingUnitForDay_.lateTimes))).where(p);
+        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticDingdingUnitForDayStatic.lateTimes))).where(p);
         return em.createQuery(query).getSingleResult();
     }
     public Long sumLeaveEarlyUnitForDayWithMonth(String year, String month, String unit) throws Exception {
@@ -417,10 +417,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticDingdingUnitForDay> root = query.from(StatisticDingdingUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticDingdingUnitForDay_.leaveEarlyTimes))).where(p);
+        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticDingdingUnitForDayStatic.leaveEarlyTimes))).where(p);
         return em.createQuery(query).getSingleResult();
     }
 
@@ -429,10 +429,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticDingdingUnitForDay> root = query.from(StatisticDingdingUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticDingdingUnitForDay_.notSignedCount))).where(p);
+        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticDingdingUnitForDayStatic.notSignedCount))).where(p);
         return em.createQuery(query).getSingleResult();
     }
 
@@ -441,10 +441,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticDingdingUnitForDay> root = query.from(StatisticDingdingUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticDingdingUnitForDay_.absenteeismTimes))).where(p);
+        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticDingdingUnitForDayStatic.absenteeismTimes))).where(p);
         return em.createQuery(query).getSingleResult();
     }
 
@@ -453,10 +453,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticDingdingUnitForDay> root = query.from(StatisticDingdingUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticDingdingUnitForDay_.seriousLateTimes))).where(p);
+        Predicate p = cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticDingdingUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticDingdingUnitForDayStatic.seriousLateTimes))).where(p);
         return em.createQuery(query).getSingleResult();
     }
 
@@ -476,9 +476,9 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<StatisticQywxUnitForMonth> query = cb.createQuery(StatisticQywxUnitForMonth.class);
         Root<StatisticQywxUnitForMonth> root = query.from(StatisticQywxUnitForMonth.class);
-        Predicate p = cb.equal(root.get(StatisticQywxUnitForMonth_.o2Unit), unit);
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForMonth_.statisticYear), year));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForMonth_.statisticMonth), month));
+        Predicate p = cb.equal(root.get(StatisticQywxUnitForMonthStatic.o2Unit), unit);
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForMonthStatic.statisticYear), year));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForMonthStatic.statisticMonth), month));
 
         query.select(root).where(p);
         return em.createQuery(query).getResultList();
@@ -497,9 +497,9 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<StatisticQywxPersonForMonth> query = cb.createQuery(StatisticQywxPersonForMonth.class);
         Root<StatisticQywxPersonForMonth> root = query.from(StatisticQywxPersonForMonth.class);
-        Predicate p = cb.equal(root.get(StatisticQywxPersonForMonth_.o2Unit), unit);
-        p = cb.and(p, cb.equal(root.get(StatisticQywxPersonForMonth_.statisticYear), year));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxPersonForMonth_.statisticMonth), month));
+        Predicate p = cb.equal(root.get(StatisticQywxPersonForMonthStatic.o2Unit), unit);
+        p = cb.and(p, cb.equal(root.get(StatisticQywxPersonForMonthStatic.statisticYear), year));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxPersonForMonthStatic.statisticMonth), month));
 
         query.select(root).where(p);
         return em.createQuery(query).getResultList();
@@ -520,9 +520,9 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<StatisticQywxPersonForMonth> query = cb.createQuery(StatisticQywxPersonForMonth.class);
         Root<StatisticQywxPersonForMonth> root = query.from(StatisticQywxPersonForMonth.class);
-        Predicate p = cb.equal(root.get(StatisticQywxPersonForMonth_.o2User), person);
-        p = cb.and(p, cb.equal(root.get(StatisticQywxPersonForMonth_.statisticYear), year));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxPersonForMonth_.statisticMonth), month));
+        Predicate p = cb.equal(root.get(StatisticQywxPersonForMonthStatic.o2User), person);
+        p = cb.and(p, cb.equal(root.get(StatisticQywxPersonForMonthStatic.statisticYear), year));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxPersonForMonthStatic.statisticMonth), month));
 
         query.select(root).where(p);
         return em.createQuery(query).getResultList();
@@ -562,10 +562,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<String> query = cb.createQuery(String.class);
         Root<StatisticQywxPersonForMonth> root = query.from(StatisticQywxPersonForMonth.class);
-        Predicate p = cb.equal(root.get(StatisticQywxPersonForMonth_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticQywxPersonForMonth_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxPersonForMonth_.o2User), person));
-        query.select(root.get(StatisticQywxPersonForMonth_.id)).where(p);
+        Predicate p = cb.equal(root.get(StatisticQywxPersonForMonthStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticQywxPersonForMonthStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxPersonForMonthStatic.o2User), person));
+        query.select(root.get(StatisticQywxPersonForMonthStatic.id)).where(p);
         return em.createQuery(query).getResultList();
     }
 
@@ -626,11 +626,11 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<String> query = cb.createQuery(String.class);
         Root<StatisticQywxUnitForDay> root = query.from(StatisticQywxUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticQywxUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.statisticDate), day));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.o2Unit), unit));
-        query.select(root.get(StatisticQywxUnitForDay_.id)).where(p);
+        Predicate p = cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticDate), day));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.o2Unit), unit));
+        query.select(root.get(StatisticQywxUnitForDayStatic.id)).where(p);
         return em.createQuery(query).getResultList();
     }
 
@@ -647,10 +647,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<String> query = cb.createQuery(String.class);
         Root<StatisticQywxUnitForMonth> root = query.from(StatisticQywxUnitForMonth.class);
-        Predicate p = cb.equal(root.get(StatisticQywxUnitForMonth_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForMonth_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForMonth_.o2Unit), unit));
-        query.select(root.get(StatisticQywxUnitForMonth_.id)).where(p);
+        Predicate p = cb.equal(root.get(StatisticQywxUnitForMonthStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForMonthStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForMonthStatic.o2Unit), unit));
+        query.select(root.get(StatisticQywxUnitForMonthStatic.id)).where(p);
         return em.createQuery(query).getResultList();
     }
 
@@ -659,10 +659,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticQywxUnitForDay> root = query.from(StatisticQywxUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticQywxUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticQywxUnitForDay_.workDayCount))).where(p);
+        Predicate p = cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticQywxUnitForDayStatic.workDayCount))).where(p);
         return em.createQuery(query).getSingleResult();
     }
 
@@ -671,10 +671,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticQywxUnitForDay> root = query.from(StatisticQywxUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticQywxUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticQywxUnitForDay_.onDutyTimes))).where(p);
+        Predicate p = cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticQywxUnitForDayStatic.onDutyTimes))).where(p);
         return em.createQuery(query).getSingleResult();
     }
     public Long sumQywxOffDutyUnitForDayWithMonth(String year, String month, String unit) throws Exception {
@@ -682,10 +682,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticQywxUnitForDay> root = query.from(StatisticQywxUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticQywxUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticQywxUnitForDay_.offDutyTimes))).where(p);
+        Predicate p = cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticQywxUnitForDayStatic.offDutyTimes))).where(p);
         return em.createQuery(query).getSingleResult();
     }
     public Long sumQywxOutsideUnitForDayWithMonth(String year, String month, String unit) throws Exception {
@@ -693,10 +693,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticQywxUnitForDay> root = query.from(StatisticQywxUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticQywxUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticQywxUnitForDay_.outsideDutyTimes))).where(p);
+        Predicate p = cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticQywxUnitForDayStatic.outsideDutyTimes))).where(p);
         return em.createQuery(query).getSingleResult();
     }
     public Long sumQywxResultNormalUnitForDayWithMonth(String year, String month, String unit) throws Exception {
@@ -704,10 +704,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticQywxUnitForDay> root = query.from(StatisticQywxUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticQywxUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticQywxUnitForDay_.resultNormal))).where(p);
+        Predicate p = cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticQywxUnitForDayStatic.resultNormal))).where(p);
         return em.createQuery(query).getSingleResult();
     }
     public Long sumQywxLatetimeUnitForDayWithMonth(String year, String month, String unit) throws Exception {
@@ -715,10 +715,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticQywxUnitForDay> root = query.from(StatisticQywxUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticQywxUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticQywxUnitForDay_.lateTimes))).where(p);
+        Predicate p = cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticQywxUnitForDayStatic.lateTimes))).where(p);
         return em.createQuery(query).getSingleResult();
     }
     public Long sumQywxLeaveEarlyUnitForDayWithMonth(String year, String month, String unit) throws Exception {
@@ -726,10 +726,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticQywxUnitForDay> root = query.from(StatisticQywxUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticQywxUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticQywxUnitForDay_.leaveEarlyTimes))).where(p);
+        Predicate p = cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticQywxUnitForDayStatic.leaveEarlyTimes))).where(p);
         return em.createQuery(query).getSingleResult();
     }
     public Long sumQywxAbsenteeismUnitForDayWithMonth(String year, String month, String unit) throws Exception {
@@ -737,10 +737,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticQywxUnitForDay> root = query.from(StatisticQywxUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticQywxUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticQywxUnitForDay_.absenteeismTimes))).where(p);
+        Predicate p = cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticQywxUnitForDayStatic.absenteeismTimes))).where(p);
         return em.createQuery(query).getSingleResult();
     }
     public Long sumQywxNotSignUnitForDayWithMonth(String year, String month, String unit) throws Exception {
@@ -748,10 +748,10 @@ public class DingdingAttendanceFactory extends AbstractFactory {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
         Root<StatisticQywxUnitForDay> root = query.from(StatisticQywxUnitForDay.class);
-        Predicate p = cb.equal(root.get(StatisticQywxUnitForDay_.statisticYear), year);
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.statisticMonth), month));
-        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDay_.o2Unit), unit));
-        query.select(cb.sum(root.get(StatisticQywxUnitForDay_.notSignedCount))).where(p);
+        Predicate p = cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticYear), year);
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.statisticMonth), month));
+        p = cb.and(p, cb.equal(root.get(StatisticQywxUnitForDayStatic.o2Unit), unit));
+        query.select(cb.sum(root.get(StatisticQywxUnitForDayStatic.notSignedCount))).where(p);
         return em.createQuery(query).getSingleResult();
     }
 

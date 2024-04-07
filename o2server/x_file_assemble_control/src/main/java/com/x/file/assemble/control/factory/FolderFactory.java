@@ -13,7 +13,7 @@ import org.apache.commons.collections4.set.ListOrderedSet;
 import com.x.file.assemble.control.AbstractFactory;
 import com.x.file.assemble.control.Business;
 import com.x.file.core.entity.personal.Folder;
-import com.x.file.core.entity.personal.Folder_;
+import com.x.file.core.entity.personal.FolderStatic;
 
 public class FolderFactory extends AbstractFactory {
 
@@ -26,9 +26,9 @@ public class FolderFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Folder> root = cq.from(Folder.class);
-		Predicate p = cb.equal(root.get(Folder_.person), person);
-		p = cb.and(p, cb.or(cb.isNull(root.get(Folder_.superior)), cb.equal(root.get(Folder_.superior), "")));
-		cq.select(root.get(Folder_.id)).where(p);
+		Predicate p = cb.equal(root.get(FolderStatic.person), person);
+		p = cb.and(p, cb.or(cb.isNull(root.get(FolderStatic.superior)), cb.equal(root.get(FolderStatic.superior), "")));
+		cq.select(root.get(FolderStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -37,9 +37,9 @@ public class FolderFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Folder> root = cq.from(Folder.class);
-		Predicate p = cb.equal(root.get(Folder_.person), person);
-		p = cb.and(p, cb.equal(root.get(Folder_.superior), superior));
-		cq.select(root.get(Folder_.id)).where(p);
+		Predicate p = cb.equal(root.get(FolderStatic.person), person);
+		p = cb.and(p, cb.equal(root.get(FolderStatic.superior), superior));
+		cq.select(root.get(FolderStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -60,8 +60,8 @@ public class FolderFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Folder> root = cq.from(Folder.class);
-		Predicate p = cb.equal(root.get(Folder_.superior), id);
-		cq.select(root.get(Folder_.id)).where(p);
+		Predicate p = cb.equal(root.get(FolderStatic.superior), id);
+		cq.select(root.get(FolderStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -70,7 +70,7 @@ public class FolderFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Folder> root = cq.from(Folder.class);
-		Predicate p = cb.equal(root.get(Folder_.superior), id);
+		Predicate p = cb.equal(root.get(FolderStatic.superior), id);
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

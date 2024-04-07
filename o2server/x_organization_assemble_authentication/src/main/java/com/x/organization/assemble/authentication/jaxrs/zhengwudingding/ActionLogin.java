@@ -29,7 +29,7 @@ import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.organization.assemble.authentication.Business;
 import com.x.organization.core.entity.Person;
-import com.x.organization.core.entity.Person_;
+import com.x.organization.core.entity.PersonStatic;
 
 class ActionLogin extends BaseAction {
 
@@ -184,7 +184,7 @@ class ActionLogin extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Person> cq = cb.createQuery(Person.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.zhengwuDingdingId), userId);
+		Predicate p = cb.equal(root.get(PersonStatic.zhengwuDingdingId), userId);
 		cq.select(root).where(p);
 		List<Person> list = em.createQuery(cq).getResultList();
 		if (list.size() == 1) {

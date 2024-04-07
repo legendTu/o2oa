@@ -18,7 +18,7 @@ import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.schedule.AbstractJob;
 import com.x.organization.core.entity.Bind;
-import com.x.organization.core.entity.Bind_;
+import com.x.organization.core.entity.BindStatic;
 
 public class CleanupBind extends AbstractJob {
 
@@ -41,8 +41,8 @@ public class CleanupBind extends AbstractJob {
 		Root<Bind> root = cq.from(Bind.class);
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MINUTE, -15);
-		Predicate p = cb.not(cb.greaterThan(root.get(Bind_.createTime), cal.getTime()));
-		cq.select(root.get(Bind_.id)).where(p);
+		Predicate p = cb.not(cb.greaterThan(root.get(BindStatic.createTime), cal.getTime()));
+		cq.select(root.get(BindStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		for (String id : list) {
 			Bind o = emc.find(id, Bind.class);

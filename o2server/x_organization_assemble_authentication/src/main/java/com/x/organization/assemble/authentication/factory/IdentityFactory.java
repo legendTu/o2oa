@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.organization.assemble.authentication.AbstractFactory;
 import com.x.organization.assemble.authentication.Business;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 
 public class IdentityFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class IdentityFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.equal(root.get(Identity_.person), personId);
-		cq.select(root.get(Identity_.id)).where(p);
+		Predicate p = cb.equal(root.get(IdentityStatic.person), personId);
+		cq.select(root.get(IdentityStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

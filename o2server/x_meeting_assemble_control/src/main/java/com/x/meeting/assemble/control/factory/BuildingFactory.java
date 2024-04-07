@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.meeting.assemble.control.AbstractFactory;
 import com.x.meeting.assemble.control.Business;
 import com.x.meeting.core.entity.Building;
-import com.x.meeting.core.entity.Building_;
+import com.x.meeting.core.entity.BuildingStatic;
 
 public class BuildingFactory extends AbstractFactory {
 
@@ -24,7 +24,7 @@ public class BuildingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Building> root = cq.from(Building.class);
-		cq.select(root.get(Building_.id));
+		cq.select(root.get(BuildingStatic.id));
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -37,8 +37,8 @@ public class BuildingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Building> root = cq.from(Building.class);
-		Predicate p = cb.like(root.get(Building_.pinyinInitial), str + "%", '\\');
-		cq.select(root.get(Building_.id)).where(p);
+		Predicate p = cb.like(root.get(BuildingStatic.pinyinInitial), str + "%", '\\');
+		cq.select(root.get(BuildingStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -51,10 +51,10 @@ public class BuildingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Building> root = cq.from(Building.class);
-		Predicate p = cb.like(root.get(Building_.name), "%" + str + "%", '\\');
-		p = cb.or(p, cb.like(root.get(Building_.pinyin), str + "%", '\\'));
-		p = cb.or(p, cb.like(root.get(Building_.pinyinInitial), str + "%", '\\'));
-		cq.select(root.get(Building_.id)).where(p);
+		Predicate p = cb.like(root.get(BuildingStatic.name), "%" + str + "%", '\\');
+		p = cb.or(p, cb.like(root.get(BuildingStatic.pinyin), str + "%", '\\'));
+		p = cb.or(p, cb.like(root.get(BuildingStatic.pinyinInitial), str + "%", '\\'));
+		cq.select(root.get(BuildingStatic.id)).where(p);
 		return em.createQuery(cq).setMaxResults(200).getResultList();
 	}
 
@@ -67,9 +67,9 @@ public class BuildingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Building> root = cq.from(Building.class);
-		Predicate p = cb.like(root.get(Building_.pinyin), str + "%");
-		p = cb.or(p, cb.like(root.get(Building_.pinyinInitial), str + "%"));
-		cq.select(root.get(Building_.id)).where(p);
+		Predicate p = cb.like(root.get(BuildingStatic.pinyin), str + "%");
+		p = cb.or(p, cb.like(root.get(BuildingStatic.pinyinInitial), str + "%"));
+		cq.select(root.get(BuildingStatic.id)).where(p);
 		return em.createQuery(cq).setMaxResults(200).getResultList();
 	}
 

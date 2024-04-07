@@ -23,9 +23,9 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.utils.time.TimeStamp;
 import com.x.message.assemble.communicate.Business;
 import com.x.message.core.entity.Instant;
-import com.x.message.core.entity.Instant_;
+import com.x.message.core.entity.InstantStatic;
 import com.x.message.core.entity.Message;
-import com.x.message.core.entity.Message_;
+import com.x.message.core.entity.MessageStatic;
 
 public class Clean extends AbstractJob {
 
@@ -69,7 +69,7 @@ public class Clean extends AbstractJob {
 		CriteriaQuery<Instant> cq = cb.createQuery(Instant.class);
 		Root<Instant> root = cq.from(Instant.class);
 		Date limit = DateUtils.addDays(new Date(), -Config.communicate().clean().getKeep());
-		Predicate p = cb.lessThan(root.get(Instant_.createTime), limit);
+		Predicate p = cb.lessThan(root.get(InstantStatic.createTime), limit);
 		return em.createQuery(cq.select(root).where(p)).setMaxResults(2000).getResultList();
 	}
 
@@ -97,7 +97,7 @@ public class Clean extends AbstractJob {
 		CriteriaQuery<Message> cq = cb.createQuery(Message.class);
 		Root<Message> root = cq.from(Message.class);
 		Date limit = DateUtils.addDays(new Date(), -Config.communicate().clean().getKeep());
-		Predicate p = cb.lessThan(root.get(Message_.createTime), limit);
+		Predicate p = cb.lessThan(root.get(MessageStatic.createTime), limit);
 		return em.createQuery(cq.select(root).where(p)).setMaxResults(200).getResultList();
 	}
 

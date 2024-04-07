@@ -18,7 +18,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Unit;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
@@ -60,7 +60,7 @@ class ActionListWithUnit extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Identity> cq = cb.createQuery(Identity.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.equal(root.get(Identity_.unit), unit.getId());
+		Predicate p = cb.equal(root.get(IdentityStatic.unit), unit.getId());
 		List<Identity> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		List<Wo> wos = Wo.copier.copy(os);
 		wos = business.identity().sort(wos);

@@ -27,7 +27,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.UnitDuty;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
@@ -119,7 +119,7 @@ public class ActionListPinyinInitial extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Identity> cq = cb.createQuery(Identity.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.like(root.get(Identity_.pinyinInitial), str + "%", StringTools.SQL_ESCAPE_CHAR);
+		Predicate p = cb.like(root.get(IdentityStatic.pinyinInitial), str + "%", StringTools.SQL_ESCAPE_CHAR);
 
 		ListOrderedSet<String> set = new ListOrderedSet<>();
 		if (ListTools.isNotEmpty(wi.getUnitDutyList())) {
@@ -140,7 +140,7 @@ public class ActionListPinyinInitial extends BaseAction {
 			set.addAll(identityIds);
 		}
 		if(!set.isEmpty()){
-			p = cb.and(p, root.get(Identity_.id).in(set.asList()));
+			p = cb.and(p, root.get(IdentityStatic.id).in(set.asList()));
 		}
 
 		List<Identity> os = em.createQuery(cq.select(root).where(p)).getResultList();

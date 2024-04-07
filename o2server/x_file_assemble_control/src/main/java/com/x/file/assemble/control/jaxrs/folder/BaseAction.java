@@ -17,7 +17,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.file.assemble.control.Business;
 import com.x.file.core.entity.personal.Attachment;
 import com.x.file.core.entity.personal.Folder;
-import com.x.file.core.entity.personal.Folder_;
+import com.x.file.core.entity.personal.FolderStatic;
 
 abstract class BaseAction extends StandardJaxrsAction {
 
@@ -27,11 +27,11 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Folder> root = cq.from(Folder.class);
-		Predicate p = cb.equal(root.get(Folder_.person), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(Folder_.name), name));
-		p = cb.and(p, cb.equal(root.get(Folder_.superior), StringUtils.trimToEmpty(superior)));
+		Predicate p = cb.equal(root.get(FolderStatic.person), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(FolderStatic.name), name));
+		p = cb.and(p, cb.equal(root.get(FolderStatic.superior), StringUtils.trimToEmpty(superior)));
 		if (StringUtils.isNotEmpty(excludeId)) {
-			p = cb.and(p, cb.notEqual(root.get(Folder_.id), excludeId));
+			p = cb.and(p, cb.notEqual(root.get(FolderStatic.id), excludeId));
 		}
 		cq.select(cb.count(root)).where(p);
 		long count = em.createQuery(cq).getSingleResult();

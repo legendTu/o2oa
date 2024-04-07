@@ -3,7 +3,7 @@ package com.x.file.assemble.control.factory;
 import com.x.file.assemble.control.AbstractFactory;
 import com.x.file.assemble.control.Business;
 import com.x.file.core.entity.personal.Share;
-import com.x.file.core.entity.personal.Share_;
+import com.x.file.core.entity.personal.ShareStatic;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -24,12 +24,12 @@ public class ShareFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Share> cq = cb.createQuery(Share.class);
 		Root<Share> root = cq.from(Share.class);
-		Predicate p = cb.equal(root.get(Share_.person), person);
+		Predicate p = cb.equal(root.get(ShareStatic.person), person);
 		if(StringUtils.isNotBlank(shareType)){
-			p = cb.and(p, cb.equal(root.get(Share_.shareType), shareType));
+			p = cb.and(p, cb.equal(root.get(ShareStatic.shareType), shareType));
 		}
 		if(StringUtils.isNotBlank(fileType)){
-			p = cb.and(p, cb.equal(root.get(Share_.fileType), fileType));
+			p = cb.and(p, cb.equal(root.get(ShareStatic.fileType), fileType));
 		}
 		return em.createQuery(cq.where(p)).getResultList();
 	}
@@ -39,7 +39,7 @@ public class ShareFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Share> cq = cb.createQuery(Share.class);
 		Root<Share> root = cq.from(Share.class);
-		Predicate p = cb.isMember(person, root.get(Share_.shareUserList));
+		Predicate p = cb.isMember(person, root.get(ShareStatic.shareUserList));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -48,11 +48,11 @@ public class ShareFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Share> root = cq.from(Share.class);
-		Predicate p = cb.isMember(person, root.get(Share_.shareUserList));
+		Predicate p = cb.isMember(person, root.get(ShareStatic.shareUserList));
 		if(StringUtils.isNotBlank(fileType)){
-			p = cb.and(p, cb.equal(root.get(Share_.fileType), fileType));
+			p = cb.and(p, cb.equal(root.get(ShareStatic.fileType), fileType));
 		}
-		cq.select(root.get(Share_.id)).where(p);
+		cq.select(root.get(ShareStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -61,7 +61,7 @@ public class ShareFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Share> cq = cb.createQuery(Share.class);
 		Root<Share> root = cq.from(Share.class);
-		Predicate p = cb.isMember(org, root.get(Share_.shareOrgList));
+		Predicate p = cb.isMember(org, root.get(ShareStatic.shareOrgList));
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -70,11 +70,11 @@ public class ShareFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Share> root = cq.from(Share.class);
-		Predicate p = cb.isMember(org, root.get(Share_.shareOrgList));
+		Predicate p = cb.isMember(org, root.get(ShareStatic.shareOrgList));
 		if(StringUtils.isNotBlank(fileType)){
-			p = cb.and(p, cb.equal(root.get(Share_.fileType), fileType));
+			p = cb.and(p, cb.equal(root.get(ShareStatic.fileType), fileType));
 		}
-		cq.select(root.get(Share_.id)).where(p);
+		cq.select(root.get(ShareStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -83,8 +83,8 @@ public class ShareFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Share> cq = cb.createQuery(Share.class);
 		Root<Share> root = cq.from(Share.class);
-		Predicate p = cb.equal(root.get(Share_.person), person);
-		p = cb.and(p, cb.equal(root.get(Share_.fileId), fileId));
+		Predicate p = cb.equal(root.get(ShareStatic.person), person);
+		p = cb.and(p, cb.equal(root.get(ShareStatic.fileId), fileId));
 		List<Share> shareList = em.createQuery(cq.where(p)).setMaxResults(1).getResultList();
 		if(shareList!=null && !shareList.isEmpty()){
 			return shareList.get(0);
@@ -97,8 +97,8 @@ public class ShareFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Share> root = cq.from(Share.class);
-		Predicate p = cb.isMember(person, root.get(Share_.shieldUserList));
-		cq.select(root.get(Share_.id)).where(p);
+		Predicate p = cb.isMember(person, root.get(ShareStatic.shieldUserList));
+		cq.select(root.get(ShareStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

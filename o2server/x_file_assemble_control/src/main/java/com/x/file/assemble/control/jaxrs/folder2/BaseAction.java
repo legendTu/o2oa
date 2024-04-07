@@ -9,7 +9,7 @@ import com.x.file.assemble.control.service.FileCommonService;
 import com.x.file.core.entity.open.FileStatus;
 import com.x.file.core.entity.personal.Attachment2;
 import com.x.file.core.entity.personal.Folder2;
-import com.x.file.core.entity.personal.Folder2_;
+import com.x.file.core.entity.personal.Folder2Static;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -29,12 +29,12 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Folder2> root = cq.from(Folder2.class);
-		Predicate p = cb.equal(root.get(Folder2_.person), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(Folder2_.name), name));
-		p = cb.and(p, cb.equal(root.get(Folder2_.superior), StringUtils.trimToEmpty(superior)));
-		p = cb.and(p, cb.equal(root.get(Folder2_.status), FileStatus.VALID.getName()));
+		Predicate p = cb.equal(root.get(Folder2Static.person), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(Folder2Static.name), name));
+		p = cb.and(p, cb.equal(root.get(Folder2Static.superior), StringUtils.trimToEmpty(superior)));
+		p = cb.and(p, cb.equal(root.get(Folder2Static.status), FileStatus.VALID.getName()));
 		if (StringUtils.isNotEmpty(excludeId)) {
-			p = cb.and(p, cb.notEqual(root.get(Folder2_.id), excludeId));
+			p = cb.and(p, cb.notEqual(root.get(Folder2Static.id), excludeId));
 		}
 		cq.select(cb.count(root)).where(p);
 		long count = em.createQuery(cq).getSingleResult();

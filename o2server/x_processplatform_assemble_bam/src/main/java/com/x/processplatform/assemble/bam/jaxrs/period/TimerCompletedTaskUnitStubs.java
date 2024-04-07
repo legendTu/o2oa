@@ -20,7 +20,7 @@ import com.x.processplatform.assemble.bam.Business;
 import com.x.processplatform.assemble.bam.stub.UnitStub;
 import com.x.processplatform.assemble.bam.stub.UnitStubs;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.TaskCompleted_;
+import com.x.processplatform.core.entity.content.TaskCompletedStatic;
 
 public class TimerCompletedTaskUnitStubs extends BaseAction {
 
@@ -49,8 +49,8 @@ public class TimerCompletedTaskUnitStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.between(root.get(TaskCompleted_.completedTime), dateRange.getStart(), dateRange.getEnd());
-		cq.select(root.get(TaskCompleted_.unit)).distinct(true).where(p);
+		Predicate p = cb.between(root.get(TaskCompletedStatic.completedTime), dateRange.getStart(), dateRange.getEnd());
+		cq.select(root.get(TaskCompletedStatic.unit)).distinct(true).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return list;
 	}

@@ -54,13 +54,12 @@ import com.x.base.core.project.script.ScriptFactory;
 import com.x.base.core.project.tools.Crypto;
 import com.x.base.core.project.tools.DateTools;
 import com.x.base.core.project.tools.ListTools;
-import com.x.base.core.project.tools.StringTools;
 import com.x.general.core.entity.GeneralFile;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.assemble.control.ThisApplication;
 import com.x.organization.core.entity.Group;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.PersonAttribute;
 import com.x.organization.core.entity.Role;
@@ -545,8 +544,8 @@ class ActionInputAll extends BaseAction {
 						CriteriaQuery<Identity> cq = cb.createQuery(Identity.class);
 						Root<Identity> root = cq.from(Identity.class);
 						//System.out.println("personid="+personObj.getId());
-						Predicate p = cb.equal(root.get(Identity_.person), personObj.getId());	
-						p = cb.and(p,cb.equal(root.get(Identity_.unit), u.getId()));
+						Predicate p = cb.equal(root.get(IdentityStatic.person), personObj.getId());
+						p = cb.and(p,cb.equal(root.get(IdentityStatic.unit), u.getId()));
 						identitys = em.createQuery(cq.select(root).where(p)).getResultList();
 						
 						if(personCode.equals("zhengping2")){

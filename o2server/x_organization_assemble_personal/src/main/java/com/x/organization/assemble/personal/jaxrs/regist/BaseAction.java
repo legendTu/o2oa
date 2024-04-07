@@ -12,7 +12,7 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.organization.core.entity.Person;
-import com.x.organization.core.entity.Person_;
+import com.x.organization.core.entity.PersonStatic;
 
 abstract class BaseAction extends StandardJaxrsAction {
 
@@ -23,10 +23,10 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.mobile), mobile);
-		p = cb.or(p, cb.equal(root.get(Person_.name), mobile));
-		p = cb.or(p, cb.equal(root.get(Person_.id), mobile));
-		cq.select(cb.count(root.get(Person_.id))).where(p);
+		Predicate p = cb.equal(root.get(PersonStatic.mobile), mobile);
+		p = cb.or(p, cb.equal(root.get(PersonStatic.name), mobile));
+		p = cb.or(p, cb.equal(root.get(PersonStatic.id), mobile));
+		cq.select(cb.count(root.get(PersonStatic.id))).where(p);
 		if (em.createQuery(cq).getSingleResult() > 0) {
 			return true;
 		} else {
@@ -39,10 +39,10 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.name), name);
-		p = cb.or(p, cb.equal(root.get(Person_.mobile), name));
-		p = cb.or(p, cb.equal(root.get(Person_.id), name));
-		cq.select(cb.count(root.get(Person_.id))).where(p);
+		Predicate p = cb.equal(root.get(PersonStatic.name), name);
+		p = cb.or(p, cb.equal(root.get(PersonStatic.mobile), name));
+		p = cb.or(p, cb.equal(root.get(PersonStatic.id), name));
+		cq.select(cb.count(root.get(PersonStatic.id))).where(p);
 		if (em.createQuery(cq).getSingleResult() > 0) {
 			return true;
 		} else {
@@ -55,8 +55,8 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.mail), mail);
-		cq.select(cb.count(root.get(Person_.id))).where(p);
+		Predicate p = cb.equal(root.get(PersonStatic.mail), mail);
+		cq.select(cb.count(root.get(PersonStatic.id))).where(p);
 		if (em.createQuery(cq).getSingleResult() > 0) {
 			return true;
 		} else {

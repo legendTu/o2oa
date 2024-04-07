@@ -19,7 +19,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Read;
-import com.x.processplatform.core.entity.content.Read_;
+import com.x.processplatform.core.entity.content.ReadStatic;
 
 class V2ListCreatePrev extends V2Base {
 
@@ -32,7 +32,7 @@ class V2ListCreatePrev extends V2Base {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 			Root<Read> root = cq.from(Read.class);
-			Predicate p = cb.equal(root.get(Read_.creatorPerson), effectivePerson.getDistinguishedName());
+			Predicate p = cb.equal(root.get(ReadStatic.creatorPerson), effectivePerson.getDistinguishedName());
 			p = cb.and(p, this.toFilterPredicate(effectivePerson, business, wi));
 			ActionResult<List<Wo>> result = this.standardListPrev(Wo.copier, id, count, JpaObject.sequence_FIELDNAME,
 					DESC, p);

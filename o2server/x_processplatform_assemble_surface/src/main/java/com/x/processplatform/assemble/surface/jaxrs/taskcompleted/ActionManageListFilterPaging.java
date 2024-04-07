@@ -55,75 +55,75 @@ class ActionManageListFilterPaging extends BaseAction {
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
 		Predicate p = cb.conjunction();
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(TaskCompleted_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.application).in(wi.getApplicationList()));
 		}
 		if (StringUtils.isNotBlank(wi.getPerson())){
-			p = cb.and(p,cb.equal(root.get(TaskCompleted_.person), wi.getPerson()));
+			p = cb.and(p,cb.equal(root.get(TaskCompletedStatic.person), wi.getPerson()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue01())){
-			p = cb.and(p,cb.equal(root.get(TaskCompleted_.stringValue01), wi.getStringValue01()));
+			p = cb.and(p,cb.equal(root.get(TaskCompletedStatic.stringValue01), wi.getStringValue01()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue02())){
-			p = cb.and(p,cb.equal(root.get(TaskCompleted_.stringValue02), wi.getStringValue02()));
+			p = cb.and(p,cb.equal(root.get(TaskCompletedStatic.stringValue02), wi.getStringValue02()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue03())){
-			p = cb.and(p,cb.equal(root.get(TaskCompleted_.stringValue03), wi.getStringValue03()));
+			p = cb.and(p,cb.equal(root.get(TaskCompletedStatic.stringValue03), wi.getStringValue03()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue04())){
-			p = cb.and(p,cb.equal(root.get(TaskCompleted_.stringValue04), wi.getStringValue04()));
+			p = cb.and(p,cb.equal(root.get(TaskCompletedStatic.stringValue04), wi.getStringValue04()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue05())){
-			p = cb.and(p,cb.equal(root.get(TaskCompleted_.stringValue05), wi.getStringValue05()));
+			p = cb.and(p,cb.equal(root.get(TaskCompletedStatic.stringValue05), wi.getStringValue05()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue06())){
-			p = cb.and(p,cb.equal(root.get(TaskCompleted_.stringValue06), wi.getStringValue06()));
+			p = cb.and(p,cb.equal(root.get(TaskCompletedStatic.stringValue06), wi.getStringValue06()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue07())){
-			p = cb.and(p,cb.equal(root.get(TaskCompleted_.stringValue07), wi.getStringValue07()));
+			p = cb.and(p,cb.equal(root.get(TaskCompletedStatic.stringValue07), wi.getStringValue07()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue08())){
-			p = cb.and(p,cb.equal(root.get(TaskCompleted_.stringValue08), wi.getStringValue08()));
+			p = cb.and(p,cb.equal(root.get(TaskCompletedStatic.stringValue08), wi.getStringValue08()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue09())){
-			p = cb.and(p,cb.equal(root.get(TaskCompleted_.stringValue09), wi.getStringValue09()));
+			p = cb.and(p,cb.equal(root.get(TaskCompletedStatic.stringValue09), wi.getStringValue09()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue10())){
-			p = cb.and(p,cb.equal(root.get(TaskCompleted_.stringValue10), wi.getStringValue10()));
+			p = cb.and(p,cb.equal(root.get(TaskCompletedStatic.stringValue10), wi.getStringValue10()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
 			if(BooleanUtils.isFalse(wi.getRelateEditionProcess())) {
-				p = cb.and(p, root.get(TaskCompleted_.process).in(wi.getProcessList()));
+				p = cb.and(p, root.get(TaskCompletedStatic.process).in(wi.getProcessList()));
 			}else{
-				p = cb.and(p, root.get(TaskCompleted_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+				p = cb.and(p, root.get(TaskCompletedStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 			}
 		}
 		if(DateTools.isDateTimeOrDate(wi.getStartTime())){
-			p = cb.and(p, cb.greaterThan(root.get(TaskCompleted_.startTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(TaskCompletedStatic.startTime), DateTools.parse(wi.getStartTime())));
 		}
 		if(DateTools.isDateTimeOrDate(wi.getEndTime())){
-			p = cb.and(p, cb.lessThan(root.get(TaskCompleted_.startTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(TaskCompletedStatic.startTime), DateTools.parse(wi.getEndTime())));
 		}
 		if (ListTools.isNotEmpty(person_ids)) {
-			p = cb.and(p, root.get(TaskCompleted_.person).in(person_ids));
+			p = cb.and(p, root.get(TaskCompletedStatic.person).in(person_ids));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(TaskCompleted_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getWorkList())) {
-			p = cb.and(p, root.get(TaskCompleted_.work).in(wi.getWorkList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.work).in(wi.getWorkList()));
 		}
 		if (ListTools.isNotEmpty(wi.getJobList())) {
-			p = cb.and(p, root.get(TaskCompleted_.job).in(wi.getJobList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.job).in(wi.getJobList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(TaskCompleted_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(TaskCompleted_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(TaskCompletedStatic.activityName).in(wi.getActivityNameList()));
 		}
 		if (StringUtils.isNoneBlank(wi.getKey())) {
 			String key = StringTools.escapeSqlLikeKey(wi.getKey());
-			p = cb.and(p,cb.like(root.get(TaskCompleted_.title), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR));
+			p = cb.and(p,cb.like(root.get(TaskCompletedStatic.title), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR));
 		}
 
 		return p;

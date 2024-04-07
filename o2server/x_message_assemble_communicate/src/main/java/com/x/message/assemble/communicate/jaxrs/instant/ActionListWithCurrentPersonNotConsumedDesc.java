@@ -21,9 +21,7 @@ import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.message.assemble.communicate.Business;
 import com.x.message.core.entity.Instant;
-import com.x.message.core.entity.Instant_;
-import com.x.message.core.entity.Message;
-import com.x.message.core.entity.Message_;
+import com.x.message.core.entity.InstantStatic;
 
 class ActionListWithCurrentPersonNotConsumedDesc extends BaseAction {
 
@@ -44,9 +42,9 @@ class ActionListWithCurrentPersonNotConsumedDesc extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Instant> cq = cb.createQuery(Instant.class);
 		Root<Instant> root = cq.from(Instant.class);
-		Predicate p = cb.equal(root.get(Instant_.person), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(Instant_.consumed), false));
-		List<Instant> os = em.createQuery(cq.select(root).where(p).orderBy(cb.desc(root.get(Instant_.createTime))))
+		Predicate p = cb.equal(root.get(InstantStatic.person), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(InstantStatic.consumed), false));
+		List<Instant> os = em.createQuery(cq.select(root).where(p).orderBy(cb.desc(root.get(InstantStatic.createTime))))
 				.setMaxResults(count).getResultList();
 		return Wo.copier.copy(os);
 	}

@@ -23,7 +23,7 @@ import com.x.base.core.project.tools.DefaultCharset;
 import com.x.file.assemble.control.Business;
 import com.x.file.assemble.control.ThisApplication;
 import com.x.file.core.entity.personal.Attachment;
-import com.x.file.core.entity.personal.Attachment_;
+import com.x.file.core.entity.personal.AttachmentStatic;
 import com.x.file.core.entity.personal.Folder;
 
 class ActionUploadCallback extends StandardJaxrsAction {
@@ -88,11 +88,11 @@ class ActionUploadCallback extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Attachment> root = cq.from(Attachment.class);
-		Predicate p = cb.equal(root.get(Attachment_.name), fileName);
+		Predicate p = cb.equal(root.get(AttachmentStatic.name), fileName);
 		if (StringUtils.isNotEmpty(folderId)) {
-			p = cb.and(p, cb.equal(root.get(Attachment_.folder), folderId));
+			p = cb.and(p, cb.equal(root.get(AttachmentStatic.folder), folderId));
 		} else {
-			p = cb.and(p, cb.or(cb.isNull(root.get(Attachment_.folder)), cb.equal(root.get(Attachment_.folder), "")));
+			p = cb.and(p, cb.or(cb.isNull(root.get(AttachmentStatic.folder)), cb.equal(root.get(AttachmentStatic.folder), "")));
 		}
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult() > 0;
 	}

@@ -24,7 +24,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.Role;
-import com.x.organization.core.entity.Role_;
+import com.x.organization.core.entity.RoleStatic;
 
 class ActionListWithPersonObject extends BaseAction {
 
@@ -80,9 +80,9 @@ class ActionListWithPersonObject extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Role> root = cq.from(Role.class);
-		Predicate p = root.get(Role_.personList).in(personIds);
-		p = cb.or(p, root.get(Role_.groupList).in(groupIds));
-		List<String> roleIds = em.createQuery(cq.select(root.get(Role_.id)).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
+		Predicate p = root.get(RoleStatic.personList).in(personIds);
+		p = cb.or(p, root.get(RoleStatic.groupList).in(groupIds));
+		List<String> roleIds = em.createQuery(cq.select(root.get(RoleStatic.id)).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 		for (Role o : business.role().pick(roleIds)) {
 			wos.add(this.convert(business, o, Wo.class));
 		}

@@ -28,7 +28,7 @@ import com.x.base.core.project.tools.DateTools;
 import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Person;
-import com.x.organization.core.entity.Person_;
+import com.x.organization.core.entity.PersonStatic;
 
 class ActionLoginRecord extends BaseAction {
 
@@ -85,7 +85,7 @@ class ActionLoginRecord extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Person> root = cq.from(Person.class);
-		cq.select(root.get(Person_.id));
+		cq.select(root.get(PersonStatic.id));
 		List<String> ids = em.createQuery(cq).getResultList();
 		return business.entityManagerContainer().fetch(ids, Person.class, ListTools.toList(Person.name_FIELDNAME,
 				Person.lastLoginTime_FIELDNAME, Person.lastLoginAddress_FIELDNAME, Person.lastLoginClient_FIELDNAME));

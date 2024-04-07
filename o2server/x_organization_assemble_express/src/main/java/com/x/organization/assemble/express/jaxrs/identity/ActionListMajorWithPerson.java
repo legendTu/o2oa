@@ -24,7 +24,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 
 class ActionListMajorWithPerson extends BaseAction {
@@ -73,9 +73,9 @@ class ActionListMajorWithPerson extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = root.get(Identity_.person).in(personIds);
-		p = cb.and(p, cb.equal(root.get(Identity_.major), true));
-		List<String> identityIds = em.createQuery(cq.select(root.get(Identity_.id)).where(p))
+		Predicate p = root.get(IdentityStatic.person).in(personIds);
+		p = cb.and(p, cb.equal(root.get(IdentityStatic.major), true));
+		List<String> identityIds = em.createQuery(cq.select(root.get(IdentityStatic.id)).where(p))
 				.getResultList().stream().distinct().collect(Collectors.toList());
 		List<String> values = business.identity().listIdentityDistinguishedNameSorted(identityIds);
 		Wo wo = new Wo();

@@ -13,7 +13,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.mind.assemble.control.AbstractFactory;
 import com.x.mind.assemble.control.Business;
 import com.x.mind.entity.MindFolderInfo;
-import com.x.mind.entity.MindFolderInfo_;
+import com.x.mind.entity.MindFolderInfoStatic;
 
 
 /**
@@ -53,8 +53,8 @@ public class MindFolderInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<MindFolderInfo> cq = cb.createQuery(MindFolderInfo.class);
 		Root<MindFolderInfo> root = cq.from(MindFolderInfo.class);
-		Predicate p = root.get(MindFolderInfo_.id).in(ids);
-		cq.orderBy( cb.desc( root.get( MindFolderInfo_.updateTime ) ) );
+		Predicate p = root.get(MindFolderInfoStatic.id).in(ids);
+		cq.orderBy( cb.desc( root.get( MindFolderInfoStatic.updateTime ) ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 	
@@ -68,7 +68,7 @@ public class MindFolderInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<MindFolderInfo> root = cq.from(MindFolderInfo.class);
-		cq.select( root.get(MindFolderInfo_.id ) );
+		cq.select( root.get(MindFolderInfoStatic.id ) );
 		return em.createQuery( cq ).setMaxResults( 10000 ).getResultList();
 	}
 
@@ -85,21 +85,21 @@ public class MindFolderInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<MindFolderInfo> root = cq.from(MindFolderInfo.class);
-		Predicate p = cb.isNotNull( root.get(MindFolderInfo_.id ) );
+		Predicate p = cb.isNotNull( root.get(MindFolderInfoStatic.id ) );
 		if( folderId != null && !folderId.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindFolderInfo_.id), folderId));
+			p = cb.and( p, cb.equal( root.get( MindFolderInfoStatic.id), folderId));
 		}
 		if( creator != null && !creator.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindFolderInfo_.creator), creator));
+			p = cb.and( p, cb.equal( root.get( MindFolderInfoStatic.creator), creator));
 		}
 		if( creatorUnit != null && !creatorUnit.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindFolderInfo_.creatorUnit), creatorUnit));
+			p = cb.and( p, cb.equal( root.get( MindFolderInfoStatic.creatorUnit), creatorUnit));
 		}
 		if( parentId != null && !parentId.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindFolderInfo_.parentId ), parentId));
+			p = cb.and( p, cb.equal( root.get( MindFolderInfoStatic.parentId ), parentId));
 		}
 		if( name != null && !name.isEmpty() ){
-			p = cb.and( p, cb.like( root.get( MindFolderInfo_.name ), "%" + name + "%" ));
+			p = cb.and( p, cb.like( root.get( MindFolderInfoStatic.name ), "%" + name + "%" ));
 		}
 		cq.select( cb.count( root ) );
 		return em.createQuery(cq.where(p)).getSingleResult();
@@ -118,23 +118,23 @@ public class MindFolderInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<MindFolderInfo> root = cq.from(MindFolderInfo.class);
-		Predicate p = cb.isNotNull( root.get(MindFolderInfo_.id ) );
+		Predicate p = cb.isNotNull( root.get(MindFolderInfoStatic.id ) );
 		if( folderId != null && !folderId.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindFolderInfo_.id), folderId));
+			p = cb.and( p, cb.equal( root.get( MindFolderInfoStatic.id), folderId));
 		}
 		if( creator != null && !creator.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindFolderInfo_.creator), creator));
+			p = cb.and( p, cb.equal( root.get( MindFolderInfoStatic.creator), creator));
 		}
 		if( creatorUnit != null && !creatorUnit.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindFolderInfo_.creatorUnit), creatorUnit));
+			p = cb.and( p, cb.equal( root.get( MindFolderInfoStatic.creatorUnit), creatorUnit));
 		}
 		if( parentId != null && !parentId.isEmpty() ){
-			p = cb.and( p, cb.equal( root.get( MindFolderInfo_.parentId ), parentId));
+			p = cb.and( p, cb.equal( root.get( MindFolderInfoStatic.parentId ), parentId));
 		}
 		if( name != null && !name.isEmpty() ){
-			p = cb.and( p, cb.like( root.get( MindFolderInfo_.name ), "%" + name + "%" ));
+			p = cb.and( p, cb.like( root.get( MindFolderInfoStatic.name ), "%" + name + "%" ));
 		}
-		cq.select( root.get(MindFolderInfo_.id ) );
+		cq.select( root.get(MindFolderInfoStatic.id ) );
 		return em.createQuery(cq.where(p)).getResultList();
 	}
 
@@ -149,7 +149,7 @@ public class MindFolderInfoFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<MindFolderInfo> root = cq.from(MindFolderInfo.class);
-		Predicate p = cb.equal(root.get( MindFolderInfo_.parentId ), folderId );
+		Predicate p = cb.equal(root.get( MindFolderInfoStatic.parentId ), folderId );
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

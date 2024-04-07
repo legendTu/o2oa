@@ -15,7 +15,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Draft;
-import com.x.processplatform.core.entity.content.Draft_;
+import com.x.processplatform.core.entity.content.DraftStatic;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -50,29 +50,29 @@ class ActionListMyPaging extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Draft> cq = cb.createQuery(Draft.class);
 		Root<Draft> root = cq.from(Draft.class);
-		Predicate p = cb.equal(root.get(Draft_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(DraftStatic.person), effectivePerson.getDistinguishedName());
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(Draft_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(DraftStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
 			if (BooleanUtils.isFalse(wi.getRelateEditionProcess())) {
-				p = cb.and(p, root.get(Draft_.process).in(wi.getProcessList()));
+				p = cb.and(p, root.get(DraftStatic.process).in(wi.getProcessList()));
 			} else {
-				p = cb.and(p, root.get(Draft_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+				p = cb.and(p, root.get(DraftStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 			}
 		}
 		if (DateTools.isDateTimeOrDate(wi.getStartTime())) {
-			p = cb.and(p, cb.greaterThan(root.get(Draft_.createTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(DraftStatic.createTime), DateTools.parse(wi.getStartTime())));
 		}
 		if (DateTools.isDateTimeOrDate(wi.getEndTime())) {
-			p = cb.and(p, cb.lessThan(root.get(Draft_.createTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(DraftStatic.createTime), DateTools.parse(wi.getEndTime())));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(Draft_.unit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(DraftStatic.unit).in(wi.getCreatorUnitList()));
 		}
 		if (StringUtils.isNoneBlank(wi.getTitle())) {
 			String key = StringTools.escapeSqlLikeKey(wi.getTitle());
-			p = cb.and(p, cb.like(root.get(Draft_.title), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR));
+			p = cb.and(p, cb.like(root.get(DraftStatic.title), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR));
 		}
 
 		return p;

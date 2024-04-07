@@ -4,7 +4,7 @@ import com.x.file.assemble.control.AbstractFactory;
 import com.x.file.assemble.control.Business;
 import com.x.file.core.entity.open.FileStatus;
 import com.x.file.core.entity.personal.Folder2;
-import com.x.file.core.entity.personal.Folder2_;
+import com.x.file.core.entity.personal.Folder2Static;
 import org.apache.commons.collections4.set.ListOrderedSet;
 import org.apache.commons.lang3.StringUtils;
 
@@ -14,7 +14,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,10 +28,10 @@ public class Folder2Factory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Folder2> root = cq.from(Folder2.class);
-		Predicate p = cb.equal(root.get(Folder2_.person), person);
-		p = cb.and(p, cb.equal(root.get(Folder2_.status), FileStatus.VALID.getName()));
-		p = cb.and(p, cb.equal(root.get(Folder2_.superior), Business.TOP_FOLD));
-		cq.select(root.get(Folder2_.id)).where(p);
+		Predicate p = cb.equal(root.get(Folder2Static.person), person);
+		p = cb.and(p, cb.equal(root.get(Folder2Static.status), FileStatus.VALID.getName()));
+		p = cb.and(p, cb.equal(root.get(Folder2Static.superior), Business.TOP_FOLD));
+		cq.select(root.get(Folder2Static.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -41,12 +40,12 @@ public class Folder2Factory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Folder2> root = cq.from(Folder2.class);
-		Predicate p = cb.equal(root.get(Folder2_.person), person);
-		p = cb.and(p, cb.equal(root.get(Folder2_.superior), superior));
+		Predicate p = cb.equal(root.get(Folder2Static.person), person);
+		p = cb.and(p, cb.equal(root.get(Folder2Static.superior), superior));
 		if (StringUtils.isNotEmpty(status)) {
-			p = cb.and(p, cb.equal(root.get(Folder2_.status), status));
+			p = cb.and(p, cb.equal(root.get(Folder2Static.status), status));
 		}
-		cq.select(root.get(Folder2_.id)).where(p);
+		cq.select(root.get(Folder2Static.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -67,11 +66,11 @@ public class Folder2Factory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Folder2> root = cq.from(Folder2.class);
-		Predicate p = cb.equal(root.get(Folder2_.superior), id);
+		Predicate p = cb.equal(root.get(Folder2Static.superior), id);
 		if (StringUtils.isNotEmpty(status)) {
-			p = cb.and(p, cb.equal(root.get(Folder2_.status), status));
+			p = cb.and(p, cb.equal(root.get(Folder2Static.status), status));
 		}
-		cq.select(root.get(Folder2_.id)).where(p);
+		cq.select(root.get(Folder2Static.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -90,9 +89,9 @@ public class Folder2Factory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Folder2> cq = cb.createQuery(Folder2.class);
 		Root<Folder2> root = cq.from(Folder2.class);
-		Predicate p = cb.equal(root.get(Folder2_.superior), id);
+		Predicate p = cb.equal(root.get(Folder2Static.superior), id);
 		if (StringUtils.isNotEmpty(status)) {
-			p = cb.and(p, cb.equal(root.get(Folder2_.status), status));
+			p = cb.and(p, cb.equal(root.get(Folder2Static.status), status));
 		}
 		return em.createQuery(cq.where(p)).getResultList();
 	}
@@ -102,7 +101,7 @@ public class Folder2Factory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Folder2> root = cq.from(Folder2.class);
-		Predicate p = cb.equal(root.get(Folder2_.superior), id);
+		Predicate p = cb.equal(root.get(Folder2Static.superior), id);
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -112,12 +111,12 @@ public class Folder2Factory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Folder2> root = cq.from(Folder2.class);
-		Predicate p = cb.equal(root.get(Folder2_.person), person);
-		p = cb.and(p, cb.equal(root.get(Folder2_.name), name));
-		p = cb.and(p, cb.equal(root.get(Folder2_.superior), StringUtils.trimToEmpty(superior)));
-		p = cb.and(p, cb.equal(root.get(Folder2_.status), FileStatus.VALID.getName()));
+		Predicate p = cb.equal(root.get(Folder2Static.person), person);
+		p = cb.and(p, cb.equal(root.get(Folder2Static.name), name));
+		p = cb.and(p, cb.equal(root.get(Folder2Static.superior), StringUtils.trimToEmpty(superior)));
+		p = cb.and(p, cb.equal(root.get(Folder2Static.status), FileStatus.VALID.getName()));
 		if (StringUtils.isNotEmpty(excludeId)) {
-			p = cb.and(p, cb.notEqual(root.get(Folder2_.id), excludeId));
+			p = cb.and(p, cb.notEqual(root.get(Folder2Static.id), excludeId));
 		}
 		cq.select(cb.count(root)).where(p);
 		long count = em.createQuery(cq).getSingleResult();

@@ -51,7 +51,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.SslTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.organization.core.entity.Role;
-import com.x.organization.core.entity.Role_;
+import com.x.organization.core.entity.RoleStatic;
 
 public class Context extends AbstractContext {
 
@@ -244,8 +244,8 @@ public class Context extends AbstractContext {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<String> cq = cb.createQuery(String.class);
 			Root<Role> root = cq.from(Role.class);
-			Predicate p = cb.equal(root.get(Role_.name), str);
-			cq.select(root.get(Role_.id)).where(p);
+			Predicate p = cb.equal(root.get(RoleStatic.name), str);
+			cq.select(root.get(RoleStatic.id)).where(p);
 			List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 			if (list.isEmpty()) {
 				Role o = new Role();

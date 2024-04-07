@@ -14,8 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.x.base.core.project.config.Config;
 import com.x.base.core.project.tools.Crypto;
 import com.x.organization.core.entity.Person;
-import com.x.organization.core.entity.Person_;
-import com.x.organization.core.entity.Unit;
+import com.x.organization.core.entity.PersonStatic;
 import com.x.organization.core.entity.Unit_;
 import com.x.program.center.AbstractFactory;
 import com.x.program.center.Business;
@@ -31,7 +30,7 @@ public class PersonFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Person> cq = cb.createQuery(Person.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.dingdingId), dingdingId);
+		Predicate p = cb.equal(root.get(PersonStatic.dingdingId), dingdingId);
 		List<Person> os = em.createQuery(cq.select(root).where(p)).setMaxResults(1).getResultList();
 		if (os.isEmpty()) {
 			return null;
@@ -45,7 +44,7 @@ public class PersonFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Person> cq = cb.createQuery(Person.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.weLinkId), weLinkId);
+		Predicate p = cb.equal(root.get(PersonStatic.weLinkId), weLinkId);
 		List<Person> os = em.createQuery(cq.select(root).where(p)).setMaxResults(1).getResultList();
 		if (os.isEmpty()) {
 			return null;
@@ -59,7 +58,7 @@ public class PersonFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Person> cq = cb.createQuery(Person.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.zhengwuDingdingId), zhengwuDingdingId);
+		Predicate p = cb.equal(root.get(PersonStatic.zhengwuDingdingId), zhengwuDingdingId);
 		List<Person> os = em.createQuery(cq.select(root).where(p)).setMaxResults(1).getResultList();
 		if (os.isEmpty()) {
 			return null;
@@ -73,7 +72,7 @@ public class PersonFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Person> cq = cb.createQuery(Person.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.qiyeweixinId), qiyeweixinId);
+		Predicate p = cb.equal(root.get(PersonStatic.qiyeweixinId), qiyeweixinId);
 		List<Person> os = em.createQuery(cq.select(root).where(p)).setMaxResults(1).getResultList();
 		if (os.isEmpty()) {
 			return null;
@@ -100,9 +99,9 @@ public class PersonFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Person> cq = cb.createQuery(Person.class);
 		Root<Person> root = cq.from(Person.class);
-		Predicate p = cb.equal(root.get(Person_.employee), employee);
+		Predicate p = cb.equal(root.get(PersonStatic.employee), employee);
 		if(StringUtils.isNotEmpty(excludeUnique)){
-			p = cb.and(p, cb.notEqual(root.get(Person_.unique), excludeUnique));
+			p = cb.and(p, cb.notEqual(root.get(PersonStatic.unique), excludeUnique));
 		}
 		List<Person> os = em.createQuery(cq.select(root).where(p)).setMaxResults(1).getResultList();
 		if (os.isEmpty()) {

@@ -22,7 +22,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.Role;
-import com.x.organization.core.entity.Role_;
+import com.x.organization.core.entity.RoleStatic;
 import com.x.base.core.project.cache.Cache;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
@@ -76,7 +76,7 @@ class ActionListWithPerson extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Role> cq = cb.createQuery(Role.class);
 		Root<Role> root = cq.from(Role.class);
-		Predicate p = root.get(Role_.groupList).in(groups);
+		Predicate p = root.get(RoleStatic.groupList).in(groups);
 		List<Role> os = em.createQuery(cq.select(root).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 		return os;
 	}
@@ -86,7 +86,7 @@ class ActionListWithPerson extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Role> cq = cb.createQuery(Role.class);
 		Root<Role> root = cq.from(Role.class);
-		Predicate p = cb.isMember(person.getId(), root.get(Role_.personList));
+		Predicate p = cb.isMember(person.getId(), root.get(RoleStatic.personList));
 		List<Role> os = em.createQuery(cq.select(root).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 		return os;
 	}

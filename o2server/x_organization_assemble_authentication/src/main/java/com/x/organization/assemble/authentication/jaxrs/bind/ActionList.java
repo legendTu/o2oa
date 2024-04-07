@@ -13,7 +13,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.tools.SortTools;
 import com.x.organization.assemble.authentication.wrapout.WrapOutBind;
 import com.x.organization.core.entity.Bind;
-import com.x.organization.core.entity.Bind_;
+import com.x.organization.core.entity.BindStatic;
 
 class ActionList extends BaseAction {
 	ActionResult<List<WrapOutBind>> execute() throws Exception {
@@ -31,7 +31,7 @@ class ActionList extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Bind> root = cq.from(Bind.class);
-		cq.select(root.get(Bind_.id));
+		cq.select(root.get(BindStatic.id));
 		List<String> list = em.createQuery(cq).getResultList();
 		return list;
 	}

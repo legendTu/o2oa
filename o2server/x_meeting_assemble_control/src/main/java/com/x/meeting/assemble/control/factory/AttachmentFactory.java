@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.meeting.assemble.control.AbstractFactory;
 import com.x.meeting.assemble.control.Business;
 import com.x.meeting.core.entity.Attachment;
-import com.x.meeting.core.entity.Attachment_;
+import com.x.meeting.core.entity.AttachmentStatic;
 
 public class AttachmentFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class AttachmentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Attachment> root = cq.from(Attachment.class);
-		Predicate p = cb.equal(root.get(Attachment_.meeting), meetingId);
-		cq.select(root.get(Attachment_.id)).where(p);
+		Predicate p = cb.equal(root.get(AttachmentStatic.meeting), meetingId);
+		cq.select(root.get(AttachmentStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

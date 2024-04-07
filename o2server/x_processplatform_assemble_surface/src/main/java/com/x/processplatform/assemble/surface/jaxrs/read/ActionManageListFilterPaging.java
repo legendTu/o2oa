@@ -54,82 +54,82 @@ class ActionManageListFilterPaging extends BaseAction {
 		Root<Read> root = cq.from(Read.class);
 		Predicate p = cb.conjunction();
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(Read_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(ReadStatic.application).in(wi.getApplicationList()));
 		}
 		if (StringUtils.isNotBlank(wi.getPerson())){
-			p = cb.and(p,cb.equal(root.get(Read_.person), wi.getPerson()));
+			p = cb.and(p,cb.equal(root.get(ReadStatic.person), wi.getPerson()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue01())){
-			p = cb.and(p,cb.equal(root.get(Read_.stringValue01), wi.getStringValue01()));
+			p = cb.and(p,cb.equal(root.get(ReadStatic.stringValue01), wi.getStringValue01()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue02())){
-			p = cb.and(p,cb.equal(root.get(Read_.stringValue02), wi.getStringValue02()));
+			p = cb.and(p,cb.equal(root.get(ReadStatic.stringValue02), wi.getStringValue02()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue03())){
-			p = cb.and(p,cb.equal(root.get(Read_.stringValue03), wi.getStringValue03()));
+			p = cb.and(p,cb.equal(root.get(ReadStatic.stringValue03), wi.getStringValue03()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue04())){
-			p = cb.and(p,cb.equal(root.get(Read_.stringValue04), wi.getStringValue04()));
+			p = cb.and(p,cb.equal(root.get(ReadStatic.stringValue04), wi.getStringValue04()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue05())){
-			p = cb.and(p,cb.equal(root.get(Read_.stringValue05), wi.getStringValue05()));
+			p = cb.and(p,cb.equal(root.get(ReadStatic.stringValue05), wi.getStringValue05()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue06())){
-			p = cb.and(p,cb.equal(root.get(Read_.stringValue06), wi.getStringValue06()));
+			p = cb.and(p,cb.equal(root.get(ReadStatic.stringValue06), wi.getStringValue06()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue07())){
-			p = cb.and(p,cb.equal(root.get(Read_.stringValue07), wi.getStringValue07()));
+			p = cb.and(p,cb.equal(root.get(ReadStatic.stringValue07), wi.getStringValue07()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue08())){
-			p = cb.and(p,cb.equal(root.get(Read_.stringValue08), wi.getStringValue08()));
+			p = cb.and(p,cb.equal(root.get(ReadStatic.stringValue08), wi.getStringValue08()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue09())){
-			p = cb.and(p,cb.equal(root.get(Read_.stringValue09), wi.getStringValue09()));
+			p = cb.and(p,cb.equal(root.get(ReadStatic.stringValue09), wi.getStringValue09()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue10())){
-			p = cb.and(p,cb.equal(root.get(Read_.stringValue10), wi.getStringValue10()));
+			p = cb.and(p,cb.equal(root.get(ReadStatic.stringValue10), wi.getStringValue10()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
 			if(BooleanUtils.isFalse(wi.getRelateEditionProcess())) {
-				p = cb.and(p, root.get(Read_.process).in(wi.getProcessList()));
+				p = cb.and(p, root.get(ReadStatic.process).in(wi.getProcessList()));
 			}else{
-				p = cb.and(p, root.get(Read_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+				p = cb.and(p, root.get(ReadStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 			}
 		}
 		if(DateTools.isDateTimeOrDate(wi.getStartTime())){
-			p = cb.and(p, cb.greaterThan(root.get(Read_.startTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(ReadStatic.startTime), DateTools.parse(wi.getStartTime())));
 		}
 		if(DateTools.isDateTimeOrDate(wi.getEndTime())){
-			p = cb.and(p, cb.lessThan(root.get(Read_.startTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(ReadStatic.startTime), DateTools.parse(wi.getEndTime())));
 		}
 		if (ListTools.isNotEmpty(person_ids)) {
-			p = cb.and(p, root.get(Read_.person).in(person_ids));
+			p = cb.and(p, root.get(ReadStatic.person).in(person_ids));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(Read_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(ReadStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getWorkList())) {
-			p = cb.and(p, root.get(Read_.work).in(wi.getWorkList()));
+			p = cb.and(p, root.get(ReadStatic.work).in(wi.getWorkList()));
 		}
 		if (ListTools.isNotEmpty(wi.getJobList())) {
-			p = cb.and(p, root.get(Read_.job).in(wi.getJobList()));
+			p = cb.and(p, root.get(ReadStatic.job).in(wi.getJobList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(Read_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(ReadStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(Read_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(ReadStatic.activityName).in(wi.getActivityNameList()));
 		}
 		if (StringUtils.isNotEmpty(wi.getKey())) {
 			String key = StringUtils.trim(StringUtils.replace(wi.getKey(), "\u3000", " "));
 			if (StringUtils.isNotEmpty(key)) {
 				key = StringUtils.replaceEach(key, new String[] { "?", "%" }, new String[] { "", "" });
 				p = cb.and(p,
-						cb.or(cb.like(root.get(Read_.title), "%" + key + "%"),
-								cb.like(root.get(Read_.opinion), "%" + key + "%"),
-								cb.like(root.get(Read_.serial), "%" + key + "%"),
-								cb.like(root.get(Read_.creatorPerson), "%" + key + "%"),
-								cb.like(root.get(Read_.creatorUnit), "%" + key + "%")));
+						cb.or(cb.like(root.get(ReadStatic.title), "%" + key + "%"),
+								cb.like(root.get(ReadStatic.opinion), "%" + key + "%"),
+								cb.like(root.get(ReadStatic.serial), "%" + key + "%"),
+								cb.like(root.get(ReadStatic.creatorPerson), "%" + key + "%"),
+								cb.like(root.get(ReadStatic.creatorUnit), "%" + key + "%")));
 			}
 		}
 

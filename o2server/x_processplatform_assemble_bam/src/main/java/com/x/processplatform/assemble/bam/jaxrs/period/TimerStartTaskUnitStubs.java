@@ -21,7 +21,7 @@ import com.x.processplatform.assemble.bam.stub.UnitStub;
 import com.x.processplatform.assemble.bam.stub.UnitStubs;
 import com.x.processplatform.core.entity.content.Task;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.TaskCompleted_;
+import com.x.processplatform.core.entity.content.TaskCompletedStatic;
 import com.x.processplatform.core.entity.content.TaskStatic;
 
 public class TimerStartTaskUnitStubs extends BaseAction {
@@ -64,8 +64,8 @@ public class TimerStartTaskUnitStubs extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-		Predicate p = cb.between(root.get(TaskCompleted_.startTime), dateRange.getStart(), dateRange.getEnd());
-		cq.select(root.get(TaskCompleted_.unit)).distinct(true).where(p);
+		Predicate p = cb.between(root.get(TaskCompletedStatic.startTime), dateRange.getStart(), dateRange.getEnd());
+		cq.select(root.get(TaskCompletedStatic.unit)).distinct(true).where(p);
 		List<String> list = em.createQuery(cq).getResultList();
 		return list;
 	}

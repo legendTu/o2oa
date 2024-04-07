@@ -25,7 +25,7 @@ import com.x.processplatform.core.entity.content.ReadCompleted;
 import com.x.processplatform.core.entity.content.Review;
 import com.x.processplatform.core.entity.content.Task;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.TaskCompleted_;
+import com.x.processplatform.core.entity.content.TaskCompletedStatic;
 
 class ActionCountWithPerson extends BaseAction {
 
@@ -81,9 +81,9 @@ class ActionCountWithPerson extends BaseAction {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 				Root<TaskCompleted> root = cq.from(TaskCompleted.class);
-				Predicate p = cb.equal(root.get(TaskCompleted_.person), dn);
-				p = cb.and(p, cb.or(cb.equal(root.get(TaskCompleted_.latest), true),
-						cb.isNull(root.get(TaskCompleted_.latest))));
+				Predicate p = cb.equal(root.get(TaskCompletedStatic.person), dn);
+				p = cb.and(p, cb.or(cb.equal(root.get(TaskCompletedStatic.latest), true),
+						cb.isNull(root.get(TaskCompletedStatic.latest))));
 				count = em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();
 			} catch (Exception e) {
 				logger.error(e);

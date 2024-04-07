@@ -10,7 +10,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.DateTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.TaskCompleted;
-import com.x.processplatform.core.entity.content.TaskCompleted_;
+import com.x.processplatform.core.entity.content.TaskCompletedStatic;
 import org.apache.commons.lang3.BooleanUtils;
 
 import javax.persistence.EntityManager;
@@ -51,10 +51,10 @@ class ActionManageListWithDateHour extends BaseAction {
 		Predicate p = cb.conjunction();
 
 		if (startTime != null) {
-			p = cb.and(p, cb.greaterThanOrEqualTo(root.get(TaskCompleted_.createTime), startTime));
+			p = cb.and(p, cb.greaterThanOrEqualTo(root.get(TaskCompletedStatic.createTime), startTime));
 		}
 		if (endTime != null) {
-			p = cb.and(p, cb.lessThan(root.get(TaskCompleted_.createTime), endTime));
+			p = cb.and(p, cb.lessThan(root.get(TaskCompletedStatic.createTime), endTime));
 		}
 
 		cq.select(root).where(p);

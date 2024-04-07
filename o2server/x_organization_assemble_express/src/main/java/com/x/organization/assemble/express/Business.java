@@ -24,10 +24,10 @@ import com.x.organization.assemble.express.factory.UnitFactory;
 import com.x.organization.core.entity.Group;
 import com.x.organization.core.entity.Group_;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.Role;
-import com.x.organization.core.entity.Role_;
+import com.x.organization.core.entity.RoleStatic;
 import com.x.organization.core.entity.Unit;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -282,7 +282,7 @@ public class Business {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Role> cq = cb.createQuery(Role.class);
 			Root<Role> root = cq.from(Role.class);
-			Predicate p = root.get(Role_.groupList).in(expendGroupIds);
+			Predicate p = root.get(RoleStatic.groupList).in(expendGroupIds);
 			List<Role> os = em.createQuery(cq.select(root).where(p)).getResultList();
 			for (Role o : os) {
 				roleIds.add(o.getId());
@@ -337,8 +337,8 @@ public class Business {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = root.get(Identity_.unit).in(expendUnitIds);
-		List<String> identityIdList = em.createQuery(cq.select(root.get(Identity_.id)).where(p)).getResultList();
+		Predicate p = root.get(IdentityStatic.unit).in(expendUnitIds);
+		List<String> identityIdList = em.createQuery(cq.select(root.get(IdentityStatic.id)).where(p)).getResultList();
 		identityIdList = ListTools.trim(identityIdList, true, true);
 		return identityIdList;
 	}
@@ -359,8 +359,8 @@ public class Business {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Identity> root = cq.from(Identity.class);
-		Predicate p = cb.isMember(root.get(Identity_.id), cb.literal(identityIds));
-		List<String> personIds = em.createQuery(cq.select(root.get(Identity_.person)).where(p)).getResultList();
+		Predicate p = cb.isMember(root.get(IdentityStatic.id), cb.literal(identityIds));
+		List<String> personIds = em.createQuery(cq.select(root.get(IdentityStatic.person)).where(p)).getResultList();
 		personIds = ListTools.trim(personIds, true, true);
 		return personIds;
 	}

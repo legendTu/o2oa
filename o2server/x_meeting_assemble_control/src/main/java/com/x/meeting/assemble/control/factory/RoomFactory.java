@@ -15,9 +15,9 @@ import com.x.meeting.assemble.control.AbstractFactory;
 import com.x.meeting.assemble.control.Business;
 import com.x.meeting.core.entity.ConfirmStatus;
 import com.x.meeting.core.entity.Meeting;
-import com.x.meeting.core.entity.Meeting_;
+import com.x.meeting.core.entity.MeetingStatic;
 import com.x.meeting.core.entity.Room;
-import com.x.meeting.core.entity.Room_;
+import com.x.meeting.core.entity.RoomStatic;
 
 public class RoomFactory extends AbstractFactory {
 
@@ -31,7 +31,7 @@ public class RoomFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Room> root = cq.from(Room.class);
-		cq.select(root.get(Room_.id));
+		cq.select(root.get(RoomStatic.id));
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -40,8 +40,8 @@ public class RoomFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Room> root = cq.from(Room.class);
-		Predicate p = cb.equal(root.get(Room_.building), floorId);
-		cq.select(root.get(Room_.id)).where(p);
+		Predicate p = cb.equal(root.get(RoomStatic.building), floorId);
+		cq.select(root.get(RoomStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -51,17 +51,17 @@ public class RoomFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Meeting> root = cq.from(Meeting.class);
-		Predicate p = cb.equal(root.get(Meeting_.room), roomId);
-		p = cb.and(p, cb.equal(root.get(Meeting_.manualCompleted), false));
-		p = cb.and(p, cb.equal(root.get(Meeting_.confirmStatus), ConfirmStatus.allow));
+		Predicate p = cb.equal(root.get(MeetingStatic.room), roomId);
+		p = cb.and(p, cb.equal(root.get(MeetingStatic.manualCompleted), false));
+		p = cb.and(p, cb.equal(root.get(MeetingStatic.confirmStatus), ConfirmStatus.allow));
 		if (StringUtils.isNotEmpty(excludeMeetingId)) {
-			p = cb.and(p, cb.notEqual(root.get(Meeting_.id), excludeMeetingId));
+			p = cb.and(p, cb.notEqual(root.get(MeetingStatic.id), excludeMeetingId));
 		}
 		p = cb.and(p,
-				cb.or(cb.between(root.get(Meeting_.startTime), startTime, completedTime),
-						cb.between(root.get(Meeting_.completedTime), startTime, completedTime),
-						cb.and(cb.lessThanOrEqualTo(root.get(Meeting_.startTime), startTime),
-								cb.greaterThanOrEqualTo(root.get(Meeting_.completedTime), completedTime))));
+				cb.or(cb.between(root.get(MeetingStatic.startTime), startTime, completedTime),
+						cb.between(root.get(MeetingStatic.completedTime), startTime, completedTime),
+						cb.and(cb.lessThanOrEqualTo(root.get(MeetingStatic.startTime), startTime),
+								cb.greaterThanOrEqualTo(root.get(MeetingStatic.completedTime), completedTime))));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult() == 0L;
 	}
@@ -75,8 +75,8 @@ public class RoomFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Room> root = cq.from(Room.class);
-		Predicate p = cb.like(root.get(Room_.pinyinInitial), str + "%", '\\');
-		cq.select(root.get(Room_.id)).where(p);
+		Predicate p = cb.like(root.get(RoomStatic.pinyinInitial), str + "%", '\\');
+		cq.select(root.get(RoomStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -89,10 +89,10 @@ public class RoomFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Room> root = cq.from(Room.class);
-		Predicate p = cb.like(root.get(Room_.name), "%" + str + "%", '\\');
-		p = cb.or(p, cb.like(root.get(Room_.pinyin), str + "%", '\\'));
-		p = cb.or(p, cb.like(root.get(Room_.pinyinInitial), str + "%", '\\'));
-		cq.select(root.get(Room_.id)).where(p);
+		Predicate p = cb.like(root.get(RoomStatic.name), "%" + str + "%", '\\');
+		p = cb.or(p, cb.like(root.get(RoomStatic.pinyin), str + "%", '\\'));
+		p = cb.or(p, cb.like(root.get(RoomStatic.pinyinInitial), str + "%", '\\'));
+		cq.select(root.get(RoomStatic.id)).where(p);
 		return em.createQuery(cq).setMaxResults(200).getResultList();
 	}
 
@@ -105,9 +105,9 @@ public class RoomFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Room> root = cq.from(Room.class);
-		Predicate p = cb.like(root.get(Room_.pinyin), str + "%");
-		p = cb.or(p, cb.like(root.get(Room_.pinyinInitial), str + "%"));
-		cq.select(root.get(Room_.id)).where(p);
+		Predicate p = cb.like(root.get(RoomStatic.pinyin), str + "%");
+		p = cb.or(p, cb.like(root.get(RoomStatic.pinyinInitial), str + "%"));
+		cq.select(root.get(RoomStatic.id)).where(p);
 		return em.createQuery(cq).setMaxResults(200).getResultList();
 	}
 

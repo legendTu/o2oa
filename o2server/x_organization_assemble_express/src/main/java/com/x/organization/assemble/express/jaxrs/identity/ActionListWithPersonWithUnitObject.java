@@ -20,10 +20,9 @@ import com.x.base.core.project.cache.CacheManager;
 import com.x.base.core.project.gson.GsonPropertyObject;
 import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
-import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Identity;
-import com.x.organization.core.entity.Identity_;
+import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.Unit;
 
@@ -64,10 +63,10 @@ class ActionListWithPersonWithUnitObject extends BaseAction {
 		Root<Identity> root = cq.from(Identity.class);
 		Predicate p = cb.disjunction();
 		for (Pair o : cartesian) {
-			p = cb.or(p, cb.and(cb.equal(root.get(Identity_.unit), o.getUnit()),
-					cb.equal(root.get(Identity_.person), o.getPerson())));
+			p = cb.or(p, cb.and(cb.equal(root.get(IdentityStatic.unit), o.getUnit()),
+					cb.equal(root.get(IdentityStatic.person), o.getPerson())));
 		}
-		List<String> identityIds = em.createQuery(cq.select(root.get(Identity_.id)).where(p)).getResultList().stream()
+		List<String> identityIds = em.createQuery(cq.select(root.get(IdentityStatic.id)).where(p)).getResultList().stream()
 				.distinct().collect(Collectors.toList());
 		List<Identity> list = business.identity().pick(identityIds);
 		for (Identity o : list) {
