@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.x.organization.assemble.control.AbstractFactory;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.PermissionSetting;
-import com.x.organization.core.entity.PermissionSetting_;
+import com.x.organization.core.entity.PermissionSettingStatic;
 import com.x.organization.core.entity.PersistenceProperties;
 import com.x.base.core.project.cache.Cache.CacheCategory;
 import com.x.base.core.project.cache.Cache.CacheKey;
@@ -82,7 +82,7 @@ public class PermissionSettingFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<PermissionSetting> cq = cb.createQuery(PermissionSetting.class);
 				Root<PermissionSetting> root = cq.from(PermissionSetting.class);
-				Predicate p = cb.equal(root.get(PermissionSetting_.id), name);
+				Predicate p = cb.equal(root.get(PermissionSettingStatic.id), name);
 				List<PermissionSetting> os = em.createQuery(cq.select(root).where(p)).getResultList();
 				if (os.size() == 1) {
 					o = os.get(0);
@@ -97,7 +97,7 @@ public class PermissionSettingFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<PermissionSetting> root = cq.from(PermissionSetting.class);
-		cq.select(root.get(PermissionSetting_.id)).orderBy(cb.asc(root.get(PermissionSetting_.createTime))); 
+		cq.select(root.get(PermissionSettingStatic.id)).orderBy(cb.asc(root.get(PermissionSettingStatic.createTime)));
 		return em.createQuery(cq).getResultList();
 	}
 }

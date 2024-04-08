@@ -23,7 +23,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Group;
-import com.x.organization.core.entity.Group_;
+import com.x.organization.core.entity.GroupStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.Role;
 
@@ -93,7 +93,7 @@ class ActionListWithRoleObject extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Group> cq = cb.createQuery(Group.class);
 		Root<Group> root = cq.from(Group.class);
-		Predicate p = root.get(Group_.id).in(groupIds);
+		Predicate p = root.get(GroupStatic.id).in(groupIds);
 		List<Group> os = em.createQuery(cq.select(root).where(p))
 				.getResultList().stream().distinct().collect(Collectors.toList());
 		List<String> personIds = new ArrayList<>();

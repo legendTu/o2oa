@@ -16,7 +16,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.portal.assemble.designer.Business;
 import com.x.portal.core.entity.Portal;
-import com.x.portal.core.entity.Portal_;
+import com.x.portal.core.entity.PortalStatic;
 import com.x.base.core.project.cache.Cache.CacheCategory;
 
 abstract class BaseAction extends StandardJaxrsAction {
@@ -58,10 +58,10 @@ abstract class BaseAction extends StandardJaxrsAction {
 		Root<Portal> root = cq.from(Portal.class);
 		Predicate p = cb.conjunction();
 		if (!business.isPortalManager(effectivePerson)) {
-			p = cb.isMember(effectivePerson.getDistinguishedName(), root.get(Portal_.controllerList));
-			p = cb.or(p, cb.equal(root.get(Portal_.creatorPerson), effectivePerson.getDistinguishedName()));
+			p = cb.isMember(effectivePerson.getDistinguishedName(), root.get(PortalStatic.controllerList));
+			p = cb.or(p, cb.equal(root.get(PortalStatic.creatorPerson), effectivePerson.getDistinguishedName()));
 		}
-		cq.select(root.get(Portal_.id)).where(p);
+		cq.select(root.get(PortalStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		return list;
 	}
@@ -74,11 +74,11 @@ abstract class BaseAction extends StandardJaxrsAction {
 		Root<Portal> root = cq.from(Portal.class);
 		Predicate p = cb.conjunction();
 		if (!business.isPortalManager(effectivePerson)) {
-			p = cb.isMember(effectivePerson.getDistinguishedName(), root.get(Portal_.controllerList));
-			p = cb.or(p, cb.equal(root.get(Portal_.creatorPerson), effectivePerson.getDistinguishedName()));
+			p = cb.isMember(effectivePerson.getDistinguishedName(), root.get(PortalStatic.controllerList));
+			p = cb.or(p, cb.equal(root.get(PortalStatic.creatorPerson), effectivePerson.getDistinguishedName()));
 		}
-		p = cb.and(p, cb.equal(root.get(Portal_.portalCategory), Objects.toString(portalCategory, "")));
-		cq.select(root.get(Portal_.id)).where(p);
+		p = cb.and(p, cb.equal(root.get(PortalStatic.portalCategory), Objects.toString(portalCategory, "")));
+		cq.select(root.get(PortalStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		return list;
 	}

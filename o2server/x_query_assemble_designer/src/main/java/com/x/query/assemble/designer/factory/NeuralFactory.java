@@ -14,7 +14,7 @@ import com.x.base.core.project.tools.StringTools;
 import com.x.query.assemble.designer.AbstractFactory;
 import com.x.query.assemble.designer.Business;
 import com.x.query.core.entity.Stat;
-import com.x.query.core.entity.Stat_;
+import com.x.query.core.entity.StatStatic;
 
 public class NeuralFactory extends AbstractFactory {
 
@@ -38,8 +38,8 @@ public class NeuralFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Stat> root = cq.from(Stat.class);
-		Predicate p = cb.equal(root.get(Stat_.query), queryId);
-		cq.select(root.get(Stat_.id)).where(p);
+		Predicate p = cb.equal(root.get(StatStatic.query), queryId);
+		cq.select(root.get(StatStatic.id)).where(p);
 		List<String> os = em.createQuery(cq).getResultList();
 		return os;
 	}
@@ -49,7 +49,7 @@ public class NeuralFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Stat> cq = cb.createQuery(Stat.class);
 		Root<Stat> root = cq.from(Stat.class);
-		Predicate p = cb.equal(root.get(Stat_.query), queryId);
+		Predicate p = cb.equal(root.get(StatStatic.query), queryId);
 		cq.select(root).where(p);
 		List<Stat> os = em.createQuery(cq).getResultList();
 		return os;

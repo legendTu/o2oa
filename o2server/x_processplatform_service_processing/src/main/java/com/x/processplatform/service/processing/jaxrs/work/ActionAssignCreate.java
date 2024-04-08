@@ -36,10 +36,10 @@ import com.x.processplatform.core.entity.content.Work;
 import com.x.processplatform.core.entity.content.WorkStatus;
 import com.x.processplatform.core.entity.element.ActivityType;
 import com.x.processplatform.core.entity.element.Application;
-import com.x.processplatform.core.entity.element.Application_;
+import com.x.processplatform.core.entity.element.ApplicationStatic;
 import com.x.processplatform.core.entity.element.Begin;
 import com.x.processplatform.core.entity.element.Process;
-import com.x.processplatform.core.entity.element.Process_;
+import com.x.processplatform.core.entity.element.ProcessStatic;
 import com.x.processplatform.core.express.ProcessingAttributes;
 import com.x.processplatform.service.processing.Business;
 import com.x.processplatform.service.processing.MessageFactory;
@@ -261,11 +261,11 @@ class ActionAssignCreate extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Application> root = cq.from(Application.class);
-		Predicate p = cb.equal(root.get(Application_.name), applicationFlag);
-		p = cb.or(p, cb.equal(root.get(Application_.alias), applicationFlag));
-		p = cb.or(p, cb.equal(root.get(Application_.id), applicationFlag));
-		p = cb.or(p, cb.equal(root.get(Application_.applicationCategory), applicationFlag));
-		cq.select(root.get(Application_.id)).where(p);
+		Predicate p = cb.equal(root.get(ApplicationStatic.name), applicationFlag);
+		p = cb.or(p, cb.equal(root.get(ApplicationStatic.alias), applicationFlag));
+		p = cb.or(p, cb.equal(root.get(ApplicationStatic.id), applicationFlag));
+		p = cb.or(p, cb.equal(root.get(ApplicationStatic.applicationCategory), applicationFlag));
+		cq.select(root.get(ApplicationStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -274,12 +274,12 @@ class ActionAssignCreate extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Process> cq = cb.createQuery(Process.class);
 		Root<Process> root = cq.from(Process.class);
-		Predicate p = cb.equal(root.get(Process_.name), processFlag);
-		p = cb.or(p, cb.equal(root.get(Process_.alias), processFlag));
-		p = cb.or(p, cb.equal(root.get(Process_.id), processFlag));
-		p = cb.and(p, root.get(Process_.application).in(applicationIds));
-		p = cb.and(p, cb.or(cb.isTrue(root.get(Process_.editionEnable)), cb.isNull(root.get(Process_.editionEnable))));
-		cq.select(root).where(p).orderBy(cb.desc(root.get(Process_.editionNumber)));
+		Predicate p = cb.equal(root.get(ProcessStatic.name), processFlag);
+		p = cb.or(p, cb.equal(root.get(ProcessStatic.alias), processFlag));
+		p = cb.or(p, cb.equal(root.get(ProcessStatic.id), processFlag));
+		p = cb.and(p, root.get(ProcessStatic.application).in(applicationIds));
+		p = cb.and(p, cb.or(cb.isTrue(root.get(ProcessStatic.editionEnable)), cb.isNull(root.get(ProcessStatic.editionEnable))));
+		cq.select(root).where(p).orderBy(cb.desc(root.get(ProcessStatic.editionNumber)));
 		List<Process> list = em.createQuery(cq).getResultList();
 		if (list.isEmpty()) {
 			throw new ExceptionEntityNotExist(processFlag, Process.class);

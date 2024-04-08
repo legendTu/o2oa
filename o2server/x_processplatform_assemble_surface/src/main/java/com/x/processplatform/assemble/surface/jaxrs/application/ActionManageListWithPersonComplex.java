@@ -8,13 +8,12 @@ import com.x.base.core.project.bean.WrapCopier;
 import com.x.base.core.project.bean.WrapCopierFactory;
 import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
-import com.x.base.core.project.organization.OrganizationDefinition;
 import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.element.Application;
-import com.x.processplatform.core.entity.element.Application_;
+import com.x.processplatform.core.entity.element.ApplicationStatic;
 import com.x.processplatform.core.entity.element.Process;
-import com.x.processplatform.core.entity.element.Process_;
+import com.x.processplatform.core.entity.element.ProcessStatic;
 import org.apache.commons.collections4.ListUtils;
 
 import javax.persistence.EntityManager;
@@ -117,18 +116,18 @@ class ActionManageListWithPersonComplex extends BaseAction {
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Application> root = cq.from(Application.class);
 
-		Predicate p = cb.and(cb.isEmpty(root.get(Application_.availableIdentityList)),
-				cb.isEmpty(root.get(Application_.availableUnitList)));
+		Predicate p = cb.and(cb.isEmpty(root.get(ApplicationStatic.availableIdentityList)),
+				cb.isEmpty(root.get(ApplicationStatic.availableUnitList)));
 
 		if (ListTools.isNotEmpty(identities)) {
-			p = cb.or(p, root.get(Application_.availableIdentityList).in(identities));
+			p = cb.or(p, root.get(ApplicationStatic.availableIdentityList).in(identities));
 		}
 		if (ListTools.isNotEmpty(units)) {
-			p = cb.or(p, root.get(Application_.availableUnitList).in(units));
+			p = cb.or(p, root.get(ApplicationStatic.availableUnitList).in(units));
 		}
 		cq.where(p);
 
-		list = em.createQuery(cq.select(root.get(Application_.id))).getResultList().stream().distinct()
+		list = em.createQuery(cq.select(root.get(ApplicationStatic.id))).getResultList().stream().distinct()
 				.collect(Collectors.toList());
 		return list;
 	}
@@ -145,17 +144,17 @@ class ActionManageListWithPersonComplex extends BaseAction {
 		Root<Process> root = cq.from(Process.class);
 		Predicate p = cb.conjunction();
 
-		p = cb.and(cb.isEmpty(root.get(Process_.startableIdentityList)),
-				cb.isEmpty(root.get(Process_.startableUnitList)));
+		p = cb.and(cb.isEmpty(root.get(ProcessStatic.startableIdentityList)),
+				cb.isEmpty(root.get(ProcessStatic.startableUnitList)));
 
 		if (ListTools.isNotEmpty(identities)) {
-			p = cb.or(p, root.get(Process_.startableIdentityList).in(identities));
+			p = cb.or(p, root.get(ProcessStatic.startableIdentityList).in(identities));
 		}
 		if (ListTools.isNotEmpty(units)) {
-			p = cb.or(p, root.get(Process_.startableUnitList).in(units));
+			p = cb.or(p, root.get(ProcessStatic.startableUnitList).in(units));
 		}
 
-		cq.select(root.get(Process_.application)).where(p);
+		cq.select(root.get(ProcessStatic.application)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 
@@ -180,19 +179,19 @@ class ActionManageListWithPersonComplex extends BaseAction {
 		Root<Process> root = cq.from(Process.class);
 		Predicate p = cb.conjunction();
 
-		p = cb.and(cb.isEmpty(root.get(Process_.startableIdentityList)),
-				cb.isEmpty(root.get(Process_.startableUnitList)));
+		p = cb.and(cb.isEmpty(root.get(ProcessStatic.startableIdentityList)),
+				cb.isEmpty(root.get(ProcessStatic.startableUnitList)));
 
 		if (ListTools.isNotEmpty(identities)) {
-			p = cb.or(p, root.get(Process_.startableIdentityList).in(identities));
+			p = cb.or(p, root.get(ProcessStatic.startableIdentityList).in(identities));
 		}
 		if (ListTools.isNotEmpty(units)) {
-			p = cb.or(p, root.get(Process_.startableUnitList).in(units));
+			p = cb.or(p, root.get(ProcessStatic.startableUnitList).in(units));
 		}
 
-		p = cb.and(p, cb.equal(root.get(Process_.application), application.getId()));
-		p = cb.and(p, cb.or(cb.isTrue(root.get(Process_.editionEnable)), cb.isNull(root.get(Process_.editionEnable))));
-		cq.select(root.get(Process_.id)).where(p);
+		p = cb.and(p, cb.equal(root.get(ProcessStatic.application), application.getId()));
+		p = cb.and(p, cb.or(cb.isTrue(root.get(ProcessStatic.editionEnable)), cb.isNull(root.get(ProcessStatic.editionEnable))));
+		cq.select(root.get(ProcessStatic.id)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 }

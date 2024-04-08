@@ -18,7 +18,7 @@ import com.x.base.core.project.gson.GsonPropertyObject;
 import com.x.base.core.project.http.ActionResult;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.UnitDuty;
-import com.x.organization.core.entity.UnitDuty_;
+import com.x.organization.core.entity.UnitDutyStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 
@@ -60,7 +60,7 @@ class ActionDistinctName extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<UnitDuty> root = cq.from(UnitDuty.class);
-		cq.select(root.get(UnitDuty_.name));
+		cq.select(root.get(UnitDutyStatic.name));
 		List<String> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		list = list.stream().filter(o -> {
 			return StringUtils.isNotEmpty(o);

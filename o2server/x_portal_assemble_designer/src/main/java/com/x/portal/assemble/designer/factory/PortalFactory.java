@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 import com.x.portal.assemble.designer.AbstractFactory;
 import com.x.portal.assemble.designer.Business;
 import com.x.portal.core.entity.Portal;
-import com.x.portal.core.entity.Portal_;
+import com.x.portal.core.entity.PortalStatic;
 
 public class PortalFactory extends AbstractFactory {
 
@@ -26,8 +26,8 @@ public class PortalFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Portal> root = cq.from(Portal.class);
-		Predicate p = cb.equal(root.get(Portal_.name), name);
-		List<String> list = em.createQuery(cq.select(root.get(Portal_.id)).where(p)).setMaxResults(1).getResultList();
+		Predicate p = cb.equal(root.get(PortalStatic.name), name);
+		List<String> list = em.createQuery(cq.select(root.get(PortalStatic.id)).where(p)).setMaxResults(1).getResultList();
 		if (list.isEmpty()) {
 			return null;
 		} else {
@@ -40,8 +40,8 @@ public class PortalFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Portal> root = cq.from(Portal.class);
-		Predicate p = cb.equal(root.get(Portal_.alias), alias);
-		List<String> list = em.createQuery(cq.select(root.get(Portal_.id)).where(p)).setMaxResults(1).getResultList();
+		Predicate p = cb.equal(root.get(PortalStatic.alias), alias);
+		List<String> list = em.createQuery(cq.select(root.get(PortalStatic.id)).where(p)).setMaxResults(1).getResultList();
 		if (list.isEmpty()) {
 			return null;
 		} else {
@@ -54,7 +54,7 @@ public class PortalFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Portal> root = cq.from(Portal.class);
-		List<String> list = em.createQuery(cq.select(root.get(Portal_.id))).getResultList();
+		List<String> list = em.createQuery(cq.select(root.get(PortalStatic.id))).getResultList();
 		return list;
 	}
 

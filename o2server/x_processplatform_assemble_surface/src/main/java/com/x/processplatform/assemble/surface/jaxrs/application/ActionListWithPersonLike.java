@@ -23,9 +23,9 @@ import com.x.base.core.project.organization.OrganizationDefinition;
 import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.element.Application;
-import com.x.processplatform.core.entity.element.Application_;
+import com.x.processplatform.core.entity.element.ApplicationStatic;
 import com.x.processplatform.core.entity.element.Process;
-import com.x.processplatform.core.entity.element.Process_;
+import com.x.processplatform.core.entity.element.ProcessStatic;
 
 class ActionListWithPersonLike extends BaseAction {
 
@@ -73,19 +73,19 @@ class ActionListWithPersonLike extends BaseAction {
 		Root<Application> root = cq.from(Application.class);
 		if (effectivePerson.isNotManager() && (!business.organization().person().hasRole(effectivePerson,
 				OrganizationDefinition.Manager, OrganizationDefinition.ProcessPlatformManager))) {
-			Predicate p = cb.and(cb.isEmpty(root.get(Application_.availableIdentityList)),
-					cb.isEmpty(root.get(Application_.availableUnitList)));
-			p = cb.or(p, cb.isMember(effectivePerson.getDistinguishedName(), root.get(Application_.controllerList)));
-			p = cb.or(p, cb.equal(root.get(Application_.creatorPerson), effectivePerson.getDistinguishedName()));
+			Predicate p = cb.and(cb.isEmpty(root.get(ApplicationStatic.availableIdentityList)),
+					cb.isEmpty(root.get(ApplicationStatic.availableUnitList)));
+			p = cb.or(p, cb.isMember(effectivePerson.getDistinguishedName(), root.get(ApplicationStatic.controllerList)));
+			p = cb.or(p, cb.equal(root.get(ApplicationStatic.creatorPerson), effectivePerson.getDistinguishedName()));
 			if (ListTools.isNotEmpty(identities)) {
-				p = cb.or(p, root.get(Application_.availableIdentityList).in(identities));
+				p = cb.or(p, root.get(ApplicationStatic.availableIdentityList).in(identities));
 			}
 			if (ListTools.isNotEmpty(units)) {
-				p = cb.or(p, root.get(Application_.availableUnitList).in(units));
+				p = cb.or(p, root.get(ApplicationStatic.availableUnitList).in(units));
 			}
 			cq.where(p);
 		}
-		return em.createQuery(cq.select(root.get(Application_.id))).getResultList().stream().distinct()
+		return em.createQuery(cq.select(root.get(ApplicationStatic.id))).getResultList().stream().distinct()
 				.collect(Collectors.toList());
 	}
 
@@ -102,21 +102,21 @@ class ActionListWithPersonLike extends BaseAction {
 		String str = key.replaceAll("_", "\\\\_");
 		str = str.replaceAll("%", "\\\\%");
 		str = str.toLowerCase();
-		Predicate p = cb.like(root.get(Process_.name), "%" + str + "%", '\\');
+		Predicate p = cb.like(root.get(ProcessStatic.name), "%" + str + "%", '\\');
 		if (effectivePerson.isNotManager() && (!business.organization().person().hasRole(effectivePerson,
 				OrganizationDefinition.Manager, OrganizationDefinition.ProcessPlatformManager))) {
-			p = cb.and(cb.isEmpty(root.get(Process_.startableIdentityList)),
-					cb.isEmpty(root.get(Process_.startableUnitList)));
-			p = cb.or(p, cb.isMember(effectivePerson.getDistinguishedName(), root.get(Process_.controllerList)));
-			p = cb.or(p, cb.equal(root.get(Process_.creatorPerson), effectivePerson.getDistinguishedName()));
+			p = cb.and(cb.isEmpty(root.get(ProcessStatic.startableIdentityList)),
+					cb.isEmpty(root.get(ProcessStatic.startableUnitList)));
+			p = cb.or(p, cb.isMember(effectivePerson.getDistinguishedName(), root.get(ProcessStatic.controllerList)));
+			p = cb.or(p, cb.equal(root.get(ProcessStatic.creatorPerson), effectivePerson.getDistinguishedName()));
 			if (ListTools.isNotEmpty(identities)) {
-				p = cb.or(p, root.get(Process_.startableIdentityList).in(identities));
+				p = cb.or(p, root.get(ProcessStatic.startableIdentityList).in(identities));
 			}
 			if (ListTools.isNotEmpty(units)) {
-				p = cb.or(p, root.get(Process_.startableUnitList).in(units));
+				p = cb.or(p, root.get(ProcessStatic.startableUnitList).in(units));
 			}
 		}
-		cq.select(root.get(Process_.application)).where(p);
+		cq.select(root.get(ProcessStatic.application)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 }

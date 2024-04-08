@@ -12,7 +12,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.query.core.entity.ImportRecord;
-import com.x.query.core.entity.ImportRecord_;
+import com.x.query.core.entity.ImportRecordStatic;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -34,10 +34,10 @@ class ActionRecordListPaging extends BaseAction {
 			Root<ImportRecord> root = cq.from(ImportRecord.class);
 			Predicate p = cb.conjunction();
 			if(StringUtils.isNotBlank(wi.getModelId())){
-				p = cb.and(p, cb.equal(root.get(ImportRecord_.modelId), wi.getModelId()));
+				p = cb.and(p, cb.equal(root.get(ImportRecordStatic.modelId), wi.getModelId()));
 			}
 			if(StringUtils.isNotBlank(wi.getStatus())){
-				p = cb.and(p, cb.equal(root.get(ImportRecord_.status), wi.getStatus()));
+				p = cb.and(p, cb.equal(root.get(ImportRecordStatic.status), wi.getStatus()));
 			}
 			List<Wo> wos = emc.fetchDescPaging(ImportRecord.class, Wo.copier, p, page, size, ImportRecord.sequence_FIELDNAME);
 			result.setData(wos);

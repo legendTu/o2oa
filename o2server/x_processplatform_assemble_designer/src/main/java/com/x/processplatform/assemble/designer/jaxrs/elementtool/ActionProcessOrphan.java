@@ -34,7 +34,7 @@ import com.x.processplatform.core.entity.element.Merge;
 import com.x.processplatform.core.entity.element.Message;
 import com.x.processplatform.core.entity.element.Parallel;
 import com.x.processplatform.core.entity.element.Process;
-import com.x.processplatform.core.entity.element.Process_;
+import com.x.processplatform.core.entity.element.ProcessStatic;
 import com.x.processplatform.core.entity.element.Route;
 import com.x.processplatform.core.entity.element.Service;
 import com.x.processplatform.core.entity.element.Split;
@@ -88,8 +88,8 @@ class ActionProcessOrphan extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Process> root = cq.from(Process.class);
-		Predicate p = cb.not(root.get(Process_.application).in(applicationIds));
-		cq.select(root.get(Process_.id)).where(p);
+		Predicate p = cb.not(root.get(ProcessStatic.application).in(applicationIds));
+		cq.select(root.get(ProcessStatic.id)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 

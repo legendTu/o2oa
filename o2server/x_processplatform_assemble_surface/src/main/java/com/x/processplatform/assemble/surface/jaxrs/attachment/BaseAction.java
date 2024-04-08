@@ -2,7 +2,6 @@ package com.x.processplatform.assemble.surface.jaxrs.attachment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import javax.persistence.EntityManager;
@@ -11,8 +10,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import com.x.base.core.project.cache.Cache;
-import com.x.base.core.project.cache.CacheManager;
 import com.x.base.core.project.config.Config;
 import com.x.base.core.project.config.ProcessPlatform;
 import org.apache.commons.collections4.ListUtils;
@@ -31,7 +28,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Attachment;
-import com.x.processplatform.core.entity.content.Attachment_;
+import com.x.processplatform.core.entity.content.AttachmentStatic;
 
 abstract class BaseAction extends StandardJaxrsAction {
 
@@ -220,9 +217,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Attachment> root = cq.from(Attachment.class);
-		Predicate p = root.get(Attachment_.name).in(list);
-		p = cb.and(p, cb.equal(root.get(Attachment_.job), job));
-		cq.select(root.get(Attachment_.name)).where(p);
+		Predicate p = root.get(AttachmentStatic.name).in(list);
+		p = cb.and(p, cb.equal(root.get(AttachmentStatic.job), job));
+		cq.select(root.get(AttachmentStatic.name)).where(p);
 		List<String> os = em.createQuery(cq).getResultList();
 		list = ListUtils.subtract(list, os);
 		return list.get(0);

@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.surface.AbstractFactory;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Attachment;
-import com.x.processplatform.core.entity.content.Attachment_;
+import com.x.processplatform.core.entity.content.AttachmentStatic;
 
 public class AttachmentFactory extends AbstractFactory {
 
@@ -26,8 +26,8 @@ public class AttachmentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Attachment> root = cq.from(Attachment.class);
-		Predicate p = cb.equal(root.get(Attachment_.job), job);
-		cq.select(root.get(Attachment_.id)).where(p);
+		Predicate p = cb.equal(root.get(AttachmentStatic.job), job);
+		cq.select(root.get(AttachmentStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -36,7 +36,7 @@ public class AttachmentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Attachment> cq = cb.createQuery(Attachment.class);
 		Root<Attachment> root = cq.from(Attachment.class);
-		Predicate p = cb.equal(root.get(Attachment_.job), job);
+		Predicate p = cb.equal(root.get(AttachmentStatic.job), job);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -46,7 +46,7 @@ public class AttachmentFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Attachment> root = cq.from(Attachment.class);
-		Predicate p = cb.equal(root.get(Attachment_.job), job);
+		Predicate p = cb.equal(root.get(AttachmentStatic.job), job);
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

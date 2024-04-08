@@ -28,7 +28,7 @@ import com.x.base.core.project.tools.SortTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Process;
-import com.x.processplatform.core.entity.element.Process_;
+import com.x.processplatform.core.entity.element.ProcessStatic;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -73,33 +73,33 @@ class ActionListWithPersonWithApplicationFilter extends BaseAction {
 		if (effectivePerson.isNotManager()
 				&& (!BooleanUtils.isTrue(business.organization().person().hasRole(effectivePerson,
 						OrganizationDefinition.Manager, OrganizationDefinition.ProcessPlatformManager)))) {
-			p = cb.and(cb.isEmpty(root.get(Process_.startableIdentityList)),
-					cb.isEmpty(root.get(Process_.startableUnitList)));
-			p = cb.or(p, cb.equal(root.get(Process_.creatorPerson), effectivePerson.getDistinguishedName()));
+			p = cb.and(cb.isEmpty(root.get(ProcessStatic.startableIdentityList)),
+					cb.isEmpty(root.get(ProcessStatic.startableUnitList)));
+			p = cb.or(p, cb.equal(root.get(ProcessStatic.creatorPerson), effectivePerson.getDistinguishedName()));
 			if (ListTools.isNotEmpty(identities)) {
-				p = cb.or(p, root.get(Process_.startableIdentityList).in(identities));
+				p = cb.or(p, root.get(ProcessStatic.startableIdentityList).in(identities));
 			}
 			if (ListTools.isNotEmpty(units)) {
-				p = cb.or(p, root.get(Process_.startableUnitList).in(units));
+				p = cb.or(p, root.get(ProcessStatic.startableUnitList).in(units));
 			}
 		}
-		p = cb.and(p, cb.equal(root.get(Process_.application), application.getId()));
-		p = cb.and(p, cb.or(cb.isTrue(root.get(Process_.editionEnable)), cb.isNull(root.get(Process_.editionEnable))));
+		p = cb.and(p, cb.equal(root.get(ProcessStatic.application), application.getId()));
+		p = cb.and(p, cb.or(cb.isTrue(root.get(ProcessStatic.editionEnable)), cb.isNull(root.get(ProcessStatic.editionEnable))));
 		if (StringUtils.equals(wi.getStartableTerminal(), Process.STARTABLETERMINAL_CLIENT)) {
 			p = cb.and(p,
-					cb.or(cb.isNull(root.get(Process_.startableTerminal)),
-							cb.equal(root.get(Process_.startableTerminal), ""),
-							cb.equal(root.get(Process_.startableTerminal), Process.STARTABLETERMINAL_CLIENT),
-							cb.equal(root.get(Process_.startableTerminal), Process.STARTABLETERMINAL_ALL)));
+					cb.or(cb.isNull(root.get(ProcessStatic.startableTerminal)),
+							cb.equal(root.get(ProcessStatic.startableTerminal), ""),
+							cb.equal(root.get(ProcessStatic.startableTerminal), Process.STARTABLETERMINAL_CLIENT),
+							cb.equal(root.get(ProcessStatic.startableTerminal), Process.STARTABLETERMINAL_ALL)));
 		} else if (StringUtils.equals(wi.getStartableTerminal(), Process.STARTABLETERMINAL_MOBILE)) {
 			p = cb.and(p,
-					cb.or(cb.isNull(root.get(Process_.startableTerminal)),
-							cb.equal(root.get(Process_.startableTerminal), ""),
-							cb.equal(root.get(Process_.startableTerminal), Process.STARTABLETERMINAL_MOBILE),
-							cb.equal(root.get(Process_.startableTerminal), Process.STARTABLETERMINAL_ALL)));
+					cb.or(cb.isNull(root.get(ProcessStatic.startableTerminal)),
+							cb.equal(root.get(ProcessStatic.startableTerminal), ""),
+							cb.equal(root.get(ProcessStatic.startableTerminal), Process.STARTABLETERMINAL_MOBILE),
+							cb.equal(root.get(ProcessStatic.startableTerminal), Process.STARTABLETERMINAL_ALL)));
 		}
 
-		cq.select(root.get(Process_.id)).where(p);
+		cq.select(root.get(ProcessStatic.id)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 

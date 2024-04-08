@@ -24,7 +24,7 @@ import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitDuty;
-import com.x.organization.core.entity.UnitDuty_;
+import com.x.organization.core.entity.UnitDutyStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 
@@ -100,8 +100,8 @@ class ActionListWithUnitWithUnitDutyName extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<UnitDuty> cq = cb.createQuery(UnitDuty.class);
 		Root<UnitDuty> root = cq.from(UnitDuty.class);
-		Predicate p = cb.equal(root.get(UnitDuty_.name), unitDutyName);
-		p = cb.and(p, cb.equal(root.get(UnitDuty_.unit), unit.getId()));
+		Predicate p = cb.equal(root.get(UnitDutyStatic.name), unitDutyName);
+		p = cb.and(p, cb.equal(root.get(UnitDutyStatic.unit), unit.getId()));
 		List<UnitDuty> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		List<String> identityIds = new ArrayList<>();
 		for (UnitDuty o : os) {

@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -22,7 +21,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.organization.OrganizationDefinition;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Application;
-import com.x.processplatform.core.entity.element.Application_;
+import com.x.processplatform.core.entity.element.ApplicationStatic;
 
 class ActionList extends BaseAction {
 
@@ -52,11 +51,11 @@ class ActionList extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Application> root = cq.from(Application.class);
-		cq.select(root.get(Application_.applicationCategory)).distinct(false);
+		cq.select(root.get(ApplicationStatic.applicationCategory)).distinct(false);
 		if (effectivePerson.isNotManager() && (!business.organization().person().hasRole(effectivePerson,
 				OrganizationDefinition.Manager, OrganizationDefinition.ProcessPlatformManager))) {
-			Predicate p = cb.isMember(effectivePerson.getDistinguishedName(), root.get(Application_.controllerList));
-			p = cb.or(p, cb.equal(root.get(Application_.creatorPerson), effectivePerson.getDistinguishedName()));
+			Predicate p = cb.isMember(effectivePerson.getDistinguishedName(), root.get(ApplicationStatic.controllerList));
+			p = cb.or(p, cb.equal(root.get(ApplicationStatic.creatorPerson), effectivePerson.getDistinguishedName()));
 			cq.where(p);
 		}
 		return em.createQuery(cq).getResultList();

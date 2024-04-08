@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Script;
-import com.x.processplatform.core.entity.element.Script_;
+import com.x.processplatform.core.entity.element.ScriptStatic;
 
 public class ScriptFactory extends AbstractFactory {
 
@@ -26,8 +26,8 @@ public class ScriptFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.equal(root.get(Script_.application), applicationId);
-		cq.select(root.get(Script_.id)).where(p);
+		Predicate p = cb.equal(root.get(ScriptStatic.application), applicationId);
+		cq.select(root.get(ScriptStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -36,7 +36,7 @@ public class ScriptFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Script> cq = cb.createQuery(Script.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.equal(root.get(Script_.application), applicationId);
+		Predicate p = cb.equal(root.get(ScriptStatic.application), applicationId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -46,10 +46,10 @@ public class ScriptFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.equal(root.get(Script_.alias), name);
-		p = cb.or(p, cb.equal(root.get(Script_.name), name));
-		p = cb.and(p, cb.equal(root.get(Script_.application), application));
-		cq.select(root.get(Script_.id)).where(p);
+		Predicate p = cb.equal(root.get(ScriptStatic.alias), name);
+		p = cb.or(p, cb.equal(root.get(ScriptStatic.name), name));
+		p = cb.and(p, cb.equal(root.get(ScriptStatic.application), application));
+		cq.select(root.get(ScriptStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		return list.isEmpty() ? null : list.get(0);
 	}

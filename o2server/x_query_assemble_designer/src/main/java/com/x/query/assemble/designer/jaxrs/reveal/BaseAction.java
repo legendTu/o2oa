@@ -9,7 +9,7 @@ import javax.persistence.criteria.Root;
 import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.query.assemble.designer.Business;
 import com.x.query.core.entity.Reveal;
-import com.x.query.core.entity.Reveal_;
+import com.x.query.core.entity.RevealStatic;
 
 abstract class BaseAction extends StandardJaxrsAction {
 
@@ -18,9 +18,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Reveal> root = cq.from(Reveal.class);
-		Predicate p = cb.equal(root.get(Reveal_.query), view.getQuery());
-		p = cb.and(p, cb.equal(root.get(Reveal_.name), view.getName()));
-		p = cb.and(p, cb.notEqual(root.get(Reveal_.id), view.getId()));
+		Predicate p = cb.equal(root.get(RevealStatic.query), view.getQuery());
+		p = cb.and(p, cb.equal(root.get(RevealStatic.name), view.getName()));
+		p = cb.and(p, cb.notEqual(root.get(RevealStatic.id), view.getId()));
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult() == 0;
 	}
 
@@ -29,9 +29,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Reveal> root = cq.from(Reveal.class);
-		Predicate p = cb.equal(root.get(Reveal_.query), view.getQuery());
-		p = cb.and(p, cb.equal(root.get(Reveal_.alias), view.getAlias()));
-		p = cb.and(p, cb.notEqual(root.get(Reveal_.id), view.getId()));
+		Predicate p = cb.equal(root.get(RevealStatic.query), view.getQuery());
+		p = cb.and(p, cb.equal(root.get(RevealStatic.alias), view.getAlias()));
+		p = cb.and(p, cb.notEqual(root.get(RevealStatic.id), view.getId()));
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult() == 0;
 	}
 }

@@ -20,7 +20,7 @@ import com.x.base.core.project.jaxrs.WoId;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.File;
-import com.x.processplatform.core.entity.element.File_;
+import com.x.processplatform.core.entity.element.FileStatic;
 
 class ActionCopy extends BaseAction {
 	ActionResult<Wo> execute(EffectivePerson effectivePerson, String flag, String applicationFlag) throws Exception {
@@ -79,9 +79,9 @@ class ActionCopy extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<File> root = cq.from(File.class);
-		Predicate p = cb.or(cb.equal(root.get(File_.name), name), cb.equal(root.get(File_.alias), name),
-				cb.equal(root.get(File_.id), name));
-		p = cb.and(p, cb.equal(root.get(File_.application), applicationId), cb.notEqual(root.get(File_.id), id));
+		Predicate p = cb.or(cb.equal(root.get(FileStatic.name), name), cb.equal(root.get(FileStatic.alias), name),
+				cb.equal(root.get(FileStatic.id), name));
+		p = cb.and(p, cb.equal(root.get(FileStatic.application), applicationId), cb.notEqual(root.get(FileStatic.id), id));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult() > 0;
 	}

@@ -341,8 +341,8 @@ public class SyncOrganization {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<PersonAttribute> cq = cb.createQuery(PersonAttribute.class);
 		Root<PersonAttribute> root = cq.from(PersonAttribute.class);
-		Predicate p = cb.equal(root.get(PersonAttribute_.person), person.getId());
-		p = cb.and(p, cb.equal(root.get(PersonAttribute_.name), attr.getName()));
+		Predicate p = cb.equal(root.get(PersonAttributeStatic.person), person.getId());
+		p = cb.and(p, cb.equal(root.get(PersonAttributeStatic.name), attr.getName()));
 		List<PersonAttribute> os = em.createQuery(cq.select(root).where(p)).setMaxResults(1).getResultList();
 		PersonAttribute personAttribute = null;
 		if (os.size() == 0) {
@@ -532,8 +532,8 @@ public class SyncOrganization {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.notEqual(root.get(Unit_.qiyeweixinId), "");
-		p = cb.and(p, cb.isNotNull(root.get(Unit_.qiyeweixinId)));
+		Predicate p = cb.notEqual(root.get(UnitStatic.qiyeweixinId), "");
+		p = cb.and(p, cb.isNotNull(root.get(UnitStatic.qiyeweixinId)));
 		List<Unit> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}

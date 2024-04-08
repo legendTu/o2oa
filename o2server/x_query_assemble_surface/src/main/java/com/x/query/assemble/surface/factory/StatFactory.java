@@ -17,7 +17,7 @@ import com.x.query.assemble.surface.AbstractFactory;
 import com.x.query.assemble.surface.Business;
 import com.x.query.core.entity.Query;
 import com.x.query.core.entity.Stat;
-import com.x.query.core.entity.Stat_;
+import com.x.query.core.entity.StatStatic;
 
 public class StatFactory extends AbstractFactory {
 
@@ -41,8 +41,8 @@ public class StatFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Stat> root = cq.from(Stat.class);
-		Predicate p = cb.equal(root.get(Stat_.query), queryId);
-		cq.select(root.get(Stat_.id)).where(p);
+		Predicate p = cb.equal(root.get(StatStatic.query), queryId);
+		cq.select(root.get(StatStatic.id)).where(p);
 		List<String> os = em.createQuery(cq).getResultList();
 		return os;
 	}
@@ -52,7 +52,7 @@ public class StatFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Stat> cq = cb.createQuery(Stat.class);
 		Root<Stat> root = cq.from(Stat.class);
-		Predicate p = cb.equal(root.get(Stat_.query), queryId);
+		Predicate p = cb.equal(root.get(StatStatic.query), queryId);
 		cq.select(root).where(p);
 		List<Stat> os = em.createQuery(cq).getResultList();
 		return os;
@@ -66,10 +66,10 @@ public class StatFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Stat> root = cq.from(Stat.class);
-		Predicate p = cb.equal(root.get(Stat_.query), query.getId());
-		p = cb.and(p, cb.or(cb.equal(root.get(Stat_.name), flag), cb.equal(root.get(Stat_.id), flag),
-				cb.equal(root.get(Stat_.alias), flag)));
-		List<String> os = em.createQuery(cq.select(root.get(Stat_.id)).where(p)).setMaxResults(1).getResultList();
+		Predicate p = cb.equal(root.get(StatStatic.query), query.getId());
+		p = cb.and(p, cb.or(cb.equal(root.get(StatStatic.name), flag), cb.equal(root.get(StatStatic.id), flag),
+				cb.equal(root.get(StatStatic.alias), flag)));
+		List<String> os = em.createQuery(cq.select(root.get(StatStatic.id)).where(p)).setMaxResults(1).getResultList();
 		if (os.isEmpty()) {
 			return null;
 		} else {

@@ -29,7 +29,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Group;
-import com.x.organization.core.entity.Group_;
+import com.x.organization.core.entity.GroupStatic;
 
 class ActionListLike extends BaseAction {
 
@@ -107,15 +107,15 @@ class ActionListLike extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Group> root = cq.from(Group.class);
-		Predicate p = cb.like(cb.lower(root.get(Group_.name)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR);
-		p = cb.or(p, cb.like(cb.lower(root.get(Group_.unique)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR));
-		p = cb.or(p, cb.like(cb.lower(root.get(Group_.pinyin)), str + "%", StringTools.SQL_ESCAPE_CHAR));
-		p = cb.or(p, cb.like(cb.lower(root.get(Group_.pinyinInitial)), str + "%", StringTools.SQL_ESCAPE_CHAR));
-		p = cb.or(p, cb.like(cb.lower(root.get(Group_.distinguishedName)), str + "%", StringTools.SQL_ESCAPE_CHAR));
+		Predicate p = cb.like(cb.lower(root.get(GroupStatic.name)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR);
+		p = cb.or(p, cb.like(cb.lower(root.get(GroupStatic.unique)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR));
+		p = cb.or(p, cb.like(cb.lower(root.get(GroupStatic.pinyin)), str + "%", StringTools.SQL_ESCAPE_CHAR));
+		p = cb.or(p, cb.like(cb.lower(root.get(GroupStatic.pinyinInitial)), str + "%", StringTools.SQL_ESCAPE_CHAR));
+		p = cb.or(p, cb.like(cb.lower(root.get(GroupStatic.distinguishedName)), str + "%", StringTools.SQL_ESCAPE_CHAR));
 		if (ListTools.isNotEmpty(groupIds)) {
-			p = cb.and(p, root.get(Group_.id).in(groupIds));
+			p = cb.and(p, root.get(GroupStatic.id).in(groupIds));
 		}
-		List<String> ids = em.createQuery(cq.select(root.get(Group_.id)).where(p)).getResultList().stream().distinct()
+		List<String> ids = em.createQuery(cq.select(root.get(GroupStatic.id)).where(p)).getResultList().stream().distinct()
 				.collect(Collectors.toList());
 		List<Group> os = business.entityManagerContainer().list(Group.class, ids);
 		wos = Wo.copier.copy(os);

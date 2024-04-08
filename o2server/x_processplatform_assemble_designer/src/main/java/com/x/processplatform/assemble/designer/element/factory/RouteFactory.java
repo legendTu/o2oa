@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Route;
-import com.x.processplatform.core.entity.element.Route_;
+import com.x.processplatform.core.entity.element.RouteStatic;
 
 public class RouteFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class RouteFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Route> root = cq.from(Route.class);
-		Predicate p = cb.equal(root.get(Route_.process), processId);
-		cq.select(root.get(Route_.id)).where(p);
+		Predicate p = cb.equal(root.get(RouteStatic.process), processId);
+		cq.select(root.get(RouteStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,7 +34,7 @@ public class RouteFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Route> cq = cb.createQuery(Route.class);
 		Root<Route> root = cq.from(Route.class);
-		Predicate p = cb.equal(root.get(Route_.process), processId);
+		Predicate p = cb.equal(root.get(RouteStatic.process), processId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}

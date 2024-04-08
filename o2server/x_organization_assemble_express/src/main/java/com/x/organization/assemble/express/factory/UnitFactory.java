@@ -27,7 +27,7 @@ import com.x.organization.assemble.express.AbstractFactory;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.PersistenceProperties;
 import com.x.organization.core.entity.Unit;
-import com.x.organization.core.entity.Unit_;
+import com.x.organization.core.entity.UnitStatic;
 
 public class UnitFactory extends AbstractFactory {
 
@@ -75,7 +75,7 @@ public class UnitFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 				Root<Unit> root = cq.from(Unit.class);
-				Predicate p = cb.equal(root.get(Unit_.name), name);
+				Predicate p = cb.equal(root.get(UnitStatic.name), name);
 				List<Unit> os = em.createQuery(cq.select(root).where(p)).getResultList();
 				if (os.size() == 1) {
 					o = os.get(0);
@@ -88,8 +88,8 @@ public class UnitFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 				Root<Unit> root = cq.from(Unit.class);
-				Predicate p = cb.and(cb.equal(root.get(Unit_.name), Objects.toString(ListTools.last(list), "")),
-						cb.equal(root.get(Unit_.level), list.size()));
+				Predicate p = cb.and(cb.equal(root.get(UnitStatic.name), Objects.toString(ListTools.last(list), "")),
+						cb.equal(root.get(UnitStatic.level), list.size()));
 				List<Unit> os = em.createQuery(cq.select(root).where(p)).getResultList();
 				for (Unit unit : os) {
 					if (StringUtils.equalsIgnoreCase(unit.getLevelName(), flag)) {
@@ -258,7 +258,7 @@ public class UnitFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.equal(root.get(Unit_.superior), unit.getId());
+		Predicate p = cb.equal(root.get(UnitStatic.superior), unit.getId());
 		return em.createQuery(cq.select(root).where(p)).getResultList();
 	}
 
@@ -296,8 +296,8 @@ public class UnitFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.equal(root.get(Unit_.superior), unit.getId());
-		return em.createQuery(cq.select(root.get(Unit_.id)).where(p).orderBy(cb.asc(root.get(Unit_.orderNumber))))
+		Predicate p = cb.equal(root.get(UnitStatic.superior), unit.getId());
+		return em.createQuery(cq.select(root.get(UnitStatic.id)).where(p).orderBy(cb.asc(root.get(UnitStatic.orderNumber))))
 				.getResultList();
 	}
 

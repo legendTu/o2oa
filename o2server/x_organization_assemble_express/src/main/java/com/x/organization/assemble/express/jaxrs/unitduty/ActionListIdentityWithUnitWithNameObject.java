@@ -30,7 +30,7 @@ import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitDuty;
-import com.x.organization.core.entity.UnitDuty_;
+import com.x.organization.core.entity.UnitDutyStatic;
 
 class ActionListIdentityWithUnitWithNameObject extends BaseAction {
 
@@ -214,7 +214,7 @@ class ActionListIdentityWithUnitWithNameObject extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<UnitDuty> cq = cb.createQuery(UnitDuty.class);
 			Root<UnitDuty> root = cq.from(UnitDuty.class);
-			Predicate p = root.get(UnitDuty_.name).in(names);
+			Predicate p = root.get(UnitDutyStatic.name).in(names);
 			os = em.createQuery(cq.select(root).where(p)).getResultList();
 		} else {
 			List<Unit> unitList = business.unit().pick(units);
@@ -236,8 +236,8 @@ class ActionListIdentityWithUnitWithNameObject extends BaseAction {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<UnitDuty> cq = cb.createQuery(UnitDuty.class);
 				Root<UnitDuty> root = cq.from(UnitDuty.class);
-				Predicate p = root.get(UnitDuty_.name).in(names);
-				p = cb.and(p, root.get(UnitDuty_.unit).in(units));
+				Predicate p = root.get(UnitDutyStatic.name).in(names);
+				p = cb.and(p, root.get(UnitDutyStatic.unit).in(units));
 				os = em.createQuery(cq.select(root).where(p)).getResultList();
 			}
 		}

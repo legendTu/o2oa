@@ -21,7 +21,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.UnitAttribute;
-import com.x.organization.core.entity.UnitAttribute_;
+import com.x.organization.core.entity.UnitAttributeStatic;
 
 class ActionListWithUnitAttribute extends BaseAction {
 
@@ -78,9 +78,9 @@ class ActionListWithUnitAttribute extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<UnitAttribute> root = cq.from(UnitAttribute.class);
-		Predicate p = cb.isMember(wi.getAttribute(), root.get(UnitAttribute_.attributeList));
-		p = cb.and(p, cb.equal(root.get(UnitAttribute_.name), wi.getName()));
-		List<String> unitIds = em.createQuery(cq.select(root.get(UnitAttribute_.unit)).where(p))
+		Predicate p = cb.isMember(wi.getAttribute(), root.get(UnitAttributeStatic.attributeList));
+		p = cb.and(p, cb.equal(root.get(UnitAttributeStatic.name), wi.getName()));
+		List<String> unitIds = em.createQuery(cq.select(root.get(UnitAttributeStatic.unit)).where(p))
 				.getResultList().stream().distinct().collect(Collectors.toList());
 		Wo wo = new Wo();
 		List<String> list = business.unit().listUnitDistinguishedNameSorted(unitIds);

@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Delay;
-import com.x.processplatform.core.entity.element.Delay_;
+import com.x.processplatform.core.entity.element.DelayStatic;
 
 public class DelayFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class DelayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Delay> root = cq.from(Delay.class);
-		Predicate p = cb.equal(root.get(Delay_.process), processId);
-		cq.select(root.get(Delay_.id)).where(p);
+		Predicate p = cb.equal(root.get(DelayStatic.process), processId);
+		cq.select(root.get(DelayStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,7 +34,7 @@ public class DelayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Delay> cq = cb.createQuery(Delay.class);
 		Root<Delay> root = cq.from(Delay.class);
-		Predicate p = cb.equal(root.get(Delay_.process), processId);
+		Predicate p = cb.equal(root.get(DelayStatic.process), processId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -45,8 +45,8 @@ public class DelayFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Delay> root = cq.from(Delay.class);
-		Predicate p = cb.equal(root.get(Delay_.form), formId);
-		cq.select(root.get(Delay_.id)).where(p);
+		Predicate p = cb.equal(root.get(DelayStatic.form), formId);
+		cq.select(root.get(DelayStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

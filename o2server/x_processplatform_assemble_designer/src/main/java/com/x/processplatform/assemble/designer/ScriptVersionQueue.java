@@ -18,7 +18,7 @@ import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.queue.AbstractQueue;
 import com.x.processplatform.core.entity.element.ScriptVersion;
-import com.x.processplatform.core.entity.element.ScriptVersion_;
+import com.x.processplatform.core.entity.element.ScriptVersionStatic;
 
 public class ScriptVersionQueue extends AbstractQueue<ScriptVersion> {
 
@@ -43,8 +43,8 @@ public class ScriptVersionQueue extends AbstractQueue<ScriptVersion> {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<ScriptVersion> cq = cb.createQuery(ScriptVersion.class);
 		Root<ScriptVersion> root = cq.from(ScriptVersion.class);
-		Predicate p = cb.equal(root.get(ScriptVersion_.script), scriptVersion.getScript());
-		p = cb.and(p, cb.not(root.get(ScriptVersion_.id).in(keepIds)));
+		Predicate p = cb.equal(root.get(ScriptVersionStatic.script), scriptVersion.getScript());
+		p = cb.and(p, cb.not(root.get(ScriptVersionStatic.id).in(keepIds)));
 		cq.select(root).where(p);
 		List<ScriptVersion> os = em.createQuery(cq).getResultList();
 		business.entityManagerContainer().beginTransaction(ScriptVersion.class);
@@ -60,8 +60,8 @@ public class ScriptVersionQueue extends AbstractQueue<ScriptVersion> {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ScriptVersion> root = cq.from(ScriptVersion.class);
-		Predicate p = cb.equal(root.get(ScriptVersion_.script), scriptVersion.getScript());
-		cq.select(root.get(ScriptVersion_.id)).where(p).orderBy(cb.desc(root.get(ScriptVersion_.createTime)));
+		Predicate p = cb.equal(root.get(ScriptVersionStatic.script), scriptVersion.getScript());
+		cq.select(root.get(ScriptVersionStatic.id)).where(p).orderBy(cb.desc(root.get(ScriptVersionStatic.createTime)));
 		Query query = em.createQuery(cq);
 		if (count > 1) {
 			query.setMaxResults(count - 1);

@@ -14,7 +14,7 @@ import com.x.base.core.project.tools.DateTools;
 import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.ReadCompleted;
-import com.x.processplatform.core.entity.content.ReadCompleted_;
+import com.x.processplatform.core.entity.content.ReadCompletedStatic;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -55,84 +55,84 @@ class ActionManageListFilterPaging extends BaseAction {
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
 		Predicate p = cb.conjunction();
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(ReadCompleted_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.application).in(wi.getApplicationList()));
 		}
 
 		if (StringUtils.isNotBlank(wi.getPerson())){
-			p = cb.and(p,cb.equal(root.get(ReadCompleted_.person), wi.getPerson()));
+			p = cb.and(p,cb.equal(root.get(ReadCompletedStatic.person), wi.getPerson()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue01())){
-			p = cb.and(p,cb.equal(root.get(ReadCompleted_.stringValue01), wi.getStringValue01()));
+			p = cb.and(p,cb.equal(root.get(ReadCompletedStatic.stringValue01), wi.getStringValue01()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue02())){
-			p = cb.and(p,cb.equal(root.get(ReadCompleted_.stringValue02), wi.getStringValue02()));
+			p = cb.and(p,cb.equal(root.get(ReadCompletedStatic.stringValue02), wi.getStringValue02()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue03())){
-			p = cb.and(p,cb.equal(root.get(ReadCompleted_.stringValue03), wi.getStringValue03()));
+			p = cb.and(p,cb.equal(root.get(ReadCompletedStatic.stringValue03), wi.getStringValue03()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue04())){
-			p = cb.and(p,cb.equal(root.get(ReadCompleted_.stringValue04), wi.getStringValue04()));
+			p = cb.and(p,cb.equal(root.get(ReadCompletedStatic.stringValue04), wi.getStringValue04()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue05())){
-			p = cb.and(p,cb.equal(root.get(ReadCompleted_.stringValue05), wi.getStringValue05()));
+			p = cb.and(p,cb.equal(root.get(ReadCompletedStatic.stringValue05), wi.getStringValue05()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue06())){
-			p = cb.and(p,cb.equal(root.get(ReadCompleted_.stringValue06), wi.getStringValue06()));
+			p = cb.and(p,cb.equal(root.get(ReadCompletedStatic.stringValue06), wi.getStringValue06()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue07())){
-			p = cb.and(p,cb.equal(root.get(ReadCompleted_.stringValue07), wi.getStringValue07()));
+			p = cb.and(p,cb.equal(root.get(ReadCompletedStatic.stringValue07), wi.getStringValue07()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue08())){
-			p = cb.and(p,cb.equal(root.get(ReadCompleted_.stringValue08), wi.getStringValue08()));
+			p = cb.and(p,cb.equal(root.get(ReadCompletedStatic.stringValue08), wi.getStringValue08()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue09())){
-			p = cb.and(p,cb.equal(root.get(ReadCompleted_.stringValue09), wi.getStringValue09()));
+			p = cb.and(p,cb.equal(root.get(ReadCompletedStatic.stringValue09), wi.getStringValue09()));
 		}
 		if (StringUtils.isNotBlank(wi.getStringValue10())){
-			p = cb.and(p,cb.equal(root.get(ReadCompleted_.stringValue10), wi.getStringValue10()));
+			p = cb.and(p,cb.equal(root.get(ReadCompletedStatic.stringValue10), wi.getStringValue10()));
 		}
 
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
 			if(BooleanUtils.isFalse(wi.getRelateEditionProcess())) {
-				p = cb.and(p, root.get(ReadCompleted_.process).in(wi.getProcessList()));
+				p = cb.and(p, root.get(ReadCompletedStatic.process).in(wi.getProcessList()));
 			}else{
-				p = cb.and(p, root.get(ReadCompleted_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+				p = cb.and(p, root.get(ReadCompletedStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 			}
 		}
 		if(DateTools.isDateTimeOrDate(wi.getStartTime())){
-			p = cb.and(p, cb.greaterThan(root.get(ReadCompleted_.startTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(ReadCompletedStatic.startTime), DateTools.parse(wi.getStartTime())));
 		}
 		if(DateTools.isDateTimeOrDate(wi.getEndTime())){
-			p = cb.and(p, cb.lessThan(root.get(ReadCompleted_.startTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(ReadCompletedStatic.startTime), DateTools.parse(wi.getEndTime())));
 		}
 		if (ListTools.isNotEmpty(person_ids)) {
-			p = cb.and(p, root.get(ReadCompleted_.person).in(person_ids));
+			p = cb.and(p, root.get(ReadCompletedStatic.person).in(person_ids));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(ReadCompleted_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getWorkList())) {
-			p = cb.and(p, root.get(ReadCompleted_.work).in(wi.getWorkList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.work).in(wi.getWorkList()));
 		}
 		if (ListTools.isNotEmpty(wi.getJobList())) {
-			p = cb.and(p, root.get(ReadCompleted_.job).in(wi.getJobList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.job).in(wi.getJobList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(ReadCompleted_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(ReadCompleted_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.activityName).in(wi.getActivityNameList()));
 		}
 		if (StringUtils.isNotEmpty(wi.getKey())) {
 			String key = StringUtils.trim(StringUtils.replace(wi.getKey(), "\u3000", " "));
 			if (StringUtils.isNotEmpty(key)) {
 				key = StringUtils.replaceEach(key, new String[] { "?", "%" }, new String[] { "", "" });
 				p = cb.and(p,
-						cb.or(cb.like(root.get(ReadCompleted_.title), "%" + key + "%"),
-								cb.like(root.get(ReadCompleted_.opinion), "%" + key + "%"),
-								cb.like(root.get(ReadCompleted_.serial), "%" + key + "%"),
-								cb.like(root.get(ReadCompleted_.creatorPerson), "%" + key + "%"),
-								cb.like(root.get(ReadCompleted_.creatorUnit), "%" + key + "%")));
+						cb.or(cb.like(root.get(ReadCompletedStatic.title), "%" + key + "%"),
+								cb.like(root.get(ReadCompletedStatic.opinion), "%" + key + "%"),
+								cb.like(root.get(ReadCompletedStatic.serial), "%" + key + "%"),
+								cb.like(root.get(ReadCompletedStatic.creatorPerson), "%" + key + "%"),
+								cb.like(root.get(ReadCompletedStatic.creatorUnit), "%" + key + "%")));
 			}
 		}
 

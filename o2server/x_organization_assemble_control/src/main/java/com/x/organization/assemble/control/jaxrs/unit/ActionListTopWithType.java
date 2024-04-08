@@ -20,7 +20,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.Unit;
-import com.x.organization.core.entity.Unit_;
+import com.x.organization.core.entity.UnitStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 
@@ -81,8 +81,8 @@ class ActionListTopWithType extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.equal(root.get(Unit_.level), 1);
-		p = cb.and(p, cb.isMember(type, root.get(Unit_.typeList)));
+		Predicate p = cb.equal(root.get(UnitStatic.level), 1);
+		p = cb.and(p, cb.isMember(type, root.get(UnitStatic.typeList)));
 		List<Unit> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		List<Wo> wos = Wo.copier.copy(os);
 		wos.stream().forEach(o -> {

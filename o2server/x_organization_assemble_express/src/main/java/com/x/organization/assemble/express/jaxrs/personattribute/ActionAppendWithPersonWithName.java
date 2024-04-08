@@ -27,7 +27,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.PersonAttribute;
-import com.x.organization.core.entity.PersonAttribute_;
+import com.x.organization.core.entity.PersonAttributeStatic;
 
 class ActionAppendWithPersonWithName extends BaseAction {
 
@@ -84,8 +84,8 @@ class ActionAppendWithPersonWithName extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<PersonAttribute> cq = cb.createQuery(PersonAttribute.class);
 		Root<PersonAttribute> root = cq.from(PersonAttribute.class);
-		Predicate p = cb.equal(root.get(PersonAttribute_.person), person.getId());
-		p = cb.and(p, cb.equal(root.get(PersonAttribute_.name), name));
+		Predicate p = cb.equal(root.get(PersonAttributeStatic.person), person.getId());
+		p = cb.and(p, cb.equal(root.get(PersonAttributeStatic.name), name));
 		List<PersonAttribute> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		if (!os.isEmpty()) {
 			return os.get(0);

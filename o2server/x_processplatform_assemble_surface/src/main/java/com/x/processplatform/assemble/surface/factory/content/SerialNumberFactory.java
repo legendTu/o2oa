@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.surface.AbstractFactory;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.SerialNumber;
-import com.x.processplatform.core.entity.content.SerialNumber_;
+import com.x.processplatform.core.entity.content.SerialNumberStatic;
 import com.x.processplatform.core.entity.element.Application;
 
 public class SerialNumberFactory extends AbstractFactory {
@@ -25,8 +25,8 @@ public class SerialNumberFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<SerialNumber> root = cq.from(SerialNumber.class);
-		Predicate p = cb.equal(root.get(SerialNumber_.application), application.getId());
-		cq.select(root.get(SerialNumber_.id)).where(p);
+		Predicate p = cb.equal(root.get(SerialNumberStatic.application), application.getId());
+		cq.select(root.get(SerialNumberStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

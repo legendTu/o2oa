@@ -4,7 +4,7 @@ import com.x.base.core.project.tools.StringTools;
 import com.x.query.assemble.designer.AbstractFactory;
 import com.x.query.assemble.designer.Business;
 import com.x.query.core.entity.ImportModel;
-import com.x.query.core.entity.ImportModel_;
+import com.x.query.core.entity.ImportModelStatic;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -37,7 +37,7 @@ public class ImportModelFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<ImportModel> cq = cb.createQuery(ImportModel.class);
 		Root<ImportModel> root = cq.from(ImportModel.class);
-		Predicate p = cb.equal(root.get(ImportModel_.query), queryId);
+		Predicate p = cb.equal(root.get(ImportModelStatic.query), queryId);
 		cq.select(root).where(p);
 		List<ImportModel> os = em.createQuery(cq).getResultList();
 		return os;

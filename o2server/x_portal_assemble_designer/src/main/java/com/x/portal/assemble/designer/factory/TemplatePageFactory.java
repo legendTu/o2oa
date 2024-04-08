@@ -15,7 +15,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.portal.assemble.designer.AbstractFactory;
 import com.x.portal.assemble.designer.Business;
 import com.x.portal.core.entity.TemplatePage;
-import com.x.portal.core.entity.TemplatePage_;
+import com.x.portal.core.entity.TemplatePageStatic;
 
 public class TemplatePageFactory extends AbstractFactory {
 
@@ -28,8 +28,8 @@ public class TemplatePageFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<TemplatePage> root = cq.from(TemplatePage.class);
-		Predicate p = cb.equal(root.get(TemplatePage_.name), name);
-		List<String> list = em.createQuery(cq.select(root.get(TemplatePage_.id)).where(p)).setMaxResults(1)
+		Predicate p = cb.equal(root.get(TemplatePageStatic.name), name);
+		List<String> list = em.createQuery(cq.select(root.get(TemplatePageStatic.id)).where(p)).setMaxResults(1)
 				.getResultList();
 		if (list.isEmpty()) {
 			return null;
@@ -43,8 +43,8 @@ public class TemplatePageFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<TemplatePage> root = cq.from(TemplatePage.class);
-		Predicate p = cb.equal(root.get(TemplatePage_.alias), alias);
-		List<String> list = em.createQuery(cq.select(root.get(TemplatePage_.id)).where(p)).setMaxResults(1)
+		Predicate p = cb.equal(root.get(TemplatePageStatic.alias), alias);
+		List<String> list = em.createQuery(cq.select(root.get(TemplatePageStatic.id)).where(p)).setMaxResults(1)
 				.getResultList();
 		if (list.isEmpty()) {
 			return null;
@@ -58,7 +58,7 @@ public class TemplatePageFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<TemplatePage> root = cq.from(TemplatePage.class);
-		List<String> list = em.createQuery(cq.select(root.get(TemplatePage_.id))).getResultList();
+		List<String> list = em.createQuery(cq.select(root.get(TemplatePageStatic.id))).getResultList();
 		return list;
 	}
 
@@ -80,10 +80,10 @@ public class TemplatePageFactory extends AbstractFactory {
 		Root<TemplatePage> root = cq.from(TemplatePage.class);
 		Predicate p = cb.conjunction();
 		if (effectivePerson.isNotManager()) {
-			p = cb.isMember(effectivePerson.getDistinguishedName(), root.get(TemplatePage_.controllerList));
-			p = cb.or(p, cb.equal(root.get(TemplatePage_.creatorPerson), effectivePerson.getDistinguishedName()));
+			p = cb.isMember(effectivePerson.getDistinguishedName(), root.get(TemplatePageStatic.controllerList));
+			p = cb.or(p, cb.equal(root.get(TemplatePageStatic.creatorPerson), effectivePerson.getDistinguishedName()));
 		}
-		cq.select(root.get(TemplatePage_.id)).where(p);
+		cq.select(root.get(TemplatePageStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		return list;
 	}
@@ -93,13 +93,13 @@ public class TemplatePageFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<TemplatePage> root = cq.from(TemplatePage.class);
-		Predicate p = cb.equal(root.get(TemplatePage_.category), category);
+		Predicate p = cb.equal(root.get(TemplatePageStatic.category), category);
 		if (effectivePerson.isNotManager()) {
 			p = cb.and(p,
-					cb.or(cb.isMember(effectivePerson.getDistinguishedName(), root.get(TemplatePage_.controllerList)),
-							cb.equal(root.get(TemplatePage_.creatorPerson), effectivePerson.getDistinguishedName())));
+					cb.or(cb.isMember(effectivePerson.getDistinguishedName(), root.get(TemplatePageStatic.controllerList)),
+							cb.equal(root.get(TemplatePageStatic.creatorPerson), effectivePerson.getDistinguishedName())));
 		}
-		cq.select(root.get(TemplatePage_.id)).where(p);
+		cq.select(root.get(TemplatePageStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		return list;
 	}

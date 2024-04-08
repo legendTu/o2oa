@@ -18,7 +18,7 @@ import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.queue.AbstractQueue;
 import com.x.processplatform.core.entity.element.FormVersion;
-import com.x.processplatform.core.entity.element.FormVersion_;
+import com.x.processplatform.core.entity.element.FormVersionStatic;
 
 public class FormVersionQueue extends AbstractQueue<FormVersion> {
 
@@ -43,8 +43,8 @@ public class FormVersionQueue extends AbstractQueue<FormVersion> {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<FormVersion> cq = cb.createQuery(FormVersion.class);
 		Root<FormVersion> root = cq.from(FormVersion.class);
-		Predicate p = cb.equal(root.get(FormVersion_.form), formVersion.getForm());
-		p = cb.and(p, cb.not(root.get(FormVersion_.id).in(keepIds)));
+		Predicate p = cb.equal(root.get(FormVersionStatic.form), formVersion.getForm());
+		p = cb.and(p, cb.not(root.get(FormVersionStatic.id).in(keepIds)));
 		cq.select(root).where(p);
 		List<FormVersion> os = em.createQuery(cq).getResultList();
 		business.entityManagerContainer().beginTransaction(FormVersion.class);
@@ -60,8 +60,8 @@ public class FormVersionQueue extends AbstractQueue<FormVersion> {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<FormVersion> root = cq.from(FormVersion.class);
-		Predicate p = cb.equal(root.get(FormVersion_.form), formVersion.getForm());
-		cq.select(root.get(FormVersion_.id)).where(p).orderBy(cb.desc(root.get(FormVersion_.createTime)));
+		Predicate p = cb.equal(root.get(FormVersionStatic.form), formVersion.getForm());
+		cq.select(root.get(FormVersionStatic.id)).where(p).orderBy(cb.desc(root.get(FormVersionStatic.createTime)));
 		Query query = em.createQuery(cq);
 		if (count > 1) {
 			query.setMaxResults(count - 1);

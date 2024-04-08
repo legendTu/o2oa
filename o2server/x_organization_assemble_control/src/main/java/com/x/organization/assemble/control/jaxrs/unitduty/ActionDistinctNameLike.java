@@ -20,7 +20,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.UnitDuty;
-import com.x.organization.core.entity.UnitDuty_;
+import com.x.organization.core.entity.UnitDutyStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 
@@ -65,10 +65,10 @@ class ActionDistinctNameLike extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<UnitDuty> root = cq.from(UnitDuty.class);
-		Predicate p = cb.like(root.get(UnitDuty_.name), "%" + key + "%", '\\');
-		p = cb.or(p, cb.like(root.get(UnitDuty_.pinyin), key + "%", '\\'));
-		p = cb.or(p, cb.like(root.get(UnitDuty_.pinyinInitial), key + "%", '\\'));
-		cq.select(root.get(UnitDuty_.name)).where(p);
+		Predicate p = cb.like(root.get(UnitDutyStatic.name), "%" + key + "%", '\\');
+		p = cb.or(p, cb.like(root.get(UnitDutyStatic.pinyin), key + "%", '\\'));
+		p = cb.or(p, cb.like(root.get(UnitDutyStatic.pinyinInitial), key + "%", '\\'));
+		cq.select(root.get(UnitDutyStatic.name)).where(p);
 		List<String> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		list = list.stream().filter(o -> {
 			return StringUtils.isNotEmpty(o);

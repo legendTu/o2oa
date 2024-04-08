@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Cancel;
-import com.x.processplatform.core.entity.element.Cancel_;
+import com.x.processplatform.core.entity.element.CancelStatic;
 
 public class CancelFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class CancelFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Cancel> root = cq.from(Cancel.class);
-		Predicate p = cb.equal(root.get(Cancel_.process), processId);
-		cq.select(root.get(Cancel_.id)).where(p);
+		Predicate p = cb.equal(root.get(CancelStatic.process), processId);
+		cq.select(root.get(CancelStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,7 +34,7 @@ public class CancelFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Cancel> cq = cb.createQuery(Cancel.class);
 		Root<Cancel> root = cq.from(Cancel.class);
-		Predicate p = cb.equal(root.get(Cancel_.process), processId);
+		Predicate p = cb.equal(root.get(CancelStatic.process), processId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -45,8 +45,8 @@ public class CancelFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Cancel> root = cq.from(Cancel.class);
-		Predicate p = cb.equal(root.get(Cancel_.form), formId);
-		cq.select(root.get(Cancel_.id)).where(p);
+		Predicate p = cb.equal(root.get(CancelStatic.form), formId);
+		cq.select(root.get(CancelStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

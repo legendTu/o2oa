@@ -26,7 +26,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Group;
-import com.x.organization.core.entity.Group_;
+import com.x.organization.core.entity.GroupStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 
@@ -107,9 +107,9 @@ class ActionListPinyinInitial extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Group> cq = cb.createQuery(Group.class);
 		Root<Group> root = cq.from(Group.class);
-		Predicate p = cb.like(root.get(Group_.pinyinInitial), str + "%", StringTools.SQL_ESCAPE_CHAR);
+		Predicate p = cb.like(root.get(GroupStatic.pinyinInitial), str + "%", StringTools.SQL_ESCAPE_CHAR);
 		if (ListTools.isNotEmpty(groupIds)) {
-			p = cb.and(p, root.get(Group_.id).in(groupIds));
+			p = cb.and(p, root.get(GroupStatic.id).in(groupIds));
 		}
 		List<Group> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		wos = Wo.copier.copy(os);

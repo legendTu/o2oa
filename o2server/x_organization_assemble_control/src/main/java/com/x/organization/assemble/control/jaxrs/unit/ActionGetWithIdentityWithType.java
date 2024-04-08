@@ -29,10 +29,10 @@ import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitAttribute;
-import com.x.organization.core.entity.UnitAttribute_;
+import com.x.organization.core.entity.UnitAttributeStatic;
 import com.x.organization.core.entity.UnitDuty;
-import com.x.organization.core.entity.UnitDuty_;
-import com.x.organization.core.entity.Unit_;
+import com.x.organization.core.entity.UnitDutyStatic;
+import com.x.organization.core.entity.UnitStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 
@@ -199,7 +199,7 @@ class ActionGetWithIdentityWithType extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<UnitAttribute> cq = cb.createQuery(UnitAttribute.class);
 		Root<UnitAttribute> root = cq.from(UnitAttribute.class);
-		Predicate p = cb.equal(root.get(UnitAttribute_.unit), wo.getId());
+		Predicate p = cb.equal(root.get(UnitAttributeStatic.unit), wo.getId());
 		List<UnitAttribute> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		List<WoUnitAttribute> wos = WoUnitAttribute.copier.copy(os);
 		wos = business.unitAttribute().sort(wos);
@@ -211,7 +211,7 @@ class ActionGetWithIdentityWithType extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<UnitDuty> cq = cb.createQuery(UnitDuty.class);
 		Root<UnitDuty> root = cq.from(UnitDuty.class);
-		Predicate p = cb.equal(root.get(UnitDuty_.unit), wo.getId());
+		Predicate p = cb.equal(root.get(UnitDutyStatic.unit), wo.getId());
 		List<UnitDuty> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		List<WoUnitDuty> wos = WoUnitDuty.copier.copy(os);
 		for (WoUnitDuty woUnitDuty : wos) {
@@ -250,7 +250,7 @@ class ActionGetWithIdentityWithType extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.equal(root.get(Unit_.superior), wo.getId());
+		Predicate p = cb.equal(root.get(UnitStatic.superior), wo.getId());
 		Long count = em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();
 		return count;
 	}

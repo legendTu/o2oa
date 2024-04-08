@@ -20,9 +20,9 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.query.assemble.designer.Business;
 import com.x.query.core.entity.*;
 import com.x.query.core.entity.schema.Statement;
-import com.x.query.core.entity.schema.Statement_;
+import com.x.query.core.entity.schema.StatementStatic;
 import com.x.query.core.entity.schema.Table;
-import com.x.query.core.entity.schema.Table_;
+import com.x.query.core.entity.schema.TableStatic;
 
 class ActionDelete extends BaseAction {
 
@@ -93,7 +93,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<View> cq = cb.createQuery(View.class);
 		Root<View> root = cq.from(View.class);
-		Predicate p = cb.equal(root.get(View_.query), query.getId());
+		Predicate p = cb.equal(root.get(ViewStatic.query), query.getId());
 		List<View> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}
@@ -103,7 +103,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Stat> cq = cb.createQuery(Stat.class);
 		Root<Stat> root = cq.from(Stat.class);
-		Predicate p = cb.equal(root.get(Stat_.query), query.getId());
+		Predicate p = cb.equal(root.get(StatStatic.query), query.getId());
 		List<Stat> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}
@@ -113,7 +113,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Reveal> cq = cb.createQuery(Reveal.class);
 		Root<Reveal> root = cq.from(Reveal.class);
-		Predicate p = cb.equal(root.get(Reveal_.query), query.getId());
+		Predicate p = cb.equal(root.get(RevealStatic.query), query.getId());
 		List<Reveal> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}
@@ -123,7 +123,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Table> cq = cb.createQuery(Table.class);
 		Root<Table> root = cq.from(Table.class);
-		Predicate p = cb.equal(root.get(Table_.query), query.getId());
+		Predicate p = cb.equal(root.get(TableStatic.query), query.getId());
 		List<Table> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}
@@ -133,7 +133,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Statement> cq = cb.createQuery(Statement.class);
 		Root<Statement> root = cq.from(Statement.class);
-		Predicate p = cb.equal(root.get(Statement_.query), query.getId());
+		Predicate p = cb.equal(root.get(StatementStatic.query), query.getId());
 		List<Statement> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}
@@ -143,7 +143,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<ImportModel> cq = cb.createQuery(ImportModel.class);
 		Root<ImportModel> root = cq.from(ImportModel.class);
-		Predicate p = cb.equal(root.get(ImportModel_.query), query.getId());
+		Predicate p = cb.equal(root.get(ImportModelStatic.query), query.getId());
 		List<ImportModel> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}

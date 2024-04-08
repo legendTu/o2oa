@@ -19,7 +19,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.organization.assemble.personal.AbstractFactory;
 import com.x.organization.assemble.personal.Business;
 import com.x.organization.core.entity.Group;
-import com.x.organization.core.entity.Group_;
+import com.x.organization.core.entity.GroupStatic;
 import com.x.organization.core.entity.PersistenceProperties;
 import com.x.organization.core.entity.Person;
 import com.x.base.core.project.cache.Cache.CacheKey;
@@ -86,7 +86,7 @@ public class GroupFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<Group> cq = cb.createQuery(Group.class);
 				Root<Group> root = cq.from(Group.class);
-				Predicate p = cb.equal(root.get(Group_.name), name);
+				Predicate p = cb.equal(root.get(GroupStatic.name), name);
 				List<Group> os = em.createQuery(cq.select(root).where(p)).getResultList();
 				if (os.size() == 1) {
 					o = os.get(0);
@@ -116,8 +116,8 @@ public class GroupFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Group> root = cq.from(Group.class);
-		Predicate p = cb.isMember(id, root.get(Group_.groupList));
-		cq.select(root.get(Group_.id)).where(p);
+		Predicate p = cb.isMember(id, root.get(GroupStatic.groupList));
+		cq.select(root.get(GroupStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -160,8 +160,8 @@ public class GroupFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Group> root = cq.from(Group.class);
-		Predicate p = cb.isMember(id, root.get(Group_.personList));
-		cq.select(root.get(Group_.id)).where(p);
+		Predicate p = cb.isMember(id, root.get(GroupStatic.personList));
+		cq.select(root.get(GroupStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -205,8 +205,8 @@ public class GroupFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Group> root = cq.from(Group.class);
-		Predicate p = root.get(Group_.id).in(group.getGroupList());
-		cq.select(root.get(Group_.id)).where(p);
+		Predicate p = root.get(GroupStatic.id).in(group.getGroupList());
+		cq.select(root.get(GroupStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

@@ -19,7 +19,7 @@ import com.x.organization.assemble.control.AbstractFactory;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.PersistenceProperties;
 import com.x.organization.core.entity.PersonAttribute;
-import com.x.organization.core.entity.PersonAttribute_;
+import com.x.organization.core.entity.PersonAttributeStatic;
 import com.x.base.core.project.cache.Cache.CacheCategory;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
@@ -67,7 +67,7 @@ public class PersonAttributeFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<PersonAttribute> cq = cb.createQuery(PersonAttribute.class);
 				Root<PersonAttribute> root = cq.from(PersonAttribute.class);
-				Predicate p = cb.equal(root.get(PersonAttribute_.name), name);
+				Predicate p = cb.equal(root.get(PersonAttributeStatic.name), name);
 				List<PersonAttribute> os = em.createQuery(cq.select(root).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 				if (os.size() == 1) {
 					o = os.get(0);

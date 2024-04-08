@@ -19,7 +19,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.SortTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.ReadCompleted;
-import com.x.processplatform.core.entity.content.ReadCompleted_;
+import com.x.processplatform.core.entity.content.ReadCompletedStatic;
 import com.x.processplatform.core.entity.element.Application;
 
 class ActionListCountWithApplication extends BaseAction {
@@ -43,8 +43,8 @@ class ActionListCountWithApplication extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.person), effectivePerson.getDistinguishedName());
-		cq.select(root.get(ReadCompleted_.application)).where(p);
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.person), effectivePerson.getDistinguishedName());
+		cq.select(root.get(ReadCompletedStatic.application)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		List<NameValueCountPair> wos = new ArrayList<>();
 		for (String str : os) {

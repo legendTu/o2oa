@@ -12,7 +12,7 @@ import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.PersonAttribute;
-import com.x.organization.core.entity.PersonAttribute_;
+import com.x.organization.core.entity.PersonAttributeStatic;
 
 class BaseAction extends StandardJaxrsAction {
 
@@ -33,9 +33,9 @@ class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<PersonAttribute> root = cq.from(PersonAttribute.class);
-		Predicate p = cb.equal(root.get(PersonAttribute_.person), person.getId());
-		p = cb.and(p, cb.equal(root.get(PersonAttribute_.name), name));
-		p = cb.and(p, cb.notEqual(root.get(PersonAttribute_.id), exclude.getId()));
+		Predicate p = cb.equal(root.get(PersonAttributeStatic.person), person.getId());
+		p = cb.and(p, cb.equal(root.get(PersonAttributeStatic.name), name));
+		p = cb.and(p, cb.notEqual(root.get(PersonAttributeStatic.id), exclude.getId()));
 		long count = em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();
 		if (count > 0) {
 			return true;

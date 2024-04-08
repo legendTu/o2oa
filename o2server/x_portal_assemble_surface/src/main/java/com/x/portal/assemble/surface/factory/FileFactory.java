@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 import com.x.portal.assemble.surface.AbstractFactory;
 import com.x.portal.assemble.surface.Business;
 import com.x.portal.core.entity.File;
-import com.x.portal.core.entity.File_;
+import com.x.portal.core.entity.FileStatic;
 import com.x.base.core.project.cache.Cache.CacheCategory;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
@@ -48,7 +48,7 @@ public class FileFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<File> cq = cb.createQuery(File.class);
 		Root<File> root = cq.from(File.class);
-		Predicate p = cb.equal(root.get(File_.portal), portalId);
+		Predicate p = cb.equal(root.get(FileStatic.portal), portalId);
 		List<File> list = em.createQuery(cq.select(root).where(p)).getResultList();
 		return list;
 	}
@@ -58,8 +58,8 @@ public class FileFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<File> root = cq.from(File.class);
-		Predicate p = cb.equal(root.get(File_.portal), portalId);
-		List<String> list = em.createQuery(cq.select(root.get(File_.id)).where(p)).getResultList();
+		Predicate p = cb.equal(root.get(FileStatic.portal), portalId);
+		List<String> list = em.createQuery(cq.select(root.get(FileStatic.id)).where(p)).getResultList();
 		return list;
 	}
 	

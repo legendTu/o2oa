@@ -24,7 +24,7 @@ import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Form;
 import com.x.processplatform.core.entity.element.FormField;
 import com.x.processplatform.core.entity.element.FormFieldStatic;
-import com.x.processplatform.core.entity.element.Form_;
+import com.x.processplatform.core.entity.element.FormStatic;
 
 class ActionFormOrphan extends BaseAction {
 
@@ -47,8 +47,8 @@ class ActionFormOrphan extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Form> root = cq.from(Form.class);
-		Predicate p = cb.not(root.get(Form_.application).in(applicationIds));
-		cq.select(root.get(Form_.id)).where(p);
+		Predicate p = cb.not(root.get(FormStatic.application).in(applicationIds));
+		cq.select(root.get(FormStatic.id)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 

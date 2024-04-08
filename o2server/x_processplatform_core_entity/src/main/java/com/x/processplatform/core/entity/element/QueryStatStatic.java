@@ -1,0 +1,14 @@
+package com.x.processplatform.core.entity.element;
+
+import com.x.base.core.entity.SliceJpaObjectStatic;
+
+import javax.persistence.metamodel.SingularAttribute;
+import javax.persistence.metamodel.StaticMetamodel;
+
+@StaticMetamodel(QueryStat.class)
+public class QueryStatStatic extends SliceJpaObjectStatic {
+    public static volatile SingularAttribute<QueryStat, String> application;
+    public static volatile SingularAttribute<QueryStat, String> id;
+    public QueryStatStatic() {
+    }
+}

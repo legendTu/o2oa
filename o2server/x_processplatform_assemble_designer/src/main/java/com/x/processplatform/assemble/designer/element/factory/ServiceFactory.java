@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Service;
-import com.x.processplatform.core.entity.element.Service_;
+import com.x.processplatform.core.entity.element.ServiceStatic;
 
 public class ServiceFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class ServiceFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Service> root = cq.from(Service.class);
-		Predicate p = cb.equal(root.get(Service_.process), processId);
-		cq.select(root.get(Service_.id)).where(p);
+		Predicate p = cb.equal(root.get(ServiceStatic.process), processId);
+		cq.select(root.get(ServiceStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,7 +34,7 @@ public class ServiceFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Service> cq = cb.createQuery(Service.class);
 		Root<Service> root = cq.from(Service.class);
-		Predicate p = cb.equal(root.get(Service_.process), processId);
+		Predicate p = cb.equal(root.get(ServiceStatic.process), processId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -45,8 +45,8 @@ public class ServiceFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Service> root = cq.from(Service.class);
-		Predicate p = cb.equal(root.get(Service_.form), formId);
-		cq.select(root.get(Service_.id)).where(p);
+		Predicate p = cb.equal(root.get(ServiceStatic.form), formId);
+		cq.select(root.get(ServiceStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

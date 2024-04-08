@@ -26,7 +26,7 @@ import com.x.processplatform.core.entity.element.Agent;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.ApplicationDict;
 import com.x.processplatform.core.entity.element.ApplicationDictItem;
-import com.x.processplatform.core.entity.element.ApplicationDictItem_;
+import com.x.processplatform.core.entity.element.ApplicationDictItemStatic;
 import com.x.processplatform.core.entity.element.Begin;
 import com.x.processplatform.core.entity.element.Cancel;
 import com.x.processplatform.core.entity.element.Choice;
@@ -195,7 +195,7 @@ class ActionSelect extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<ApplicationDictItem> cq = cb.createQuery(ApplicationDictItem.class);
 		Root<ApplicationDictItem> root = cq.from(ApplicationDictItem.class);
-		Predicate p = cb.equal(root.get(ApplicationDictItem_.bundle), applicationDict.getId());
+		Predicate p = cb.equal(root.get(ApplicationDictItemStatic.bundle), applicationDict.getId());
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}

@@ -18,7 +18,7 @@ import com.x.organization.assemble.personal.AbstractFactory;
 import com.x.organization.assemble.personal.Business;
 import com.x.organization.core.entity.PersistenceProperties;
 import com.x.organization.core.entity.UnitAttribute;
-import com.x.organization.core.entity.UnitAttribute_;
+import com.x.organization.core.entity.UnitAttributeStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 import java.util.Optional;
@@ -65,7 +65,7 @@ public class UnitAttributeFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<UnitAttribute> cq = cb.createQuery(UnitAttribute.class);
 				Root<UnitAttribute> root = cq.from(UnitAttribute.class);
-				Predicate p = cb.equal(root.get(UnitAttribute_.name), name);
+				Predicate p = cb.equal(root.get(UnitAttributeStatic.name), name);
 				List<UnitAttribute> os = em.createQuery(cq.select(root).where(p)).getResultList();
 				if (os.size() == 1) {
 					o = os.get(0);

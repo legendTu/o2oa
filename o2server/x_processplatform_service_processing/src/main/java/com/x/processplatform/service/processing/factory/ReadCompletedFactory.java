@@ -9,7 +9,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.x.processplatform.core.entity.content.ReadCompleted;
-import com.x.processplatform.core.entity.content.ReadCompleted_;
+import com.x.processplatform.core.entity.content.ReadCompletedStatic;
 import com.x.processplatform.service.processing.AbstractFactory;
 import com.x.processplatform.service.processing.Business;
 
@@ -24,8 +24,8 @@ public class ReadCompletedFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.work), id);
-		cq.select(root.get(ReadCompleted_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.work), id);
+		cq.select(root.get(ReadCompletedStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,8 +34,8 @@ public class ReadCompletedFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.job), job);
-		cq.select(root.get(ReadCompleted_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.job), job);
+		cq.select(root.get(ReadCompletedStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 	
@@ -44,8 +44,8 @@ public class ReadCompletedFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.activityToken), activityToken);
-		cq.select(root.get(ReadCompleted_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.activityToken), activityToken);
+		cq.select(root.get(ReadCompletedStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

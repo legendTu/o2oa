@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.QueryStat;
-import com.x.processplatform.core.entity.element.QueryStat_;
+import com.x.processplatform.core.entity.element.QueryStatStatic;
 
 public class QueryStatFactory extends AbstractFactory {
 
@@ -26,8 +26,8 @@ public class QueryStatFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<QueryStat> root = cq.from(QueryStat.class);
-		Predicate p = cb.equal(root.get(QueryStat_.application), application);
-		cq.select(root.get(QueryStat_.id)).where(p);
+		Predicate p = cb.equal(root.get(QueryStatStatic.application), application);
+		cq.select(root.get(QueryStatStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 	
@@ -36,7 +36,7 @@ public class QueryStatFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<QueryStat> cq = cb.createQuery(QueryStat.class);
 		Root<QueryStat> root = cq.from(QueryStat.class);
-		Predicate p = cb.equal(root.get(QueryStat_.application), application);
+		Predicate p = cb.equal(root.get(QueryStatStatic.application), application);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}

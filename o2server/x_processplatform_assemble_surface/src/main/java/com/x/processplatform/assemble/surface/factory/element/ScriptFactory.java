@@ -18,7 +18,7 @@ import com.x.base.core.project.exception.ExceptionWhen;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Script;
-import com.x.processplatform.core.entity.element.Script_;
+import com.x.processplatform.core.entity.element.ScriptStatic;
 
 public class ScriptFactory extends ElementFactory {
 
@@ -86,8 +86,8 @@ public class ScriptFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Script> cq = cb.createQuery(Script.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.equal(root.get(Script_.id), uniqueName);
-		p = cb.and(p, cb.equal(root.get(Script_.application), application.getId()));
+		Predicate p = cb.equal(root.get(ScriptStatic.id), uniqueName);
+		p = cb.and(p, cb.equal(root.get(ScriptStatic.application), application.getId()));
 		List<Script> list = em.createQuery(cq.where(p)).setMaxResults(1).getResultList();
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -100,8 +100,8 @@ public class ScriptFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Script> cq = cb.createQuery(Script.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.equal(root.get(Script_.alias), uniqueName);
-		p = cb.and(p, cb.equal(root.get(Script_.application), application.getId()));
+		Predicate p = cb.equal(root.get(ScriptStatic.alias), uniqueName);
+		p = cb.and(p, cb.equal(root.get(ScriptStatic.application), application.getId()));
 		List<Script> list = em.createQuery(cq.where(p)).setMaxResults(1).getResultList();
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -114,8 +114,8 @@ public class ScriptFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Script> cq = cb.createQuery(Script.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.equal(root.get(Script_.name), uniqueName);
-		p = cb.and(p, cb.equal(root.get(Script_.application), application.getId()));
+		Predicate p = cb.equal(root.get(ScriptStatic.name), uniqueName);
+		p = cb.and(p, cb.equal(root.get(ScriptStatic.application), application.getId()));
 		List<Script> list = em.createQuery(cq.where(p)).setMaxResults(1).getResultList();
 		if (!list.isEmpty()) {
 			return list.get(0);

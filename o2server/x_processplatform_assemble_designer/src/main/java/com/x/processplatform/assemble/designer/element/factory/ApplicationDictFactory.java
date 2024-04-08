@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.ApplicationDict;
-import com.x.processplatform.core.entity.element.ApplicationDict_;
+import com.x.processplatform.core.entity.element.ApplicationDictStatic;
 
 public class ApplicationDictFactory extends AbstractFactory {
 
@@ -26,8 +26,8 @@ public class ApplicationDictFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ApplicationDict> root = cq.from(ApplicationDict.class);
-		Predicate p = cb.equal(root.get(ApplicationDict_.application), applicationId);
-		cq.select(root.get(ApplicationDict_.id)).where(p);
+		Predicate p = cb.equal(root.get(ApplicationDictStatic.application), applicationId);
+		cq.select(root.get(ApplicationDictStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -36,7 +36,7 @@ public class ApplicationDictFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<ApplicationDict> cq = cb.createQuery(ApplicationDict.class);
 		Root<ApplicationDict> root = cq.from(ApplicationDict.class);
-		Predicate p = cb.equal(root.get(ApplicationDict_.application), applicationId);
+		Predicate p = cb.equal(root.get(ApplicationDictStatic.application), applicationId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}

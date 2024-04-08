@@ -17,7 +17,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.jaxrs.WrapStringList;
 import com.x.query.assemble.surface.Business;
 import com.x.query.core.entity.segment.Word;
-import com.x.query.core.entity.segment.Word_;
+import com.x.query.core.entity.segment.WordStatic;
 
 class ActionSearch extends BaseAction {
 
@@ -42,9 +42,9 @@ class ActionSearch extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<Word> root = cq.from(Word.class);
-		Expression<Long> express_count = cb.count(root.get(Word_.entry));
-		Expression<String> express_entry = root.get(Word_.entry);
-		cq.multiselect(express_entry, express_count).where(cb.isMember(root.get(Word_.value), cb.literal(keys)))
+		Expression<Long> express_count = cb.count(root.get(WordStatic.entry));
+		Expression<String> express_entry = root.get(WordStatic.entry);
+		cq.multiselect(express_entry, express_count).where(cb.isMember(root.get(WordStatic.value), cb.literal(keys)))
 				.groupBy(express_entry).orderBy(cb.desc(express_count));
 		List<Tuple> os = em.createQuery(cq).setMaxResults(500).getResultList();
 		List<String> list = new ArrayList<>();
@@ -59,8 +59,8 @@ class ActionSearch extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Word> root = cq.from(Word.class);
-		Expression<String> express_entry = root.get(Word_.entry);
-		cq.select(cb.count(express_entry)).where(cb.isMember(root.get(Word_.value), cb.literal(keys)))
+		Expression<String> express_entry = root.get(WordStatic.entry);
+		cq.select(cb.count(express_entry)).where(cb.isMember(root.get(WordStatic.value), cb.literal(keys)))
 				.groupBy(express_entry);
 		List<Long> os = em.createQuery(cq).getResultList();
 		return os.size();

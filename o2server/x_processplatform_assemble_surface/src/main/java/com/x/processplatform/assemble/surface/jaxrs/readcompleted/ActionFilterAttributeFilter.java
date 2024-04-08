@@ -25,7 +25,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.ReadCompleted;
-import com.x.processplatform.core.entity.content.ReadCompleted_;
+import com.x.processplatform.core.entity.content.ReadCompletedStatic;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Process;
 
@@ -194,26 +194,26 @@ class ActionFilterAttributeFilter extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.person), effectivePerson.getDistinguishedName());
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(ReadCompleted_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
-			p = cb.and(p, root.get(ReadCompleted_.process).in(wi.getProcessList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.process).in(wi.getProcessList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(ReadCompleted_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(ReadCompleted_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCompletedTimeMonthList())) {
-			p = cb.and(p, root.get(ReadCompleted_.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(ReadCompleted_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.activityName).in(wi.getActivityNameList()));
 		}
-		cq.select(root.get(ReadCompleted_.application)).where(p);
+		cq.select(root.get(ReadCompletedStatic.application)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		;
 		List<NameValueCountPair> wos = new ArrayList<>();
@@ -243,26 +243,26 @@ class ActionFilterAttributeFilter extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.person), effectivePerson.getDistinguishedName());
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(ReadCompleted_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
-			p = cb.and(p, root.get(ReadCompleted_.process).in(wi.getProcessList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.process).in(wi.getProcessList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(ReadCompleted_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(ReadCompleted_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCompletedTimeMonthList())) {
-			p = cb.and(p, root.get(ReadCompleted_.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(ReadCompleted_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.activityName).in(wi.getActivityNameList()));
 		}
-		cq.select(root.get(ReadCompleted_.process)).where(p);
+		cq.select(root.get(ReadCompletedStatic.process)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		List<NameValueCountPair> wos = new ArrayList<>();
 		for (String str : os) {
@@ -291,26 +291,26 @@ class ActionFilterAttributeFilter extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.person), effectivePerson.getDistinguishedName());
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(ReadCompleted_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
-			p = cb.and(p, root.get(ReadCompleted_.process).in(wi.getProcessList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.process).in(wi.getProcessList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(ReadCompleted_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(ReadCompleted_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCompletedTimeMonthList())) {
-			p = cb.and(p, root.get(ReadCompleted_.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(ReadCompleted_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.activityName).in(wi.getActivityNameList()));
 		}
-		cq.select(root.get(ReadCompleted_.creatorUnit)).where(p);
+		cq.select(root.get(ReadCompletedStatic.creatorUnit)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		List<NameValueCountPair> wos = new ArrayList<>();
 		for (String str : os) {
@@ -333,26 +333,26 @@ class ActionFilterAttributeFilter extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.person), effectivePerson.getDistinguishedName());
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(ReadCompleted_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
-			p = cb.and(p, root.get(ReadCompleted_.process).in(wi.getProcessList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.process).in(wi.getProcessList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(ReadCompleted_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(ReadCompleted_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCompletedTimeMonthList())) {
-			p = cb.and(p, root.get(ReadCompleted_.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(ReadCompleted_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.activityName).in(wi.getActivityNameList()));
 		}
-		cq.select(root.get(ReadCompleted_.activityName)).where(p);
+		cq.select(root.get(ReadCompletedStatic.activityName)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		List<NameValueCountPair> wos = new ArrayList<>();
 		for (String str : os) {
@@ -375,26 +375,26 @@ class ActionFilterAttributeFilter extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.person), effectivePerson.getDistinguishedName());
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(ReadCompleted_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
-			p = cb.and(p, root.get(ReadCompleted_.process).in(wi.getProcessList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.process).in(wi.getProcessList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(ReadCompleted_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(ReadCompleted_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCompletedTimeMonthList())) {
-			p = cb.and(p, root.get(ReadCompleted_.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(ReadCompleted_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.activityName).in(wi.getActivityNameList()));
 		}
-		cq.select(root.get(ReadCompleted_.startTimeMonth)).where(p);
+		cq.select(root.get(ReadCompletedStatic.startTimeMonth)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		List<NameValueCountPair> wos = new ArrayList<>();
 		for (String str : os) {
@@ -417,26 +417,26 @@ class ActionFilterAttributeFilter extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.person), effectivePerson.getDistinguishedName());
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(ReadCompleted_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
-			p = cb.and(p, root.get(ReadCompleted_.process).in(wi.getProcessList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.process).in(wi.getProcessList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCreatorUnitList())) {
-			p = cb.and(p, root.get(ReadCompleted_.creatorUnit).in(wi.getCreatorUnitList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.creatorUnit).in(wi.getCreatorUnitList()));
 		}
 		if (ListTools.isNotEmpty(wi.getStartTimeMonthList())) {
-			p = cb.and(p, root.get(ReadCompleted_.startTimeMonth).in(wi.getStartTimeMonthList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.startTimeMonth).in(wi.getStartTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getCompletedTimeMonthList())) {
-			p = cb.and(p, root.get(ReadCompleted_.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.completedTimeMonth).in(wi.getCompletedTimeMonthList()));
 		}
 		if (ListTools.isNotEmpty(wi.getActivityNameList())) {
-			p = cb.and(p, root.get(ReadCompleted_.activityName).in(wi.getActivityNameList()));
+			p = cb.and(p, root.get(ReadCompletedStatic.activityName).in(wi.getActivityNameList()));
 		}
-		cq.select(root.get(ReadCompleted_.completedTimeMonth)).where(p);
+		cq.select(root.get(ReadCompletedStatic.completedTimeMonth)).where(p);
 		List<String> os = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		List<NameValueCountPair> wos = new ArrayList<>();
 		for (String str : os) {

@@ -19,7 +19,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.processplatform.core.entity.content.KeyLock;
-import com.x.processplatform.core.entity.content.KeyLock_;
+import com.x.processplatform.core.entity.content.KeyLockStatic;
 
 class ActionLock extends BaseAction {
 
@@ -34,9 +34,9 @@ class ActionLock extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<KeyLock> cq = cb.createQuery(KeyLock.class);
 			Root<KeyLock> root = cq.from(KeyLock.class);
-			Predicate p = cb.equal(root.get(KeyLock_.key), wi.getKey());
-			p = cb.and(p, cb.notEqual(root.get(KeyLock_.person), effectivePerson.getDistinguishedName()));
-			List<KeyLock> os = em.createQuery(cq.where(p).orderBy(cb.desc(root.get(KeyLock_.createTime))))
+			Predicate p = cb.equal(root.get(KeyLockStatic.key), wi.getKey());
+			p = cb.and(p, cb.notEqual(root.get(KeyLockStatic.person), effectivePerson.getDistinguishedName()));
+			List<KeyLock> os = em.createQuery(cq.where(p).orderBy(cb.desc(root.get(KeyLockStatic.createTime))))
 					.setMaxResults(1).getResultList();
 			if (os.isEmpty()) {
 				emc.beginTransaction(KeyLock.class);

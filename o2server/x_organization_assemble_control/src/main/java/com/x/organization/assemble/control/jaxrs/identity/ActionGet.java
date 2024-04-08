@@ -22,7 +22,7 @@ import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.Unit;
-import com.x.organization.core.entity.Unit_;
+import com.x.organization.core.entity.UnitStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 import java.util.Optional;
@@ -154,7 +154,7 @@ class ActionGet extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.equal(root.get(Unit_.superior), woUnit.getId());
+		Predicate p = cb.equal(root.get(UnitStatic.superior), woUnit.getId());
 		Long count = em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();
 		return count;
 	}

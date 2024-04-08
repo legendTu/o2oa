@@ -19,8 +19,8 @@ import com.x.base.core.entity.dataitem.ItemType;
 import com.x.base.core.project.gson.XGsonBuilder;
 import com.x.processplatform.core.entity.element.ApplicationDict;
 import com.x.processplatform.core.entity.element.ApplicationDictItem;
-import com.x.processplatform.core.entity.element.ApplicationDictItem_;
-import com.x.processplatform.core.entity.element.ApplicationDict_;
+import com.x.processplatform.core.entity.element.ApplicationDictItemStatic;
+import com.x.processplatform.core.entity.element.ApplicationDictStatic;
 
 public class ApplicationDictHelper {
 	private String application;
@@ -154,7 +154,7 @@ public class ApplicationDictHelper {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<ApplicationDictItem> cq = cb.createQuery(ApplicationDictItem.class);
 		Root<ApplicationDictItem> root = cq.from(ApplicationDictItem.class);
-		Predicate p = cb.equal(root.get(ApplicationDictItem_.bundle), applicationDict);
+		Predicate p = cb.equal(root.get(ApplicationDictItemStatic.bundle), applicationDict);
 		for (int i = 0; (i < paths.length && i < 8); i++) {
 			p = cb.and(p, cb.equal(root.get(("path" + i)), paths[i]));
 		}
@@ -169,7 +169,7 @@ public class ApplicationDictHelper {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<ApplicationDictItem> cq = cb.createQuery(ApplicationDictItem.class);
 		Root<ApplicationDictItem> root = cq.from(ApplicationDictItem.class);
-		Predicate p = cb.equal(root.get(ApplicationDictItem_.bundle), applicationDict);
+		Predicate p = cb.equal(root.get(ApplicationDictItemStatic.bundle), applicationDict);
 		p = cb.and(p, cb.equal(root.get("path0"), path0));
 		p = cb.and(p, cb.equal(root.get("path1"), path1));
 		p = cb.and(p, cb.equal(root.get("path2"), path2));
@@ -196,10 +196,10 @@ public class ApplicationDictHelper {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<ApplicationDict> cq = cb.createQuery(ApplicationDict.class);
 		Root<ApplicationDict> root = cq.from(ApplicationDict.class);
-		Predicate p = cb.equal(root.get(ApplicationDict_.id), applicationDict);
-		p = cb.or(p, cb.equal(root.get(ApplicationDict_.name), applicationDict));
-		p = cb.or(p, cb.equal(root.get(ApplicationDict_.alias), applicationDict));
-		p = cb.and(p, cb.equal(root.get(ApplicationDict_.application), application));
+		Predicate p = cb.equal(root.get(ApplicationDictStatic.id), applicationDict);
+		p = cb.or(p, cb.equal(root.get(ApplicationDictStatic.name), applicationDict));
+		p = cb.or(p, cb.equal(root.get(ApplicationDictStatic.alias), applicationDict));
+		p = cb.and(p, cb.equal(root.get(ApplicationDictStatic.application), application));
 		cq.select(root).where(p);
 		List<ApplicationDict> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		return list.isEmpty() ? null : list.get(0);
@@ -211,7 +211,7 @@ public class ApplicationDictHelper {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<ApplicationDictItem> cq = cb.createQuery(ApplicationDictItem.class);
 		Root<ApplicationDictItem> root = cq.from(ApplicationDictItem.class);
-		Predicate p = cb.equal(root.get(ApplicationDictItem_.bundle), applicationDict);
+		Predicate p = cb.equal(root.get(ApplicationDictItemStatic.bundle), applicationDict);
 		for (int i = 0; ((i < paths.length) && (i < 8)); i++) {
 			p = cb.and(p, cb.equal(root.get("path" + i), paths[i]));
 		}

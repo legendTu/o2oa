@@ -23,7 +23,7 @@ import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitDuty;
-import com.x.organization.core.entity.UnitDuty_;
+import com.x.organization.core.entity.UnitDutyStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 
@@ -84,7 +84,7 @@ class ActionListWithUnit extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<UnitDuty> cq = cb.createQuery(UnitDuty.class);
 		Root<UnitDuty> root = cq.from(UnitDuty.class);
-		Predicate p = cb.equal(root.get(UnitDuty_.unit), unit.getId());
+		Predicate p = cb.equal(root.get(UnitDutyStatic.unit), unit.getId());
 		List<UnitDuty> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		List<Wo> wos = Wo.copier.copy(os);
 		for (Wo wo : wos) {

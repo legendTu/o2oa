@@ -16,7 +16,7 @@ import com.x.base.core.project.connection.ConnectionAction;
 import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.jaxrs.WrapBoolean;
 import com.x.program.center.core.entity.Code;
-import com.x.program.center.core.entity.Code_;
+import com.x.program.center.core.entity.CodeStatic;
 
 class ActionValidate extends BaseAction {
 	ActionResult<Wo> execute(String mobile, String answer) throws Exception {
@@ -67,10 +67,10 @@ class ActionValidate extends BaseAction {
 		Root<Code> root = cq.from(Code.class);
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MINUTE, -5);
-		Predicate p = cb.greaterThan(root.get(Code_.createTime), cal.getTime());
-		p = cb.and(p, cb.equal(root.get(Code_.mobile), mobile));
+		Predicate p = cb.greaterThan(root.get(CodeStatic.createTime), cal.getTime());
+		p = cb.and(p, cb.equal(root.get(CodeStatic.mobile), mobile));
 		//p = cb.and(p, cb.equal(root.get(Code_.answer), answer));
-		List<Code> list = em.createQuery(cq.where(p).orderBy(cb.desc(root.get(Code_.createTime)))).setMaxResults(1).getResultList();
+		List<Code> list = em.createQuery(cq.where(p).orderBy(cb.desc(root.get(CodeStatic.createTime)))).setMaxResults(1).getResultList();
 		if (list.isEmpty()) {
 			return null;
 		} else {

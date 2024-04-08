@@ -18,7 +18,7 @@ import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.base.core.project.tools.StringTools;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Application;
-import com.x.processplatform.core.entity.element.Application_;
+import com.x.processplatform.core.entity.element.ApplicationStatic;
 
 abstract class BaseAction extends StandardJaxrsAction {
 
@@ -50,7 +50,7 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Application> cq = cb.createQuery(Application.class);
 		Root<Application> root = cq.from(Application.class);
-		Predicate p = cb.equal(root.get(Application_.alias), alias);
+		Predicate p = cb.equal(root.get(ApplicationStatic.alias), alias);
 		List<Application> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		if (os.size() == 1) {
 			return os.get(0);
@@ -67,7 +67,7 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Application> cq = cb.createQuery(Application.class);
 		Root<Application> root = cq.from(Application.class);
-		Predicate p = cb.equal(root.get(Application_.name), name);
+		Predicate p = cb.equal(root.get(ApplicationStatic.name), name);
 		List<Application> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		if (os.size() == 1) {
 			return os.get(0);
@@ -91,11 +91,11 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Application> root = cq.from(Application.class);
-		Predicate p = root.get(Application_.name).in(list);
+		Predicate p = root.get(ApplicationStatic.name).in(list);
 		if (StringUtils.isNotEmpty(excludeId)) {
 			p = cb.and(p, cb.notEqual(root.get(JpaObject.id_FIELDNAME), excludeId));
 		}
-		cq.select(root.get(Application_.name)).where(p);
+		cq.select(root.get(ApplicationStatic.name)).where(p);
 		List<String> os = em.createQuery(cq).getResultList();
 		list = ListUtils.subtract(list, os);
 		return list.get(0);
@@ -116,11 +116,11 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Application> root = cq.from(Application.class);
-		Predicate p = root.get(Application_.alias).in(list);
+		Predicate p = root.get(ApplicationStatic.alias).in(list);
 		if (StringUtils.isNotEmpty(excludeId)) {
 			p = cb.and(p, cb.notEqual(root.get(JpaObject.id_FIELDNAME), excludeId));
 		}
-		cq.select(root.get(Application_.alias)).where(p);
+		cq.select(root.get(ApplicationStatic.alias)).where(p);
 		List<String> os = em.createQuery(cq).getResultList();
 		list = ListUtils.subtract(list, os);
 		return list.get(0);

@@ -125,7 +125,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<UnitDuty> cq = cb.createQuery(UnitDuty.class);
 		Root<UnitDuty> root = cq.from(UnitDuty.class);
-		Predicate p = root.get(UnitDuty_.identityList).in(ids);
+		Predicate p = root.get(UnitDutyStatic.identityList).in(ids);
 		List<UnitDuty> os = em.createQuery(cq.select(root).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 		for (UnitDuty o : os) {
 			o.getIdentityList().removeAll(ids);
@@ -137,7 +137,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.isMember(person.getId(), root.get(Unit_.controllerList));
+		Predicate p = cb.isMember(person.getId(), root.get(UnitStatic.controllerList));
 		//p = cb.or(cb.isMember(person.getId(), root.get(Unit_.inheritedControllerList)));
 		List<Unit> os = em.createQuery(cq.select(root).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 		for (Unit o : os) {
@@ -175,7 +175,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<PersonAttribute> cq = cb.createQuery(PersonAttribute.class);
 		Root<PersonAttribute> root = cq.from(PersonAttribute.class);
-		Predicate p = cb.equal(root.get(PersonAttribute_.person), person.getId());
+		Predicate p = cb.equal(root.get(PersonAttributeStatic.person), person.getId());
 		List<PersonAttribute> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		for (PersonAttribute o : os) {
 			business.entityManagerContainer().remove(o, CheckRemoveType.all);
@@ -187,8 +187,8 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Custom> cq = cb.createQuery(Custom.class);
 		Root<Custom> root = cq.from(Custom.class);
-		Predicate p = cb.equal(root.get(Custom_.person), person.getId());
-		p = cb.or(p, cb.equal(root.get(Custom_.person), person.getDistinguishedName()));
+		Predicate p = cb.equal(root.get(CustomStatic.person), person.getId());
+		p = cb.or(p, cb.equal(root.get(CustomStatic.person), person.getDistinguishedName()));
 		List<Custom> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		for (Custom o : os) {
 			business.entityManagerContainer().remove(o, CheckRemoveType.all);
@@ -200,7 +200,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Group> cq = cb.createQuery(Group.class);
 		Root<Group> root = cq.from(Group.class);
-		Predicate p = cb.isMember(person.getId(), root.get(Group_.personList));
+		Predicate p = cb.isMember(person.getId(), root.get(GroupStatic.personList));
 		List<Group> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		for (Group o : os) {
 			o.getPersonList().remove(person.getId());

@@ -16,15 +16,15 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.assemble.control.ThisApplication;
 import com.x.organization.core.entity.Group;
-import com.x.organization.core.entity.Group_;
+import com.x.organization.core.entity.GroupStatic;
 import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.PersonAttribute;
-import com.x.organization.core.entity.PersonAttribute_;
+import com.x.organization.core.entity.PersonAttributeStatic;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitDuty;
-import com.x.organization.core.entity.UnitDuty_;
-import com.x.organization.core.entity.Unit_;
+import com.x.organization.core.entity.UnitDutyStatic;
+import com.x.organization.core.entity.UnitStatic;
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
 import com.x.base.core.entity.annotation.CheckRemoveType;
@@ -156,7 +156,7 @@ public class ActionWipeAll extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.equal(root.get(Unit_.level), 1);
+		Predicate p = cb.equal(root.get(UnitStatic.level), 1);
 		List<Unit> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}
@@ -243,7 +243,7 @@ public class ActionWipeAll extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Group> cq = cb.createQuery(Group.class);
 		Root<Group> root = cq.from(Group.class);
-		Predicate p = cb.isMember(group.getId(), root.get(Group_.groupList));
+		Predicate p = cb.isMember(group.getId(), root.get(GroupStatic.groupList));
 		List<Group> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		
 		for (Group o : os) {
@@ -266,7 +266,7 @@ public class ActionWipeAll extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<PersonAttribute> cq = cb.createQuery(PersonAttribute.class);
 		Root<PersonAttribute> root = cq.from(PersonAttribute.class);
-		Predicate p = cb.equal(root.get(PersonAttribute_.person), personId);
+		Predicate p = cb.equal(root.get(PersonAttributeStatic.person), personId);
 		List<PersonAttribute> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}
@@ -276,7 +276,7 @@ public class ActionWipeAll extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<UnitDuty> cq = cb.createQuery(UnitDuty.class);
 		Root<UnitDuty> root = cq.from(UnitDuty.class);
-		Predicate p = cb.isMember(identityId, root.get(UnitDuty_.identityList));
+		Predicate p = cb.isMember(identityId, root.get(UnitDutyStatic.identityList));
 		List<UnitDuty> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}

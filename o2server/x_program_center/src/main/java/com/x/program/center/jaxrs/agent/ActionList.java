@@ -19,7 +19,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.program.center.Business;
 import com.x.program.center.core.entity.Agent;
-import com.x.program.center.core.entity.Agent_;
+import com.x.program.center.core.entity.AgentStatic;
 
 class ActionList extends BaseAction {
 
@@ -36,7 +36,7 @@ class ActionList extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Agent> cq = cb.createQuery(Agent.class);
 			Root<Agent> root = cq.from(Agent.class);
-			List<Agent> os = em.createQuery(cq.select(root).orderBy(cb.asc(root.get(Agent_.name)))).getResultList();
+			List<Agent> os = em.createQuery(cq.select(root).orderBy(cb.asc(root.get(AgentStatic.name)))).getResultList();
 			wos = Wo.copier.copy(os);
 			result.setData(wos);
 			return result;

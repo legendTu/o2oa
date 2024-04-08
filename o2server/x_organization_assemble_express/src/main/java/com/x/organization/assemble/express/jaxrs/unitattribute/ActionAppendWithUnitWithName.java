@@ -27,7 +27,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitAttribute;
-import com.x.organization.core.entity.UnitAttribute_;
+import com.x.organization.core.entity.UnitAttributeStatic;
 
 class ActionAppendWithUnitWithName extends BaseAction {
 
@@ -84,8 +84,8 @@ class ActionAppendWithUnitWithName extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<UnitAttribute> cq = cb.createQuery(UnitAttribute.class);
 		Root<UnitAttribute> root = cq.from(UnitAttribute.class);
-		Predicate p = cb.equal(root.get(UnitAttribute_.unit), unit.getId());
-		p = cb.and(p, cb.equal(root.get(UnitAttribute_.name), name));
+		Predicate p = cb.equal(root.get(UnitAttributeStatic.unit), unit.getId());
+		p = cb.and(p, cb.equal(root.get(UnitAttributeStatic.name), name));
 		List<UnitAttribute> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		if (!os.isEmpty()) {
 			return os.get(0);

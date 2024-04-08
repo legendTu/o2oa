@@ -29,7 +29,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Group;
-import com.x.organization.core.entity.Group_;
+import com.x.organization.core.entity.GroupStatic;
 
 class ActionListLikePinyin extends BaseAction {
 
@@ -108,12 +108,12 @@ class ActionListLikePinyin extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Group> root = cq.from(Group.class);
-		Predicate p = cb.like(root.get(Group_.pinyin), str + "%");
-		p = cb.or(p, cb.like(root.get(Group_.pinyinInitial), str + "%"));
+		Predicate p = cb.like(root.get(GroupStatic.pinyin), str + "%");
+		p = cb.or(p, cb.like(root.get(GroupStatic.pinyinInitial), str + "%"));
 		if (ListTools.isNotEmpty(groupIds)) {
-			p = cb.and(p, root.get(Group_.id).in(groupIds));
+			p = cb.and(p, root.get(GroupStatic.id).in(groupIds));
 		}
-		List<String> ids = em.createQuery(cq.select(root.get(Group_.id)).where(p)).getResultList().stream().distinct()
+		List<String> ids = em.createQuery(cq.select(root.get(GroupStatic.id)).where(p)).getResultList().stream().distinct()
 				.collect(Collectors.toList());
 		List<Group> os = business.entityManagerContainer().list(Group.class, ids);
 		wos = Wo.copier.copy(os);

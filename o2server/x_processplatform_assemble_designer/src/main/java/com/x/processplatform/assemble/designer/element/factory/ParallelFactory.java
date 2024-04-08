@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Parallel;
-import com.x.processplatform.core.entity.element.Parallel_;
+import com.x.processplatform.core.entity.element.ParallelStatic;
 
 public class ParallelFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class ParallelFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Parallel> root = cq.from(Parallel.class);
-		Predicate p = cb.equal(root.get(Parallel_.process), processId);
-		cq.select(root.get(Parallel_.id)).where(p);
+		Predicate p = cb.equal(root.get(ParallelStatic.process), processId);
+		cq.select(root.get(ParallelStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,7 +34,7 @@ public class ParallelFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Parallel> cq = cb.createQuery(Parallel.class);
 		Root<Parallel> root = cq.from(Parallel.class);
-		Predicate p = cb.equal(root.get(Parallel_.process), processId);
+		Predicate p = cb.equal(root.get(ParallelStatic.process), processId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -45,8 +45,8 @@ public class ParallelFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Parallel> root = cq.from(Parallel.class);
-		Predicate p = cb.equal(root.get(Parallel_.form), formId);
-		cq.select(root.get(Parallel_.id)).where(p);
+		Predicate p = cb.equal(root.get(ParallelStatic.form), formId);
+		cq.select(root.get(ParallelStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

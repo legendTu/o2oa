@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.core.entity.content.WorkLog;
-import com.x.processplatform.core.entity.content.WorkLog_;
+import com.x.processplatform.core.entity.content.WorkLogStatic;
 import com.x.processplatform.service.processing.AbstractFactory;
 import com.x.processplatform.service.processing.Business;
 
@@ -29,8 +29,8 @@ public class WorkLogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkLog> root = cq.from(WorkLog.class);
-		Predicate p = cb.equal(root.get(WorkLog_.work), id);
-		cq.select(root.get(WorkLog_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkLogStatic.work), id);
+		cq.select(root.get(WorkLogStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -39,8 +39,8 @@ public class WorkLogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkLog> root = cq.from(WorkLog.class);
-		Predicate p = cb.equal(root.get(WorkLog_.job), job);
-		cq.select(root.get(WorkLog_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkLogStatic.job), job);
+		cq.select(root.get(WorkLogStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -50,9 +50,9 @@ public class WorkLogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkLog> root = cq.from(WorkLog.class);
-		Predicate p = cb.equal(root.get(WorkLog_.fromActivityToken), fromActivityToken);
-		p = cb.and(p, cb.equal(root.get(WorkLog_.connected), true));
-		cq.select(root.get(WorkLog_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkLogStatic.fromActivityToken), fromActivityToken);
+		p = cb.and(p, cb.equal(root.get(WorkLogStatic.connected), true));
+		cq.select(root.get(WorkLogStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -61,9 +61,9 @@ public class WorkLogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkLog> root = cq.from(WorkLog.class);
-		Predicate p = cb.equal(root.get(WorkLog_.fromActivityToken), fromActivityToken);
-		p = cb.and(p, cb.equal(root.get(WorkLog_.connected), false));
-		cq.select(root.get(WorkLog_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkLogStatic.fromActivityToken), fromActivityToken);
+		p = cb.and(p, cb.equal(root.get(WorkLogStatic.connected), false));
+		cq.select(root.get(WorkLogStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -77,9 +77,9 @@ public class WorkLogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkLog> root = cq.from(WorkLog.class);
-		Predicate p = cb.equal(root.get(WorkLog_.arrivedActivityToken), arrivedActivityToken);
-		p = cb.and(p, cb.equal(root.get(WorkLog_.connected), true));
-		cq.select(root.get(WorkLog_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkLogStatic.arrivedActivityToken), arrivedActivityToken);
+		p = cb.and(p, cb.equal(root.get(WorkLogStatic.connected), true));
+		cq.select(root.get(WorkLogStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -93,8 +93,8 @@ public class WorkLogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkLog> root = cq.from(WorkLog.class);
-		Predicate p = cb.equal(root.get(WorkLog_.fromActivityToken), fromActivityToken);
-		cq.select(root.get(WorkLog_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkLogStatic.fromActivityToken), fromActivityToken);
+		cq.select(root.get(WorkLogStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -103,8 +103,8 @@ public class WorkLogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkLog> root = cq.from(WorkLog.class);
-		Predicate p = cb.equal(root.get(WorkLog_.arrivedActivityToken), arrivedActivityToken);
-		cq.select(root.get(WorkLog_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkLogStatic.arrivedActivityToken), arrivedActivityToken);
+		cq.select(root.get(WorkLogStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

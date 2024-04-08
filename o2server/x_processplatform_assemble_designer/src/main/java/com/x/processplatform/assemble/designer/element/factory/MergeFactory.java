@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Merge;
-import com.x.processplatform.core.entity.element.Merge_;
+import com.x.processplatform.core.entity.element.MergeStatic;
 
 public class MergeFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class MergeFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Merge> root = cq.from(Merge.class);
-		Predicate p = cb.equal(root.get(Merge_.process), processId);
-		cq.select(root.get(Merge_.id)).where(p);
+		Predicate p = cb.equal(root.get(MergeStatic.process), processId);
+		cq.select(root.get(MergeStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,7 +34,7 @@ public class MergeFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Merge> cq = cb.createQuery(Merge.class);
 		Root<Merge> root = cq.from(Merge.class);
-		Predicate p = cb.equal(root.get(Merge_.process), processId);
+		Predicate p = cb.equal(root.get(MergeStatic.process), processId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -45,8 +45,8 @@ public class MergeFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Merge> root = cq.from(Merge.class);
-		Predicate p = cb.equal(root.get(Merge_.form), formId);
-		cq.select(root.get(Merge_.id)).where(p);
+		Predicate p = cb.equal(root.get(MergeStatic.form), formId);
+		cq.select(root.get(MergeStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

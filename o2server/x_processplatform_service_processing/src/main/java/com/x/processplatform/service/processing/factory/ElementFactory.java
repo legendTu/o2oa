@@ -37,15 +37,15 @@ import com.x.processplatform.core.entity.element.End;
 import com.x.processplatform.core.entity.element.Invoke;
 import com.x.processplatform.core.entity.element.Manual;
 import com.x.processplatform.core.entity.element.Mapping;
-import com.x.processplatform.core.entity.element.Mapping_;
+import com.x.processplatform.core.entity.element.MappingStatic;
 import com.x.processplatform.core.entity.element.Merge;
 import com.x.processplatform.core.entity.element.Message;
 import com.x.processplatform.core.entity.element.Parallel;
 import com.x.processplatform.core.entity.element.Process;
 import com.x.processplatform.core.entity.element.Route;
-import com.x.processplatform.core.entity.element.Route_;
+import com.x.processplatform.core.entity.element.RouteStatic;
 import com.x.processplatform.core.entity.element.Script;
-import com.x.processplatform.core.entity.element.Script_;
+import com.x.processplatform.core.entity.element.ScriptStatic;
 import com.x.processplatform.core.entity.element.Service;
 import com.x.processplatform.core.entity.element.Split;
 import com.x.processplatform.service.processing.AbstractFactory;
@@ -209,8 +209,8 @@ public class ElementFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<Route> cq = cb.createQuery(Route.class);
 				Root<Route> root = cq.from(Route.class);
-				Predicate p = root.get(Route_.id).in(choice.getRouteList());
-				list = em.createQuery(cq.where(p).orderBy(cb.asc(root.get(Route_.orderNumber)))).getResultList();
+				Predicate p = root.get(RouteStatic.id).in(choice.getRouteList());
+				list = em.createQuery(cq.where(p).orderBy(cb.asc(root.get(RouteStatic.orderNumber)))).getResultList();
 				CacheManager.put(cacheCategory, cacheKey, list);
 			}
 		}
@@ -232,8 +232,8 @@ public class ElementFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<Route> cq = cb.createQuery(Route.class);
 				Root<Route> root = cq.from(Route.class);
-				Predicate p = root.get(Route_.id).in(manual.getRouteList());
-				list = em.createQuery(cq.where(p).orderBy(cb.asc(root.get(Route_.orderNumber)))).getResultList();
+				Predicate p = root.get(RouteStatic.id).in(manual.getRouteList());
+				list = em.createQuery(cq.where(p).orderBy(cb.asc(root.get(RouteStatic.orderNumber)))).getResultList();
 				CacheManager.put(cacheCategory, cacheKey, list);
 			}
 		}
@@ -255,8 +255,8 @@ public class ElementFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<Route> cq = cb.createQuery(Route.class);
 				Root<Route> root = cq.from(Route.class);
-				Predicate p = root.get(Route_.id).in(parallel.getRouteList());
-				list = em.createQuery(cq.where(p).orderBy(cb.asc(root.get(Route_.orderNumber)))).getResultList();
+				Predicate p = root.get(RouteStatic.id).in(parallel.getRouteList());
+				list = em.createQuery(cq.where(p).orderBy(cb.asc(root.get(RouteStatic.orderNumber)))).getResultList();
 				CacheManager.put(cacheCategory, cacheKey, list);
 			}
 		}
@@ -298,10 +298,10 @@ public class ElementFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Script> cq = cb.createQuery(Script.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.equal(root.get(Script_.name), uniqueName);
-		p = cb.or(p, cb.equal(root.get(Script_.alias), uniqueName));
-		p = cb.or(p, cb.equal(root.get(Script_.id), uniqueName));
-		p = cb.and(p, cb.equal(root.get(Script_.application), applicationId));
+		Predicate p = cb.equal(root.get(ScriptStatic.name), uniqueName);
+		p = cb.or(p, cb.equal(root.get(ScriptStatic.alias), uniqueName));
+		p = cb.or(p, cb.equal(root.get(ScriptStatic.id), uniqueName));
+		p = cb.and(p, cb.equal(root.get(ScriptStatic.application), applicationId));
 		List<Script> list = em.createQuery(cq.where(p)).setMaxResults(1).getResultList();
 		if (!list.isEmpty()) {
 			script = list.get(0);
@@ -437,10 +437,10 @@ public class ElementFactory extends AbstractFactory {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Mapping> cq = cb.createQuery(Mapping.class);
 			Root<Mapping> root = cq.from(Mapping.class);
-			Predicate p = cb.equal(root.get(Mapping_.enable), true);
-			p = cb.and(p, cb.equal(root.get(Mapping_.application), application));
-			p = cb.and(p, cb.or(cb.equal(root.get(Mapping_.process), process), cb.equal(root.get(Mapping_.process), ""),
-					cb.isNull(root.get(Mapping_.process))));
+			Predicate p = cb.equal(root.get(MappingStatic.enable), true);
+			p = cb.and(p, cb.equal(root.get(MappingStatic.application), application));
+			p = cb.and(p, cb.or(cb.equal(root.get(MappingStatic.process), process), cb.equal(root.get(MappingStatic.process), ""),
+					cb.isNull(root.get(MappingStatic.process))));
 			List<Mapping> os = em.createQuery(cq.where(p)).getResultList();
 			os.stream().collect(Collectors.groupingBy(o -> {
 				return o.getApplication() + o.getTableName();

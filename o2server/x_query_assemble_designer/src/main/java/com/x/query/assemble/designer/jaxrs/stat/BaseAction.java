@@ -9,7 +9,7 @@ import javax.persistence.criteria.Root;
 import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.query.assemble.designer.Business;
 import com.x.query.core.entity.Stat;
-import com.x.query.core.entity.Stat_;
+import com.x.query.core.entity.StatStatic;
 
 abstract class BaseAction extends StandardJaxrsAction {
 
@@ -18,9 +18,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Stat> root = cq.from(Stat.class);
-		Predicate p = cb.equal(root.get(Stat_.query), stat.getQuery());
-		p = cb.and(p, cb.equal(root.get(Stat_.name), stat.getName()));
-		p = cb.and(p, cb.notEqual(root.get(Stat_.id), stat.getId()));
+		Predicate p = cb.equal(root.get(StatStatic.query), stat.getQuery());
+		p = cb.and(p, cb.equal(root.get(StatStatic.name), stat.getName()));
+		p = cb.and(p, cb.notEqual(root.get(StatStatic.id), stat.getId()));
 		cq.select(cb.count(root)).where(p);
 		Long count = em.createQuery(cq).getSingleResult();
 		return count == 0L;
@@ -31,9 +31,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Stat> root = cq.from(Stat.class);
-		Predicate p = cb.equal(root.get(Stat_.query), stat.getQuery());
-		p = cb.and(p, cb.equal(root.get(Stat_.alias), stat.getAlias()));
-		p = cb.and(p, cb.notEqual(root.get(Stat_.id), stat.getId()));
+		Predicate p = cb.equal(root.get(StatStatic.query), stat.getQuery());
+		p = cb.and(p, cb.equal(root.get(StatStatic.alias), stat.getAlias()));
+		p = cb.and(p, cb.notEqual(root.get(StatStatic.id), stat.getId()));
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult() == 0;
 	}
 }

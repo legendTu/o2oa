@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.content.ReadCompleted;
-import com.x.processplatform.core.entity.content.ReadCompleted_;
+import com.x.processplatform.core.entity.content.ReadCompletedStatic;
 
 public class ReadCompletedFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class ReadCompletedFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.application), id);
-		cq.select(root.get(ReadCompleted_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.application), id);
+		cq.select(root.get(ReadCompletedStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,9 +34,9 @@ public class ReadCompletedFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.application), id);
-		p = cb.and(p, cb.equal(root.get(ReadCompleted_.completed), completed));
-		cq.select(root.get(ReadCompleted_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.application), id);
+		p = cb.and(p, cb.equal(root.get(ReadCompletedStatic.completed), completed));
+		cq.select(root.get(ReadCompletedStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -45,8 +45,8 @@ public class ReadCompletedFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.process), id);
-		cq.select(root.get(ReadCompleted_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.process), id);
+		cq.select(root.get(ReadCompletedStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -55,9 +55,9 @@ public class ReadCompletedFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.process), id);
-		p = cb.and(p, cb.equal(root.get(ReadCompleted_.completed), completed));
-		cq.select(root.get(ReadCompleted_.id)).where(p);
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.process), id);
+		p = cb.and(p, cb.equal(root.get(ReadCompletedStatic.completed), completed));
+		cq.select(root.get(ReadCompletedStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

@@ -28,7 +28,7 @@ import com.x.base.core.project.tools.StringTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.Unit;
-import com.x.organization.core.entity.Unit_;
+import com.x.organization.core.entity.UnitStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 
@@ -145,19 +145,19 @@ class ActionListLike extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.like(cb.lower(root.get(Unit_.name)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR);
-		p = cb.or(p, cb.like(cb.lower(root.get(Unit_.unique)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR));
-		p = cb.or(p, cb.like(cb.lower(root.get(Unit_.pinyin)), str + "%", StringTools.SQL_ESCAPE_CHAR));
-		p = cb.or(p, cb.like(cb.lower(root.get(Unit_.pinyinInitial)), str + "%", StringTools.SQL_ESCAPE_CHAR));
-		p = cb.or(p, cb.like(cb.lower(root.get(Unit_.distinguishedName)), str + "%", StringTools.SQL_ESCAPE_CHAR));
+		Predicate p = cb.like(cb.lower(root.get(UnitStatic.name)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR);
+		p = cb.or(p, cb.like(cb.lower(root.get(UnitStatic.unique)), "%" + str + "%", StringTools.SQL_ESCAPE_CHAR));
+		p = cb.or(p, cb.like(cb.lower(root.get(UnitStatic.pinyin)), str + "%", StringTools.SQL_ESCAPE_CHAR));
+		p = cb.or(p, cb.like(cb.lower(root.get(UnitStatic.pinyinInitial)), str + "%", StringTools.SQL_ESCAPE_CHAR));
+		p = cb.or(p, cb.like(cb.lower(root.get(UnitStatic.distinguishedName)), str + "%", StringTools.SQL_ESCAPE_CHAR));
 
 		if (ListTools.isNotEmpty(unitIds)) {
-			p = cb.and(p, root.get(Unit_.id).in(unitIds));
+			p = cb.and(p, root.get(UnitStatic.id).in(unitIds));
 		}
 		if (StringUtils.isNotEmpty(wi.getType())) {
-			p = cb.and(p, cb.isMember(wi.getType(), root.get(Unit_.typeList)));
+			p = cb.and(p, cb.isMember(wi.getType(), root.get(UnitStatic.typeList)));
 		}
-		cq.select(root.get(Unit_.id)).where(p);
+		cq.select(root.get(UnitStatic.id)).where(p);
 		List<String> ids = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		List<Unit> os = business.entityManagerContainer().list(Unit.class, ids);
 		wos = Wo.copier.copy(os);

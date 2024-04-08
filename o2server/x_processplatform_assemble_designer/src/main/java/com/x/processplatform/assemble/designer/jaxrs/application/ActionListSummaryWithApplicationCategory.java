@@ -20,11 +20,11 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.organization.OrganizationDefinition;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Application;
-import com.x.processplatform.core.entity.element.Application_;
+import com.x.processplatform.core.entity.element.ApplicationStatic;
 import com.x.processplatform.core.entity.element.Form;
-import com.x.processplatform.core.entity.element.Form_;
+import com.x.processplatform.core.entity.element.FormStatic;
 import com.x.processplatform.core.entity.element.Process;
-import com.x.processplatform.core.entity.element.Process_;
+import com.x.processplatform.core.entity.element.ProcessStatic;
 
 class ActionListSummaryWithApplicationCategory extends BaseAction {
 
@@ -101,12 +101,12 @@ class ActionListSummaryWithApplicationCategory extends BaseAction {
 		CriteriaQuery<Application> cq = cb.createQuery(Application.class);
 		Root<Application> root = cq.from(Application.class);
 		cq.select(root);
-		Predicate p = cb.equal(root.get(Application_.applicationCategory), applicationCategory);
+		Predicate p = cb.equal(root.get(ApplicationStatic.applicationCategory), applicationCategory);
 		if ((!effectivePerson.isManager()) && (!business.organization().person().hasRole(effectivePerson,
 				OrganizationDefinition.ProcessPlatformManager))) {
 			p = cb.and(p,
-					cb.or(cb.isMember(effectivePerson.getDistinguishedName(), root.get(Application_.controllerList)),
-							cb.equal(root.get(Application_.creatorPerson), effectivePerson.getDistinguishedName())));
+					cb.or(cb.isMember(effectivePerson.getDistinguishedName(), root.get(ApplicationStatic.controllerList)),
+							cb.equal(root.get(ApplicationStatic.creatorPerson), effectivePerson.getDistinguishedName())));
 		}
 		cq.where(p);
 		return em.createQuery(cq).getResultList();
@@ -117,9 +117,9 @@ class ActionListSummaryWithApplicationCategory extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Process> cq = cb.createQuery(Process.class);
 		Root<Process> root = cq.from(Process.class);
-		Predicate p = cb.equal(root.get(Process_.application), application.getId());
-		p = cb.and(p, cb.or(cb.isTrue(root.get(Process_.editionEnable)),
-				cb.isNull(root.get(Process_.editionEnable))));
+		Predicate p = cb.equal(root.get(ProcessStatic.application), application.getId());
+		p = cb.and(p, cb.or(cb.isTrue(root.get(ProcessStatic.editionEnable)),
+				cb.isNull(root.get(ProcessStatic.editionEnable))));
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -129,7 +129,7 @@ class ActionListSummaryWithApplicationCategory extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Form> cq = cb.createQuery(Form.class);
 		Root<Form> root = cq.from(Form.class);
-		Predicate p = cb.equal(root.get(Form_.application), application.getId());
+		Predicate p = cb.equal(root.get(FormStatic.application), application.getId());
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}

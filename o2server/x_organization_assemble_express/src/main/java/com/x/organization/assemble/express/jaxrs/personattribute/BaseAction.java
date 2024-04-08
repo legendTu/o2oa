@@ -19,7 +19,7 @@ import com.x.organization.core.entity.Group;
 import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.PersonAttribute;
-import com.x.organization.core.entity.PersonAttribute_;
+import com.x.organization.core.entity.PersonAttributeStatic;
 import com.x.organization.core.entity.Role;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitAttribute;
@@ -37,7 +37,7 @@ class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<PersonAttribute> cq = cb.createQuery(PersonAttribute.class);
 		Root<PersonAttribute> root = cq.from(PersonAttribute.class);
-		Predicate p = root.get(PersonAttribute_.id).in(personAttributeIds);
+		Predicate p = root.get(PersonAttributeStatic.id).in(personAttributeIds);
 		List<PersonAttribute> list = em.createQuery(cq.select(root).where(p)).getResultList();
 		list = business.personAttribute().sort(list);
 		List<String> values = ListTools.extractProperty(list, "distinguishedName", String.class, true, true);

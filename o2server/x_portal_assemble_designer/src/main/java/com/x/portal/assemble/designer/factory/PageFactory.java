@@ -14,7 +14,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.portal.assemble.designer.AbstractFactory;
 import com.x.portal.assemble.designer.Business;
 import com.x.portal.core.entity.Page;
-import com.x.portal.core.entity.Page_;
+import com.x.portal.core.entity.PageStatic;
 
 public class PageFactory extends AbstractFactory {
 
@@ -30,9 +30,9 @@ public class PageFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Page> root = cq.from(Page.class);
-		Predicate p = cb.equal(root.get(Page_.name), name);
-		p = cb.and(p, cb.equal(root.get(Page_.portal), portalId));
-		List<String> list = em.createQuery(cq.select(root.get(Page_.id)).where(p)).setMaxResults(1).getResultList();
+		Predicate p = cb.equal(root.get(PageStatic.name), name);
+		p = cb.and(p, cb.equal(root.get(PageStatic.portal), portalId));
+		List<String> list = em.createQuery(cq.select(root.get(PageStatic.id)).where(p)).setMaxResults(1).getResultList();
 		if (list.isEmpty()) {
 			return null;
 		} else {
@@ -45,9 +45,9 @@ public class PageFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Page> root = cq.from(Page.class);
-		Predicate p = cb.equal(root.get(Page_.alias), alias);
-		p = cb.and(p, cb.equal(root.get(Page_.portal), portalId));
-		List<String> list = em.createQuery(cq.select(root.get(Page_.id)).where(p)).setMaxResults(1).getResultList();
+		Predicate p = cb.equal(root.get(PageStatic.alias), alias);
+		p = cb.and(p, cb.equal(root.get(PageStatic.portal), portalId));
+		List<String> list = em.createQuery(cq.select(root.get(PageStatic.id)).where(p)).setMaxResults(1).getResultList();
 		if (list.isEmpty()) {
 			return null;
 		} else {
@@ -60,8 +60,8 @@ public class PageFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Page> root = cq.from(Page.class);
-		Predicate p = cb.equal(root.get(Page_.portal), portalId);
-		List<String> list = em.createQuery(cq.select(root.get(Page_.id)).where(p)).getResultList();
+		Predicate p = cb.equal(root.get(PageStatic.portal), portalId);
+		List<String> list = em.createQuery(cq.select(root.get(PageStatic.id)).where(p)).getResultList();
 		return list;
 	}
 
@@ -70,7 +70,7 @@ public class PageFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Page> cq = cb.createQuery(Page.class);
 		Root<Page> root = cq.from(Page.class);
-		Predicate p = cb.equal(root.get(Page_.portal), portalId);
+		Predicate p = cb.equal(root.get(PageStatic.portal), portalId);
 		List<Page> list = em.createQuery(cq.select(root).where(p)).getResultList();
 		return list;
 	}
@@ -82,9 +82,9 @@ public class PageFactory extends AbstractFactory {
 		Root<Page> root = cq.from(Page.class);
 		Predicate p = cb.conjunction();
 		if(ListTools.isNotEmpty(portalIds)) {
-			p = cb.isMember(root.get(Page_.portal), cb.literal(portalIds));
+			p = cb.isMember(root.get(PageStatic.portal), cb.literal(portalIds));
 		}
-		cq.select(root.get(Page_.id)).where(p);
+		cq.select(root.get(PageStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

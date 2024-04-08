@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Begin;
-import com.x.processplatform.core.entity.element.Begin_;
+import com.x.processplatform.core.entity.element.BeginStatic;
 
 public class BeginFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class BeginFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Begin> root = cq.from(Begin.class);
-		Predicate p = cb.equal(root.get(Begin_.process), processId);
-		cq.select(root.get(Begin_.id)).where(p);
+		Predicate p = cb.equal(root.get(BeginStatic.process), processId);
+		cq.select(root.get(BeginStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		return list.isEmpty() ? null : list.get(0);
 	}
@@ -35,7 +35,7 @@ public class BeginFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Begin> cq = cb.createQuery(Begin.class);
 		Root<Begin> root = cq.from(Begin.class);
-		Predicate p = cb.equal(root.get(Begin_.process), processId);
+		Predicate p = cb.equal(root.get(BeginStatic.process), processId);
 		cq.select(root).where(p);
 		List<Begin> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		return list.isEmpty() ? null : list.get(0);
@@ -47,8 +47,8 @@ public class BeginFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Begin> root = cq.from(Begin.class);
-		Predicate p = cb.equal(root.get(Begin_.form), formId);
-		cq.select(root.get(Begin_.id)).where(p);
+		Predicate p = cb.equal(root.get(BeginStatic.form), formId);
+		cq.select(root.get(BeginStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

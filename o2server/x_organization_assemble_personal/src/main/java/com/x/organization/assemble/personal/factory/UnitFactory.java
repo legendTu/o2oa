@@ -20,7 +20,7 @@ import com.x.organization.assemble.personal.AbstractFactory;
 import com.x.organization.assemble.personal.Business;
 import com.x.organization.core.entity.PersistenceProperties;
 import com.x.organization.core.entity.Unit;
-import com.x.organization.core.entity.Unit_;
+import com.x.organization.core.entity.UnitStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 import java.util.Optional;
@@ -67,7 +67,7 @@ public class UnitFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 				Root<Unit> root = cq.from(Unit.class);
-				Predicate p = cb.equal(root.get(Unit_.name), name);
+				Predicate p = cb.equal(root.get(UnitStatic.name), name);
 				List<Unit> os = em.createQuery(cq.select(root).where(p)).getResultList();
 				if (os.size() == 1) {
 					o = os.get(0);
@@ -80,7 +80,7 @@ public class UnitFactory extends AbstractFactory {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 				Root<Unit> root = cq.from(Unit.class);
-				Predicate p = root.get(Unit_.name).in(names);
+				Predicate p = root.get(UnitStatic.name).in(names);
 				List<Unit> os = em.createQuery(cq.select(root).where(p)).getResultList();
 				os = os.stream().sorted(Comparator.comparing(Unit::getLevel, Comparator.nullsLast(Integer::compareTo)))
 						.collect(Collectors.toList());
@@ -166,7 +166,7 @@ public class UnitFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.equal(root.get(Unit_.id), unit.getSuperior());
+		Predicate p = cb.equal(root.get(UnitStatic.id), unit.getSuperior());
 		List<Unit> list = em.createQuery(cq.select(root).where(p)).setMaxResults(1).getResultList();
 		if (!list.isEmpty()) {
 			return list.get(0);
@@ -247,8 +247,8 @@ public class UnitFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.equal(root.get(Unit_.superior), id);
-		return em.createQuery(cq.select(root.get(Unit_.id)).where(p)).getResultList();
+		Predicate p = cb.equal(root.get(UnitStatic.superior), id);
+		return em.createQuery(cq.select(root.get(UnitStatic.id)).where(p)).getResultList();
 	}
 
 	public List<Unit> listSubNestedObject(Unit unit) throws Exception {
@@ -280,7 +280,7 @@ public class UnitFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.equal(root.get(Unit_.superior), unit.getId());
+		Predicate p = cb.equal(root.get(UnitStatic.superior), unit.getId());
 		return em.createQuery(cq.select(root).where(p)).getResultList();
 	}
 }

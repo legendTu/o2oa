@@ -15,7 +15,7 @@ import com.x.base.core.project.tools.DateTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.program.center.Business;
 import com.x.program.center.core.entity.Application;
-import com.x.program.center.core.entity.Application_;
+import com.x.program.center.core.entity.ApplicationStatic;
 import com.x.program.center.core.entity.InstallLog;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -74,19 +74,19 @@ class ActionListPaging extends BaseAction {
 		if(StringUtils.isNotEmpty(wi.getName())){
 			String key = StringTools.escapeSqlLikeKey(wi.getName());
 			if (StringUtils.isNotEmpty(key)) {
-				p = cb.and(p,cb.like(root.get(Application_.name), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR));
+				p = cb.and(p,cb.like(root.get(ApplicationStatic.name), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR));
 			}
 		}
 
 		if(StringUtils.isNotEmpty(wi.getCategory())){
-			p = cb.and(p, cb.equal(root.get(Application_.category), wi.getCategory()));
+			p = cb.and(p, cb.equal(root.get(ApplicationStatic.category), wi.getCategory()));
 		}
 
 		if (DateTools.isDateTimeOrDate(wi.getStartTime())) {
-			p = cb.and(p, cb.greaterThan(root.get(Application_.createTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(ApplicationStatic.createTime), DateTools.parse(wi.getStartTime())));
 		}
 		if (DateTools.isDateTimeOrDate(wi.getEndTime())) {
-			p = cb.and(p, cb.lessThan(root.get(Application_.createTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(ApplicationStatic.createTime), DateTools.parse(wi.getEndTime())));
 		}
 		return p;
 	}

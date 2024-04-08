@@ -8,7 +8,7 @@ import com.x.base.core.project.tools.StringTools;
 import com.x.query.assemble.designer.AbstractFactory;
 import com.x.query.assemble.designer.Business;
 import com.x.query.core.entity.schema.Statement;
-import com.x.query.core.entity.schema.Statement_;
+import com.x.query.core.entity.schema.StatementStatic;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -38,7 +38,7 @@ public class StatementFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Statement> cq = cb.createQuery(Statement.class);
 		Root<Statement> root = cq.from(Statement.class);
-		Predicate p = cb.equal(root.get(Statement_.query), queryId);
+		Predicate p = cb.equal(root.get(StatementStatic.query), queryId);
 		cq.select(root).where(p);
 		List<Statement> os = em.createQuery(cq).getResultList();
 		return os;

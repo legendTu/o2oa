@@ -18,9 +18,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.query.assemble.designer.Business;
-import com.x.query.core.entity.Query;
 import com.x.query.core.entity.View;
-import com.x.query.core.entity.View_;
+import com.x.query.core.entity.ViewStatic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +32,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<View> root = cq.from(View.class);
-		Predicate p = cb.equal(root.get(View_.query), view.getQuery());
-		p = cb.and(p, cb.equal(root.get(View_.name), view.getName()));
-		p = cb.and(p, cb.notEqual(root.get(View_.id), view.getId()));
+		Predicate p = cb.equal(root.get(ViewStatic.query), view.getQuery());
+		p = cb.and(p, cb.equal(root.get(ViewStatic.name), view.getName()));
+		p = cb.and(p, cb.notEqual(root.get(ViewStatic.id), view.getId()));
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult() == 0;
 	}
 
@@ -44,9 +43,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<View> root = cq.from(View.class);
-		Predicate p = cb.equal(root.get(View_.query), view.getQuery());
-		p = cb.and(p, cb.equal(root.get(View_.alias), view.getAlias()));
-		p = cb.and(p, cb.notEqual(root.get(View_.id), view.getId()));
+		Predicate p = cb.equal(root.get(ViewStatic.query), view.getQuery());
+		p = cb.and(p, cb.equal(root.get(ViewStatic.alias), view.getAlias()));
+		p = cb.and(p, cb.notEqual(root.get(ViewStatic.id), view.getId()));
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult() == 0;
 	}
 

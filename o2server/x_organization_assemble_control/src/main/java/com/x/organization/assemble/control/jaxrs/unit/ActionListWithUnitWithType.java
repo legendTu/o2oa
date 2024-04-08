@@ -27,7 +27,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.Unit;
-import com.x.organization.core.entity.Unit_;
+import com.x.organization.core.entity.UnitStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 
@@ -114,8 +114,8 @@ class ActionListWithUnitWithType extends BaseAction {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<String> cq = cb.createQuery(String.class);
 				Root<Unit> root = cq.from(Unit.class);
-				Predicate p = cb.isMember(wi.getType(), root.get(Unit_.typeList));
-				List<String> os = em.createQuery(cq.select(root.get(Unit_.id)).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
+				Predicate p = cb.isMember(wi.getType(), root.get(UnitStatic.typeList));
+				List<String> os = em.createQuery(cq.select(root.get(UnitStatic.id)).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 
 				List<String> referenceUnitIds = new ArrayList<>(os);
 				for (String str : os) {
@@ -155,9 +155,9 @@ class ActionListWithUnitWithType extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.isMember(wi.getType(), root.get(Unit_.typeList));
-		p = cb.and(p, root.get(Unit_.id).in(expendUnitIds));
-		List<String> os = em.createQuery(cq.select(root.get(Unit_.id)).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
+		Predicate p = cb.isMember(wi.getType(), root.get(UnitStatic.typeList));
+		p = cb.and(p, root.get(UnitStatic.id).in(expendUnitIds));
+		List<String> os = em.createQuery(cq.select(root.get(UnitStatic.id)).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 		List<String> referenceUnitIds = new ArrayList<String>(os);
 		for (String str : os) {
 			referenceUnitIds.addAll(business.unit().listSupNested(str));

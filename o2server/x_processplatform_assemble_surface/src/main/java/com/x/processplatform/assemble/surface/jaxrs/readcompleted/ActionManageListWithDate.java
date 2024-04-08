@@ -10,7 +10,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.DateTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.ReadCompleted;
-import com.x.processplatform.core.entity.content.ReadCompleted_;
+import com.x.processplatform.core.entity.content.ReadCompletedStatic;
 import org.apache.commons.lang3.BooleanUtils;
 
 import javax.persistence.EntityManager;
@@ -50,10 +50,10 @@ class ActionManageListWithDate extends BaseAction {
 		Predicate p = cb.conjunction();
 
 		if (startTime != null) {
-			p = cb.and(p, cb.greaterThanOrEqualTo(root.get(ReadCompleted_.createTime), startTime));
+			p = cb.and(p, cb.greaterThanOrEqualTo(root.get(ReadCompletedStatic.createTime), startTime));
 		}
 		if (endTime != null) {
-			p = cb.and(p, cb.lessThan(root.get(ReadCompleted_.createTime), endTime));
+			p = cb.and(p, cb.lessThan(root.get(ReadCompletedStatic.createTime), endTime));
 		}
 
 		cq.select(root).where(p);

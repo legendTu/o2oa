@@ -25,7 +25,7 @@ import com.x.base.core.project.jaxrs.WoFile;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.File;
-import com.x.processplatform.core.entity.element.File_;
+import com.x.processplatform.core.entity.element.FileStatic;
 
 class ActionDownload extends StandardJaxrsAction {
 
@@ -77,11 +77,11 @@ class ActionDownload extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<File> root = cq.from(File.class);
-		Predicate p = cb.equal(root.get(File_.name), flag);
-		p = cb.or(p, cb.equal(root.get(File_.alias), flag));
-		p = cb.or(p, cb.equal(root.get(File_.id), flag));
-		p = cb.and(p, cb.equal(root.get(File_.application), application.getId()));
-		List<String> list = em.createQuery(cq.select(root.get(File_.id)).where(p)).setMaxResults(1).getResultList();
+		Predicate p = cb.equal(root.get(FileStatic.name), flag);
+		p = cb.or(p, cb.equal(root.get(FileStatic.alias), flag));
+		p = cb.or(p, cb.equal(root.get(FileStatic.id), flag));
+		p = cb.and(p, cb.equal(root.get(FileStatic.application), application.getId()));
+		List<String> list = em.createQuery(cq.select(root.get(FileStatic.id)).where(p)).setMaxResults(1).getResultList();
 		return list.isEmpty() ? null : list.get(0);
 	}
 

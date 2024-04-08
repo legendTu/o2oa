@@ -22,7 +22,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.PersonAttribute;
-import com.x.organization.core.entity.PersonAttribute_;
+import com.x.organization.core.entity.PersonAttributeStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 
@@ -54,7 +54,7 @@ class ActionListWithPerson extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<PersonAttribute> cq = cb.createQuery(PersonAttribute.class);
 		Root<PersonAttribute> root = cq.from(PersonAttribute.class);
-		Predicate p = cb.equal(root.get(PersonAttribute_.person), person.getId());
+		Predicate p = cb.equal(root.get(PersonAttributeStatic.person), person.getId());
 		List<PersonAttribute> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		List<Wo> wos = Wo.copier.copy(os);
 		wos = wos.stream().sorted(Comparator.comparing(Wo::getName)).collect(Collectors.toList());

@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.End;
-import com.x.processplatform.core.entity.element.End_;
+import com.x.processplatform.core.entity.element.EndStatic;
 
 public class EndFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class EndFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<End> root = cq.from(End.class);
-		Predicate p = cb.equal(root.get(End_.process), processId);
-		cq.select(root.get(End_.id)).where(p);
+		Predicate p = cb.equal(root.get(EndStatic.process), processId);
+		cq.select(root.get(EndStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,7 +34,7 @@ public class EndFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<End> cq = cb.createQuery(End.class);
 		Root<End> root = cq.from(End.class);
-		Predicate p = cb.equal(root.get(End_.process), processId);
+		Predicate p = cb.equal(root.get(EndStatic.process), processId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -45,8 +45,8 @@ public class EndFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<End> root = cq.from(End.class);
-		Predicate p = cb.equal(root.get(End_.form), formId);
-		cq.select(root.get(End_.id)).where(p);
+		Predicate p = cb.equal(root.get(EndStatic.form), formId);
+		cq.select(root.get(EndStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

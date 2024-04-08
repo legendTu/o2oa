@@ -21,7 +21,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.organization.OrganizationDefinition;
 import com.x.portal.assemble.surface.Business;
 import com.x.portal.core.entity.Portal;
-import com.x.portal.core.entity.Portal_;
+import com.x.portal.core.entity.PortalStatic;
 
 class ActionList extends BaseAction {
 
@@ -55,22 +55,22 @@ class ActionList extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Portal> root = cq.from(Portal.class);
-		Predicate p = cb.or(cb.isNull(root.get(Portal_.pcClient)), cb.isTrue(root.get(Portal_.pcClient)));
+		Predicate p = cb.or(cb.isNull(root.get(PortalStatic.pcClient)), cb.isTrue(root.get(PortalStatic.pcClient)));
 		if (effectivePerson.isNotManager()
 				&& (!business.organization().person().hasRole(effectivePerson, OrganizationDefinition.PortalManager))) {
 			List<String> identities = business.organization().identity()
 					.listWithPerson(effectivePerson.getDistinguishedName());
 			List<String> units = business.organization().unit()
 					.listWithPersonSupNested(effectivePerson.getDistinguishedName());
-			Predicate who = cb.equal(root.get(Portal_.creatorPerson), effectivePerson.getDistinguishedName());
-			who = cb.or(who, cb.isMember(effectivePerson.getDistinguishedName(), root.get(Portal_.controllerList)));
-			who = cb.or(who, cb.and(cb.isEmpty(root.get(Portal_.availableIdentityList)),
-					cb.isEmpty(root.get(Portal_.availableUnitList))));
-			who = cb.or(who, root.get(Portal_.availableIdentityList).in(identities));
-			who = cb.or(who, root.get(Portal_.availableUnitList).in(units));
+			Predicate who = cb.equal(root.get(PortalStatic.creatorPerson), effectivePerson.getDistinguishedName());
+			who = cb.or(who, cb.isMember(effectivePerson.getDistinguishedName(), root.get(PortalStatic.controllerList)));
+			who = cb.or(who, cb.and(cb.isEmpty(root.get(PortalStatic.availableIdentityList)),
+					cb.isEmpty(root.get(PortalStatic.availableUnitList))));
+			who = cb.or(who, root.get(PortalStatic.availableIdentityList).in(identities));
+			who = cb.or(who, root.get(PortalStatic.availableUnitList).in(units));
 			p = cb.and(p, who);
 		}
-		cq.select(root.get(Portal_.id)).where(p);
+		cq.select(root.get(PortalStatic.id)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 

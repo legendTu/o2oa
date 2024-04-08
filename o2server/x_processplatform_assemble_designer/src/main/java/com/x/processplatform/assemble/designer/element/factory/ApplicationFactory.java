@@ -15,7 +15,7 @@ import com.x.base.core.project.organization.OrganizationDefinition;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Application;
-import com.x.processplatform.core.entity.element.Application_;
+import com.x.processplatform.core.entity.element.ApplicationStatic;
 
 public class ApplicationFactory extends AbstractFactory {
 
@@ -29,11 +29,11 @@ public class ApplicationFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Application> root = cq.from(Application.class);
-		cq.select(root.get(Application_.id));
+		cq.select(root.get(ApplicationStatic.id));
 		if (effectivePerson.isNotManager() && (!this.business().organization().person().hasRole(effectivePerson,
 				OrganizationDefinition.Manager, OrganizationDefinition.ProcessPlatformManager))) {
-			Predicate p = cb.isMember(effectivePerson.getDistinguishedName(), root.get(Application_.controllerList));
-			p = cb.or(p, cb.equal(root.get(Application_.creatorPerson), effectivePerson.getDistinguishedName()));
+			Predicate p = cb.isMember(effectivePerson.getDistinguishedName(), root.get(ApplicationStatic.controllerList));
+			p = cb.or(p, cb.equal(root.get(ApplicationStatic.creatorPerson), effectivePerson.getDistinguishedName()));
 			cq.where(p);
 		}
 		return em.createQuery(cq).getResultList();
@@ -46,14 +46,14 @@ public class ApplicationFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Application> root = cq.from(Application.class);
-		Predicate p = cb.equal(root.get(Application_.applicationCategory), applicationCategory);
+		Predicate p = cb.equal(root.get(ApplicationStatic.applicationCategory), applicationCategory);
 		if (effectivePerson.isNotManager() && (!this.business().organization().person().hasRole(effectivePerson,
 				OrganizationDefinition.ProcessPlatformManager))) {
 			p = cb.and(p,
-					cb.or(cb.isMember(effectivePerson.getDistinguishedName(), root.get(Application_.controllerList)),
-							cb.equal(root.get(Application_.creatorPerson), effectivePerson.getDistinguishedName())));
+					cb.or(cb.isMember(effectivePerson.getDistinguishedName(), root.get(ApplicationStatic.controllerList)),
+							cb.equal(root.get(ApplicationStatic.creatorPerson), effectivePerson.getDistinguishedName())));
 		}
-		cq.select(root.get(Application_.id)).where(p);
+		cq.select(root.get(ApplicationStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -64,13 +64,13 @@ public class ApplicationFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Application> root = cq.from(Application.class);
-		Predicate p = cb.equal(root.get(Application_.applicationCategory), applicationCategory);
+		Predicate p = cb.equal(root.get(ApplicationStatic.applicationCategory), applicationCategory);
 		if (!effectivePerson.isManager()) {
 			p = cb.and(p,
-					cb.or(cb.isMember(effectivePerson.getDistinguishedName(), root.get(Application_.controllerList)),
-							cb.equal(root.get(Application_.creatorPerson), effectivePerson.getDistinguishedName())));
+					cb.or(cb.isMember(effectivePerson.getDistinguishedName(), root.get(ApplicationStatic.controllerList)),
+							cb.equal(root.get(ApplicationStatic.creatorPerson), effectivePerson.getDistinguishedName())));
 		}
-		cq.select(root.get(Application_.id)).where(p);
+		cq.select(root.get(ApplicationStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 		return new Long(list.size());
 	}

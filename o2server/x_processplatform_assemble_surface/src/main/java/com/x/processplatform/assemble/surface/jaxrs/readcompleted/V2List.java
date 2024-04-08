@@ -22,7 +22,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.ReadCompleted;
-import com.x.processplatform.core.entity.content.ReadCompleted_;
+import com.x.processplatform.core.entity.content.ReadCompletedStatic;
 
 class V2List extends V2Base {
 
@@ -39,10 +39,10 @@ class V2List extends V2Base {
 				Root<ReadCompleted> root = cq.from(ReadCompleted.class);
 				Predicate p = this.toFilterPredicate(effectivePerson, business, wi);
 				if (ListTools.isNotEmpty(wi.getJobList())) {
-					p = cb.and(p, root.get(ReadCompleted_.job).in(wi.getJobList()));
+					p = cb.and(p, root.get(ReadCompletedStatic.job).in(wi.getJobList()));
 				}
 				if (ListTools.isNotEmpty(wi.getIdList())) {
-					p = cb.and(p, root.get(ReadCompleted_.id).in(wi.getIdList()));
+					p = cb.and(p, root.get(ReadCompletedStatic.id).in(wi.getIdList()));
 				}
 				wos = emc.fetch(ReadCompleted.class, Wo.copier, p);
 				this.relate(business, wos, wi);

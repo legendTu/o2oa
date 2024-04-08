@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.ApplicationDict;
-import com.x.processplatform.core.entity.element.ApplicationDict_;
+import com.x.processplatform.core.entity.element.ApplicationDictStatic;
 
 public class ApplicationDictFactory extends ElementFactory {
 
@@ -24,8 +24,8 @@ public class ApplicationDictFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ApplicationDict> root = cq.from(ApplicationDict.class);
-		Predicate p = cb.equal(root.get(ApplicationDict_.application), application.getId());
-		cq.select(root.get(ApplicationDict_.id)).where(p);
+		Predicate p = cb.equal(root.get(ApplicationDictStatic.application), application.getId());
+		cq.select(root.get(ApplicationDictStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,11 +34,11 @@ public class ApplicationDictFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ApplicationDict> root = cq.from(ApplicationDict.class);
-		Predicate p = cb.equal(root.get(ApplicationDict_.name), uniqueName);
-		p = cb.or(p, cb.equal(root.get(ApplicationDict_.alias), uniqueName));
-		p = cb.or(p, cb.equal(root.get(ApplicationDict_.id), uniqueName));
-		p = cb.and(p, cb.equal(root.get(ApplicationDict_.application), application));
-		cq.select(root.get(ApplicationDict_.id)).where(p);
+		Predicate p = cb.equal(root.get(ApplicationDictStatic.name), uniqueName);
+		p = cb.or(p, cb.equal(root.get(ApplicationDictStatic.alias), uniqueName));
+		p = cb.or(p, cb.equal(root.get(ApplicationDictStatic.id), uniqueName));
+		p = cb.and(p, cb.equal(root.get(ApplicationDictStatic.application), application));
+		cq.select(root.get(ApplicationDictStatic.id)).where(p);
 		List<String> list = em.createQuery(cq).setMaxResults(1).getResultList();
 		return list.isEmpty() ? null : list.get(0);
 	}

@@ -18,7 +18,7 @@ import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.base.core.project.tools.StringTools;
 import com.x.query.assemble.designer.Business;
 import com.x.query.core.entity.Query;
-import com.x.query.core.entity.Query_;
+import com.x.query.core.entity.QueryStatic;
 
 import net.sf.ehcache.Ehcache;
 
@@ -60,11 +60,11 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Query> root = cq.from(Query.class);
-		Predicate p = root.get(Query_.name).in(list);
+		Predicate p = root.get(QueryStatic.name).in(list);
 		if (StringUtils.isNotEmpty(excludeId)) {
 			p = cb.and(p, cb.notEqual(root.get(JpaObject.id_FIELDNAME), excludeId));
 		}
-		cq.select(root.get(Query_.name)).where(p);
+		cq.select(root.get(QueryStatic.name)).where(p);
 		List<String> os = em.createQuery(cq).getResultList();
 		list = ListUtils.subtract(list, os);
 		return list.get(0);
@@ -85,11 +85,11 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Query> root = cq.from(Query.class);
-		Predicate p = root.get(Query_.alias).in(list);
+		Predicate p = root.get(QueryStatic.alias).in(list);
 		if (StringUtils.isNotEmpty(excludeId)) {
 			p = cb.and(p, cb.notEqual(root.get(JpaObject.id_FIELDNAME), excludeId));
 		}
-		cq.select(root.get(Query_.alias)).where(p);
+		cq.select(root.get(QueryStatic.alias)).where(p);
 		List<String> os = em.createQuery(cq).getResultList();
 		list = ListUtils.subtract(list, os);
 		return list.get(0);

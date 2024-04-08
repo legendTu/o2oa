@@ -26,7 +26,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.ReadCompleted;
-import com.x.processplatform.core.entity.content.ReadCompleted_;
+import com.x.processplatform.core.entity.content.ReadCompletedStatic;
 
 class V2Count extends V2Base {
 
@@ -67,8 +67,8 @@ class V2Count extends V2Base {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Path<String> pathApplication = root.get(ReadCompleted_.application);
-		Path<String> pathApplicationName = root.get(ReadCompleted_.applicationName);
+		Path<String> pathApplication = root.get(ReadCompletedStatic.application);
+		Path<String> pathApplicationName = root.get(ReadCompletedStatic.applicationName);
 		cq.multiselect(pathApplication, pathApplicationName, cb.count(root)).where(predicate).groupBy(pathApplication);
 		List<Tuple> os = em.createQuery(cq).getResultList();
 		List<NameValueCountPair> list = new ArrayList<>();
@@ -89,8 +89,8 @@ class V2Count extends V2Base {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Path<String> pathProcess = root.get(ReadCompleted_.process);
-		Path<String> pathProcessName = root.get(ReadCompleted_.processName);
+		Path<String> pathProcess = root.get(ReadCompletedStatic.process);
+		Path<String> pathProcessName = root.get(ReadCompletedStatic.processName);
 		cq.multiselect(pathProcess, pathProcessName, cb.count(root)).where(predicate).groupBy(pathProcess);
 		List<Tuple> os = em.createQuery(cq).getResultList();
 		List<NameValueCountPair> list = new ArrayList<>();
@@ -111,7 +111,7 @@ class V2Count extends V2Base {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Path<String> pathCreatorPerson = root.get(ReadCompleted_.creatorPerson);
+		Path<String> pathCreatorPerson = root.get(ReadCompletedStatic.creatorPerson);
 		cq.multiselect(pathCreatorPerson, cb.count(root)).where(predicate).groupBy(pathCreatorPerson);
 		List<Tuple> os = em.createQuery(cq).getResultList();
 		List<NameValueCountPair> list = new ArrayList<>();
@@ -132,7 +132,7 @@ class V2Count extends V2Base {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Path<String> pathCreatorUnit = root.get(ReadCompleted_.creatorUnit);
+		Path<String> pathCreatorUnit = root.get(ReadCompletedStatic.creatorUnit);
 		cq.multiselect(pathCreatorUnit, cb.count(root)).where(predicate).groupBy(pathCreatorUnit);
 		List<Tuple> os = em.createQuery(cq).getResultList();
 		List<NameValueCountPair> list = new ArrayList<>();
@@ -153,7 +153,7 @@ class V2Count extends V2Base {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Path<String> pathStartTimeMonth = root.get(ReadCompleted_.startTimeMonth);
+		Path<String> pathStartTimeMonth = root.get(ReadCompletedStatic.startTimeMonth);
 		cq.multiselect(pathStartTimeMonth, cb.count(root)).where(predicate).groupBy(pathStartTimeMonth);
 		List<Tuple> os = em.createQuery(cq).getResultList();
 		List<NameValueCountPair> list = new ArrayList<>();

@@ -18,7 +18,7 @@ import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.base.core.project.organization.OrganizationDefinition;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Unit;
-import com.x.organization.core.entity.Unit_;
+import com.x.organization.core.entity.UnitStatic;
 
 abstract class BaseAction extends StandardJaxrsAction {
 
@@ -38,9 +38,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.equal(root.get(Unit_.name), unit.getName());
-		p = cb.and(p, cb.equal(root.get(Unit_.superior), Objects.toString(unit.getSuperior(), "")));
-		p = cb.and(p, cb.notEqual(root.get(Unit_.id), unit.getId()));
+		Predicate p = cb.equal(root.get(UnitStatic.name), unit.getName());
+		p = cb.and(p, cb.equal(root.get(UnitStatic.superior), Objects.toString(unit.getSuperior(), "")));
+		p = cb.and(p, cb.notEqual(root.get(UnitStatic.id), unit.getId()));
 		Long count = em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();
 		return count > 0;
 	}

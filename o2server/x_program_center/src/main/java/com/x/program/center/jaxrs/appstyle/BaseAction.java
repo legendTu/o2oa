@@ -14,9 +14,9 @@ import javax.persistence.criteria.Root;
 
 import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.portal.core.entity.Page;
-import com.x.portal.core.entity.Page_;
+import com.x.portal.core.entity.PageStatic;
 import com.x.portal.core.entity.Portal;
-import com.x.portal.core.entity.Portal_;
+import com.x.portal.core.entity.PortalStatic;
 import com.x.program.center.Business;
 
 abstract class BaseAction extends StandardJaxrsAction {
@@ -28,7 +28,7 @@ abstract class BaseAction extends StandardJaxrsAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Portal> cq = cb.createQuery(Portal.class);
 			Root<Portal> root = cq.from(Portal.class);
-			Predicate p = root.get(Portal_.firstPage).in(pageIds);
+			Predicate p = root.get(PortalStatic.firstPage).in(pageIds);
 			List<Portal> os = em.createQuery(cq.select(root).where(p)).getResultList();
 			os = os.stream().sorted(Comparator.comparing(Portal::getUpdateTime, Comparator.nullsLast(Date::compareTo)))
 					.collect(Collectors.toList());
@@ -44,7 +44,7 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Page> root = cq.from(Page.class);
 		Predicate p = cb.conjunction();
-		return em.createQuery(cq.select(root.get(Page_.id)).where(p)).getResultList();
+		return em.createQuery(cq.select(root.get(PageStatic.id)).where(p)).getResultList();
 	}
 
 }

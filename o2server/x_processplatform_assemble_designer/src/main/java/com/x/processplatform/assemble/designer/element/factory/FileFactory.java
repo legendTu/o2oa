@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.File;
-import com.x.processplatform.core.entity.element.File_;
+import com.x.processplatform.core.entity.element.FileStatic;
 
 public class FileFactory extends AbstractFactory {
 
@@ -26,8 +26,8 @@ public class FileFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<File> root = cq.from(File.class);
-		Predicate p = cb.equal(root.get(File_.application), applicationId);
-		cq.select(root.get(File_.id)).where(p);
+		Predicate p = cb.equal(root.get(FileStatic.application), applicationId);
+		cq.select(root.get(FileStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -36,7 +36,7 @@ public class FileFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<File> cq = cb.createQuery(File.class);
 		Root<File> root = cq.from(File.class);
-		Predicate p = cb.equal(root.get(File_.application), applicationId);
+		Predicate p = cb.equal(root.get(FileStatic.application), applicationId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}

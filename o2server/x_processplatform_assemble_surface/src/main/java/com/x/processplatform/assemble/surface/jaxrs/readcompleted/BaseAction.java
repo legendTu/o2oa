@@ -10,7 +10,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.ReadCompleted;
-import com.x.processplatform.core.entity.content.ReadCompleted_;
+import com.x.processplatform.core.entity.content.ReadCompletedStatic;
 
 abstract class BaseAction extends StandardJaxrsAction {
 
@@ -19,8 +19,8 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.person), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(ReadCompleted_.application), id));
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.person), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(ReadCompletedStatic.application), id));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}
@@ -30,8 +30,8 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<ReadCompleted> root = cq.from(ReadCompleted.class);
-		Predicate p = cb.equal(root.get(ReadCompleted_.person), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(ReadCompleted_.process), id));
+		Predicate p = cb.equal(root.get(ReadCompletedStatic.person), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(ReadCompletedStatic.process), id));
 		cq.select(cb.count(root)).where(p);
 		return em.createQuery(cq).getSingleResult();
 	}

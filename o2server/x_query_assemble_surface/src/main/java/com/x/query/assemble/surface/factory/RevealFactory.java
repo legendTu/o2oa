@@ -17,7 +17,7 @@ import com.x.query.assemble.surface.AbstractFactory;
 import com.x.query.assemble.surface.Business;
 import com.x.query.core.entity.Query;
 import com.x.query.core.entity.Reveal;
-import com.x.query.core.entity.Reveal_;
+import com.x.query.core.entity.RevealStatic;
 
 public class RevealFactory extends AbstractFactory {
 
@@ -41,8 +41,8 @@ public class RevealFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Reveal> root = cq.from(Reveal.class);
-		Predicate p = cb.equal(root.get(Reveal_.query), queryId);
-		cq.select(root.get(Reveal_.id)).where(p);
+		Predicate p = cb.equal(root.get(RevealStatic.query), queryId);
+		cq.select(root.get(RevealStatic.id)).where(p);
 		List<String> os = em.createQuery(cq).getResultList();
 		return os;
 	}
@@ -52,7 +52,7 @@ public class RevealFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Reveal> cq = cb.createQuery(Reveal.class);
 		Root<Reveal> root = cq.from(Reveal.class);
-		Predicate p = cb.equal(root.get(Reveal_.query), queryId);
+		Predicate p = cb.equal(root.get(RevealStatic.query), queryId);
 		cq.select(root).where(p);
 		List<Reveal> os = em.createQuery(cq).getResultList();
 		return os;
@@ -66,10 +66,10 @@ public class RevealFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Reveal> root = cq.from(Reveal.class);
-		Predicate p = cb.equal(root.get(Reveal_.query), query.getId());
-		p = cb.and(p, cb.or(cb.equal(root.get(Reveal_.name), flag), cb.equal(root.get(Reveal_.id), flag),
-				cb.equal(root.get(Reveal_.alias), flag)));
-		List<String> os = em.createQuery(cq.select(root.get(Reveal_.id)).where(p)).setMaxResults(1).getResultList();
+		Predicate p = cb.equal(root.get(RevealStatic.query), query.getId());
+		p = cb.and(p, cb.or(cb.equal(root.get(RevealStatic.name), flag), cb.equal(root.get(RevealStatic.id), flag),
+				cb.equal(root.get(RevealStatic.alias), flag)));
+		List<String> os = em.createQuery(cq.select(root.get(RevealStatic.id)).where(p)).setMaxResults(1).getResultList();
 		if (os.isEmpty()) {
 			return null;
 		} else {

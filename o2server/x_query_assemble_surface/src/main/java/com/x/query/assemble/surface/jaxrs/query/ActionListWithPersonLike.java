@@ -24,7 +24,7 @@ import com.x.base.core.project.organization.OrganizationDefinition;
 import com.x.base.core.project.tools.ListTools;
 import com.x.query.assemble.surface.Business;
 import com.x.query.core.entity.Query;
-import com.x.query.core.entity.Query_;
+import com.x.query.core.entity.QueryStatic;
 
 class ActionListWithPersonLike extends BaseAction {
 
@@ -64,23 +64,23 @@ class ActionListWithPersonLike extends BaseAction {
 		Root<Query> root = cq.from(Query.class);
 		Predicate p = cb.conjunction();
 		if (StringUtils.isNotEmpty(key)) {
-			p = cb.and(p, cb.or(cb.like(root.get(Query_.name), "%" + key + "%"),
-					cb.like(root.get(Query_.alias), "%" + key + "%")));
+			p = cb.and(p, cb.or(cb.like(root.get(QueryStatic.name), "%" + key + "%"),
+					cb.like(root.get(QueryStatic.alias), "%" + key + "%")));
 		}
 		if (effectivePerson.isNotManager() && (!business.organization().person().hasRole(effectivePerson,
 				OrganizationDefinition.Manager, OrganizationDefinition.QueryManager))) {
-			p = cb.and(cb.isEmpty(root.get(Query_.availableIdentityList)),
-					cb.isEmpty(root.get(Query_.availableUnitList)));
-			p = cb.or(p, cb.isMember(effectivePerson.getDistinguishedName(), root.get(Query_.controllerList)));
-			p = cb.or(p, cb.equal(root.get(Query_.creatorPerson), effectivePerson.getDistinguishedName()));
+			p = cb.and(cb.isEmpty(root.get(QueryStatic.availableIdentityList)),
+					cb.isEmpty(root.get(QueryStatic.availableUnitList)));
+			p = cb.or(p, cb.isMember(effectivePerson.getDistinguishedName(), root.get(QueryStatic.controllerList)));
+			p = cb.or(p, cb.equal(root.get(QueryStatic.creatorPerson), effectivePerson.getDistinguishedName()));
 			if (ListTools.isNotEmpty(identities)) {
-				p = cb.or(p, root.get(Query_.availableIdentityList).in(identities));
+				p = cb.or(p, root.get(QueryStatic.availableIdentityList).in(identities));
 			}
 			if (ListTools.isNotEmpty(units)) {
-				p = cb.or(p, root.get(Query_.availableUnitList).in(units));
+				p = cb.or(p, root.get(QueryStatic.availableUnitList).in(units));
 			}
 		}
-		cq.select(root.get(Query_.id)).where(p);
+		cq.select(root.get(QueryStatic.id)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 }

@@ -15,8 +15,6 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.hankcs.hanlp.HanLP;
-import com.hankcs.hanlp.seg.common.Term;
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.container.factory.EntityManagerContainerFactory;
 import com.x.base.core.entity.JpaObject;
@@ -30,7 +28,7 @@ import com.x.processplatform.core.entity.content.Review;
 import com.x.query.assemble.surface.Business;
 import com.x.query.core.entity.segment.Entry;
 import com.x.query.core.entity.segment.Word;
-import com.x.query.core.entity.segment.Word_;
+import com.x.query.core.entity.segment.WordStatic;
 
 class ActionSearchAccessible extends BaseAction {
 
@@ -87,7 +85,7 @@ class ActionSearchAccessible extends BaseAction {
 		
 		
 		
-		cq.select(root.get(Word_.entry)).where(cb.isMember(root.get(Word_.value), cb.literal(values)));
+		cq.select(root.get(WordStatic.entry)).where(cb.isMember(root.get(WordStatic.value), cb.literal(values)));
 		List<String> os = em.createQuery(cq).getResultList();
 		return os;
 	}

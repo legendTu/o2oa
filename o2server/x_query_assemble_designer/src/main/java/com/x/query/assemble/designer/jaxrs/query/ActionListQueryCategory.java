@@ -24,7 +24,7 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.tools.StringTools;
 import com.x.query.assemble.designer.Business;
 import com.x.query.core.entity.Query;
-import com.x.query.core.entity.Query_;
+import com.x.query.core.entity.QueryStatic;
 
 class ActionListQueryCategory extends BaseAction {
 
@@ -62,7 +62,7 @@ class ActionListQueryCategory extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Query> root = cq.from(Query.class);
-		List<String> os = em.createQuery(cq.select(root.get(Query_.queryCategory))).getResultList();
+		List<String> os = em.createQuery(cq.select(root.get(QueryStatic.queryCategory))).getResultList();
 		return os;
 	}
 

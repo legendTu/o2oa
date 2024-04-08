@@ -24,7 +24,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.PersonAttribute;
-import com.x.organization.core.entity.PersonAttribute_;
+import com.x.organization.core.entity.PersonAttributeStatic;
 
 class ActionListWithPersonAttributeObject extends BaseAction {
 
@@ -83,9 +83,9 @@ class ActionListWithPersonAttributeObject extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<PersonAttribute> root = cq.from(PersonAttribute.class);
-		Predicate p = cb.equal(root.get(PersonAttribute_.name), wi.getName());
-		p = cb.and(p, cb.isMember(wi.getAttribute(), root.get(PersonAttribute_.attributeList)));
-		List<String> personIds = em.createQuery(cq.select(root.get(PersonAttribute_.person)).where(p))
+		Predicate p = cb.equal(root.get(PersonAttributeStatic.name), wi.getName());
+		p = cb.and(p, cb.isMember(wi.getAttribute(), root.get(PersonAttributeStatic.attributeList)));
+		List<String> personIds = em.createQuery(cq.select(root.get(PersonAttributeStatic.person)).where(p))
 				.getResultList().stream().distinct().collect(Collectors.toList());
 		personIds = ListTools.trim(personIds, true, true);
 		for (Person o : business.person().pick(personIds)) {

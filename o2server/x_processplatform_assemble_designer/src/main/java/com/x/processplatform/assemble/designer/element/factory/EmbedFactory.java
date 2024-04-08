@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Embed;
-import com.x.processplatform.core.entity.element.Embed_;
+import com.x.processplatform.core.entity.element.EmbedStatic;
 
 public class EmbedFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class EmbedFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Embed> root = cq.from(Embed.class);
-		Predicate p = cb.equal(root.get(Embed_.process), processId);
-		cq.select(root.get(Embed_.id)).where(p);
+		Predicate p = cb.equal(root.get(EmbedStatic.process), processId);
+		cq.select(root.get(EmbedStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,7 +34,7 @@ public class EmbedFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Embed> cq = cb.createQuery(Embed.class);
 		Root<Embed> root = cq.from(Embed.class);
-		Predicate p = cb.equal(root.get(Embed_.process), processId);
+		Predicate p = cb.equal(root.get(EmbedStatic.process), processId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -45,8 +45,8 @@ public class EmbedFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Embed> root = cq.from(Embed.class);
-		Predicate p = cb.equal(root.get(Embed_.form), formId);
-		cq.select(root.get(Embed_.id)).where(p);
+		Predicate p = cb.equal(root.get(EmbedStatic.form), formId);
+		cq.select(root.get(EmbedStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

@@ -23,13 +23,13 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.tools.ListTools;
 import com.x.query.assemble.designer.Business;
 import com.x.query.core.entity.Query;
-import com.x.query.core.entity.Query_;
+import com.x.query.core.entity.QueryStatic;
 import com.x.query.core.entity.Reveal;
-import com.x.query.core.entity.Reveal_;
+import com.x.query.core.entity.RevealStatic;
 import com.x.query.core.entity.Stat;
-import com.x.query.core.entity.Stat_;
+import com.x.query.core.entity.StatStatic;
 import com.x.query.core.entity.View;
-import com.x.query.core.entity.View_;
+import com.x.query.core.entity.ViewStatic;
 
 class ActionListWithQueryCategory extends BaseAction {
 
@@ -73,7 +73,7 @@ class ActionListWithQueryCategory extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Query> cq = cb.createQuery(Query.class);
 		Root<Query> root = cq.from(Query.class);
-		Predicate p = cb.equal(root.get(Query_.queryCategory), _category);
+		Predicate p = cb.equal(root.get(QueryStatic.queryCategory), _category);
 		List<Query> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}
@@ -83,7 +83,7 @@ class ActionListWithQueryCategory extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<View> cq = cb.createQuery(View.class);
 		Root<View> root = cq.from(View.class);
-		Predicate p = root.get(View_.query).in(queryIds);
+		Predicate p = root.get(ViewStatic.query).in(queryIds);
 		List<View> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}
@@ -93,7 +93,7 @@ class ActionListWithQueryCategory extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Stat> cq = cb.createQuery(Stat.class);
 		Root<Stat> root = cq.from(Stat.class);
-		Predicate p = root.get(Stat_.query).in(queryIds);
+		Predicate p = root.get(StatStatic.query).in(queryIds);
 		List<Stat> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}
@@ -103,7 +103,7 @@ class ActionListWithQueryCategory extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Reveal> cq = cb.createQuery(Reveal.class);
 		Root<Reveal> root = cq.from(Reveal.class);
-		Predicate p = root.get(Reveal_.query).in(queryIds);
+		Predicate p = root.get(RevealStatic.query).in(queryIds);
 		List<Reveal> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}

@@ -12,7 +12,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.portal.assemble.designer.AbstractFactory;
 import com.x.portal.assemble.designer.Business;
 import com.x.portal.core.entity.Widget;
-import com.x.portal.core.entity.Widget_;
+import com.x.portal.core.entity.WidgetStatic;
 
 public class WidgetFactory extends AbstractFactory {
 
@@ -25,9 +25,9 @@ public class WidgetFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Widget> root = cq.from(Widget.class);
-		Predicate p = cb.equal(root.get(Widget_.name), name);
-		p = cb.and(p, cb.equal(root.get(Widget_.portal), portalId));
-		List<String> list = em.createQuery(cq.select(root.get(Widget_.id)).where(p)).setMaxResults(1).getResultList();
+		Predicate p = cb.equal(root.get(WidgetStatic.name), name);
+		p = cb.and(p, cb.equal(root.get(WidgetStatic.portal), portalId));
+		List<String> list = em.createQuery(cq.select(root.get(WidgetStatic.id)).where(p)).setMaxResults(1).getResultList();
 		if (list.isEmpty()) {
 			return null;
 		} else {
@@ -40,9 +40,9 @@ public class WidgetFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Widget> root = cq.from(Widget.class);
-		Predicate p = cb.equal(root.get(Widget_.alias), alias);
-		p = cb.and(p, cb.equal(root.get(Widget_.portal), portalId));
-		List<String> list = em.createQuery(cq.select(root.get(Widget_.id)).where(p)).setMaxResults(1).getResultList();
+		Predicate p = cb.equal(root.get(WidgetStatic.alias), alias);
+		p = cb.and(p, cb.equal(root.get(WidgetStatic.portal), portalId));
+		List<String> list = em.createQuery(cq.select(root.get(WidgetStatic.id)).where(p)).setMaxResults(1).getResultList();
 		if (list.isEmpty()) {
 			return null;
 		} else {
@@ -55,8 +55,8 @@ public class WidgetFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Widget> root = cq.from(Widget.class);
-		Predicate p = cb.equal(root.get(Widget_.portal), portalId);
-		List<String> list = em.createQuery(cq.select(root.get(Widget_.id)).where(p)).getResultList();
+		Predicate p = cb.equal(root.get(WidgetStatic.portal), portalId);
+		List<String> list = em.createQuery(cq.select(root.get(WidgetStatic.id)).where(p)).getResultList();
 		return list;
 	}
 
@@ -65,7 +65,7 @@ public class WidgetFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Widget> cq = cb.createQuery(Widget.class);
 		Root<Widget> root = cq.from(Widget.class);
-		Predicate p = cb.equal(root.get(Widget_.portal), portalId);
+		Predicate p = cb.equal(root.get(WidgetStatic.portal), portalId);
 		List<Widget> list = em.createQuery(cq.select(root).where(p)).getResultList();
 		return list;
 	}
@@ -77,9 +77,9 @@ public class WidgetFactory extends AbstractFactory {
 		Root<Widget> root = cq.from(Widget.class);
 		Predicate p = cb.conjunction();
 		if(ListTools.isNotEmpty(portalIds)) {
-			p = cb.isMember(root.get(Widget_.portal), cb.literal(portalIds));
+			p = cb.isMember(root.get(WidgetStatic.portal), cb.literal(portalIds));
 		}
-		cq.select(root.get(Widget_.id)).where(p);
+		cq.select(root.get(WidgetStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

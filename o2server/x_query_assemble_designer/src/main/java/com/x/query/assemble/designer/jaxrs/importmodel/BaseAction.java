@@ -3,7 +3,7 @@ package com.x.query.assemble.designer.jaxrs.importmodel;
 import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.query.assemble.designer.Business;
 import com.x.query.core.entity.ImportModel;
-import com.x.query.core.entity.ImportModel_;
+import com.x.query.core.entity.ImportModelStatic;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -18,9 +18,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<ImportModel> root = cq.from(ImportModel.class);
-		Predicate p = cb.equal(root.get(ImportModel_.query), model.getQuery());
-		p = cb.and(p, cb.equal(root.get(ImportModel_.name), model.getName()));
-		p = cb.and(p, cb.notEqual(root.get(ImportModel_.id), model.getId()));
+		Predicate p = cb.equal(root.get(ImportModelStatic.query), model.getQuery());
+		p = cb.and(p, cb.equal(root.get(ImportModelStatic.name), model.getName()));
+		p = cb.and(p, cb.notEqual(root.get(ImportModelStatic.id), model.getId()));
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult() == 0;
 	}
 
@@ -29,9 +29,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<ImportModel> root = cq.from(ImportModel.class);
-		Predicate p = cb.equal(root.get(ImportModel_.query), model.getQuery());
-		p = cb.and(p, cb.equal(root.get(ImportModel_.alias), model.getAlias()));
-		p = cb.and(p, cb.notEqual(root.get(ImportModel_.id), model.getId()));
+		Predicate p = cb.equal(root.get(ImportModelStatic.query), model.getQuery());
+		p = cb.and(p, cb.equal(root.get(ImportModelStatic.alias), model.getAlias()));
+		p = cb.and(p, cb.notEqual(root.get(ImportModelStatic.id), model.getId()));
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult() == 0;
 	}
 

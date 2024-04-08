@@ -17,7 +17,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.content.Snap;
-import com.x.processplatform.core.entity.content.Snap_;
+import com.x.processplatform.core.entity.content.SnapStatic;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Process;
 
@@ -30,20 +30,20 @@ abstract class BaseAction extends StandardJaxrsAction {
 		Root<Snap> root = cq.from(Snap.class);
 		Predicate p = cb.conjunction();
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(Snap_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(SnapStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
-			p = cb.and(p, root.get(Snap_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+			p = cb.and(p, root.get(SnapStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 		}
 		if (ListTools.isNotEmpty(wi.getPersonList())) {
-			p = cb.and(p, root.get(Snap_.person).in(business.organization().person().list(wi.getPersonList())));
+			p = cb.and(p, root.get(SnapStatic.person).in(business.organization().person().list(wi.getPersonList())));
 		}
 		if (StringUtils.isNoneBlank(wi.getKey())) {
 			String key = StringTools.escapeSqlLikeKey(wi.getKey());
 			p = cb.and(p,
-					cb.or(cb.like(root.get(Snap_.title), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR),
-							cb.like(root.get(Snap_.creatorPerson), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR),
-							cb.like(root.get(Snap_.creatorUnit), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR)));
+					cb.or(cb.like(root.get(SnapStatic.title), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR),
+							cb.like(root.get(SnapStatic.creatorPerson), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR),
+							cb.like(root.get(SnapStatic.creatorUnit), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR)));
 		}
 		return p;
 	}
@@ -53,19 +53,19 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Snap> cq = cb.createQuery(Snap.class);
 		Root<Snap> root = cq.from(Snap.class);
-		Predicate p = cb.equal(root.get(Snap_.person), effectivePerson.getDistinguishedName());
+		Predicate p = cb.equal(root.get(SnapStatic.person), effectivePerson.getDistinguishedName());
 		if (ListTools.isNotEmpty(wi.getApplicationList())) {
-			p = cb.and(p, root.get(Snap_.application).in(wi.getApplicationList()));
+			p = cb.and(p, root.get(SnapStatic.application).in(wi.getApplicationList()));
 		}
 		if (ListTools.isNotEmpty(wi.getProcessList())) {
-			p = cb.and(p, root.get(Snap_.process).in(business.process().listEditionProcess(wi.getProcessList())));
+			p = cb.and(p, root.get(SnapStatic.process).in(business.process().listEditionProcess(wi.getProcessList())));
 		}
 		if (StringUtils.isNoneBlank(wi.getKey())) {
 			String key = StringTools.escapeSqlLikeKey(wi.getKey());
 			p = cb.and(p,
-					cb.or(cb.like(root.get(Snap_.title), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR),
-							cb.like(root.get(Snap_.creatorPerson), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR),
-							cb.like(root.get(Snap_.creatorUnit), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR)));
+					cb.or(cb.like(root.get(SnapStatic.title), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR),
+							cb.like(root.get(SnapStatic.creatorPerson), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR),
+							cb.like(root.get(SnapStatic.creatorUnit), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR)));
 		}
 		return p;
 	}
@@ -75,7 +75,7 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Snap> cq = cb.createQuery(Snap.class);
 		Root<Snap> root = cq.from(Snap.class);
-		return cb.equal(root.get(Snap_.person), effectivePerson.getDistinguishedName());
+		return cb.equal(root.get(SnapStatic.person), effectivePerson.getDistinguishedName());
 	}
 
 	protected Predicate myApplicationFilter(EffectivePerson effectivePerson, Business business, Application application)
@@ -84,8 +84,8 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Snap> cq = cb.createQuery(Snap.class);
 		Root<Snap> root = cq.from(Snap.class);
-		Predicate p = cb.equal(root.get(Snap_.person), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(Snap_.application), application.getId()));
+		Predicate p = cb.equal(root.get(SnapStatic.person), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(SnapStatic.application), application.getId()));
 		return p;
 	}
 
@@ -95,8 +95,8 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Snap> cq = cb.createQuery(Snap.class);
 		Root<Snap> root = cq.from(Snap.class);
-		Predicate p = cb.equal(root.get(Snap_.person), effectivePerson.getDistinguishedName());
-		p = cb.and(p, cb.equal(root.get(Snap_.process), process.getId()));
+		Predicate p = cb.equal(root.get(SnapStatic.person), effectivePerson.getDistinguishedName());
+		p = cb.and(p, cb.equal(root.get(SnapStatic.process), process.getId()));
 		return p;
 	}
 

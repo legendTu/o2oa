@@ -26,9 +26,9 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.portal.core.entity.Page;
-import com.x.portal.core.entity.Page_;
+import com.x.portal.core.entity.PageStatic;
 import com.x.portal.core.entity.Portal;
-import com.x.portal.core.entity.Portal_;
+import com.x.portal.core.entity.PortalStatic;
 import com.x.program.center.Business;
 
 class ActionCurrentStyle extends BaseAction {
@@ -105,8 +105,8 @@ class ActionCurrentStyle extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Portal> cq = cb.createQuery(Portal.class);
 			Root<Portal> root = cq.from(Portal.class);
-			Predicate p = root.get(Portal_.firstPage).in(pageIds);
-			p = cb.and(p, cb.or(cb.isNull(root.get(Portal_.mobileClient)), cb.isTrue(root.get(Portal_.mobileClient))));
+			Predicate p = root.get(PortalStatic.firstPage).in(pageIds);
+			p = cb.and(p, cb.or(cb.isNull(root.get(PortalStatic.mobileClient)), cb.isTrue(root.get(PortalStatic.mobileClient))));
 			List<Portal> os = em.createQuery(cq.select(root).where(p)).getResultList();
 			os = os.stream().sorted(Comparator.comparing(Portal::getUpdateTime, Comparator.nullsLast(Date::compareTo)))
 					.collect(Collectors.toList());
@@ -122,8 +122,8 @@ class ActionCurrentStyle extends BaseAction {
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Page> root = cq.from(Page.class);
 		// Predicate p = cb.conjunction();
-		Predicate p = cb.equal(root.get(Page_.hasMobile), true);
-		List<String> os = em.createQuery(cq.select(root.get(Page_.id)).where(p)).getResultList();
+		Predicate p = cb.equal(root.get(PageStatic.hasMobile), true);
+		List<String> os = em.createQuery(cq.select(root.get(PageStatic.id)).where(p)).getResultList();
 		return os;
 	}
 

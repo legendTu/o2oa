@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.portal.assemble.surface.AbstractFactory;
 import com.x.portal.assemble.surface.Business;
 import com.x.portal.core.entity.Widget;
-import com.x.portal.core.entity.Widget_;
+import com.x.portal.core.entity.WidgetStatic;
 import com.x.base.core.project.cache.Cache.CacheCategory;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
@@ -46,8 +46,8 @@ public class WidgetFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Widget> root = cq.from(Widget.class);
-		Predicate p = cb.equal(root.get(Widget_.portal), portalId);
-		List<String> list = em.createQuery(cq.select(root.get(Widget_.id)).where(p)).getResultList();
+		Predicate p = cb.equal(root.get(WidgetStatic.portal), portalId);
+		List<String> list = em.createQuery(cq.select(root.get(WidgetStatic.id)).where(p)).getResultList();
 		return list;
 	}
 }

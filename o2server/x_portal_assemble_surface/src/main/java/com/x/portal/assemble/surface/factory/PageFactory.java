@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.portal.assemble.surface.AbstractFactory;
 import com.x.portal.assemble.surface.Business;
 import com.x.portal.core.entity.Page;
-import com.x.portal.core.entity.Page_;
+import com.x.portal.core.entity.PageStatic;
 import com.x.portal.core.entity.Portal;
 import com.x.base.core.project.cache.Cache.CacheCategory;
 import com.x.base.core.project.cache.Cache.CacheKey;
@@ -31,8 +31,8 @@ public class PageFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Page> root = cq.from(Page.class);
-		Predicate p = cb.equal(root.get(Page_.portal), portalId);
-		List<String> list = em.createQuery(cq.select(root.get(Page_.id)).where(p)).getResultList();
+		Predicate p = cb.equal(root.get(PageStatic.portal), portalId);
+		List<String> list = em.createQuery(cq.select(root.get(PageStatic.id)).where(p)).getResultList();
 		return list;
 	}
 

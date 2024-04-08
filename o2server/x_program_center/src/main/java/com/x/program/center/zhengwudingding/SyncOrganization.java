@@ -39,12 +39,12 @@ import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.PersonAttribute;
-import com.x.organization.core.entity.PersonAttribute_;
+import com.x.organization.core.entity.PersonAttributeStatic;
 import com.x.organization.core.entity.PersonStatic;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitAttribute;
 import com.x.organization.core.entity.UnitDuty;
-import com.x.organization.core.entity.Unit_;
+import com.x.organization.core.entity.UnitStatic;
 import com.x.program.center.Business;
 
 public class SyncOrganization {
@@ -319,8 +319,8 @@ public class SyncOrganization {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<PersonAttribute> cq = cb.createQuery(PersonAttribute.class);
 		Root<PersonAttribute> root = cq.from(PersonAttribute.class);
-		Predicate p = cb.equal(root.get(PersonAttribute_.person), person.getId());
-		p = cb.and(cb.equal(root.get(PersonAttribute_.name), Config.zhengwuDingding().getPersonAttributeTitleName()));
+		Predicate p = cb.equal(root.get(PersonAttributeStatic.person), person.getId());
+		p = cb.and(cb.equal(root.get(PersonAttributeStatic.name), Config.zhengwuDingding().getPersonAttributeTitleName()));
 		List<PersonAttribute> os = em.createQuery(cq.select(root).where(p)).setMaxResults(1).getResultList();
 		PersonAttribute personAttribute = null;
 		String title = StringUtils.trimToEmpty(user.getTitle());
@@ -519,8 +519,8 @@ public class SyncOrganization {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.notEqual(root.get(Unit_.zhengwuDingdingId), "");
-		p = cb.and(p, cb.isNotNull(root.get(Unit_.zhengwuDingdingId)));
+		Predicate p = cb.notEqual(root.get(UnitStatic.zhengwuDingdingId), "");
+		p = cb.and(p, cb.isNotNull(root.get(UnitStatic.zhengwuDingdingId)));
 		List<Unit> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}

@@ -31,7 +31,7 @@ import com.x.organization.assemble.express.Business;
 import com.x.organization.assemble.express.ThisApplication;
 import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.accredit.Empower;
-import com.x.organization.core.entity.accredit.Empower_;
+import com.x.organization.core.entity.accredit.EmpowerStatic;
 import com.x.organization.core.entity.accredit.Filter;
 
 class ActionListWithIdentityObject extends BaseAction {
@@ -196,21 +196,21 @@ class ActionListWithIdentityObject extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Empower> cq = cb.createQuery(Empower.class);
 		Root<Empower> root = cq.from(Empower.class);
-		Predicate p = cb.or(cb.equal(root.get(Empower_.type), Empower.TYPE_ALL),
-				cb.and(cb.equal(root.get(Empower_.type), Empower.TYPE_APPLICATION),
-						cb.equal(root.get(Empower_.application), wi.getApplication())),
-				cb.and(cb.equal(root.get(Empower_.type), Empower.TYPE_PROCESS), cb.or(
-						cb.and(cb.isNotNull(root.get(Empower_.edition)), cb.notEqual(root.get(Empower_.edition), ""),
-								cb.equal(root.get(Empower_.edition), wi.getEdition())),
-						cb.equal(root.get(Empower_.process), wi.getProcess()))),
-				cb.and(cb.equal(root.get(Empower_.type), Empower.TYPE_FILTER), cb.or(
-						cb.and(cb.isNotNull(root.get(Empower_.edition)), cb.notEqual(root.get(Empower_.edition), ""),
-								cb.equal(root.get(Empower_.edition), wi.getEdition())),
-						cb.equal(root.get(Empower_.process), wi.getProcess()))));
-		p = cb.and(p, root.get(Empower_.fromIdentity).in(names));
-		p = cb.and(p, cb.equal(root.get(Empower_.enable), true));
-		p = cb.and(p, cb.lessThan(root.get(Empower_.startTime), new Date()),
-				cb.greaterThan(root.get(Empower_.completedTime), new Date()));
+		Predicate p = cb.or(cb.equal(root.get(EmpowerStatic.type), Empower.TYPE_ALL),
+				cb.and(cb.equal(root.get(EmpowerStatic.type), Empower.TYPE_APPLICATION),
+						cb.equal(root.get(EmpowerStatic.application), wi.getApplication())),
+				cb.and(cb.equal(root.get(EmpowerStatic.type), Empower.TYPE_PROCESS), cb.or(
+						cb.and(cb.isNotNull(root.get(EmpowerStatic.edition)), cb.notEqual(root.get(EmpowerStatic.edition), ""),
+								cb.equal(root.get(EmpowerStatic.edition), wi.getEdition())),
+						cb.equal(root.get(EmpowerStatic.process), wi.getProcess()))),
+				cb.and(cb.equal(root.get(EmpowerStatic.type), Empower.TYPE_FILTER), cb.or(
+						cb.and(cb.isNotNull(root.get(EmpowerStatic.edition)), cb.notEqual(root.get(EmpowerStatic.edition), ""),
+								cb.equal(root.get(EmpowerStatic.edition), wi.getEdition())),
+						cb.equal(root.get(EmpowerStatic.process), wi.getProcess()))));
+		p = cb.and(p, root.get(EmpowerStatic.fromIdentity).in(names));
+		p = cb.and(p, cb.equal(root.get(EmpowerStatic.enable), true));
+		p = cb.and(p, cb.lessThan(root.get(EmpowerStatic.startTime), new Date()),
+				cb.greaterThan(root.get(EmpowerStatic.completedTime), new Date()));
 		return em.createQuery(cq.select(root).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 

@@ -25,7 +25,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitAttribute;
-import com.x.organization.core.entity.UnitAttribute_;
+import com.x.organization.core.entity.UnitAttributeStatic;
 
 class ActionListNameWithUnit extends BaseAction {
 
@@ -84,8 +84,8 @@ class ActionListNameWithUnit extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<String> cq = cb.createQuery(String.class);
 			Root<UnitAttribute> root = cq.from(UnitAttribute.class);
-			Predicate p = root.get(UnitAttribute_.unit).in(ids);
-			List<String> names = em.createQuery(cq.select(root.get(UnitAttribute_.name)).where(p))
+			Predicate p = root.get(UnitAttributeStatic.unit).in(ids);
+			List<String> names = em.createQuery(cq.select(root.get(UnitAttributeStatic.name)).where(p))
 					.getResultList().stream().distinct().collect(Collectors.toList());
 			if (!names.isEmpty()) {
 				wo.getNameList().addAll(names);

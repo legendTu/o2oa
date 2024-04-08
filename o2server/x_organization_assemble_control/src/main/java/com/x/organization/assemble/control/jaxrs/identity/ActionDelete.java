@@ -98,7 +98,7 @@ public class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<UnitDuty> cq = cb.createQuery(UnitDuty.class);
 		Root<UnitDuty> root = cq.from(UnitDuty.class);
-		Predicate p = cb.isMember(identity.getId(), root.get(UnitDuty_.identityList));
+		Predicate p = cb.isMember(identity.getId(), root.get(UnitDutyStatic.identityList));
 		List<UnitDuty> os = em.createQuery(cq.select(root).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 		for (UnitDuty o : os) {
 			o.getIdentityList().remove(identity.getId());

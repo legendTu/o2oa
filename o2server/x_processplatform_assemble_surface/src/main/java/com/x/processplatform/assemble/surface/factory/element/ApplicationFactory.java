@@ -19,7 +19,7 @@ import com.x.base.core.project.organization.OrganizationDefinition;
 import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.element.Application;
-import com.x.processplatform.core.entity.element.Application_;
+import com.x.processplatform.core.entity.element.ApplicationStatic;
 
 public class ApplicationFactory extends ElementFactory {
 
@@ -87,18 +87,18 @@ public class ApplicationFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Application> root = cq.from(Application.class);
-		cq.select(root.get(Application_.id));
+		cq.select(root.get(ApplicationStatic.id));
 		if (effectivePerson.isNotManager() && (!this.business().organization().person().hasRole(effectivePerson,
 				OrganizationDefinition.Manager, OrganizationDefinition.ProcessPlatformManager))) {
-			Predicate p = cb.and(cb.isEmpty(root.get(Application_.availableIdentityList)),
-					cb.isEmpty(root.get(Application_.availableUnitList)));
-			p = cb.or(p, cb.isMember(effectivePerson.getDistinguishedName(), root.get(Application_.controllerList)));
-			p = cb.or(p, cb.equal(root.get(Application_.creatorPerson), effectivePerson.getDistinguishedName()));
+			Predicate p = cb.and(cb.isEmpty(root.get(ApplicationStatic.availableIdentityList)),
+					cb.isEmpty(root.get(ApplicationStatic.availableUnitList)));
+			p = cb.or(p, cb.isMember(effectivePerson.getDistinguishedName(), root.get(ApplicationStatic.controllerList)));
+			p = cb.or(p, cb.equal(root.get(ApplicationStatic.creatorPerson), effectivePerson.getDistinguishedName()));
 			if (ListTools.isNotEmpty(identities)) {
-				p = cb.or(p, root.get(Application_.availableIdentityList).in(identities));
+				p = cb.or(p, root.get(ApplicationStatic.availableIdentityList).in(identities));
 			}
 			if (ListTools.isNotEmpty(units)) {
-				p = cb.or(p, root.get(Application_.availableUnitList).in(units));
+				p = cb.or(p, root.get(ApplicationStatic.availableUnitList).in(units));
 			}
 			cq.where(p);
 		}

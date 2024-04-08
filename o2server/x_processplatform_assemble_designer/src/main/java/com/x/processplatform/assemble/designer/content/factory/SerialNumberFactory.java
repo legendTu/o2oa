@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.content.SerialNumber;
-import com.x.processplatform.core.entity.content.SerialNumber_;
+import com.x.processplatform.core.entity.content.SerialNumberStatic;
 
 public class SerialNumberFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class SerialNumberFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<SerialNumber> root = cq.from(SerialNumber.class);
-		Predicate p = cb.equal(root.get(SerialNumber_.application), id);
-		cq.select(root.get(SerialNumber_.id)).where(p);
+		Predicate p = cb.equal(root.get(SerialNumberStatic.application), id);
+		cq.select(root.get(SerialNumberStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 	
@@ -34,8 +34,8 @@ public class SerialNumberFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<SerialNumber> root = cq.from(SerialNumber.class);
-		Predicate p = cb.equal(root.get(SerialNumber_.process), id);
-		cq.select(root.get(SerialNumber_.id)).where(p);
+		Predicate p = cb.equal(root.get(SerialNumberStatic.process), id);
+		cq.select(root.get(SerialNumberStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

@@ -65,7 +65,7 @@ import com.x.base.core.project.tools.MapTools;
 import com.x.base.core.project.utils.time.TimeStamp;
 import com.x.query.core.entity.neural.Entry;
 import com.x.query.core.entity.neural.InText;
-import com.x.query.core.entity.neural.InText_;
+import com.x.query.core.entity.neural.InTextStatic;
 import com.x.query.core.entity.neural.InValue;
 import com.x.query.core.entity.neural.Model;
 import com.x.query.core.entity.neural.OutText;
@@ -279,8 +279,8 @@ public class Learn {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<InText> cq = cb.createQuery(InText.class);
 		Root<InText> root = cq.from(InText.class);
-		Predicate p = cb.equal(root.get(InText_.model), model.getId());
-		cq.select(root).where(p).orderBy(cb.desc(root.get(InText_.count)));
+		Predicate p = cb.equal(root.get(InTextStatic.model), model.getId());
+		cq.select(root).where(p).orderBy(cb.desc(root.get(InTextStatic.count)));
 		Integer cutoff = MapTools.getInteger(model.getPropertyMap(), Model.PROPERTY_MLP_LEARNINTEXTCUTOFFSIZE,
 				Model.DEFAULT_MLP_LEARNINTEXTCUTOFFSIZE);
 		List<InText> os = em.createQuery(cq).setMaxResults(cutoff).getResultList();

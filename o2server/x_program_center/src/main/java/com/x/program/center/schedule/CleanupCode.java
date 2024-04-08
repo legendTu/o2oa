@@ -17,7 +17,7 @@ import com.x.base.core.container.factory.EntityManagerContainerFactory;
 import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.program.center.core.entity.Code;
-import com.x.program.center.core.entity.Code_;
+import com.x.program.center.core.entity.CodeStatic;
 
 public class CleanupCode extends BaseAction {
 
@@ -43,8 +43,8 @@ public class CleanupCode extends BaseAction {
 			Root<Code> root = cq.from(Code.class);
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.MINUTE, -30);
-			Predicate p = cb.not(cb.greaterThan(root.get(Code_.createTime), cal.getTime()));
-			cq.select(root.get(Code_.id)).where(p);
+			Predicate p = cb.not(cb.greaterThan(root.get(CodeStatic.createTime), cal.getTime()));
+			cq.select(root.get(CodeStatic.id)).where(p);
 			List<String> list = em.createQuery(cq).getResultList();
 			for (String id : list) {
 				Code o = emc.find(id, Code.class);

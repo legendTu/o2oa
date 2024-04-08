@@ -29,7 +29,7 @@ import com.x.organization.assemble.control.message.OrgMessageFactory;
 import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Unit;
-import com.x.organization.core.entity.Unit_;
+import com.x.organization.core.entity.UnitStatic;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -152,7 +152,7 @@ class ActionEdit extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.equal(root.get(Unit_.id), flag);
+		Predicate p = cb.equal(root.get(UnitStatic.id), flag);
 		List<Unit> units = em.createQuery(cq.select(root).where(p)).getResultList();
 
 		Unit unit;

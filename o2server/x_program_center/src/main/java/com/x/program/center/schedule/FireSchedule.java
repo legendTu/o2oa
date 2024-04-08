@@ -21,7 +21,7 @@ import com.x.base.core.project.schedule.ScheduleRequest;
 import com.x.base.core.project.tools.CronTools;
 import com.x.program.center.ThisApplication;
 import com.x.program.center.core.entity.ScheduleLog;
-import com.x.program.center.core.entity.ScheduleLog_;
+import com.x.program.center.core.entity.ScheduleLogStatic;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -85,9 +85,9 @@ public class FireSchedule extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<ScheduleLog> cq = cb.createQuery(ScheduleLog.class);
 			Root<ScheduleLog> root = cq.from(ScheduleLog.class);
-			Predicate p = cb.equal(root.get(ScheduleLog_.className), request.getClassName());
+			Predicate p = cb.equal(root.get(ScheduleLogStatic.className), request.getClassName());
 			List<ScheduleLog> os = em
-					.createQuery(cq.select(root).where(p).orderBy(cb.desc(root.get(ScheduleLog_.fireTime))))
+					.createQuery(cq.select(root).where(p).orderBy(cb.desc(root.get(ScheduleLogStatic.fireTime))))
 					.setMaxResults(1).getResultList();
 			if (!os.isEmpty()) {
 				lastStartTime = os.get(0).getFireTime();

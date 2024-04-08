@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Manual;
-import com.x.processplatform.core.entity.element.Manual_;
+import com.x.processplatform.core.entity.element.ManualStatic;
 
 public class ManualFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class ManualFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Manual> root = cq.from(Manual.class);
-		Predicate p = cb.equal(root.get(Manual_.process), processId);
-		cq.select(root.get(Manual_.id)).where(p);
+		Predicate p = cb.equal(root.get(ManualStatic.process), processId);
+		cq.select(root.get(ManualStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,7 +34,7 @@ public class ManualFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Manual> cq = cb.createQuery(Manual.class);
 		Root<Manual> root = cq.from(Manual.class);
-		Predicate p = cb.equal(root.get(Manual_.process), processId);
+		Predicate p = cb.equal(root.get(ManualStatic.process), processId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -45,8 +45,8 @@ public class ManualFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Manual> root = cq.from(Manual.class);
-		Predicate p = cb.equal(root.get(Manual_.form), formId);
-		cq.select(root.get(Manual_.id)).where(p);
+		Predicate p = cb.equal(root.get(ManualStatic.form), formId);
+		cq.select(root.get(ManualStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 

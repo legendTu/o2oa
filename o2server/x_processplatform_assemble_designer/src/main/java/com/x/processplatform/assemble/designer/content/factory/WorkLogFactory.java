@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.content.WorkLog;
-import com.x.processplatform.core.entity.content.WorkLog_;
+import com.x.processplatform.core.entity.content.WorkLogStatic;
 
 public class WorkLogFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class WorkLogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkLog> root = cq.from(WorkLog.class);
-		Predicate p = cb.equal(root.get(WorkLog_.application), id);
-		cq.select(root.get(WorkLog_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkLogStatic.application), id);
+		cq.select(root.get(WorkLogStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,9 +34,9 @@ public class WorkLogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkLog> root = cq.from(WorkLog.class);
-		Predicate p = cb.equal(root.get(WorkLog_.application), id);
-		p = cb.and(p, cb.equal(root.get(WorkLog_.completed), completed));
-		cq.select(root.get(WorkLog_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkLogStatic.application), id);
+		p = cb.and(p, cb.equal(root.get(WorkLogStatic.completed), completed));
+		cq.select(root.get(WorkLogStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -45,8 +45,8 @@ public class WorkLogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkLog> root = cq.from(WorkLog.class);
-		Predicate p = cb.equal(root.get(WorkLog_.process), id);
-		cq.select(root.get(WorkLog_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkLogStatic.process), id);
+		cq.select(root.get(WorkLogStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -55,9 +55,9 @@ public class WorkLogFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<WorkLog> root = cq.from(WorkLog.class);
-		Predicate p = cb.equal(root.get(WorkLog_.process), id);
-		p = cb.and(p, cb.equal(root.get(WorkLog_.completed), completed));
-		cq.select(root.get(WorkLog_.id)).where(p);
+		Predicate p = cb.equal(root.get(WorkLogStatic.process), id);
+		p = cb.and(p, cb.equal(root.get(WorkLogStatic.completed), completed));
+		cq.select(root.get(WorkLogStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

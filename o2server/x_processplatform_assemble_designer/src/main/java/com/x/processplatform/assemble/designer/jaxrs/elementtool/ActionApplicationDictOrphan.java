@@ -23,8 +23,8 @@ import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.ApplicationDict;
 import com.x.processplatform.core.entity.element.ApplicationDictItem;
-import com.x.processplatform.core.entity.element.ApplicationDictItem_;
-import com.x.processplatform.core.entity.element.ApplicationDict_;
+import com.x.processplatform.core.entity.element.ApplicationDictItemStatic;
+import com.x.processplatform.core.entity.element.ApplicationDictStatic;
 
 class ActionApplicationDictOrphan extends BaseAction {
 
@@ -49,8 +49,8 @@ class ActionApplicationDictOrphan extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ApplicationDict> root = cq.from(ApplicationDict.class);
-		Predicate p = cb.not(root.get(ApplicationDict_.application).in(applicationIds));
-		cq.select(root.get(ApplicationDict_.id)).where(p);
+		Predicate p = cb.not(root.get(ApplicationDictStatic.application).in(applicationIds));
+		cq.select(root.get(ApplicationDictStatic.id)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 
@@ -60,8 +60,8 @@ class ActionApplicationDictOrphan extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ApplicationDictItem> root = cq.from(ApplicationDictItem.class);
-		Predicate p = cb.not(root.get(ApplicationDictItem_.bundle).in(applicationDictIds));
-		cq.select(root.get(ApplicationDictItem_.id)).where(p);
+		Predicate p = cb.not(root.get(ApplicationDictItemStatic.bundle).in(applicationDictIds));
+		cq.select(root.get(ApplicationDictItemStatic.id)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 

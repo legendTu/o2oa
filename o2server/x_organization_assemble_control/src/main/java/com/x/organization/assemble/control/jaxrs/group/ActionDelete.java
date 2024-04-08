@@ -20,7 +20,7 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.assemble.control.message.OrgMessageFactory;
 import com.x.organization.core.entity.Group;
-import com.x.organization.core.entity.Group_;
+import com.x.organization.core.entity.GroupStatic;
 import com.x.organization.core.entity.Role;
 import com.x.organization.core.entity.RoleStatic;
 
@@ -66,7 +66,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Group> cq = cb.createQuery(Group.class);
 		Root<Group> root = cq.from(Group.class);
-		Predicate p = cb.isMember(group.getId(), root.get(Group_.groupList));
+		Predicate p = cb.isMember(group.getId(), root.get(GroupStatic.groupList));
 		List<Group> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		for (Group o : os) {
 			o.getGroupList().remove(group.getId());

@@ -22,7 +22,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.UnitDuty;
-import com.x.organization.core.entity.UnitDuty_;
+import com.x.organization.core.entity.UnitDutyStatic;
 
 class ActionListWithUnitDuty extends BaseAction {
 
@@ -82,9 +82,9 @@ class ActionListWithUnitDuty extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<String> cq = cb.createQuery(String.class);
 			Root<UnitDuty> root = cq.from(UnitDuty.class);
-			Predicate p = cb.isMember(identity.getId(), root.get(UnitDuty_.identityList));
-			p = cb.and(p, cb.equal(root.get(UnitDuty_.name), wi.getName()));
-			List<String> unitIds = em.createQuery(cq.select(root.get(UnitDuty_.unit)).where(p))
+			Predicate p = cb.isMember(identity.getId(), root.get(UnitDutyStatic.identityList));
+			p = cb.and(p, cb.equal(root.get(UnitDutyStatic.name), wi.getName()));
+			List<String> unitIds = em.createQuery(cq.select(root.get(UnitDutyStatic.unit)).where(p))
 					.getResultList().stream().distinct().collect(Collectors.toList());
 			List<String> list = business.unit().listUnitDistinguishedNameSorted(unitIds);
 			wo.getUnitList().addAll(list);

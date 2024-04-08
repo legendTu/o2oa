@@ -14,7 +14,7 @@ import com.x.base.core.project.tools.DateTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.program.center.Business;
 import com.x.program.center.core.entity.InstallLog;
-import com.x.program.center.core.entity.InstallLog_;
+import com.x.program.center.core.entity.InstallLogStatic;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -51,23 +51,23 @@ class ActionInstallLogListPaging extends BaseAction {
 		if(StringUtils.isNotEmpty(wi.getName())){
 			String key = StringTools.escapeSqlLikeKey(wi.getName());
 			if (StringUtils.isNotEmpty(key)) {
-				p = cb.and(p,cb.like(root.get(InstallLog_.name), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR));
+				p = cb.and(p,cb.like(root.get(InstallLogStatic.name), "%" + key + "%", StringTools.SQL_ESCAPE_CHAR));
 			}
 		}
 
 		if(StringUtils.isNotEmpty(wi.getStatus())){
-			p = cb.and(p, cb.equal(root.get(InstallLog_.status), wi.getStatus()));
+			p = cb.and(p, cb.equal(root.get(InstallLogStatic.status), wi.getStatus()));
 		}
 
 		if(StringUtils.isNotEmpty(wi.getCategory())){
-			p = cb.and(p, cb.equal(root.get(InstallLog_.category), wi.getCategory()));
+			p = cb.and(p, cb.equal(root.get(InstallLogStatic.category), wi.getCategory()));
 		}
 
 		if (DateTools.isDateTimeOrDate(wi.getStartTime())) {
-			p = cb.and(p, cb.greaterThan(root.get(InstallLog_.createTime), DateTools.parse(wi.getStartTime())));
+			p = cb.and(p, cb.greaterThan(root.get(InstallLogStatic.createTime), DateTools.parse(wi.getStartTime())));
 		}
 		if (DateTools.isDateTimeOrDate(wi.getEndTime())) {
-			p = cb.and(p, cb.lessThan(root.get(InstallLog_.createTime), DateTools.parse(wi.getEndTime())));
+			p = cb.and(p, cb.lessThan(root.get(InstallLogStatic.createTime), DateTools.parse(wi.getEndTime())));
 		}
 		return p;
 	}

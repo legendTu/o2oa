@@ -16,7 +16,7 @@ import com.x.organization.assemble.personal.Business;
 import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.accredit.Empower;
-import com.x.organization.core.entity.accredit.Empower_;
+import com.x.organization.core.entity.accredit.EmpowerStatic;
 
 
 abstract class BaseAction extends StandardJaxrsAction {
@@ -60,9 +60,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Empower> root = cq.from(Empower.class);
-		Predicate p = cb.equal(root.get(Empower_.fromIdentity), empower.getFromIdentity());
-		p = cb.and(p, cb.equal(root.get(Empower_.type), Empower.TYPE_ALL));
-		p = cb.and(p, cb.notEqual(root.get(Empower_.id), empower.getId()));
+		Predicate p = cb.equal(root.get(EmpowerStatic.fromIdentity), empower.getFromIdentity());
+		p = cb.and(p, cb.equal(root.get(EmpowerStatic.type), Empower.TYPE_ALL));
+		p = cb.and(p, cb.notEqual(root.get(EmpowerStatic.id), empower.getId()));
 		Long count = em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();
 		if (count > 0) {
 			return true;
@@ -79,10 +79,10 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Empower> root = cq.from(Empower.class);
-		Predicate p = cb.equal(root.get(Empower_.fromIdentity), empower.getFromIdentity());
-		p = cb.and(p, cb.equal(root.get(Empower_.type), Empower.TYPE_APPLICATION));
-		p = cb.and(p, cb.equal(root.get(Empower_.application), empower.getApplication()));
-		p = cb.and(p, cb.notEqual(root.get(Empower_.id), empower.getId()));
+		Predicate p = cb.equal(root.get(EmpowerStatic.fromIdentity), empower.getFromIdentity());
+		p = cb.and(p, cb.equal(root.get(EmpowerStatic.type), Empower.TYPE_APPLICATION));
+		p = cb.and(p, cb.equal(root.get(EmpowerStatic.application), empower.getApplication()));
+		p = cb.and(p, cb.notEqual(root.get(EmpowerStatic.id), empower.getId()));
 		Long count = em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();
 		if (count > 0) {
 			return true;
@@ -96,10 +96,10 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<Empower> root = cq.from(Empower.class);
-		Predicate p = cb.equal(root.get(Empower_.fromIdentity), empower.getFromIdentity());
-		p = cb.and(p, cb.equal(root.get(Empower_.type), Empower.TYPE_PROCESS));
-		p = cb.and(p, cb.equal(root.get(Empower_.process), empower.getProcess()));
-		p = cb.and(p, cb.notEqual(root.get(Empower_.id), empower.getId()));
+		Predicate p = cb.equal(root.get(EmpowerStatic.fromIdentity), empower.getFromIdentity());
+		p = cb.and(p, cb.equal(root.get(EmpowerStatic.type), Empower.TYPE_PROCESS));
+		p = cb.and(p, cb.equal(root.get(EmpowerStatic.process), empower.getProcess()));
+		p = cb.and(p, cb.notEqual(root.get(EmpowerStatic.id), empower.getId()));
 		Long count = em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult();
 		if (count > 0) {
 			return true;

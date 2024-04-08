@@ -12,7 +12,7 @@ import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitDuty;
-import com.x.organization.core.entity.UnitDuty_;
+import com.x.organization.core.entity.UnitDutyStatic;
 
 abstract class BaseAction extends StandardJaxrsAction {
 
@@ -33,9 +33,9 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<UnitDuty> root = cq.from(UnitDuty.class);
-		Predicate p = cb.equal(root.get(UnitDuty_.name), name);
-		p = cb.and(p, cb.equal(root.get(UnitDuty_.unit), unit.getId()));
-		p = cb.and(p, cb.notEqual(root.get(UnitDuty_.id), exclude.getId()));
+		Predicate p = cb.equal(root.get(UnitDutyStatic.name), name);
+		p = cb.and(p, cb.equal(root.get(UnitDutyStatic.unit), unit.getId()));
+		p = cb.and(p, cb.notEqual(root.get(UnitDutyStatic.id), exclude.getId()));
 		return em.createQuery(cq.select(cb.count(root)).where(p)).getSingleResult() > 0;
 	}
 }

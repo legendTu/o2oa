@@ -24,7 +24,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitAttribute;
-import com.x.organization.core.entity.UnitAttribute_;
+import com.x.organization.core.entity.UnitAttributeStatic;
 
 class ActionListWithUnitObject extends BaseAction {
 
@@ -75,7 +75,7 @@ class ActionListWithUnitObject extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<UnitAttribute> cq = cb.createQuery(UnitAttribute.class);
 			Root<UnitAttribute> root = cq.from(UnitAttribute.class);
-			Predicate p = root.get(UnitAttribute_.unit).in(ids);
+			Predicate p = root.get(UnitAttributeStatic.unit).in(ids);
 			List<UnitAttribute> list = em.createQuery(cq.select(root).where(p)).getResultList();
 			list = business.unitAttribute().sort(list);
 			for (UnitAttribute o : list) {

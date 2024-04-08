@@ -17,7 +17,7 @@ import com.x.query.assemble.designer.AbstractFactory;
 import com.x.query.assemble.designer.Business;
 import com.x.query.core.entity.Query;
 import com.x.query.core.entity.View;
-import com.x.query.core.entity.View_;
+import com.x.query.core.entity.ViewStatic;
 
 public class ViewFactory extends AbstractFactory {
 
@@ -41,8 +41,8 @@ public class ViewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<View> root = cq.from(View.class);
-		Predicate p = cb.equal(root.get(View_.query), queryId);
-		cq.select(root.get(View_.id)).where(p);
+		Predicate p = cb.equal(root.get(ViewStatic.query), queryId);
+		cq.select(root.get(ViewStatic.id)).where(p);
 		List<String> os = em.createQuery(cq).getResultList();
 		return os;
 	}
@@ -52,7 +52,7 @@ public class ViewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<View> cq = cb.createQuery(View.class);
 		Root<View> root = cq.from(View.class);
-		Predicate p = cb.equal(root.get(View_.query), queryId);
+		Predicate p = cb.equal(root.get(ViewStatic.query), queryId);
 		cq.select(root).where(p);
 		List<View> os = em.createQuery(cq).getResultList();
 		return os;
@@ -66,9 +66,9 @@ public class ViewFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<View> cq = cb.createQuery(View.class);
 		Root<View> root = cq.from(View.class);
-		Predicate p = cb.equal(root.get(View_.query), query.getId());
-		p = cb.and(p, cb.or(cb.equal(root.get(View_.name), flag), cb.equal(root.get(View_.id), flag),
-				cb.equal(root.get(View_.alias), flag)));
+		Predicate p = cb.equal(root.get(ViewStatic.query), query.getId());
+		p = cb.and(p, cb.or(cb.equal(root.get(ViewStatic.name), flag), cb.equal(root.get(ViewStatic.id), flag),
+				cb.equal(root.get(ViewStatic.alias), flag)));
 		List<View> os = em.createQuery(cq.select(root).where(p)).setMaxResults(1).getResultList();
 		if (os.isEmpty()) {
 			return null;

@@ -21,7 +21,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.portal.assemble.designer.Business;
 import com.x.portal.core.entity.Portal;
-import com.x.portal.core.entity.Portal_;
+import com.x.portal.core.entity.PortalStatic;
 
 class ActionList extends BaseAction {
 
@@ -52,7 +52,7 @@ class ActionList extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Portal> root = cq.from(Portal.class);
-		return em.createQuery(cq.select(root.get(Portal_.portalCategory))).getResultList();
+		return em.createQuery(cq.select(root.get(PortalStatic.portalCategory))).getResultList();
 	}
 
 	public class Wo extends GsonPropertyObject {

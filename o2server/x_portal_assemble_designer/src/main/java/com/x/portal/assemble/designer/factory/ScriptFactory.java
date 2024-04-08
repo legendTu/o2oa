@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.portal.assemble.designer.AbstractFactory;
 import com.x.portal.assemble.designer.Business;
 import com.x.portal.core.entity.Script;
-import com.x.portal.core.entity.Script_;
+import com.x.portal.core.entity.ScriptStatic;
 
 public class ScriptFactory extends AbstractFactory {
 
@@ -24,9 +24,9 @@ public class ScriptFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.equal(root.get(Script_.id), id);
-		p = cb.and(p, cb.equal(root.get(Script_.portal), portalId));
-		List<String> list = em.createQuery(cq.select(root.get(Script_.id)).where(p)).setMaxResults(1).getResultList();
+		Predicate p = cb.equal(root.get(ScriptStatic.id), id);
+		p = cb.and(p, cb.equal(root.get(ScriptStatic.portal), portalId));
+		List<String> list = em.createQuery(cq.select(root.get(ScriptStatic.id)).where(p)).setMaxResults(1).getResultList();
 		if (list.isEmpty()) {
 			return null;
 		} else {
@@ -39,9 +39,9 @@ public class ScriptFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.equal(root.get(Script_.name), name);
-		p = cb.and(p, cb.equal(root.get(Script_.portal), portalId));
-		List<String> list = em.createQuery(cq.select(root.get(Script_.id)).where(p)).setMaxResults(1).getResultList();
+		Predicate p = cb.equal(root.get(ScriptStatic.name), name);
+		p = cb.and(p, cb.equal(root.get(ScriptStatic.portal), portalId));
+		List<String> list = em.createQuery(cq.select(root.get(ScriptStatic.id)).where(p)).setMaxResults(1).getResultList();
 		if (list.isEmpty()) {
 			return null;
 		} else {
@@ -54,9 +54,9 @@ public class ScriptFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.equal(root.get(Script_.alias), alias);
-		p = cb.and(p, cb.equal(root.get(Script_.portal), portalId));
-		List<String> list = em.createQuery(cq.select(root.get(Script_.id)).where(p)).setMaxResults(1).getResultList();
+		Predicate p = cb.equal(root.get(ScriptStatic.alias), alias);
+		p = cb.and(p, cb.equal(root.get(ScriptStatic.portal), portalId));
+		List<String> list = em.createQuery(cq.select(root.get(ScriptStatic.id)).where(p)).setMaxResults(1).getResultList();
 		if (list.isEmpty()) {
 			return null;
 		} else {
@@ -69,8 +69,8 @@ public class ScriptFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.equal(root.get(Script_.portal), portalId);
-		List<String> list = em.createQuery(cq.select(root.get(Script_.id)).where(p)).getResultList();
+		Predicate p = cb.equal(root.get(ScriptStatic.portal), portalId);
+		List<String> list = em.createQuery(cq.select(root.get(ScriptStatic.id)).where(p)).getResultList();
 		return list;
 	}
 
@@ -79,7 +79,7 @@ public class ScriptFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Script> cq = cb.createQuery(Script.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.equal(root.get(Script_.portal), portalId);
+		Predicate p = cb.equal(root.get(ScriptStatic.portal), portalId);
 		List<Script> list = em.createQuery(cq.select(root).where(p)).getResultList();
 		return list;
 	}

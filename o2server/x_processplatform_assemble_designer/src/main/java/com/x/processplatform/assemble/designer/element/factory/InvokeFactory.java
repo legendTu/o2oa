@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Invoke;
-import com.x.processplatform.core.entity.element.Invoke_;
+import com.x.processplatform.core.entity.element.InvokeStatic;
 
 public class InvokeFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class InvokeFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Invoke> root = cq.from(Invoke.class);
-		Predicate p = cb.equal(root.get(Invoke_.process), processId);
-		cq.select(root.get(Invoke_.id)).where(p);
+		Predicate p = cb.equal(root.get(InvokeStatic.process), processId);
+		cq.select(root.get(InvokeStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,7 +34,7 @@ public class InvokeFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Invoke> cq = cb.createQuery(Invoke.class);
 		Root<Invoke> root = cq.from(Invoke.class);
-		Predicate p = cb.equal(root.get(Invoke_.process), processId);
+		Predicate p = cb.equal(root.get(InvokeStatic.process), processId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -45,8 +45,8 @@ public class InvokeFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Invoke> root = cq.from(Invoke.class);
-		Predicate p = cb.equal(root.get(Invoke_.form), formId);
-		cq.select(root.get(Invoke_.id)).where(p);
+		Predicate p = cb.equal(root.get(InvokeStatic.form), formId);
+		cq.select(root.get(InvokeStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

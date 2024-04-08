@@ -24,7 +24,7 @@ import com.x.base.core.project.logger.LoggerFactory;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitAttribute;
-import com.x.organization.core.entity.UnitAttribute_;
+import com.x.organization.core.entity.UnitAttributeStatic;
 
 class ActionListAttributeWithUnitWithName extends BaseAction {
 
@@ -95,8 +95,8 @@ class ActionListAttributeWithUnitWithName extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<UnitAttribute> cq = cb.createQuery(UnitAttribute.class);
 			Root<UnitAttribute> root = cq.from(UnitAttribute.class);
-			Predicate p = cb.equal(root.get(UnitAttribute_.unit), unit.getId());
-			p = cb.and(p, cb.equal(root.get(UnitAttribute_.name), wi.getName()));
+			Predicate p = cb.equal(root.get(UnitAttributeStatic.unit), unit.getId());
+			p = cb.and(p, cb.equal(root.get(UnitAttributeStatic.name), wi.getName()));
 			List<UnitAttribute> os = em.createQuery(cq.select(root).where(p)).getResultList();
 			if (!os.isEmpty()) {
 				wo.getAttributeList().addAll(os.get(0).getAttributeList());

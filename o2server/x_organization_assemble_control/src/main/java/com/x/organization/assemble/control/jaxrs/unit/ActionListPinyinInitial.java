@@ -27,7 +27,7 @@ import com.x.base.core.project.tools.StringTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.Unit;
-import com.x.organization.core.entity.Unit_;
+import com.x.organization.core.entity.UnitStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 
@@ -144,12 +144,12 @@ class ActionListPinyinInitial extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.like(root.get(Unit_.pinyinInitial), str + "%", StringTools.SQL_ESCAPE_CHAR);
+		Predicate p = cb.like(root.get(UnitStatic.pinyinInitial), str + "%", StringTools.SQL_ESCAPE_CHAR);
 		if (ListTools.isNotEmpty(unitIds)) {
-			p = cb.and(p, root.get(Unit_.id).in(unitIds));
+			p = cb.and(p, root.get(UnitStatic.id).in(unitIds));
 		}
 		if (StringUtils.isNotEmpty(wi.getType())) {
-			p = cb.and(p, cb.isMember(wi.getType(), root.get(Unit_.typeList)));
+			p = cb.and(p, cb.isMember(wi.getType(), root.get(UnitStatic.typeList)));
 		}
 		List<Unit> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		wos = Wo.copier.copy(os);

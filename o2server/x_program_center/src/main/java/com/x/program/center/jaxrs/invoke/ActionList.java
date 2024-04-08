@@ -19,7 +19,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.ListTools;
 import com.x.program.center.Business;
 import com.x.program.center.core.entity.Invoke;
-import com.x.program.center.core.entity.Invoke_;
+import com.x.program.center.core.entity.InvokeStatic;
 
 class ActionList extends BaseAction {
 
@@ -36,7 +36,7 @@ class ActionList extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Invoke> cq = cb.createQuery(Invoke.class);
 			Root<Invoke> root = cq.from(Invoke.class);
-			List<Invoke> os = em.createQuery(cq.select(root).orderBy(cb.asc(root.get(Invoke_.name)))).getResultList();
+			List<Invoke> os = em.createQuery(cq.select(root).orderBy(cb.asc(root.get(InvokeStatic.name)))).getResultList();
 			wos = Wo.copier.copy(os);
 			result.setData(wos);
 			return result;

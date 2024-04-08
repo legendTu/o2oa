@@ -21,7 +21,7 @@ import com.x.base.core.project.jaxrs.WrapStringList;
 import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Unit;
-import com.x.organization.core.entity.Unit_;
+import com.x.organization.core.entity.UnitStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 
@@ -53,7 +53,7 @@ class ActionListType extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = cb.isNotEmpty(root.get(Unit_.typeList));
+		Predicate p = cb.isNotEmpty(root.get(UnitStatic.typeList));
 		List<Unit> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		List<String> list = new ArrayList<>();
 		for (Unit o : os) {

@@ -14,7 +14,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.portal.assemble.surface.AbstractFactory;
 import com.x.portal.assemble.surface.Business;
 import com.x.portal.core.entity.Portal;
-import com.x.portal.core.entity.Portal_;
+import com.x.portal.core.entity.PortalStatic;
 import com.x.base.core.project.cache.Cache.CacheCategory;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
@@ -41,14 +41,14 @@ public class PortalFactory extends AbstractFactory {
 					.listWithPerson(effectivePerson.getDistinguishedName());
 			List<String> units = this.business().organization().unit()
 					.listWithPersonSupNested(effectivePerson.getDistinguishedName());
-			p = cb.equal(root.get(Portal_.creatorPerson), effectivePerson.getDistinguishedName());
-			p = cb.or(p, cb.isMember(effectivePerson.getDistinguishedName(), root.get(Portal_.controllerList)));
-			p = cb.or(cb.and(cb.isEmpty(root.get(Portal_.availableIdentityList)),
-					cb.isEmpty(root.get(Portal_.availableUnitList))));
-			p = cb.or(p, root.get(Portal_.availableIdentityList).in(identities));
-			p = cb.or(p, root.get(Portal_.availableUnitList).in(units));
+			p = cb.equal(root.get(PortalStatic.creatorPerson), effectivePerson.getDistinguishedName());
+			p = cb.or(p, cb.isMember(effectivePerson.getDistinguishedName(), root.get(PortalStatic.controllerList)));
+			p = cb.or(cb.and(cb.isEmpty(root.get(PortalStatic.availableIdentityList)),
+					cb.isEmpty(root.get(PortalStatic.availableUnitList))));
+			p = cb.or(p, root.get(PortalStatic.availableIdentityList).in(identities));
+			p = cb.or(p, root.get(PortalStatic.availableUnitList).in(units));
 		}
-		cq.select(root.get(Portal_.id)).where(p);
+		cq.select(root.get(PortalStatic.id)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 

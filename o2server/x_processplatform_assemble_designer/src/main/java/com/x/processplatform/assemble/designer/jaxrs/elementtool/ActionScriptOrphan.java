@@ -22,7 +22,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Script;
-import com.x.processplatform.core.entity.element.Script_;
+import com.x.processplatform.core.entity.element.ScriptStatic;
 
 class ActionScriptOrphan extends BaseAction {
 
@@ -43,8 +43,8 @@ class ActionScriptOrphan extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.not(root.get(Script_.application).in(applicationIds));
-		cq.select(root.get(Script_.id)).where(p);
+		Predicate p = cb.not(root.get(ScriptStatic.application).in(applicationIds));
+		cq.select(root.get(ScriptStatic.id)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 

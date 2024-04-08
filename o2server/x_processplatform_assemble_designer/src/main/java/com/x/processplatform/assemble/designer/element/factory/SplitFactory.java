@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Split;
-import com.x.processplatform.core.entity.element.Split_;
+import com.x.processplatform.core.entity.element.SplitStatic;
 
 public class SplitFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class SplitFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Split> root = cq.from(Split.class);
-		Predicate p = cb.equal(root.get(Split_.process), processId);
-		cq.select(root.get(Split_.id)).where(p);
+		Predicate p = cb.equal(root.get(SplitStatic.process), processId);
+		cq.select(root.get(SplitStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,7 +34,7 @@ public class SplitFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Split> cq = cb.createQuery(Split.class);
 		Root<Split> root = cq.from(Split.class);
-		Predicate p = cb.equal(root.get(Split_.process), processId);
+		Predicate p = cb.equal(root.get(SplitStatic.process), processId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -45,8 +45,8 @@ public class SplitFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Split> root = cq.from(Split.class);
-		Predicate p = cb.equal(root.get(Split_.form), formId);
-		cq.select(root.get(Split_.id)).where(p);
+		Predicate p = cb.equal(root.get(SplitStatic.form), formId);
+		cq.select(root.get(SplitStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

@@ -18,7 +18,7 @@ import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import com.x.base.core.project.queue.AbstractQueue;
 import com.x.processplatform.core.entity.element.ProcessVersion;
-import com.x.processplatform.core.entity.element.ProcessVersion_;
+import com.x.processplatform.core.entity.element.ProcessVersionStatic;
 
 public class ProcessVersionQueue extends AbstractQueue<ProcessVersion> {
 
@@ -43,8 +43,8 @@ public class ProcessVersionQueue extends AbstractQueue<ProcessVersion> {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<ProcessVersion> cq = cb.createQuery(ProcessVersion.class);
 		Root<ProcessVersion> root = cq.from(ProcessVersion.class);
-		Predicate p = cb.equal(root.get(ProcessVersion_.process), processVersion.getProcess());
-		p = cb.and(p, cb.not(root.get(ProcessVersion_.id).in(keepIds)));
+		Predicate p = cb.equal(root.get(ProcessVersionStatic.process), processVersion.getProcess());
+		p = cb.and(p, cb.not(root.get(ProcessVersionStatic.id).in(keepIds)));
 		cq.select(root).where(p);
 		List<ProcessVersion> os = em.createQuery(cq).getResultList();
 		business.entityManagerContainer().beginTransaction(ProcessVersion.class);
@@ -60,8 +60,8 @@ public class ProcessVersionQueue extends AbstractQueue<ProcessVersion> {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<ProcessVersion> root = cq.from(ProcessVersion.class);
-		Predicate p = cb.equal(root.get(ProcessVersion_.process), processVersion.getProcess());
-		cq.select(root.get(ProcessVersion_.id)).where(p).orderBy(cb.desc(root.get(ProcessVersion_.createTime)));
+		Predicate p = cb.equal(root.get(ProcessVersionStatic.process), processVersion.getProcess());
+		cq.select(root.get(ProcessVersionStatic.id)).where(p).orderBy(cb.desc(root.get(ProcessVersionStatic.createTime)));
 		Query query = em.createQuery(cq);
 		if (count > 1) {
 			query.setMaxResults(count - 1);

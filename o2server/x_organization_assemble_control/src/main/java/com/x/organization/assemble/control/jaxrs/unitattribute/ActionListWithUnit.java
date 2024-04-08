@@ -19,7 +19,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitAttribute;
-import com.x.organization.core.entity.UnitAttribute_;
+import com.x.organization.core.entity.UnitAttributeStatic;
 import com.x.base.core.project.cache.Cache.CacheKey;
 import com.x.base.core.project.cache.CacheManager;
 
@@ -63,7 +63,7 @@ class ActionListWithUnit extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<UnitAttribute> cq = cb.createQuery(UnitAttribute.class);
 		Root<UnitAttribute> root = cq.from(UnitAttribute.class);
-		Predicate p = cb.equal(root.get(UnitAttribute_.unit), unit.getId());
+		Predicate p = cb.equal(root.get(UnitAttributeStatic.unit), unit.getId());
 		return em.createQuery(cq.select(root).where(p)).getResultList();
 	}
 

@@ -25,14 +25,14 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.control.Business;
 import com.x.organization.assemble.control.message.OrgMessageFactory;
 import com.x.organization.core.entity.Group;
-import com.x.organization.core.entity.Group_;
+import com.x.organization.core.entity.GroupStatic;
 import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitAttribute;
-import com.x.organization.core.entity.UnitAttribute_;
+import com.x.organization.core.entity.UnitAttributeStatic;
 import com.x.organization.core.entity.UnitDuty;
-import com.x.organization.core.entity.UnitDuty_;
+import com.x.organization.core.entity.UnitDutyStatic;
 
 class ActionDelete extends BaseAction {
 	private static Logger logger = LoggerFactory.getLogger(ActionDelete.class);
@@ -120,7 +120,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<UnitAttribute> cq = cb.createQuery(UnitAttribute.class);
 		Root<UnitAttribute> root = cq.from(UnitAttribute.class);
-		Predicate p = cb.equal(root.get(UnitAttribute_.unit), unit.getId());
+		Predicate p = cb.equal(root.get(UnitAttributeStatic.unit), unit.getId());
 		List<UnitAttribute> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		for (UnitAttribute o : os) {
 			business.entityManagerContainer().remove(o, CheckRemoveType.all);
@@ -132,7 +132,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<UnitDuty> cq = cb.createQuery(UnitDuty.class);
 		Root<UnitDuty> root = cq.from(UnitDuty.class);
-		Predicate p = cb.equal(root.get(UnitDuty_.unit), unit.getId());
+		Predicate p = cb.equal(root.get(UnitDutyStatic.unit), unit.getId());
 		List<UnitDuty> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		for (UnitDuty o : os) {
 			business.entityManagerContainer().remove(o, CheckRemoveType.all);
@@ -154,7 +154,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<UnitDuty> cq = cb.createQuery(UnitDuty.class);
 		Root<UnitDuty> root = cq.from(UnitDuty.class);
-		Predicate p = root.get(UnitDuty_.identityList).in(identityIds);
+		Predicate p = root.get(UnitDutyStatic.identityList).in(identityIds);
 		List<UnitDuty> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		for (UnitDuty o : os) {
 			o.getIdentityList().removeAll(identityIds);
@@ -166,7 +166,7 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Group> cq = cb.createQuery(Group.class);
 		Root<Group> root = cq.from(Group.class);
-		Predicate p = cb.isMember(unit.getId(), root.get(Group_.unitList));
+		Predicate p = cb.isMember(unit.getId(), root.get(GroupStatic.unitList));
 		List<Group> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		for (Group o : os) {
 			o.getUnitList().remove(unit.getId());

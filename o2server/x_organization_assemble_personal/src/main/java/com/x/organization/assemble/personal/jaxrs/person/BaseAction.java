@@ -24,7 +24,7 @@ import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.Unit;
-import com.x.organization.core.entity.Unit_;
+import com.x.organization.core.entity.UnitStatic;
 
 abstract class BaseAction extends StandardJaxrsAction {
 
@@ -85,7 +85,7 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Unit> cq = cb.createQuery(Unit.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = root.get(Unit_.id).in(ids);
+		Predicate p = root.get(UnitStatic.id).in(ids);
 		List<Unit> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		return os;
 	}

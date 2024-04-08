@@ -20,7 +20,7 @@ import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.base.core.project.tools.StringTools;
 import com.x.portal.assemble.designer.Business;
 import com.x.portal.core.entity.Portal;
-import com.x.portal.core.entity.Portal_;
+import com.x.portal.core.entity.PortalStatic;
 
 import net.sf.ehcache.Ehcache;
 
@@ -52,7 +52,7 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Portal> cq = cb.createQuery(Portal.class);
 		Root<Portal> root = cq.from(Portal.class);
-		Predicate p = cb.equal(root.get(Portal_.alias), alias);
+		Predicate p = cb.equal(root.get(PortalStatic.alias), alias);
 		List<Portal> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		if (os.size() == 1) {
 			return os.get(0);
@@ -69,7 +69,7 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Portal> cq = cb.createQuery(Portal.class);
 		Root<Portal> root = cq.from(Portal.class);
-		Predicate p = cb.equal(root.get(Portal_.name), name);
+		Predicate p = cb.equal(root.get(PortalStatic.name), name);
 		List<Portal> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		if (os.size() == 1) {
 			return os.get(0);
@@ -184,11 +184,11 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Portal> root = cq.from(Portal.class);
-		Predicate p = root.get(Portal_.name).in(list);
+		Predicate p = root.get(PortalStatic.name).in(list);
 		if (StringUtils.isNotEmpty(excludeId)) {
 			p = cb.and(p, cb.notEqual(root.get(JpaObject.id_FIELDNAME), excludeId));
 		}
-		cq.select(root.get(Portal_.name)).where(p);
+		cq.select(root.get(PortalStatic.name)).where(p);
 		List<String> os = em.createQuery(cq).getResultList();
 		list = ListUtils.subtract(list, os);
 		return list.get(0);
@@ -209,11 +209,11 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Portal> root = cq.from(Portal.class);
-		Predicate p = root.get(Portal_.alias).in(list);
+		Predicate p = root.get(PortalStatic.alias).in(list);
 		if (StringUtils.isNotEmpty(excludeId)) {
 			p = cb.and(p, cb.notEqual(root.get(JpaObject.id_FIELDNAME), excludeId));
 		}
-		cq.select(root.get(Portal_.alias)).where(p);
+		cq.select(root.get(PortalStatic.alias)).where(p);
 		List<String> os = em.createQuery(cq).getResultList();
 		list = ListUtils.subtract(list, os);
 		return list.get(0);

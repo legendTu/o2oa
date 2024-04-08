@@ -34,7 +34,7 @@ import com.x.processplatform.core.entity.element.Merge;
 import com.x.processplatform.core.entity.element.Message;
 import com.x.processplatform.core.entity.element.Parallel;
 import com.x.processplatform.core.entity.element.Process;
-import com.x.processplatform.core.entity.element.Process_;
+import com.x.processplatform.core.entity.element.ProcessStatic;
 import com.x.processplatform.core.entity.element.Service;
 import com.x.processplatform.core.entity.element.Split;
 
@@ -68,7 +68,7 @@ public class TimerApplicationStubs {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Process> cq = cb.createQuery(Process.class);
 		Root<Process> root = cq.from(Process.class);
-		Predicate p = cb.equal(root.get(Process_.application), applicationId);
+		Predicate p = cb.equal(root.get(ProcessStatic.application), applicationId);
 		cq.select(root).where(p);
 		List<Process> os = em.createQuery(cq).getResultList();
 		List<ProcessStub> list = new ArrayList<>();

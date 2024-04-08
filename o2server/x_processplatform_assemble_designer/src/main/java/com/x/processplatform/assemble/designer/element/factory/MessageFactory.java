@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.processplatform.assemble.designer.AbstractFactory;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Message;
-import com.x.processplatform.core.entity.element.Message_;
+import com.x.processplatform.core.entity.element.MessageStatic;
 
 public class MessageFactory extends AbstractFactory {
 
@@ -24,8 +24,8 @@ public class MessageFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Message> root = cq.from(Message.class);
-		Predicate p = cb.equal(root.get(Message_.process), processId);
-		cq.select(root.get(Message_.id)).where(p);
+		Predicate p = cb.equal(root.get(MessageStatic.process), processId);
+		cq.select(root.get(MessageStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -34,7 +34,7 @@ public class MessageFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Message> cq = cb.createQuery(Message.class);
 		Root<Message> root = cq.from(Message.class);
-		Predicate p = cb.equal(root.get(Message_.process), processId);
+		Predicate p = cb.equal(root.get(MessageStatic.process), processId);
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();
 	}
@@ -45,8 +45,8 @@ public class MessageFactory extends AbstractFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Message> root = cq.from(Message.class);
-		Predicate p = cb.equal(root.get(Message_.form), formId);
-		cq.select(root.get(Message_.id)).where(p);
+		Predicate p = cb.equal(root.get(MessageStatic.form), formId);
+		cq.select(root.get(MessageStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }

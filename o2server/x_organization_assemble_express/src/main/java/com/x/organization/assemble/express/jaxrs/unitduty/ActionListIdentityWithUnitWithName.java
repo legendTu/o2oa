@@ -10,7 +10,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import com.x.base.core.entity.JpaObject;
 import com.x.base.core.project.logger.Logger;
 import com.x.base.core.project.logger.LoggerFactory;
 import org.apache.commons.lang3.BooleanUtils;
@@ -29,7 +28,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Unit;
 import com.x.organization.core.entity.UnitDuty;
-import com.x.organization.core.entity.UnitDuty_;
+import com.x.organization.core.entity.UnitDutyStatic;
 
 class ActionListIdentityWithUnitWithName extends BaseAction {
 	private static Logger logger = LoggerFactory.getLogger(ActionListIdentityWithUnitWithName.class);
@@ -151,7 +150,7 @@ class ActionListIdentityWithUnitWithName extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<UnitDuty> cq = cb.createQuery(UnitDuty.class);
 			Root<UnitDuty> root = cq.from(UnitDuty.class);
-			Predicate p = root.get(UnitDuty_.name).in(names);
+			Predicate p = root.get(UnitDutyStatic.name).in(names);
 			os = em.createQuery(cq.select(root).where(p)).getResultList();
 		} else {
 			List<Unit> unitList = business.unit().pick(units);
@@ -168,8 +167,8 @@ class ActionListIdentityWithUnitWithName extends BaseAction {
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<UnitDuty> cq = cb.createQuery(UnitDuty.class);
 				Root<UnitDuty> root = cq.from(UnitDuty.class);
-				Predicate p = root.get(UnitDuty_.name).in(names);
-				p = cb.and(p, root.get(UnitDuty_.unit).in(units));
+				Predicate p = root.get(UnitDutyStatic.name).in(names);
+				p = cb.and(p, root.get(UnitDutyStatic.unit).in(units));
 				os = em.createQuery(cq.select(root).where(p)).getResultList();
 			}
 		}

@@ -115,7 +115,7 @@ class ActionListObject extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<UnitDuty> cq = cb.createQuery(UnitDuty.class);
 		Root<UnitDuty> root = cq.from(UnitDuty.class);
-		Predicate p = cb.isMember(woIdentity.getId(), root.get(UnitDuty_.identityList));
+		Predicate p = cb.isMember(woIdentity.getId(), root.get(UnitDutyStatic.identityList));
 		List<UnitDuty> os = em.createQuery(cq.select(root).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 		List<WoUnitDuty> wos = WoUnitDuty.copier.copy(os);
 		wos = business.unitDuty().sort(wos);
@@ -140,9 +140,9 @@ class ActionListObject extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Group> cq = cb.createQuery(Group.class);
 		Root<Group> root = cq.from(Group.class);
-		Predicate p = cb.isMember(wo.getId(), root.get(Group_.identityList));
+		Predicate p = cb.isMember(wo.getId(), root.get(GroupStatic.identityList));
 		if(wo.getWoUnit()!=null){
-			p = cb.or(p, root.get(Group_.unitList).in(wo.getWoUnit().getUnitIdList()));
+			p = cb.or(p, root.get(GroupStatic.unitList).in(wo.getWoUnit().getUnitIdList()));
 		}
 		List<Group> os = em.createQuery(cq.select(root).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 		final List<WoGroup> wos = new ArrayList<>();

@@ -22,7 +22,7 @@ import com.x.organization.assemble.express.factory.UnitAttributeFactory;
 import com.x.organization.assemble.express.factory.UnitDutyFactory;
 import com.x.organization.assemble.express.factory.UnitFactory;
 import com.x.organization.core.entity.Group;
-import com.x.organization.core.entity.Group_;
+import com.x.organization.core.entity.GroupStatic;
 import com.x.organization.core.entity.Identity;
 import com.x.organization.core.entity.IdentityStatic;
 import com.x.organization.core.entity.Person;
@@ -172,7 +172,7 @@ public class Business {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Group> cq = cb.createQuery(Group.class);
 			Root<Group> root = cq.from(Group.class);
-			Predicate p = root.get(Group_.id).in(expendGroupIds);
+			Predicate p = root.get(GroupStatic.id).in(expendGroupIds);
 			List<Group> os = em.createQuery(cq.select(root).where(p)).getResultList();
 			for (Group o : os) {
 				personIds.addAll(o.getPersonList());

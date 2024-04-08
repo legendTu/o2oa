@@ -23,7 +23,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.StringTools;
 import com.x.organization.core.entity.accredit.EmpowerLog;
-import com.x.organization.core.entity.accredit.EmpowerLog_;
+import com.x.organization.core.entity.accredit.EmpowerLogStatic;
 
 class ActionListToCurrentPersonPaging extends BaseAction {
 
@@ -36,10 +36,10 @@ class ActionListToCurrentPersonPaging extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 			Root<EmpowerLog> root = cq.from(EmpowerLog.class);
-			Predicate p = cb.equal(root.get(EmpowerLog_.toPerson), effectivePerson.getDistinguishedName());
+			Predicate p = cb.equal(root.get(EmpowerLogStatic.toPerson), effectivePerson.getDistinguishedName());
 			if (StringUtils.isNotEmpty(wi.getKey())) {
 				String key = "%" + StringTools.escapeSqlLikeKey(wi.getKey()) + "%";
-				p = cb.and(p, cb.like(root.get(EmpowerLog_.title), key, StringTools.SQL_ESCAPE_CHAR));
+				p = cb.and(p, cb.like(root.get(EmpowerLogStatic.title), key, StringTools.SQL_ESCAPE_CHAR));
 			}
 			List<Wo> wos = emc.fetchDescPaging(EmpowerLog.class, Wo.copier, p, page, size,
 					EmpowerLog.createTime_FIELDNAME);

@@ -12,9 +12,8 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.DateTools;
 import com.x.base.core.project.tools.StringTools;
-import com.x.organization.assemble.personal.Business;
 import com.x.organization.core.entity.accredit.Empower;
-import com.x.organization.core.entity.accredit.Empower_;
+import com.x.organization.core.entity.accredit.EmpowerStatic;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -40,16 +39,16 @@ class ActionManagerListPaging extends BaseAction {
 			if(effectivePerson.isManager()) {
 				if (StringUtils.isNotEmpty(wi.getFromPerson())) {
 					String key = "%" + StringTools.escapeSqlLikeKey(wi.getFromPerson()) + "%";
-					p = cb.and(p, cb.like(root.get(Empower_.fromPerson), key, StringTools.SQL_ESCAPE_CHAR));
+					p = cb.and(p, cb.like(root.get(EmpowerStatic.fromPerson), key, StringTools.SQL_ESCAPE_CHAR));
 				}
 			}else{
-				p = cb.and(p, cb.equal(root.get(Empower_.fromPerson), effectivePerson.getDistinguishedName()));
+				p = cb.and(p, cb.equal(root.get(EmpowerStatic.fromPerson), effectivePerson.getDistinguishedName()));
 			}
 			if(DateTools.isDateTimeOrDate(wi.getStartTime())){
-				p = cb.and(p, cb.greaterThan(root.get(Empower_.createTime), DateTools.parse(wi.getStartTime())));
+				p = cb.and(p, cb.greaterThan(root.get(EmpowerStatic.createTime), DateTools.parse(wi.getStartTime())));
 			}
 			if(DateTools.isDateTimeOrDate(wi.getEndTime())){
-				p = cb.and(p, cb.lessThan(root.get(Empower_.createTime), DateTools.parse(wi.getEndTime())));
+				p = cb.and(p, cb.lessThan(root.get(EmpowerStatic.createTime), DateTools.parse(wi.getEndTime())));
 			}
 
 			List<Wo> wos = emc.fetchDescPaging(Empower.class, Wo.copier, p, page, size,

@@ -13,9 +13,8 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.tools.DateTools;
 import com.x.base.core.project.tools.StringTools;
 import com.x.organization.assemble.personal.Business;
-import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.accredit.EmpowerLog;
-import com.x.organization.core.entity.accredit.EmpowerLog_;
+import com.x.organization.core.entity.accredit.EmpowerLogStatic;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -42,20 +41,20 @@ class ActionManagerListPaging extends BaseAction {
 			if(effectivePerson.isManager()) {
 				if (StringUtils.isNotEmpty(wi.getFromPerson())) {
 					String key = "%" + StringTools.escapeSqlLikeKey(wi.getFromPerson()) + "%";
-					p = cb.and(p, cb.like(root.get(EmpowerLog_.fromPerson), key, StringTools.SQL_ESCAPE_CHAR));
+					p = cb.and(p, cb.like(root.get(EmpowerLogStatic.fromPerson), key, StringTools.SQL_ESCAPE_CHAR));
 				}
 			}else{
-				p = cb.and(p, cb.equal(root.get(EmpowerLog_.fromPerson), effectivePerson.getDistinguishedName()));
+				p = cb.and(p, cb.equal(root.get(EmpowerLogStatic.fromPerson), effectivePerson.getDistinguishedName()));
 			}
 			if(DateTools.isDateTimeOrDate(wi.getStartTime())){
-				p = cb.and(p, cb.greaterThan(root.get(EmpowerLog_.createTime), DateTools.parse(wi.getStartTime())));
+				p = cb.and(p, cb.greaterThan(root.get(EmpowerLogStatic.createTime), DateTools.parse(wi.getStartTime())));
 			}
 			if(DateTools.isDateTimeOrDate(wi.getEndTime())){
-				p = cb.and(p, cb.lessThan(root.get(EmpowerLog_.createTime), DateTools.parse(wi.getEndTime())));
+				p = cb.and(p, cb.lessThan(root.get(EmpowerLogStatic.createTime), DateTools.parse(wi.getEndTime())));
 			}
 			if (StringUtils.isNotEmpty(wi.getKey())) {
 				String key = "%" + StringTools.escapeSqlLikeKey(wi.getKey()) + "%";
-				p = cb.and(p, cb.like(root.get(EmpowerLog_.title), key, StringTools.SQL_ESCAPE_CHAR));
+				p = cb.and(p, cb.like(root.get(EmpowerLogStatic.title), key, StringTools.SQL_ESCAPE_CHAR));
 			}
 			List<Wo> wos = emc.fetchDescPaging(EmpowerLog.class, Wo.copier, p, page, size,
 					EmpowerLog.createTime_FIELDNAME);

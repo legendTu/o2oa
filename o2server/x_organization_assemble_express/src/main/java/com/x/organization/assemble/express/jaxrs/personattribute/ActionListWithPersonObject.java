@@ -24,7 +24,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.PersonAttribute;
-import com.x.organization.core.entity.PersonAttribute_;
+import com.x.organization.core.entity.PersonAttributeStatic;
 
 class ActionListWithPersonObject extends BaseAction {
 
@@ -75,7 +75,7 @@ class ActionListWithPersonObject extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<PersonAttribute> cq = cb.createQuery(PersonAttribute.class);
 			Root<PersonAttribute> root = cq.from(PersonAttribute.class);
-			Predicate p = root.get(PersonAttribute_.person).in(ids);
+			Predicate p = root.get(PersonAttributeStatic.person).in(ids);
 			List<PersonAttribute> list = em.createQuery(cq.select(root).where(p)).getResultList();
 			list = business.personAttribute().sort(list);
 			for (PersonAttribute o : list) {

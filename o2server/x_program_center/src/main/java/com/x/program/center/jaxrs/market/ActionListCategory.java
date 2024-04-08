@@ -6,7 +6,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.jaxrs.WrapStringList;
 import com.x.program.center.core.entity.Application;
-import com.x.program.center.core.entity.Application_;
+import com.x.program.center.core.entity.ApplicationStatic;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -25,7 +25,7 @@ class ActionListCategory extends BaseAction {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<String> cq = cb.createQuery(String.class);
 			Root<Application> root = cq.from(Application.class);
-			cq.select(root.get(Application_.category));
+			cq.select(root.get(ApplicationStatic.category));
 			List<String> categoryList = em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 
 			Wo wo = new Wo();

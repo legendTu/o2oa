@@ -15,7 +15,6 @@ import com.x.base.core.project.config.Config;
 import com.x.base.core.project.tools.Crypto;
 import com.x.organization.core.entity.Person;
 import com.x.organization.core.entity.PersonStatic;
-import com.x.organization.core.entity.Unit_;
 import com.x.program.center.AbstractFactory;
 import com.x.program.center.Business;
 

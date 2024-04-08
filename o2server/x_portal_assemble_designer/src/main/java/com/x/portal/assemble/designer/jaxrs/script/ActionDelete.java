@@ -21,7 +21,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.portal.assemble.designer.Business;
 import com.x.portal.core.entity.Portal;
 import com.x.portal.core.entity.Script;
-import com.x.portal.core.entity.Script_;
+import com.x.portal.core.entity.ScriptStatic;
 
 class ActionDelete extends BaseAction {
 
@@ -57,8 +57,8 @@ class ActionDelete extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Script> cq = cb.createQuery(Script.class);
 		Root<Script> root = cq.from(Script.class);
-		Predicate p = cb.isMember(script.getId(), root.get(Script_.dependScriptList));
-		p = cb.and(p, cb.equal(root.get(Script_.portal), script.getPortal()));
+		Predicate p = cb.isMember(script.getId(), root.get(ScriptStatic.dependScriptList));
+		p = cb.and(p, cb.equal(root.get(ScriptStatic.portal), script.getPortal()));
 		List<Script> list = em.createQuery(cq.select(root).where(p)).getResultList();
 		if (!list.isEmpty()) {
 			List<String> names = ListTools.extractProperty(list, "name", String.class, true, false);

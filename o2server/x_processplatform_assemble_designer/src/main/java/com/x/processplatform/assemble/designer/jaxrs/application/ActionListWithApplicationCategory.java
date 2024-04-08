@@ -18,7 +18,7 @@ import com.x.base.core.project.http.EffectivePerson;
 import com.x.base.core.project.organization.OrganizationDefinition;
 import com.x.processplatform.assemble.designer.Business;
 import com.x.processplatform.core.entity.element.Application;
-import com.x.processplatform.core.entity.element.Application_;
+import com.x.processplatform.core.entity.element.ApplicationStatic;
 
 class ActionListWithApplicationCategory extends BaseAction {
 
@@ -48,12 +48,12 @@ class ActionListWithApplicationCategory extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Application> cq = cb.createQuery(Application.class);
 		Root<Application> root = cq.from(Application.class);
-		Predicate p = cb.equal(root.get(Application_.applicationCategory), applicationCategory);
+		Predicate p = cb.equal(root.get(ApplicationStatic.applicationCategory), applicationCategory);
 		if ((!effectivePerson.isManager()) && (!business.organization().person().hasRole(effectivePerson,
 				OrganizationDefinition.ProcessPlatformManager))) {
 			p = cb.and(p,
-					cb.or(cb.isMember(effectivePerson.getDistinguishedName(), root.get(Application_.controllerList)),
-							cb.equal(root.get(Application_.creatorPerson), effectivePerson.getDistinguishedName())));
+					cb.or(cb.isMember(effectivePerson.getDistinguishedName(), root.get(ApplicationStatic.controllerList)),
+							cb.equal(root.get(ApplicationStatic.creatorPerson), effectivePerson.getDistinguishedName())));
 		}
 		cq.select(root).where(p);
 		return em.createQuery(cq).getResultList();

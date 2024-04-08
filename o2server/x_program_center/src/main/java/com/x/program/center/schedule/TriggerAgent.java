@@ -40,7 +40,7 @@ import com.x.organization.core.express.Organization;
 import com.x.program.center.Business;
 import com.x.program.center.ThisApplication;
 import com.x.program.center.core.entity.Agent;
-import com.x.program.center.core.entity.Agent_;
+import com.x.program.center.core.entity.AgentStatic;
 
 public class TriggerAgent extends BaseAction {
 
@@ -108,12 +108,12 @@ public class TriggerAgent extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
 		Root<Agent> root = cq.from(Agent.class);
-		Path<String> path_id = root.get(Agent_.id);
-		Path<String> path_name = root.get(Agent_.name);
-		Path<String> path_cron = root.get(Agent_.cron);
-		Path<Date> path_lastEndTime = root.get(Agent_.lastEndTime);
-		Path<Date> path_lastStartTime = root.get(Agent_.lastStartTime);
-		Predicate p = cb.equal(root.get(Agent_.enable), true);
+		Path<String> path_id = root.get(AgentStatic.id);
+		Path<String> path_name = root.get(AgentStatic.name);
+		Path<String> path_cron = root.get(AgentStatic.cron);
+		Path<Date> path_lastEndTime = root.get(AgentStatic.lastEndTime);
+		Path<Date> path_lastStartTime = root.get(AgentStatic.lastStartTime);
+		Predicate p = cb.equal(root.get(AgentStatic.enable), true);
 		List<Tuple> list = em
 				.createQuery(
 						cq.multiselect(path_id, path_name, path_cron, path_lastEndTime, path_lastStartTime).where(p))

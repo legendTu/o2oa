@@ -66,7 +66,7 @@ class ActionGet extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<PersonAttribute> cq = cb.createQuery(PersonAttribute.class);
 		Root<PersonAttribute> root = cq.from(PersonAttribute.class);
-		Predicate p = cb.equal(root.get(PersonAttribute_.person), wo.getId());
+		Predicate p = cb.equal(root.get(PersonAttributeStatic.person), wo.getId());
 		List<PersonAttribute> os = em.createQuery(cq.select(root).where(p)).getResultList();
 		List<WoPersonAttribute> wos = WoPersonAttribute.copier.copy(os);
 		wos = business.personAttribute().sort(wos);
@@ -106,10 +106,10 @@ class ActionGet extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Group> cq = cb.createQuery(Group.class);
 		Root<Group> root = cq.from(Group.class);
-		Predicate p = cb.isMember(wo.getId(), root.get(Group_.personList));
+		Predicate p = cb.isMember(wo.getId(), root.get(GroupStatic.personList));
 		if(ListTools.isNotEmpty(wo.getWoIdentityList())){
 			List<String> identities = ListTools.extractField(wo.getWoIdentityList(), JpaObject.id_FIELDNAME, String.class, true, true);
-			p = cb.or(p, root.get(Group_.identityList).in(identities));
+			p = cb.or(p, root.get(GroupStatic.identityList).in(identities));
 		}
 		List<Group> os = em.createQuery(cq.select(root).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 		ListOrderedSet<Group> set = new ListOrderedSet<>();
@@ -142,7 +142,7 @@ class ActionGet extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<UnitDuty> cq = cb.createQuery(UnitDuty.class);
 		Root<UnitDuty> root = cq.from(UnitDuty.class);
-		Predicate p = cb.isMember(woIdentity.getId(), root.get(UnitDuty_.identityList));
+		Predicate p = cb.isMember(woIdentity.getId(), root.get(UnitDutyStatic.identityList));
 		List<UnitDuty> os = em.createQuery(cq.select(root).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 		List<WoUnitDuty> wos = WoUnitDuty.copier.copy(os);
 		wos = business.unitDuty().sort(wos);

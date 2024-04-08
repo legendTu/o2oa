@@ -22,7 +22,7 @@ import com.x.base.core.project.http.ActionResult;
 import com.x.base.core.project.http.EffectivePerson;
 import com.x.organization.assemble.express.Business;
 import com.x.organization.core.entity.Unit;
-import com.x.organization.core.entity.Unit_;
+import com.x.organization.core.entity.UnitStatic;
 
 class ActionListWithLevel extends BaseAction {
 
@@ -68,8 +68,8 @@ class ActionListWithLevel extends BaseAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Unit> root = cq.from(Unit.class);
-		Predicate p = root.get(Unit_.level).in(wi.getLevelList());
-		List<String> unitIds = em.createQuery(cq.select(root.get(Unit_.id)).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
+		Predicate p = root.get(UnitStatic.level).in(wi.getLevelList());
+		List<String> unitIds = em.createQuery(cq.select(root.get(UnitStatic.id)).where(p)).getResultList().stream().distinct().collect(Collectors.toList());
 		Wo wo = new Wo();
 		List<String> list = business.unit().listUnitDistinguishedNameSorted(unitIds);
 		wo.getUnitList().addAll(list);

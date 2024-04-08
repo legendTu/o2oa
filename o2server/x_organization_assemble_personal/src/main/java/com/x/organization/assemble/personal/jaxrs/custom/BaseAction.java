@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import com.x.base.core.container.EntityManagerContainer;
 import com.x.base.core.project.jaxrs.StandardJaxrsAction;
 import com.x.organization.core.entity.Custom;
-import com.x.organization.core.entity.Custom_;
+import com.x.organization.core.entity.CustomStatic;
 
 abstract class BaseAction extends StandardJaxrsAction {
 
@@ -21,8 +21,8 @@ abstract class BaseAction extends StandardJaxrsAction {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Custom> cq = cb.createQuery(Custom.class);
 		Root<Custom> root = cq.from(Custom.class);
-		Predicate p = cb.equal(root.get(Custom_.person), person);
-		p = cb.and(p, cb.equal(root.get(Custom_.name), name));
+		Predicate p = cb.equal(root.get(CustomStatic.person), person);
+		p = cb.and(p, cb.equal(root.get(CustomStatic.name), name));
 		List<Custom> list = em.createQuery(cq.where(p)).setMaxResults(1).getResultList();
 		if (list.isEmpty()) {
 			return null;

@@ -25,7 +25,7 @@ import com.x.base.core.project.tools.ListTools;
 import com.x.processplatform.assemble.surface.Business;
 import com.x.processplatform.core.entity.element.Application;
 import com.x.processplatform.core.entity.element.Process;
-import com.x.processplatform.core.entity.element.Process_;
+import com.x.processplatform.core.entity.element.ProcessStatic;
 
 public class ProcessFactory extends ElementFactory {
 
@@ -71,9 +71,9 @@ public class ProcessFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Process> root = cq.from(Process.class);
-		Predicate p = cb.equal(root.get(Process_.application), application.getId());
-		p = cb.and(p, cb.or(cb.isTrue(root.get(Process_.editionEnable)), cb.isNull(root.get(Process_.editionEnable))));
-		cq.select(root.get(Process_.id)).where(p);
+		Predicate p = cb.equal(root.get(ProcessStatic.application), application.getId());
+		p = cb.and(p, cb.or(cb.isTrue(root.get(ProcessStatic.editionEnable)), cb.isNull(root.get(ProcessStatic.editionEnable))));
+		cq.select(root.get(ProcessStatic.id)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 
@@ -87,19 +87,19 @@ public class ProcessFactory extends ElementFactory {
 		Predicate p = cb.conjunction();
 		if (effectivePerson.isNotManager() && (!this.business().organization().person().hasRole(effectivePerson,
 				OrganizationDefinition.Manager, OrganizationDefinition.ProcessPlatformManager))) {
-			p = cb.and(cb.isEmpty(root.get(Process_.startableIdentityList)),
-					cb.isEmpty(root.get(Process_.startableUnitList)));
-			p = cb.or(p, cb.equal(root.get(Process_.creatorPerson), effectivePerson.getDistinguishedName()));
+			p = cb.and(cb.isEmpty(root.get(ProcessStatic.startableIdentityList)),
+					cb.isEmpty(root.get(ProcessStatic.startableUnitList)));
+			p = cb.or(p, cb.equal(root.get(ProcessStatic.creatorPerson), effectivePerson.getDistinguishedName()));
 			if (ListTools.isNotEmpty(identities)) {
-				p = cb.or(p, root.get(Process_.startableIdentityList).in(identities));
+				p = cb.or(p, root.get(ProcessStatic.startableIdentityList).in(identities));
 			}
 			if (ListTools.isNotEmpty(units)) {
-				p = cb.or(p, root.get(Process_.startableUnitList).in(units));
+				p = cb.or(p, root.get(ProcessStatic.startableUnitList).in(units));
 			}
 		}
-		p = cb.and(p, cb.equal(root.get(Process_.application), application.getId()));
-		p = cb.and(p, cb.or(cb.isTrue(root.get(Process_.editionEnable)), cb.isNull(root.get(Process_.editionEnable))));
-		cq.select(root.get(Process_.id)).where(p);
+		p = cb.and(p, cb.equal(root.get(ProcessStatic.application), application.getId()));
+		p = cb.and(p, cb.or(cb.isTrue(root.get(ProcessStatic.editionEnable)), cb.isNull(root.get(ProcessStatic.editionEnable))));
+		cq.select(root.get(ProcessStatic.id)).where(p);
 		return em.createQuery(cq).getResultList().stream().distinct().collect(Collectors.toList());
 	}
 
@@ -145,10 +145,10 @@ public class ProcessFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Process> cq = cb.createQuery(Process.class);
 		Root<Process> root = cq.from(Process.class);
-		Predicate p = cb.equal(root.get(Process_.application), application);
-		p = cb.and(p, cb.equal(root.get(Process_.edition), edition));
-		p = cb.and(p, cb.or(cb.isTrue(root.get(Process_.editionEnable)), cb.isNull(root.get(Process_.editionEnable))));
-		cq.select(root).where(p).orderBy(cb.desc(root.get(Process_.editionNumber)));
+		Predicate p = cb.equal(root.get(ProcessStatic.application), application);
+		p = cb.and(p, cb.equal(root.get(ProcessStatic.edition), edition));
+		p = cb.and(p, cb.or(cb.isTrue(root.get(ProcessStatic.editionEnable)), cb.isNull(root.get(ProcessStatic.editionEnable))));
+		cq.select(root).where(p).orderBy(cb.desc(root.get(ProcessStatic.editionNumber)));
 		List<Process> list = em.createQuery(cq).getResultList();
 		if (list != null && !list.isEmpty()) {
 			return list.get(0);
@@ -161,10 +161,10 @@ public class ProcessFactory extends ElementFactory {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Process> cq = cb.createQuery(Process.class);
 		Root<Process> root = cq.from(Process.class);
-		Predicate p = cb.equal(root.get(Process_.application), application);
-		p = cb.and(p, cb.or(cb.equal(root.get(Process_.id), flag), cb.equal(root.get(Process_.name), flag),
-				cb.equal(root.get(Process_.alias), flag)));
-		cq.select(root).where(p).orderBy(cb.desc(root.get(Process_.editionNumber)));
+		Predicate p = cb.equal(root.get(ProcessStatic.application), application);
+		p = cb.and(p, cb.or(cb.equal(root.get(ProcessStatic.id), flag), cb.equal(root.get(ProcessStatic.name), flag),
+				cb.equal(root.get(ProcessStatic.alias), flag)));
+		cq.select(root).where(p).orderBy(cb.desc(root.get(ProcessStatic.editionNumber)));
 		List<Process> list = em.createQuery(cq).getResultList();
 		if (list != null && !list.isEmpty()) {
 			return list.get(0);
@@ -187,15 +187,15 @@ public class ProcessFactory extends ElementFactory {
 		CriteriaQuery<Process> cq = cb.createQuery(Process.class);
 		Root<Process> root = cq.from(Process.class);
 		Predicate p = cb.conjunction();
-		p = cb.and(p, root.get(Process_.id).in(processList));
+		p = cb.and(p, root.get(ProcessStatic.id).in(processList));
 		if (includeEdition) {
-			p = cb.and(p, cb.isNull(root.get(Process_.editionEnable)));
+			p = cb.and(p, cb.isNull(root.get(ProcessStatic.editionEnable)));
 			Subquery<Process> subquery = cq.subquery(Process.class);
 			Root<Process> subRoot = subquery.from(Process.class);
 			Predicate subP = cb.conjunction();
-			subP = cb.and(subP, cb.equal(root.get(Process_.edition), subRoot.get(Process_.edition)));
-			subP = cb.and(subP, subRoot.get(Process_.id).in(processList));
-			subP = cb.and(subP, cb.isNotNull(root.get(Process_.edition)));
+			subP = cb.and(subP, cb.equal(root.get(ProcessStatic.edition), subRoot.get(ProcessStatic.edition)));
+			subP = cb.and(subP, subRoot.get(ProcessStatic.id).in(processList));
+			subP = cb.and(subP, cb.isNotNull(root.get(ProcessStatic.edition)));
 			subquery.select(subRoot).where(subP);
 			p = cb.or(p, cb.exists(subquery));
 		}
@@ -211,19 +211,19 @@ public class ProcessFactory extends ElementFactory {
 		CriteriaQuery<String> cq = cb.createQuery(String.class);
 		Root<Process> root = cq.from(Process.class);
 		Predicate p = cb.conjunction();
-		p = cb.and(p, root.get(Process_.id).in(processList));
+		p = cb.and(p, root.get(ProcessStatic.id).in(processList));
 
-		p = cb.and(p, cb.isNull(root.get(Process_.editionEnable)));
+		p = cb.and(p, cb.isNull(root.get(ProcessStatic.editionEnable)));
 		Subquery<Process> subquery = cq.subquery(Process.class);
 		Root<Process> subRoot = subquery.from(Process.class);
 		Predicate subP = cb.conjunction();
-		subP = cb.and(subP, cb.equal(root.get(Process_.edition), subRoot.get(Process_.edition)));
-		subP = cb.and(subP, subRoot.get(Process_.id).in(processList));
-		subP = cb.and(subP, cb.isNotNull(root.get(Process_.edition)));
+		subP = cb.and(subP, cb.equal(root.get(ProcessStatic.edition), subRoot.get(ProcessStatic.edition)));
+		subP = cb.and(subP, subRoot.get(ProcessStatic.id).in(processList));
+		subP = cb.and(subP, cb.isNotNull(root.get(ProcessStatic.edition)));
 		subquery.select(subRoot).where(subP);
 		p = cb.or(p, cb.exists(subquery));
 
-		cq.select(root.get(Process_.id)).where(p);
+		cq.select(root.get(ProcessStatic.id)).where(p);
 		return em.createQuery(cq).getResultList();
 	}
 }
